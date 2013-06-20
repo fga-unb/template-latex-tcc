@@ -22,7 +22,7 @@ Para instalar o abnTeX2 (e as respectivas dependências, como o próprio TeXLive
 em uma distribuição Debian ou derivada, utilize a instalação via apt-get (ou 
 outro gerenciador de pacotes que preferir):
 
-1. Adicione a seguinte linha ao arquivo /etc/apt/sources.list:
+Adicione a seguinte linha ao arquivo /etc/apt/sources.list:
 	
 	deb http://distrib.abntex2.googlecode.com/hg/debian/ testing main
 
@@ -30,15 +30,15 @@ Opcionalmente, adicione a linha abaixo caso deseje baixar os fontes:
 
 	deb-src http://distrib.abntex2.googlecode.com/hg/debian/ testing main
 
-2. Adicione a chave pública ao chaveiro do apt:
+Adicione a chave pública ao chaveiro do apt:
 
 	$ wget -O - http://distrib.abntex2.googlecode.com/hg/debian/89C55467.asc|sudo apt-key add - 
 
-3. Instale o abntex2:
+Instale o abntex2:
 
 	$ sudo apt-get update && sudo apt-get install abntex2
 
-4. Para atualizar uma instalação já existente, feita a partir do repositório:
+Para atualizar uma instalação já existente, feita a partir do repositório:
 	
 	$ sudo apt-get update && sudo apt-get upgrade
 
