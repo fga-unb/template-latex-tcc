@@ -46,4 +46,36 @@ Após o processo de instalação, você poderá ler os manuais e testar os exemp
 que estarão disponíveis nos diretórios /usr/share/doc/abntex2/pdf e 
 /usr/share/doc/abntex2/latex respectivamente.
 
+Fonte: https://code.google.com/p/abntex2/wiki/InstalacaoLinux
+
+### Ubuntu 12.04 ou inferior
+
+Conforme consta na página de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_autom%C3%A1tica_do_TeX_Live_e_do_abnTeX2_(recomendado))
+, a instalação via apt-get funciona apenas a partir da versão 12.10 do Ubuntu, 
+pois é nela que está disponível a versão 2012 do Tex Live, que é a recomendada 
+para utilização com o abnTeX2.
+
+Para instalar o abnTeX2 no Ubuntu 12.04 é necessário, pelo menos, atualizar o 
+Tex Live. Uma das formas possíveis é utilizando os pacotes existentes no 
+repositório [texlive-backports](https://launchpad.net/~texlive-backports/+archive/ppa)
+, conforme orientações abaixo.
+
+Adicione o repositório texlive-backports, digitando o seguinte em um terminal:
+
+	$ sudo add-apt-repository ppa:texlive-backports/ppa
+
+Caso o pacote texlive do Ubuntu 12.04 já esteja instalado digite:
+	
+	$ sudo apt-get update && sudo apt-get upgrade
+
+Caso o pacote texlive do Ubuntu 12.04 ainda não esteja instalado digite:
+
+	$ sudo apt-get update && sudo apt-get install texlive
+
+Outra forma de atualizar o Tex Live é manualmente, conforme descrito na página 
+de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_manual_a_partir_do_instalador_do_TUG)
+
+Fonte: https://code.google.com/p/abntex2/wiki/FAQ#Por_que_eu_não_consigo_instalar_o_abnTeX2_no_Ubuntu_12.04_via_a
+
+
 
