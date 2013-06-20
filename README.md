@@ -79,16 +79,19 @@ Fonte: https://code.google.com/p/abntex2/wiki/FAQ#Por_que_eu_não_consigo_instal
 ### Outras distribuições linux
 
 Informações para instalar o abnTeX2 em outras distribuições linux:
+
 https://code.google.com/p/abntex2/wiki/InstalacaoLinux
 
 ### Windows
 
 Informações para instalar o abnTeX2 no Windows:
+
 https://code.google.com/p/abntex2/wiki/InstalacaoWindows
 
 ### Mac OS
 
-Informações para instalar o abnTeX2 no Mac OS X
+Informações para instalar o abnTeX2 no Mac OS X:
+
 https://code.google.com/p/abntex2/wiki/InstalacaoMac
 
 
