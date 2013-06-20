@@ -94,4 +94,11 @@ Informações para instalar o abnTeX2 no Mac OS X:
 
 https://code.google.com/p/abntex2/wiki/InstalacaoMac
 
+## Compilando
+
+Para compilar o texto através do Makefile digite:
+
+	$ make clean
+	$ make
+
 
