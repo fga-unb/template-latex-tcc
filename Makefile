@@ -39,9 +39,9 @@ all:
      
 $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
 	$(LATEX) $(MAIN_FILE) $(SOURCES)
-#	$(BIBTEX) $(AUX_FILE)
-#$(LATEX) $(MAIN_FILE) $(SOURCES)
-#$(LATEX) $(MAIN_FILE) $(SOURCES)
+	$(BIBTEX) $(AUX_FILE)
+	$(LATEX) $(MAIN_FILE) $(SOURCES)
+	$(LATEX) $(MAIN_FILE) $(SOURCES)
 	$(DVIPS) $(DVI_FILE)
 	$(PS2PDF) $(PS_FILE)
 	@cp $(PDF_FILE) $(TARGET)
@@ -49,7 +49,7 @@ $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
 clean:
 	rm -f *~ *.dvi *.ps *.backup *.aux *.log
 	rm -f *.lof *.lot *.bbl *.blg *.brf *.toc *.idx
-	rm -f tcc.pdf
+	rm -f *.pdf
 	
 dist: clean
 	tar vczf tcc-fga-latex-$(VERSION).tar.gz *
