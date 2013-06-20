@@ -1,5 +1,4 @@
-Template TCC FGA-UnB
-====================
+#Template TCC FGA-UnB
 
 Template para Trabalhos de Conclusão de Cursos (TCC) na Faculdade do
 Gama (FGA) em Latex.
@@ -9,7 +8,7 @@ http://creativecommons.org/licenses/by/3.0/
 
 Desenvolvido e adaptado pelo professor Edson Alves <edsomjr@gmail.com>.
 
-## Instalação
+## Instalando o abnTeX2
 
 ### Ubuntu 12.10 ou superior
 
@@ -50,7 +49,7 @@ Fonte: https://code.google.com/p/abntex2/wiki/InstalacaoLinux
 
 ### Ubuntu 12.04 ou inferior
 
-Conforme consta na página de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_autom%C3%A1tica_do_TeX_Live_e_do_abnTeX2_(recomendado))
+Conforme consta na página de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_autom%C3%A1tica_do_TeX_Live_e_do_abnTeX2_(recomendado)
 , a instalação via apt-get funciona apenas a partir da versão 12.10 do Ubuntu, 
 pois é nela que está disponível a versão 2012 do Tex Live, que é a recomendada 
 para utilização com o abnTeX2.
@@ -77,5 +76,19 @@ de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.co
 
 Fonte: https://code.google.com/p/abntex2/wiki/FAQ#Por_que_eu_não_consigo_instalar_o_abnTeX2_no_Ubuntu_12.04_via_a
 
+### Outras distribuições linux
+
+Informações para instalar o abnTeX2 em outras distribuições linux:
+https://code.google.com/p/abntex2/wiki/InstalacaoLinux
+
+### Windows
+
+Informações para instalar o abnTeX2 no Windows:
+https://code.google.com/p/abntex2/wiki/InstalacaoWindows
+
+### Mac OS
+
+Informações para instalar o abnTeX2 no Mac OS X
+https://code.google.com/p/abntex2/wiki/InstalacaoMac
 
 
