@@ -1,0 +1,164 @@
+\part{Metodologia}
+
+\chapter[Metodologia]{Metodologia}
+
+Este capítulo é destinado à apresentar toda a metodologia aplicada a esta
+pesquisa. Vale ressaltar que a metodologia proposta nesta pesquisa está sendo
+baseada na definição proposta por Silva e Menezes, que afirmam que toda pesquisa
+tem como objetivo encontrar respostas para hipóteses propostas
+\cite{da2005metodologia}
+
+Com essa definição em pauta, as hipóteses proposta para a execução deste trabalho neste trabalho foi a seguinte:
+
+\begin{center}
+\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para usuários de sistemas GNU/Linux levando em consideração o tempo de uso dos pacotes já instalados ?}
+\end{center}
+
+\section{Hipóteses}
+
+Considerando um sistema de recomendação baseado em conteúdo, sendo que os dados principais de entrada para a recomendação de outros pacotes são os pacotes já instalados pelos usuários, as seguinte hipóteses foram definidas:
+
+\begin{itemize}
+    \item \textit{\textbf{Ao aumentar o peso de pacotes recentemente usados no sistema, o perfil do usuário gerado será mais preciso, ocasionando assim uma recomendação mais apropriada.}} Considerando que o perfil do usuário na recomendação é gerado pelo termos encontrados em maior presença em todos os pacotes manualmente instalados pelo usuário, é uma possibilidade aumentar o peso dos termos de pacotes recentemente usados e diminuir o peso de pacotes antigos, irá gerar um perfil que melhor espelha as prioridades do usuário, gerando assim uma recomendação de maior precisão
+    \item \textit{\textbf{Uma abordagem determinística para o problema irá se comportar pior que uma não-determinística quando se usa o tempo de uso como critério de classificação}} Uma abordagem deterministica iria modificar o atual perfil do usuário usado para gerar a recomendação sendo gerada, entretanto uma abordagem não deterministica, baseada no aprendizado de máquina, irá refinar as recomendações geradas usando a configuração atual. Considerando a complexidade dos dados presentes em um pacote Debian, juntamente com os relacionamentos entre tais atributos, acredita-se que uma abordagem não-deterministica irá prover melhores resultados. 
+\end{itemize}
+
+\section{Planejamento da pesquisa}
+
+Com o intuito de responder a questão principal do trabalho, juntamente com as hipóteses propostas, um fluxo de trabalho foi definido. A Figura x sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+
+\begin{enumerate}
+    \item \textit{\textbf{Selecionar o projeto}}
+Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
+
+    \item \textit{\textbf{Obter código fonte}}
+Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
+
+    \item \textit{\textbf{Analisar projeto selecionado}}
+Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
+
+    \item \textit{\textbf{Coleta dos dados}}
+Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
+
+    \item \textit{\textbf{Análise dos dados}}
+Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
+
+    \item \textit{\textbf{Executar projeto selecionado}}
+Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
+
+    \item \textit{\textbf{Coletar informações temporais}}
+Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
+
+    \item \textit{\textbf{Implementar abordagem deterministica}}
+Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
+
+    \item \textit{\textbf{Implementar abordagem por aprendizado de máquina}}
+Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
+
+    \item \textit{\textbf{Comparar resultados}}
+Para responder as hipóteses propostas será necessário não só comporar as duas abordagens propostas, determinística e não determinística, e sim comparar ambas também com as abordagens já implementadas pelo projeto proposto e verificar se as hipótes se sustetam.
+
+    \item \textit{\textbf{Realizar conclusões}}
+Com a comparações de resultados feita, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
+\end{enumerate}
+
+OBS: é necessário validar essas questões tanto com o Luciano quanto com o professor Paulo para que o diagrama final seja implementado.
+
+\section{Teste de hipótese}
+
+O projeto selecionado para testar as hipóteses foi o \textit{AppRecommender}, o recomendador de pacotes para distribuições Debian que implementa tanto estratégias de recomendação por conteúdo quanto colaborativas \cite{araujo2011apprecommender}. 
+Apesar do AppRecommender usar questões temporarais providas pelo pacote popularity-contest nas suas recomendações, tal atributo temporal só é explorado nas recomendações colaborativas, e não nas baseadas em conteúdo, fazendo com que o projeto passe no critério de seleção estabelecido.
+
+\begin{description}
+
+\item[Obtenção do código fonte]
+
+O código fonte da aplicação AppRecommender pode ser encontrada no repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
+Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do mesmo, sendo essa mantida pelos pesquisadores deste trabalho.
+
+\end{description}
+
+    
+
+
+\subsection{Numeração de Páginas}
+
+A contagem sequencial para a numeração de páginas começa a partir da 
+primeira folha do trabalho que é a Folha de Rosto, contudo a numeração em 
+si só deve ser iniciada a partir da primeira folha dos elementos textuais. 
+Assim, as páginas dos elementos pré-textuais contam, mas não são numeradas 
+e os números de página aparecem a partir da primeira folha dos elementos 
+textuais que é a Introdução. 
+
+Os números devem estar em algarismos arábicos (fonte Times ou Arial 10) no 
+canto superior direito da folha, a 02 cm da borda superior, sem traços, 
+pontos ou parênteses. 
+
+A paginação de Apêndices e Anexos deve ser contínua, dando seguimento ao 
+texto principal.
+
+\subsection{Espaços e alinhamento}
+
+Para a monografia de TCC 01 e 02 o espaço entrelinhas do corpo do texto 
+deve ser de 1,5 cm, exceto RESUMO, CITAÇÔES de mais de três linhas, NOTAS 
+de rodapé, LEGENDAS e REFERÊNCIAS que devem possuir espaçamento simples. 
+Ainda, ao se iniciar a primeira linha de cada novo parágrafo se deve 
+tabular a distância de 1,25 cm da margem esquerda.
+
+Quanto aos títulos das seções primárias da monografia, estes devem começar 
+na parte superior da folha e separados do texto que o sucede, por um espaço 
+de 1,5 cm entrelinhas, assim como os títulos das seções secundárias, 
+terciárias. 
+
+A formatação de alinhamento deve ser justificado, de modo que o texto fique 
+alinhado uniformemente ao longo das margens esquerda e direita, exceto para 
+CITAÇÕES de mais de três linhas que devem ser alinhadas a 04 cm da margem 
+esquerda e REFERÊNCIAS que são alinhadas somente à margem esquerda do texto 
+diferenciando cada referência.
+
+\subsection{Quebra de Capítulos e Aproveitamento de Páginas}
+
+Cada seção ou capítulo deverá começar numa nova pagina (recomenda-se que 
+para texto muito longos o autor divida seu documento em mais de um arquivo 
+eletrônico). 
+
+Caso a última pagina de um capitulo tenha apenas um número reduzido de 
+linhas (digamos 2 ou 3), verificar a possibilidade de modificar o texto 
+(sem prejuízo do conteúdo e obedecendo as normas aqui colocadas) para 
+evitar a ocorrência de uma página pouco aproveitada.
+
+Ainda com respeito ao preenchimento das páginas, este deve ser otimizado, 
+evitando-se espaços vazios desnecessários. 
+
+Caso as dimensões de uma figura ou tabela impeçam que a mesma seja 
+posicionada ao final de uma página, o deslocamento para a página seguinte 
+não deve acarretar um vazio na pagina anterior. Para evitar tal ocorrência, 
+deve-se re-posicionar os blocos de texto para o preenchimento de vazios. 
+
+Tabelas e figuras devem, sempre que possível, utilizar o espaço disponível 
+da página evitando-se a \lq\lq quebra\rq\rq\ da figura ou tabela. 
+
+\section{Cópias}
+
+Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2, 
+o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da 
+Banca Examinadora.
+
+Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a 
+versão final de seu trabalho à Secretaria da FGA na seguinte forma:
+
+\begin{description}
+	\item 01 cópia encadernada para arquivo na FGA;
+	\item 01 cópia não encadernada (folhas avulsas) para arquivo na FGA;
+	\item 01 cópia em CD de todos os arquivos empregados no trabalho;
+\end{description}
+
+A cópia em CD deve conter, além do texto, todos os arquivos dos quais se 
+originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.) 
+contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e 
+arquivos para aplicações especificas (programas em Fortran, C, Matlab, 
+etc.) estes deverão também ser gravados em CD. 
+
+O autor deverá certificar a não ocorrência de “vírus” no CD entregue a 
+secretaria. 
+
