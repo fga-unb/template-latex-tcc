@@ -76,10 +76,68 @@ Apesar do AppRecommender usar questões temporarais providas pelo pacote popular
 O código fonte da aplicação AppRecommender pode ser encontrada no repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
 Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do mesmo, sendo essa mantida pelos pesquisadores deste trabalho.
 
+\item[Analisar projeto selecionado]
+
+Um vez obtido o código fonte do projeto, identificou-se algumas questõs
+importantes. A primeira delas foi que algumas bibliotecas não estavam mais
+presentes no repositório de pacotes de versões mais recentes do Debian, no caso,
+o Debian jessie. A segunda problemática foi relacionada a obtenção do dados.
+Mediante uma análise tanto do ponto de vista de recomendação tanto do ponto de
+vista dos experimentos de validação usados para avaliar os algoritmos
+desenvolvidos, percebeu-se diversos e distintos conjuntos de dados necessários.
+A Tabela \ref{tab:dados_apprecommender} mostra os dados necessários e o contexto
+onde são usados:
 \end{description}
 
-    
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+{\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
+Lista de pacotes válidos &
+\parbox{10cm}{Esta lista irá ser usada na criação de uma índice de busca Xapian,
+que será usado para realizar a recomendação} &
+\parbox{10cm}{Pode-se usar os scripts get\_axipkgs.py obter todos os possíveis
+pacotes Debian,ou usar o srcipt get\_programs.sh, que irá selecionar 
+só pacotes que contém a Debtag role:;program, indicando que o mesmo é um
+pacote executável.}\\ \hline
+Índice xapian de pacotes do usuário &
+\parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
+ colaborativas e híbridas}&
+\parbox{10cm}{Este Índice pode ser gerado via execução do script indexer\_axi.py
+ passando os parâmetros certos}\\ \hline
+Debtags válidas&
+\parbox{10cm}{Usado para filtrar os pacote que serão usados na 
+recomendação}&
+\parbox{10cm}{Pode ser obtido pelo script get\_tags.py}\\ \hline
+Submissões do popularity contest&
+\parbox{10cm}{Usada para criar um índice Xapian de submissões do 
+popularity-contest}&
+\parbox{10cm}{O projeto não provê uma forma automatizada de coletar tais dados,
+devido ao fato do mantenedor do projeto não fornecer tais dados.}\\ \hline
+Indíce Xapian para submissões do popularity contest &
+\parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e 
+híbridas, assim como para a execução dos experimentos usados 
+para avaliar as soluções desenvolvidas.} &
+\parbox{10cm}{Pode ser obtido pela execução do script indexer\_popcon.py.
+Entretanto, vale ressaltar que esse script parte do princípio que já existem
+submissões do popularity contest coletadas previamente.}\\ \hline
+\end{tabular}}
+\caption{Dados necessários para execução do AppRecommender}
+\label{tab:dados_apprecommender}
+\end{table}
 
+Conforme pode ser observado na Tabela \ref{tab:dados_apprecommender}, muito dos dados
+necessários para a execução do AppRecommender podem ser obtidos de forma automatizada
+por scripts de coleta. Entretanto, este não é o caso para as submissões do
+popularity contest. Isso se dá pelo fato da aplicação não disponibilizar as submissões
+propriamente ditas, e sim as análises estatísticas feitas em cima das mesmas. Para o
+AppRecommender, tais dados foram obtidos por intermédio de um Debian Developer, sendo
+que algumas questões de relacionada a privacidade dos usuários se tornou necessária.
+\cite{araujo2011apprecommender}. Dessa forma, foi necessário pensar em uma estratégia
+de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
+para a avaliação dos algoritmos.
 
 \subsection{Numeração de Páginas}
 
