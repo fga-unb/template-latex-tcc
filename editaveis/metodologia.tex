@@ -11,58 +11,111 @@ tem como objetivo encontrar respostas para hipóteses propostas
 Com essa definição em pauta, as hipóteses proposta para a execução deste trabalho neste trabalho foi a seguinte:
 
 \begin{center}
-\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para usuários de sistemas GNU/Linux levando em consideração o tempo de uso dos pacotes já instalados ?}
+\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
+usuários de sistemas GNU/Linux levando em consideração o contexto de uso dos pacotes já instalados ?}
 \end{center}
+
+Baseado nesta hipótese central, pode-se ver que a pesquisa sendo desevolvida se
+enquadra como aplicada, quantitativa, exploratória, bibliográfica e
+experimental.
+
+
+\section{Trabalhos relacionados}
+
+Durante a pesquisa deste trabalho, encontrou-se alguns trabalhos que também estudam recomendação baseada em contexto, sendo o tempo um dos
+principais atributos do contexto. Em \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
+compras de diversor usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
+sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão quando o tempo foi usado para gerar a matriz de recomendação.
+
+Outra pesquida relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um sistema recomendação sensível ao tempo foi criado. o sistema proposto usava uma função de
+decaimento exponencial para priorizar itens recentemente avaliados e diminuir o peso de itens avaliados a mais tempo na recomendação. Quando comparado a um sistema de
+recomendação colaborativa clássico, percebeu-se um aumento de acurácia para o recomendador sensível ao tempo.
+
+Além de comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
+\cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente discartado, e sim caso
+seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos testes realizados, percebeu-se que criar o modelo de usuário dessa formas apresenta vantagens sobre
+a forma mais padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor seus
+resultados
+
+Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação vencedor
+do concurso criado pelo Netflix para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação dos filmes
+realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
+    
 
 \section{Hipóteses}
 
-Considerando um sistema de recomendação baseado em conteúdo, sendo que os dados principais de entrada para a recomendação de outros pacotes são os pacotes já instalados pelos usuários, as seguinte hipóteses foram definidas:
+Considerando um sistema de recomendação para pacotes usando o tempo como variável de contexto, as seguinte hipóteses foram definidas:
 
-\begin{itemize}
-    \item \textit{\textbf{Ao aumentar o peso de pacotes recentemente usados no sistema, o perfil do usuário gerado será mais preciso, ocasionando assim uma recomendação mais apropriada.}} Considerando que o perfil do usuário na recomendação é gerado pelo termos encontrados em maior presença em todos os pacotes manualmente instalados pelo usuário, é uma possibilidade aumentar o peso dos termos de pacotes recentemente usados e diminuir o peso de pacotes antigos, irá gerar um perfil que melhor espelha as prioridades do usuário, gerando assim uma recomendação de maior precisão
-    \item \textit{\textbf{Uma abordagem determinística para o problema irá se comportar pior que uma não-determinística quando se usa o tempo de uso como critério de classificação}} Uma abordagem deterministica iria modificar o atual perfil do usuário usado para gerar a recomendação sendo gerada, entretanto uma abordagem não deterministica, baseada no aprendizado de máquina, irá refinar as recomendações geradas usando a configuração atual. Considerando a complexidade dos dados presentes em um pacote Debian, juntamente com os relacionamentos entre tais atributos, acredita-se que uma abordagem não-deterministica irá prover melhores resultados. 
+\begin{itemize} \item \textit{\textbf{Ao aumentar o peso de pacotes
+recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
+ocasionando assim uma recomendação mais apropriada.}} Considerando que o perfil
+do usuário na recomendação é gerado pelo termos encontrados em maior presença
+em todos os pacotes manualmente instalados pelo usuário, é uma possibilidade
+aumentar o peso dos termos de pacotes recentemente usados e diminuir o peso de
+pacotes antigos, irá gerar um perfil que melhor espelha as prioridades do
+usuário, gerando assim uma recomendação de maior precisão \item
+\textit{\textbf{Uma abordagem determinística para o problema irá se comportar
+pior que uma não-determinística quando se usa o tempo de uso como contexto de
+classificação}} Uma abordagem deterministica iria modificar o atual perfil do
+usuário usado para gerar a recomendação sendo gerada, entretanto uma abordagem
+não deterministica, baseada no aprendizado de máquina, irá refinar as
+recomendações geradas usando a configuração atual. Considerando a complexidade
+dos dados presentes em um pacote Debian, juntamente com os relacionamentos
+entre tais atributos, acredita-se que uma abordagem não-deterministica irá
+prover melhores resultados. 
 \end{itemize}
 
 \section{Planejamento da pesquisa}
 
-Com o intuito de responder a questão principal do trabalho, juntamente com as hipóteses propostas, um fluxo de trabalho foi definido. A Figura x sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+Com o intuito de responder a questão principal do trabalho, juntamente com as
+hipóteses propostas, um fluxo de trabalho foi definido. A Figura
+\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
+  \caption{Processo usando para realização das atividades dessa pesquisa}
+  \label{fig:planejamento_pesquisa}
+\end{figure}
 
 \begin{enumerate}
-    \item \textit{\textbf{Selecionar o projeto}}
-Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
 
-    \item \textit{\textbf{Obter código fonte}}
+    \item \textbf{Selecionar projeto:}
+Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
+a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
+dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
+
+    \item \textbf{Obter código fonte:}
 Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
 
-    \item \textit{\textbf{Analisar projeto selecionado}}
+    \item \textbf{Analisar projeto selecionado:}
 Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
 
-    \item \textit{\textbf{Coleta dos dados}}
+    \item \textbf{Coletar dados:}
 Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
 
-    \item \textit{\textbf{Análise dos dados}}
+    \item \textbf{Análisar dados:}
 Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
 
-    \item \textit{\textbf{Executar projeto selecionado}}
+    \item \textbf{Executar projeto selecionado:}
 Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
 
-    \item \textit{\textbf{Coletar informações temporais}}
+    \item \textbf{Coletar informações temporais:}
 Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
 
-    \item \textit{\textbf{Implementar abordagem deterministica}}
+    \item \textbf{Implementar abordagem deterministica:}
 Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
 
-    \item \textit{\textbf{Implementar abordagem por aprendizado de máquina}}
+    \item \textbf{Implementar abordagem por aprendizado de máquina:}
 Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
 
-    \item \textit{\textbf{Comparar resultados}}
+    \item \textbf{Comparar resultados:}
 Para responder as hipóteses propostas será necessário não só comporar as duas abordagens propostas, determinística e não determinística, e sim comparar ambas também com as abordagens já implementadas pelo projeto proposto e verificar se as hipótes se sustetam.
 
-    \item \textit{\textbf{Realizar conclusões}}
+    \item \textbf{Realizar conclusões:}
 Com a comparações de resultados feita, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
 \end{enumerate}
 
-OBS: é necessário validar essas questões tanto com o Luciano quanto com o professor Paulo para que o diagrama final seja implementado.
 
 \section{Teste de hipótese}
 
