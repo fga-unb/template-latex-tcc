@@ -48,21 +48,16 @@ Considerando um sistema de recomendação para pacotes usando o tempo como vari�
 
 \begin{itemize} \item \textit{\textbf{Ao aumentar o peso de pacotes
 recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
-ocasionando assim uma recomendação mais apropriada.}} Considerando que o perfil
-do usuário na recomendação é gerado pelo termos encontrados em maior presença
-em todos os pacotes manualmente instalados pelo usuário, é uma possibilidade
-aumentar o peso dos termos de pacotes recentemente usados e diminuir o peso de
-pacotes antigos, irá gerar um perfil que melhor espelha as prioridades do
-usuário, gerando assim uma recomendação de maior precisão \item
-\textit{\textbf{Uma abordagem determinística para o problema irá se comportar
-pior que uma não-determinística quando se usa o tempo de uso como contexto de
-classificação}} Uma abordagem deterministica iria modificar o atual perfil do
-usuário usado para gerar a recomendação sendo gerada, entretanto uma abordagem
-não deterministica, baseada no aprendizado de máquina, irá refinar as
-recomendações geradas usando a configuração atual. Considerando a complexidade
-dos dados presentes em um pacote Debian, juntamente com os relacionamentos
-entre tais atributos, acredita-se que uma abordagem não-deterministica irá
-prover melhores resultados. 
+ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
+pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
+do perfil de usuário, acredita-se que a mesma irá produzir um perfil mais
+consistente do usuário, gerando assim recomendações mais efetivas.\item
+\textit{\textbf{Uma abordagem por aprendizado de máquina irá se comportar melhor
+        que uma determinística para o problema proposto}} 
+Considerando os dados presentes em pacote Debian que podem ser
+usados para prover a recomendação, pode-se entender que o uso de uma abordagem
+por aprendizado de máquina irá prover melhores resultados, devido a possível
+complexidade dos relacionamentos entre os atribuitos dos pacotes.
 \end{itemize}
 
 \section{Planejamento da pesquisa}
@@ -191,6 +186,107 @@ que algumas questões de relacionada a privacidade dos usuários se tornou neces
 \cite{araujo2011apprecommender}. Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
+
+
+\section{Aprendizado de máquina}
+
+Para a abordagem por aprendizado de máquina, escolheu-se aplicar a
+metodologia de filtragem pós-recomendação. Para a projeto em mãos, isso
+significa que o mesmo irá continuar fazendo a recomendação conforme foi
+desenhado, mas as recomendações serão filtradas pelo perfil de usuário
+construído pela abordagem de aprendizado de máquina.
+
+Sendo assim, o enfoque dessa abordagem é usar um algoritmo supervisionado
+para criar o perfil do usuário baseado em seus pacotes. Dessa forma, é
+necessário definir como cada pacote será apresentado para algoritmo, além de
+definir também o valor de cada pacotes.
+
+Para o valor do pacote, definiu-se a seguinte fórmula de classificação:
+
+ClassificaçãoTempo = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
+TempoModificação}$
+
+
+Onde:
+
+\begin{itemize}
+    \item \textbf{TempoAcesso:} Tempo de último acesso do pacote.
+    \item \textbf{TempoModificação:} Tempo de última modificação do pacote.
+    \item \textbf{TempoAtual:} Tempo atual no qual o usuário executa a
+        aplicação
+\end{itemize}
+
+
+A equação apresentada irá retornar um valor de 0 a 100, sendo assim, uma
+escala foi criada para servir como classificação de um pacote. Tal escala
+possui os seguintes valores:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cc}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+{Escala} & {Valores} \\ \hline
+{Excelent(EX)}  & ClassificaçãoTempo >= 80                  \\ \hline
+{Great(G)}   & ClassificaçãoTempo >= 70                  \\ \hline
+{Medium(M)}   & ClassificaçãoTempo >= 50                  \\ \hline
+{Bad(B)}   & ClassificaçãoTempo >= 30                  \\ \hline
+{Horrible(H)}   &ClassificaçãoTempo<30                   \\ \hline
+\end{tabular}
+\caption{Escala para classificação de um pacote baseado em seus atributos de tempo}
+\label{tab:cwe476-erros}
+\end{table}  
+
+
+Com a escala e a coleta das informações de tempo coletadas para cada pacote,
+pode-se então criar a classificação de cada pacote manualmente instalado pelo usuário.
+Isso se dá tudo por um script automatizado \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender/tree/master/src/bin}}
+que irá realizar tal função.
+
+Uma vez classificados, os pacotes então podem ser usados como entrada para o algoritmo supervisionado.
+Entretanto, ainda é necessário definir como os dados presentes no pacote serão usados de entrada para o
+algoritmo de aprendizado supervisionado. Considerando que os principais dados do pacote sendo usados na
+recomendação são as debtags e as palavras que compõem sua descrição, escolheu-se usar uma abordagem de
+vetor binário para cada um dos items. Sendo assim, os vetor de entrada será composto pela agregação de dois vetores
+binários.
+
+Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags definidas pelo Debian. Sendo assim, o 
+vetor binário irá representar as debtags ordenadas em ordem alfabética. Dessa forma,
+o vetor binário de um dado pacote irá conter o valor "0" caso o mesmo não contenha uma debtag e "1" caso a mesma se encontre
+no pacote. Por exemplo, dado um conjunto de três debtags role:program, implemented-in:c e devel:editor, e um pacote com a debtag
+role:program associado a ele, o seu vetor binário seria o seguinte: [0, 0, 1].
+
+Para os termos da descrição, a formatação do vetor é um pouco diferente. Primeiramente, optou-se por usar os termos apenas presentes
+nos pacotes manualmente instalados do usuário e não no banco de dados do Debian. Isso se dá para reduzir o tamanho do vetor e também
+pelo fato de que se um termo não aparece em nenhum pacote instalado pelo usuário, o mesmo em tese não terá nenhum peso relevante na
+classificação. Além disso, foi necessário retirar termos comuns do vetor de termos produzido, como por exemplo os termos "a" e "the" que
+aparecem em praticamente todo pacote mas não representam nenhuma vantagem na hora de avaliar um pacote. Uma vez gerado o vetor de todos os
+termos dos pacotes do usuário e aplicar o filtro de termos comuns, a abordagem de vetor binário pode ser usada, funcionando de forma
+similar ao vetor binário das debtags, onde os termos estarão representados em ordem alfabética e caso o pacote contenha tal termo em sua
+descrição, a posição do vetor associado ao termo será marcada como "1".
+
+Com a combinação desses valores, chega-se então a forma final da forma de entrada de um pacote para o uso de algoritmos de aprendizado 
+supervisionados. Observa-se também que para propósitos de  armazenamento, a classificação do pacote também é armazenada ao final da combinação
+dos vetores binários dos termos e debtags. A Figura X mostra a versão final da formatação de dados de um pacote:
+
+Por fim, os pacotes então podem finalmente ser usados para alimentar o algoritmo de aprendizado escolhido para a pesquisa, sendo no caso um
+classificador bayesiano. A escolha desse classe de algoritmo se deu por alguns fatores. O primeiro se dá pela popularidade do algoritmo para
+sistemas de recomendação por conteúdo \cite{amatriain2011data}. Outro fator que levou a escolha desse algoritmo é a sua capacidade de produzir
+modelos eficazes mesmo quando o número de dados de treinamento não são encontrados em abundância \cite{segaran2007programming}. Essa implicação
+quanto aos dados foi feita mediante uma análise do número de pacotes médios para dados usuários, levantamento também realizado por \cite{araujo2011apprecommender}.
+
+Vale ressaltar também que algoritmos de aprendizado supervisionados não-lineares foram considerados, como redes neurais. Entretanto, segundo
+a pesquisa realizada por \cite{pazzani1997learning} o uso de redes neurais em relação ao classificador bayesiano não mostra nenhuma melhoria
+considerável para sistema de recomendação. Sendo assim, optou-se por usar o classificador bayesiano de início e caso o modelo não apresente
+resultados satisfatórios, mudar então para um algoritmo supervisionado não-linear.
+
+É importante também ressaltar que o algoritmo será validado não só pela técnicas usadas no AppRecommender, mas também técnicas próprias de
+aprendizado de máquina serão usadas para verificar se o modelo gerado está satisfatório, como a validação cruzada, sendo o foco principal a
+identificação de \textit{overfitting} e \textit{underfitting}.
+
+Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
+sendo que apenas os pacotes classificados com EX ou G qualificados para a recomendação ao usuário.
+        
 
 \subsection{Numeração de Páginas}
 
