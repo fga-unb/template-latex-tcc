@@ -336,6 +336,50 @@ também será atualizado, mesmo que o usuário não tenha diretamente executado 
 pacote.
 
 
+\section{Descrição do projeto selecionado}
+
+Segundo Tassia Camoes, a criadora do projeto selecionado, o AppRecommender é uma
+proposta de um recomendador de aplicativos GNU/Linux \cite{araujo2011apprecommender}.
+Onde a principal característica do AppRecommender, como o próprio nome da aplicação
+indica, recomendar aplicações, onde “dada a lista de programas instalados em
+determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
+supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
+\cite{araujo2011apprecommender}.
+
+O AppRecommender possui três categorias para estratégias de recomendação, onde cada
+estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
+através de uma lista de pacotes instalados no sistema, essas categorias de estratégias
+são: Baseadas em conteúdo, colaborativas, e híbridas, segue abaixo as especificações
+de cada categoria de estratégia \cite{araujo2011apprecommender}.
+
+\begin{itemize}
+    \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
+visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
+onde esse perfil é uma lista composta por tags ou descrições de pacotes que são
+definidos pelo algoritmo da estratégia escolhida, através dessa lista a base de dados
+com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
+relevantes para o perfil criado \cite{araujo2011apprecommender}.
+    \item \textit{\textbf{Colaborativas:}} Nessa categoria de estratégia o conjunto
+do nome dos pacotes instalados é que formam o perfil do usuário, e o resultado da
+recomendação é um conjunto de pacotes formado pelos pacotes que usuários com perfil
+semelhante possuem e o usuário que está executando a recomendação não possui \cite{araujo2011apprecommender}.
+    \item \textit{\textbf{Híbridas:}} Como o próprio nome determina, essa categoria
+de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
+afim de se obter melhores resultados na recomendação.
+\end{itemize}
+
+O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
+partir do diretório do AppRecommender, é encontrado no caminho “./src/bin”. Os
+argumentos utilizados na execução desse script determinam a categoria e a estratégia
+de recomendação a ser utilizada. Existe também uma interface web para o recomendador
+\cite{araujo2011apprecommender}.
+
+A licença do AppRecommender é “GNU GPL e disponível em repositório público” \cite{araujo2011apprecommender}.
+Foi utilizado boas práticas de programação, onde “o desenvolvimento obedeceu ao guia
+de estilo para código em python, fez uso de testes automatizados e padrões de
+projeto” \cite{araujo2011apprecommender}.
+
+
 \section{Abordagem determinística}
 
 A proposta da abordagem determinística é criar o perfil de usuário através
@@ -412,8 +456,6 @@ Com os pesos de cada termo o perfil do usuário é formado pelos termos com
 os maiores pesos, utilizando esse perfil é realizado uma consulta que
 retorna os pacotes que possuem maior relevância para o perfil que foi
 gerado \cite{araujo2011apprecommender}.
-
-A utilização do decaimento expo
 
 
 \section{Aprendizado de máquina}
