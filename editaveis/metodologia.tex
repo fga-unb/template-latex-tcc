@@ -138,6 +138,47 @@ onde são usados:
 \end{description}
 
 
+\section{Descrição do projeto selecionado}
+
+O AppRecommender é um sistema de recomendação de aplicativos GNU/Linux,
+onde a sua principal característica é recomendar aplicações, onde “dada a lista de programas instalados em
+determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
+supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
+\cite{araujo2011apprecommender}.
+
+O AppRecommender possui três categorias para estratégias de recomendação, onde cada
+estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
+através de uma lista de pacotes instalados no sistema, essas categorias de estratégias
+são: Baseadas em conteúdo, colaborativas, e híbridas, segue abaixo as especificações
+de cada categoria de estratégia:.
+
+\begin{itemize}
+    \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
+        visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
+        onde esse perfil é uma lista composta por tags ou descrições de pacotes que são
+        definidos pelo algoritmo da estratégia escolhida, através dessa lista a base de dados
+        com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
+        relevantes para o perfil criado.
+    \item \textit{\textbf{Colaborativas:}}: Essa estratégia de recomendação visa
+        a sugestão de novos pacotes via análise de outros usuários com perfis
+        semelhantes ao do usuário, ou seja, tal estratégia visa recomendar novos
+        pacotes de acordo com os pacotes instalados dos vizinhos mais próximos
+        ao perfil do usuário.
+    \item \textit{\textbf{Híbridas:}} Essa categoria
+        de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
+        afim de se obter melhores resultados na recomendação.
+\end{itemize}
+
+O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
+partir do diretório do AppRecommender, é encontrado no caminho “./src/bin”. Os
+argumentos utilizados na execução desse script determinam a categoria e a estratégia
+de recomendação a ser utilizada. Existe também uma interface web para o recomendador.
+
+A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
+público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
+contribuir com o projeto.
+
+
 \section{Dados}
 
 Para o projeto selecionado, a análise realizada pode ser vista na Tabela
@@ -335,46 +376,6 @@ executar qualquer uma de suas funcionalidades, o tempo de acesso das mesmas
 também será atualizado, mesmo que o usuário não tenha diretamente executado o
 pacote.
 
-
-\section{Descrição do projeto selecionado}
-
-O AppRecommender é um sistema de recomendação de aplicativos GNU/Linux,
-onde a sua principal característica é recomendar aplicações, onde “dada a lista de programas instalados em
-determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
-supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
-\cite{araujo2011apprecommender}.
-
-O AppRecommender possui três categorias para estratégias de recomendação, onde cada
-estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
-através de uma lista de pacotes instalados no sistema, essas categorias de estratégias
-são: Baseadas em conteúdo, colaborativas, e híbridas, segue abaixo as especificações
-de cada categoria de estratégia:.
-
-\begin{itemize}
-    \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
-        visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
-        onde esse perfil é uma lista composta por tags ou descrições de pacotes que são
-        definidos pelo algoritmo da estratégia escolhida, através dessa lista a base de dados
-        com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
-        relevantes para o perfil criado.
-    \item \textit{\textbf{Colaborativas:}}: Essa estratégia de recomendação visa
-        a sugestão de novos pacotes via análise de outros usuários com perfis
-        semelhantes ao do usuário, ou seja, tal estratégia visa recomendar novos
-        pacotes de acordo com os pacotes instalados dos vizinhos mais próximos
-        ao perfil do usuário.
-    \item \textit{\textbf{Híbridas:}} Essa categoria
-        de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
-        afim de se obter melhores resultados na recomendação.
-\end{itemize}
-
-O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
-partir do diretório do AppRecommender, é encontrado no caminho “./src/bin”. Os
-argumentos utilizados na execução desse script determinam a categoria e a estratégia
-de recomendação a ser utilizada. Existe também uma interface web para o recomendador.
-
-A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
-público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
-contribuir com o projeto.
 
 \section{Abordagem determinística}
 
