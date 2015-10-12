@@ -246,6 +246,12 @@ onde os termos de maior peso são usados para compor tal perfil. Isso é feito p
 algoritmos como \textit{Term Frequency Inverse Document Frequency Sub-Linear}
 (TFIDF-sublinear) e \textit{Expansão de Query} (ESet).
 
+O perfil de usuário criado é então usado para consultar toda a base de pacotes
+do Debian. Isso é realizado através do \textit{apt-xapian-index}, uma aplicação
+que provê uma forma de busca pacotes no Debian por meio de Queries, sendo que no
+caso do AppRecommender, a query de busca é o perfil gerado para o usuários.
+Finalmente, os pacotes retornados são então a recomendação final da aplicação.
+
 Dado esse conjunto de dados, o novo atributo que esta pesquisa pretende
 adicionar é o contexto de uso de um pacote, sendo no caso, a última vez que o
 mesmo foi usado. Em distribuições Debian, isso pode ser verificado via comando
