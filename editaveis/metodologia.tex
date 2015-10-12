@@ -556,6 +556,45 @@ deve-se re-posicionar os blocos de texto para o preenchimento de vazios.
 Tabelas e figuras devem, sempre que possível, utilizar o espaço disponível
 da página evitando-se a \lq\lq quebra\rq\rq\ da figura ou tabela.
 
+
+\section{Coleta de dados}
+
+A coleta de dados é o método no qual usuários do AppRecommender poderão
+colaborar com a melhoria do sistema, pois esses dados serão utilizados para
+análise de eficiência da recomendação para um perfil de usuário.
+
+Afim de obter dados do usuário tanto quanto aos pacotes que esse utiliza,
+suas preferências e perfil, serão coletados certos dados, sendo eles:
+
+\begin{itemize}
+    \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
+    \item \textit{\textbf{Pacotes manualmente instalados:}} Estes serão coletados para filtrar as preferências do usuário, para que quando comparado aos pacotes instalados se possa diferenciar pacotes que são automaticamente instalados dos que foram manualmente instalados;
+    \item \textit{\textbf{Tempo de acesso e de modificação dos pacotes:}} Estes dados serão usados afim de obter informação quanto a classificação do pacote em relação ao tempo que este foi utilizado;
+    \item \textit{\textbf{Caminho do binário de cada pacote:}} Dados coletados afim de se saber qual o binário responsável pela execução do pacote;
+    \item \textit{\textbf{Versão do Kernel:}} Necessário para agrupar as recomendações e preferências entre usuários com mesmo kernel;
+    \item \textit{\textbf{Distribuição do sistema:}} Necessário para agrupar as recomendações e preferências entre usuários com a mesma distribuição.
+    \item \textit{\textbf{Dados do popcon:}} Informação que é utilizada para permitir executar os experimentos afim de executar os experimentos de análise dos dados.
+\end{itemize}
+
+A qualificação da recomendação também será analisada pela coleta de dados
+quanto a qual recomendação tem uma maior relevância para o usuário, onde
+uma recomendação é o conjunto de pacotes resultantes da execução do
+AppRecommender com certos parâmetros definidos. Segue o processo para
+coleta da relevância da recomendação para o usuário:
+
+\begin{itemize}
+    \item \textit{\textbf{Execução do AppRecommender:}} O AppRecommender é executado várias vezes com parâmetros diferentes, onde cada execução resulta em uma recomendação diferente;
+    \item \textit{\textbf{Agrupamento das recomendações:}} Todas as recomendações são agrupadas, ordenadas e são removidas as duplicações de pacotes entre as recomendações;
+    \item \textit{\textbf{Pontuação do usuário:}} Para cada pacote no agrupamento das recomendações é solicitado ao usuário que seja dada uma nota de 0 a 10 ao pacote;
+    \item \textit{\textbf{Armazenamento das informações:}} É coletado, ou seja, armazenado, cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
+\end{itemize}
+
+Para armazenar a coleta de dados é criado um diretório na raíz de diretórios
+do usuário, onde os dados coletados são
+armazenados em arquivos de texto, onde cada arquivo possui o nome de acordo
+com o dado que foi coletado e armazenado.
+
+
 \section{Cópias}
 
 Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2,
