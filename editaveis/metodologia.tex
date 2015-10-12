@@ -137,6 +137,13 @@ A Tabela \ref{tab:dados_apprecommender} mostra os dados necessários e o context
 onde são usados:
 \end{description}
 
+
+\section{Dados}
+
+Para o projeto selecionado, a análise realizada pode ser vista na Tabela
+\ref{tab:dados_apprecommender}. Tal tabela mostra os dados usados no
+AppRecommender e como os mesmos podem ser obtidos.
+
 \begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
@@ -183,10 +190,113 @@ popularity contest. Isso se dá pelo fato da aplicação não disponibilizar as 
 propriamente ditas, e sim as análises estatísticas feitas em cima das mesmas. Para o
 AppRecommender, tais dados foram obtidos por intermédio de um Debian Developer, sendo
 que algumas questões de relacionada a privacidade dos usuários se tornou necessária.
-\cite{araujo2011apprecommender}. Dessa forma, foi necessário pensar em uma estratégia
+\cite{araujo2011apprecommender}. Tal problemática dificulta bastante o uso das
+estratégias colaborativas do AppRecommender, pois dependem desse banco de dados
+de submissões do popularity-contest. Entretanto, foi levantado também que os
+experimentos de comparação entre os algoritmos implementados também dependem
+desses dados, porém em menor escala do que uma recomendação colaborativa.
+Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
 
+\section{Engenharia de Atributos}
+
+Considerando as limitações da obtenção de dados já discutidas, a pesquisa teve
+como objetivo então se focar na recomendação baseada em conteúdo. Dessa forma,
+vale a pena detalhar os dados usados para fazer essa recomendação.
+
+Considerando que apenas pacotes Debian podem ser recomendados, os dados sendo
+usados atualmente para a realização de uma recomendação podem ser vistos no
+arquivo \textit{control} encontrado em qualquer pacote Debian, conforme pode ser
+visto na Figura \ref{fig:control_pacote}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/control_pacote.eps}
+  \caption{Arquivo control de um pacote Debian}
+  \label{fig:control_pacote}
+\end{figure}
+
+Pode-se ver na Figura \ref{fig:control_pacote} os principais dados usados na
+recomendação de um pacote, sendo eles as debtags e a descrição dos pacotes.
+
+As debtags são basicamente um forma de melhor categorizar um pacote fora das 33
+seções disponíveis no Debian, além também de permitir que um pacote seja
+categorizado em diferentes frentes ao mesmo tempo \cite{zini2005cute}. Isso pode ser visto na Figura
+\ref{fig:control_pacote}, onde o software \textit{vim} possui as debtags
+\textit{devel::editor} e \textit{interface::commandline}, ou seja, está se
+enquadrando tanto como um editor de texto e uma aplicação que roda em linha de
+comando. 
+
+O processo de criação de debtags é manual, ou seja, um usuário deve associar uma
+debtag a um pacote e a comunidade Debian deve verificar se aquela debtag
+sugerida condiz com a aplicação em si. Atualmente, existem X pacotes
+categorizados com debtags.
+
+Por fim, vale lembrar que nem todas as debtags são consideradas significativas
+para o processo de recomendação, sendo que uma filtragem é realizada visando
+selecionar apenas as debtags válidas para a construção do perfil do usuário.
+
+A segunda fonte de dado usada é a descrição do pacote, sendo no caso cada termo
+individual. A descrição de um pacote é realizada pelo empacotador na hora com
+que o mesmo cria o arquivo \textit{control}.
+
+Com essas duas informações, o AppRecommender cria então um perfil de usuário
+onde os termos de maior peso são usados para compor tal perfil. Isso é feito por
+algoritmos como \textit{Term Frequency Inverse Document Frequency Sub-Linear}
+(TFIDF-sublinear) e \textit{Expansão de Query} (ESet).
+
+Dado esse conjunto de dados, o novo atributo que esta pesquisa pretende
+adicionar é o contexto de uso de um pacote, sendo no caso, a última vez que o
+mesmo foi usado. Em distribuições Debian, isso pode ser verificado via comando
+\textit{stat} o binário do pacote, que tem uma saída que pode ser visualizada na Figura
+\ref{fig:comando_stat}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/comando_stat.eps}
+  \caption{Saída do comando \textit{stat} para um dado software}
+  \label{fig:comando_stat}
+\end{figure}
+
+Pode ser visto na Figura \ref{fig:comando_stat} que o comando exibe os seguintes
+atributos de tempo de um dado arquivo \cite{1_haas}:
+
+\begin{itemize}
+    \item \textbf{Access:} Última vez que um arquivo foi acessado, ou seja, a
+        última vez que seu conteúdo foi de fato acessado.
+    \item \textbf{Modify:} Última vez que conteúdo de um arquivo foi modificado.
+    \item \textbf{Change:} Última vez que o status de um arquivo foi modificado,
+        como mudar as permissões do arquivo e o seu done, ou seja, modificar o
+        inode do arquivo.
+\end{itemize}
+
+Dessa forma, pode ser visto que o campo \textit{Access} de um arquivo é um dos
+principais indicadores de uso de um pacote. Entretanto, o Debian apresenta uma
+restrição neste campo. Isso acontece devido a como o sistema de arquivos é
+configurado, 
+
+pois algumas flags especiais podem ser usadas para alterar como
+esse campo é preenchido \cite{2_wiki.debian.org}:
+
+\begin{itemize}
+    \item \textbf{noatime:} O sistema de arquivos não irá computar o tempo de
+        acesso do arquivo.
+    \item \textbf{stricatime:} O sistema de arquivos irá sempre alterar o tempo
+        de acesso do arquivo.
+    \item \textbf{relatime:} O sistema de arquivos só irá computar o tempo de
+        acesso de um arquivo se o valor desse campo for menor que os valores dos
+        campos \textit{Modify} e \textit{Change}. Esse opção é default desde
+        o kernel 2.6.30, e além disso uma adição foi feita, o tempo de acesso será
+        modificado se o mesmo for mais antigo que um dia.
+\end{itemize}
+
+O uso do relatime passou a ser default para montar o sistema de arquivos devido
+aos problemas de perfomance ocasionados pelo atime. Segundo Ingo Molnar, "atualizar o valor
+de atime é de longe uma das deficiências de performance que o Linux possuir
+hoje" \cite{3_corbet_2007}. Sendo assim, as informações de contexto que serão
+usadas, tempo de acesso, modificação e mudança, são aproximações e assim não
+refletem perfeitamente o contexto de uso dos pacotes. 
 
 \section{Aprendizado de máquina}
 
