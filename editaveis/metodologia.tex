@@ -375,16 +375,18 @@ no tempo do pacote:
 TempoModificação}$
 
 Afim de atribuir mais peso para pacotes que foram recentemente usados é
-utilizado a seguinte função:
+utilizado um decaimento exponencial, afim de obter controle quanto a
+suavidade da curva que relaciona a classificação no tempo com o peso do pacote,
+assim utilizando a seguinte função:
 
-\textbf{PesoPacote} = C / $\exp\left(({1 - ClassificaçãoTempo}) * {Alfa}\right)$
+\textbf{PesoPacote} = C / $\exp\left(({1 - ClassificaçãoTempo}) * {\lambda}\right)$
 
 Onde C e alfa são constantes definidas através de testes realizados na
-aplicação, e os valores achados que mais otimizaram foram:
+aplicação, e os valores achados que mais otimizaram a recomendação foram:
 
 \textbf{C} = 1
 
-\textbf{Alfa} = 1
+\textbf{$\lambda$} = 1
 
 Após calcular o peso de cada pacote do termo, o peso to termo é obtido
 através da média aritmética dos pesos dos pacotes multiplicado pelo TFIDF,
@@ -410,6 +412,8 @@ Com os pesos de cada termo o perfil do usuário é formado pelos termos com
 os maiores pesos, utilizando esse perfil é realizado uma consulta que
 retorna os pacotes que possuem maior relevância para o perfil que foi
 gerado \cite{araujo2011apprecommender}.
+
+A utilização do decaimento expo
 
 
 \section{Aprendizado de máquina}
