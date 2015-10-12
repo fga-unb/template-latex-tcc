@@ -298,6 +298,37 @@ hoje" \cite{3_corbet_2007}. Sendo assim, as informações de contexto que serão
 usadas, tempo de acesso, modificação e mudança, são aproximações e assim não
 refletem perfeitamente o contexto de uso dos pacotes. 
 
+Sendo assim, a informação temporal de cada pacote será obtida pela seguinte
+fórmula:
+
+ClassificaçãoTempo = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
+TempoModificação}$
+
+
+Onde:
+
+\begin{itemize}
+    \item \textbf{TempoAcesso:} Tempo de último acesso do pacote em segundos.
+    \item \textbf{TempoModificação:} Tempo de última modificação do pacote em
+        segundos.
+    \item \textbf{TempoAtual:} Tempo atual no qual o usuário executa a
+        aplicação em segundos.
+\end{itemize}
+
+
+A equação apresentada irá retornar um valor de 0 a 100, sendo que quanto mais
+perto de 100, mais recente é considerado o arquivo. Vale ressaltar que a fórmula
+também leva em conta o tempo de modificação, pois em algumas situações alterar o
+tempo de modificação também altera o tempo de acesso, podendo ocasionar que um
+pacote recentemente atualizado tenha um peso maior, mesmo que o usuário não
+tenha diretamente o executado.
+
+Vale ressaltar que existe uma limitação quanto a pacotes indiretamente usados,
+como por exemplo linguagens de programação. Se um pacote precisar delas para
+executar qualquer uma de suas funcionalidades, o tempo de acesso das mesmas
+também será atualizado, mesmo que o usuário não tenha diretamente executado o
+pacote.
+
 \section{Aprendizado de máquina}
 
 Para a abordagem por aprendizado de máquina, escolheu-se aplicar a
@@ -311,25 +342,8 @@ para criar o perfil do usuário baseado em seus pacotes. Dessa forma, é
 necessário definir como cada pacote será apresentado para algoritmo, além de
 definir também o valor de cada pacotes.
 
-Para o valor do pacote, definiu-se a seguinte fórmula de classificação:
-
-ClassificaçãoTempo = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
-TempoModificação}$
-
-
-Onde:
-
-\begin{itemize}
-    \item \textbf{TempoAcesso:} Tempo de último acesso do pacote.
-    \item \textbf{TempoModificação:} Tempo de última modificação do pacote.
-    \item \textbf{TempoAtual:} Tempo atual no qual o usuário executa a
-        aplicação
-\end{itemize}
-
-
-A equação apresentada irá retornar um valor de 0 a 100, sendo assim, uma
-escala foi criada para servir como classificação de um pacote. Tal escala
-possui os seguintes valores:
+Para o valor do pacote, definiu-se a seguinte escala de classificação baseada na
+fórmula proposta na seção de Engenharia de Atributos:
 
 \begin{table}[h]
 \centering
@@ -348,7 +362,7 @@ possui os seguintes valores:
 \end{table}  
 
 
-Com a escala e a coleta das informações de tempo coletadas para cada pacote,
+Com a escala definida e as informações de tempo coletadas para cada pacote,
 pode-se então criar a classificação de cada pacote manualmente instalado pelo usuário.
 Isso se dá tudo por um script automatizado \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender/tree/master/src/bin}}
 que irá realizar tal função.
