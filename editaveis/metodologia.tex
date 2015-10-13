@@ -417,7 +417,15 @@ priorizado dado a questão temporal proposta.
 
 \subsection{Aprendizado de máquina}
 
-Para a abordagem por aprendizado de máquina, escolheu-se aplicar a
+Um dos problemas de se usar apenas a abordagem determinística é uma limitação
+encontrada no \textit{apt-xapian-index}, onde não é possível priorizar queries
+individuais quando se faz uma busca, por exemplo, dado que na criação do perfil
+do usuário, têm-se que o termo "python" apresentou um peso maior que "ruby", mas
+ambos os termos estão presentes na query de busca. Quando a busca for realizada,
+o peso dos termos será ignorado, tornando os termos equivalentes, mesmo que para
+o perfil do usuário eles não o são.
+
+Dessa forma, para a abordagem por aprendizado de máquina, escolheu-se aplicar a
 metodologia de filtragem pós-recomendação. Para a projeto em mãos, isso
 significa que o mesmo irá continuar fazendo a recomendação conforme foi
 desenhado, mas as recomendações serão filtradas pelo perfil de usuário
