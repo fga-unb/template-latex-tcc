@@ -42,7 +42,7 @@ do concurso criado pelo Netflix para aumentar a acurácia de suas recomendaçõe
 realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
 
 
-\section{Hipóteses}
+\section{Hipóteses} \label{sec:hipoteses}
 
 Considerando um sistema de recomendação para pacotes usando o tempo como variável de contexto, as seguinte hipóteses foram definidas:
 
@@ -112,36 +112,10 @@ Com a comparações de resultados feita, a mesma deve ser analisada e conclusõe
 \end{enumerate}
 
 
-\section{Teste de hipótese}
-
-O projeto selecionado para testar as hipóteses foi o \textit{AppRecommender}, o recomendador de pacotes para distribuições Debian que implementa tanto estratégias de recomendação por conteúdo quanto colaborativas \cite{araujo2011apprecommender}.
-Apesar do AppRecommender usar questões temporarais providas pelo pacote popularity-contest nas suas recomendações, tal atributo temporal só é explorado nas recomendações colaborativas, e não nas baseadas em conteúdo, fazendo com que o projeto passe no critério de seleção estabelecido.
-
-\begin{description}
-
-\item[Obtenção do código fonte]
-
-O código fonte da aplicação AppRecommender pode ser encontrada no repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
-Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do mesmo, sendo essa mantida pelos pesquisadores deste trabalho.
-
-\item[Analisar projeto selecionado]
-
-Um vez obtido o código fonte do projeto, identificou-se algumas questõs
-importantes. A primeira delas foi que algumas bibliotecas não estavam mais
-presentes no repositório de pacotes de versões mais recentes do Debian, no caso,
-o Debian jessie. A segunda problemática foi relacionada a obtenção do dados.
-Mediante uma análise tanto do ponto de vista de recomendação tanto do ponto de
-vista dos experimentos de validação usados para avaliar os algoritmos
-desenvolvidos, percebeu-se diversos e distintos conjuntos de dados necessários.
-A Tabela \ref{tab:dados_apprecommender} mostra os dados necessários e o contexto
-onde são usados:
-\end{description}
-
-
 \section{Descrição do projeto selecionado}
 
-O AppRecommender é um sistema de recomendação de aplicativos GNU/Linux,
-onde a sua principal característica é recomendar aplicações, onde “dada a lista de programas instalados em
+O projeto selecionado para testar as hipóteses foi o AppRecommender, um sistema de recomendação de aplicativos GNU/Linux,
+cuja principal característica é recomendar aplicações, onde “dada a lista de programas instalados em
 determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
 supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
 \cite{araujo2011apprecommender}.
@@ -176,10 +150,13 @@ de recomendação a ser utilizada. Existe também uma interface web para o recom
 
 A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
 público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
-contribuir com o projeto.
+contribuir com o projeto. Dessa forma, o código fonte da aplicação
+AppRecommender pode ser encontrado no repositório de projetos [Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
+Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do 
+mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
 
-\section{Dados}
+\section{Análise dos Dados}
 
 Para o projeto selecionado, a análise realizada pode ser vista na Tabela
 \ref{tab:dados_apprecommender}. Tal tabela mostra os dados usados no
@@ -240,7 +217,7 @@ Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
 
-\section{Engenharia de Atributos}
+\section{Engenharia de Atributos} \label{engenharia_atributos}
 
 Considerando as limitações da obtenção de dados já discutidas, a pesquisa teve
 como objetivo então se focar na recomendação baseada em conteúdo. Dessa forma,
@@ -376,47 +353,41 @@ executar qualquer uma de suas funcionalidades, o tempo de acesso das mesmas
 também será atualizado, mesmo que o usuário não tenha diretamente executado o
 pacote.
 
+\section{Teste de hipóteses}
 
-\section{Abordagem determinística}
+Conforme mencionado na seção \ref{sec:hipoteses}, esta pesquisa se prõpoem a
+criar duas abordagens distintas para prover contexto nas recomendações sendo
+feitas. Esta seção irá mostrar como ocorrerá cada abordagem proposta.
 
-A proposta da abordagem determinística é criar o perfil de usuário através
-dos pacotes instalados que possuem uma maior relevância para o usuário,
-essa relevância é determinada utilizando informações de tempo quanto a
-utilização do pacote, segue uma imagem contendo o fluxo para realizar uma
+\subsection{Abordagem determinística}
+
+A proposta da abordagem determinística é de usar uma fórmula que altere
+a criação do perfil de usuário através dos pacotes instalados que foram mais
+recentemente usados. A Figura \ref{fig:abordagem_deterministica}
+contém o fluxo usado para realizar uma
 recomendação utilzando a abordagem determinística.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/abordagem_deterministica.eps}
   \caption{Processo usando para realizar a abordagem deterministica}
-  \label{fig:abordatem_deterministica}
+  \label{fig:abordagem_deterministica}
 \end{figure}
 
-Afim de relacionar um termo, que pode ser uma debtag ou uma descrição, com
-os pacotes que o utilizam, sendo esses pacotes todos os pacotes que estão
-na base de dados para serem recomendados, é utilizado um dicionário, onde
-a chave é o nome do termo, e o valor no dicionário é uma lista com todos os
-pacotes que utilizam aquele termo, assim é mantido a relação entre um termo
-e todos os pacotes que o utilizam.
+A abordagem determinística é a combinação da estratégia TFIDF combinada com
+uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF.Para
+isso acontecer, um dicionário associa cada termo, debtag ou palavra da
+descrição, aos pacotes onde os mesmos se encontram. Com esse dicionário criado,
+no momento que o TFIDF for calculado, o peso temporal do termo também é
+calculado e seus valores são enfim multiplicados. 
 
-Para se calcular o peso de um pacote, primeiramente é atribuído um valor de
-0 a 1 ao pacote através de uma função, onde os dados para essa função são:
+Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor de
+tempo para cada pacote associado aquele termo pela fórmula definida na seção Engenharia de
+Atributos \ref{sec:engenharia_atributos} para atribuir o valor a cada um dos
+pacotes.
 
-\begin{itemize}
-  \item \textit{\textbf{Tempo de Acesso:}} Tempo do último acesso ao pacote;
-  \item \textit{\textbf{Tempo de Modificação:}} Tempo da última modificação do pacote;
-  \item \textit{\textbf{Tempo Atual:}} Tempo atual no qual o usuário executa a aplicação.
-\end{itemize}
-
-Utilizando esses dados é utilizado a seguinte função, que converte essa
-informação de entrada em um peso inicial do pacote, que será a classificação
-no tempo do pacote:
-
-\textbf{ClassificaçãoTempo} = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
-TempoModificação}$
-
-Afim de atribuir mais peso para pacotes que foram recentemente usados é
-utilizado um decaimento exponencial, afim de obter controle quanto a
+Com esse valor calculado, é usado uma função de decaimento exponencial afim de atribuir mais peso
+para pacotes que foram recentemente usados, para que dessa forma, seja possível obter controle quanto a
 suavidade da curva que relaciona a classificação no tempo com o peso do pacote,
 assim utilizando a seguinte função:
 
@@ -430,32 +401,20 @@ aplicação, e os valores achados que mais otimizaram a recomendação foram:
 \textbf{$\lambda$} = 1
 
 Após calcular o peso de cada pacote do termo, o peso to termo é obtido
-através da média aritmética dos pesos dos pacotes multiplicado pelo TFIDF,
-técnica que já era utilizada no AppRecommender, porém é uma técnica que
-também prioriza os termos pela quantidade do termo dividido pela quantidade
-total de termos \cite{araujo2011apprecommender}, ou seja:
+através da média aritmética dos pesos dos pacotes relacionados ao dado termo.
+Com o valor temporal calculado, pode-se enfim multiplicar tal valor com o TFIDF
+obtido para o dado termo. Este processo é realizado para todos os termos usados
+para se obter o perfil do usuário.
 
-\textbf{TF\_IDF} = $\frac{QuantidadeDoTermo} {QuantidadeTotalDeTermos}$
+Vale ressaltar que o TFIDF foi usado em relação ao ESet por permitir está fácil
+manipulação do peso temporal na construção do perfil no usuário, ao contrário do
+algoritmo ESet, onde seria necessário escolher não os termos mais usados, e sim
+os pacotes mais recentemente usados para realização da expansão de query. Apesar
+de também ser possível utilizar informação temporal neste contexto, foi
+preferido utilizar o TFIDF inicialmente, visando entender como cada termo é
+priorizado dado a questão temporal proposta.
 
-\textbf{PesoFuncaoDeterministica} = $\sum_{i=1}^{n} Termo(i)$
-
-\textbf{PesoTermo} = PesoFuncaoDeterministica * TF\_IDF
-
-Utilizar dessa técnica de multiplicar o peso gerado pela função
-determinística, que atribui o peso ao termo utilizando a relação entre os
-pacotes que utilizam o termo e o tempo de utilização desses pacotes, com
-o TFIDF é que a técnica do TFIDF já foi utilizada no AppRecommender, e na
-tese da Tássia Camoes, é a técnica mais importante da recomendação de
-conteúdo, logo optou-se por levá-la em consideração afim de otimizar os
-resultados da recomendação.
-
-Com os pesos de cada termo o perfil do usuário é formado pelos termos com
-os maiores pesos, utilizando esse perfil é realizado uma consulta que
-retorna os pacotes que possuem maior relevância para o perfil que foi
-gerado \cite{araujo2011apprecommender}.
-
-
-\section{Aprendizado de máquina}
+\subsection{Aprendizado de máquina}
 
 Para a abordagem por aprendizado de máquina, escolheu-se aplicar a
 metodologia de filtragem pós-recomendação. Para a projeto em mãos, isso
@@ -536,65 +495,6 @@ identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
 sendo que apenas os pacotes classificados com EX ou G qualificados para a recomendação ao usuário.
-
-
-\subsection{Numeração de Páginas}
-
-A contagem sequencial para a numeração de páginas começa a partir da
-primeira folha do trabalho que é a Folha de Rosto, contudo a numeração em
-si só deve ser iniciada a partir da primeira folha dos elementos textuais.
-Assim, as páginas dos elementos pré-textuais contam, mas não são numeradas
-e os números de página aparecem a partir da primeira folha dos elementos
-textuais que é a Introdução.
-
-Os números devem estar em algarismos arábicos (fonte Times ou Arial 10) no
-canto superior direito da folha, a 02 cm da borda superior, sem traços,
-pontos ou parênteses.
-
-A paginação de Apêndices e Anexos deve ser contínua, dando seguimento ao
-texto principal.
-
-\subsection{Espaços e alinhamento}
-
-Para a monografia de TCC 01 e 02 o espaço entrelinhas do corpo do texto
-deve ser de 1,5 cm, exceto RESUMO, CITAÇÔES de mais de três linhas, NOTAS
-de rodapé, LEGENDAS e REFERÊNCIAS que devem possuir espaçamento simples.
-Ainda, ao se iniciar a primeira linha de cada novo parágrafo se deve
-tabular a distância de 1,25 cm da margem esquerda.
-
-Quanto aos títulos das seções primárias da monografia, estes devem começar
-na parte superior da folha e separados do texto que o sucede, por um espaço
-de 1,5 cm entrelinhas, assim como os títulos das seções secundárias,
-terciárias.
-
-A formatação de alinhamento deve ser justificado, de modo que o texto fique
-alinhado uniformemente ao longo das margens esquerda e direita, exceto para
-CITAÇÕES de mais de três linhas que devem ser alinhadas a 04 cm da margem
-esquerda e REFERÊNCIAS que são alinhadas somente à margem esquerda do texto
-diferenciando cada referência.
-
-\subsection{Quebra de Capítulos e Aproveitamento de Páginas}
-
-Cada seção ou capítulo deverá começar numa nova pagina (recomenda-se que
-para texto muito longos o autor divida seu documento em mais de um arquivo
-eletrônico).
-
-Caso a última pagina de um capitulo tenha apenas um número reduzido de
-linhas (digamos 2 ou 3), verificar a possibilidade de modificar o texto
-(sem prejuízo do conteúdo e obedecendo as normas aqui colocadas) para
-evitar a ocorrência de uma página pouco aproveitada.
-
-Ainda com respeito ao preenchimento das páginas, este deve ser otimizado,
-evitando-se espaços vazios desnecessários.
-
-Caso as dimensões de uma figura ou tabela impeçam que a mesma seja
-posicionada ao final de uma página, o deslocamento para a página seguinte
-não deve acarretar um vazio na pagina anterior. Para evitar tal ocorrência,
-deve-se re-posicionar os blocos de texto para o preenchimento de vazios.
-
-Tabelas e figuras devem, sempre que possível, utilizar o espaço disponível
-da página evitando-se a \lq\lq quebra\rq\rq\ da figura ou tabela.
-
 
 \section{Coleta de dados}
 
