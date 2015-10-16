@@ -8,7 +8,7 @@ baseada na definição proposta por Silva e Menezes, que afirmam que toda pesqui
 tem como objetivo encontrar respostas para hipóteses propostas
 \cite{da2005metodologia}
 
-Com essa definição em pauta, as hipóteses proposta para a execução deste trabalho neste trabalho foi a seguinte:
+Com essa definição em pauta, a hipótese proposta para a execução deste trabalho foi a seguinte:
 
 \begin{center}
 \textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
@@ -24,16 +24,17 @@ experimental.
 
 Durante a pesquisa deste trabalho, encontrou-se alguns trabalhos que também estudam recomendação baseada em contexto, sendo o tempo um dos
 principais atributos do contexto. Em \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
-compras de diversor usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
+compras de diversos usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
 sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão quando o tempo foi usado para gerar a matriz de recomendação.
 
-Outra pesquida relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um sistema recomendação sensível ao tempo foi criado. o sistema proposto usava uma função de
+Outra pesquida relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um
+sistema de recomendação colaborativo sensível ao tempo foi criado. O sistema proposto usava uma função de
 decaimento exponencial para priorizar itens recentemente avaliados e diminuir o peso de itens avaliados a mais tempo na recomendação. Quando comparado a um sistema de
 recomendação colaborativa clássico, percebeu-se um aumento de acurácia para o recomendador sensível ao tempo.
 
 Além de comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
-\cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente discartado, e sim caso
-seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos testes realizados, percebeu-se que criar o modelo de usuário dessa formas apresenta vantagens sobre
+\cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente descartado, e sim caso
+seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos testes realizados, percebeu-se que criar o modelo de usuário dessa forma apresenta vantagens sobre
 a forma mais padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor seus
 resultados
 
@@ -50,11 +51,11 @@ Considerando um sistema de recomendação para pacotes usando o tempo como vari�
 recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
 ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
 pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
-do perfil de usuário, acredita-se que a mesma irá produzir um perfil mais
+do perfil, acredita-se que a mesma irá produzir um perfil mais
 consistente do usuário, gerando assim recomendações mais efetivas.\item
 \textit{\textbf{Uma abordagem por aprendizado de máquina irá se comportar melhor
         que uma determinística para o problema proposto}}
-Considerando os dados presentes em pacote Debian que podem ser
+Considerando os dados presentes em pacotes Debian que podem ser
 usados para prover a recomendação, pode-se entender que o uso de uma abordagem
 por aprendizado de máquina irá prover melhores resultados, devido a possível
 complexidade dos relacionamentos entre os atribuitos dos pacotes.
@@ -89,7 +90,7 @@ Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesm
     \item \textbf{Coletar dados:}
 Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
 
-    \item \textbf{Análisar dados:}
+    \item \textbf{Analisar dados:}
 Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
 
     \item \textbf{Executar projeto selecionado:}
@@ -105,10 +106,13 @@ Para responder a primeira questão proposta, será necessária implementar uma e
 Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
 
     \item \textbf{Comparar resultados:}
-Para responder as hipóteses propostas será necessário não só comporar as duas abordagens propostas, determinística e não determinística, e sim comparar ambas também com as abordagens já implementadas pelo projeto proposto e verificar se as hipótes se sustetam.
+Para responder as hipóteses propostas será necessário não só comporar as duas
+abordagens propostas, determinística e não determinística, e sim comparar ambas
+também com as abordagens já implementadas pelo projeto proposto e verificar se
+as hipótes se sustentam.
 
     \item \textbf{Realizar conclusões:}
-Com a comparações de resultados feita, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
+Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
 \end{enumerate}
 
 
@@ -123,14 +127,14 @@ supostamente são aplicativos de potencial interesse para os usuários daquele s
 O AppRecommender possui três categorias para estratégias de recomendação, onde cada
 estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
 através de uma lista de pacotes instalados no sistema, essas categorias de estratégias
-são: Baseadas em conteúdo, colaborativas, e híbridas, segue abaixo as especificações
-de cada categoria de estratégia:.
+são: Baseadas em conteúdo, colaborativas, e híbridas. Segue abaixo as especificações
+de cada categoria de estratégia:
 
 \begin{itemize}
     \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
         visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
         onde esse perfil é uma lista composta por tags ou descrições de pacotes que são
-        definidos pelo algoritmo da estratégia escolhida, através dessa lista a base de dados
+        definidas pelo algoritmo de estratégia escolhida, através dessa lista a base de dados
         com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
         relevantes para o perfil criado.
     \item \textit{\textbf{Colaborativas:}}: Essa estratégia de recomendação visa
@@ -140,13 +144,14 @@ de cada categoria de estratégia:.
         ao perfil do usuário.
     \item \textit{\textbf{Híbridas:}} Essa categoria
         de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
-        afim de se obter melhores resultados na recomendação.
+    afim de se obter diferentes recomendações.
 \end{itemize}
 
 O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
-partir do diretório do AppRecommender, é encontrado no caminho “./src/bin”. Os
+partir do diretório do AppRecommender [Github
+    \footnote{\url{https://github.com/tassia/AppRecommender}}. Os
 argumentos utilizados na execução desse script determinam a categoria e a estratégia
-de recomendação a ser utilizada. Existe também uma interface web para o recomendador.
+de recomendação a ser utilizada.
 
 A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
 público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
@@ -172,8 +177,8 @@ Lista de pacotes válidos &
 \parbox{10cm}{Esta lista irá ser usada na criação de uma índice de busca Xapian,
 que será usado para realizar a recomendação} &
 \parbox{10cm}{Pode-se usar os scripts get\_axipkgs.py obter todos os possíveis
-pacotes Debian,ou usar o srcipt get\_programs.sh, que irá selecionar
-só pacotes que contém a Debtag role:;program, indicando que o mesmo é um
+pacotes Debian,ou usar o script get\_programs.sh, que irá selecionar
+só pacotes que contém a Debtag role::program, indicando que o mesmo é um
 pacote executável.}\\ \hline
 Índice xapian de pacotes do usuário &
 \parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
@@ -188,7 +193,7 @@ Submissões do popularity contest&
 \parbox{10cm}{Usada para criar um índice Xapian de submissões do
 popularity-contest}&
 \parbox{10cm}{O projeto não provê uma forma automatizada de coletar tais dados,
-devido ao fato do mantenedor do projeto não fornecer tais dados.}\\ \hline
+devido ao fato do mantenedor do popularity-contest não fornecer tais dados.}\\ \hline
 Indíce Xapian para submissões do popularity contest &
 \parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
 híbridas, assim como para a execução dos experimentos usados
@@ -216,6 +221,44 @@ desses dados, porém em menor escala do que uma recomendação colaborativa.
 Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
+
+\section{Coleta de dados}
+
+Considerando a necessidade da obtenção dos dados de submissões do
+popularity-contest,sistema, foi necessário realizar a coleta dessas submissões
+de forma manual. Além de coletar tais informações, decidiu-se coletar algumas
+informações adicionais:
+
+\begin{itemize}
+    \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
+    \item \textit{\textbf{Pacotes manualmente instalados:}} Estes serão coletados para filtrar as preferências do usuário, para que quando comparado aos pacotes instalados se possa diferenciar pacotes que são automaticamente instalados dos que foram manualmente instalados;
+    \item \textit{\textbf{Tempo de acesso e de modificação dos pacotes:}} Estes dados serão usados afim de obter informação quanto a classificação do pacote em relação ao tempo que este foi utilizado;
+    \item \textit{\textbf{Caminho do binário de cada pacote:}} Dados coletados afim de se saber qual o binário responsável pela execução do pacote;
+    \item \textit{\textbf{Versão do Kernel:}} Necessário para agrupar as recomendações e preferências entre usuários com mesmo kernel;
+    \item \textit{\textbf{Distribuição do sistema:}} Necessário para agrupar as recomendações e preferências entre usuários com a mesma distribuição.
+    \item \textit{\textbf{Submissão do popularity-contest:}} Informação que é
+        utilizada para permitir executar os experimentos de comparação de
+        algoritmos.
+\end{itemize}
+
+A qualificação da recomendação também será analisada pela coleta de dados
+quanto a qual recomendação tem uma maior relevância para o usuário, onde
+uma recomendação é o conjunto de pacotes resultantes da execução do
+AppRecommender com certos parâmetros definidos. Segue o processo para
+coleta da relevância da recomendação para o usuário:
+
+\begin{itemize}
+    \item \textit{\textbf{Execução do AppRecommender:}} O AppRecommender é executado várias vezes com parâmetros diferentes, onde cada execução resulta em uma recomendação diferente;
+    \item \textit{\textbf{Agrupamento das recomendações:}} Todas as recomendações são agrupadas, ordenadas e são removidas as duplicações de pacotes entre as recomendações;
+    \item \textit{\textbf{Pontuação do usuário:}} Para cada pacote no agrupamento das recomendações é solicitado ao usuário que seja dada uma nota de 0 a 10 ao pacote;
+    \item \textit{\textbf{Armazenamento das informações:}} É coletado, ou seja, armazenado, cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
+\end{itemize}
+
+Para armazenar a coleta de dados é criado um diretório na raíz de diretórios
+do usuário, onde os dados coletados são
+armazenados em arquivos de texto, onde cada arquivo possui o nome de acordo
+com o dado que foi coletado e armazenado.
+
 
 \section{Engenharia de Atributos} \label{engenharia_atributos}
 
@@ -267,7 +310,7 @@ algoritmos como \textit{Term Frequency Inverse Document Frequency Sub-Linear}
 O perfil de usuário criado é então usado para consultar toda a base de pacotes
 do Debian. Isso é realizado através do \textit{apt-xapian-index}, uma aplicação
 que provê uma forma de busca pacotes no Debian por meio de Queries, sendo que no
-caso do AppRecommender, a query de busca é o perfil gerado para o usuários.
+caso do AppRecommender, a query de busca é o perfil gerado para o usuário.
 Finalmente, os pacotes retornados são então a recomendação final da aplicação.
 
 Dado esse conjunto de dados, o novo atributo que esta pesquisa pretende
@@ -296,11 +339,10 @@ atributos de tempo de um dado arquivo \cite{1_haas}:
 \end{itemize}
 
 Dessa forma, pode ser visto que o campo \textit{Access} de um arquivo é um dos
-principais indicadores de uso de um pacote. Entretanto, o Debian apresenta uma
+principais indicadores de uso de um pacote. Entretanto, o sistema de arquivos
+usado pode apresentar uma
 restrição neste campo. Isso acontece devido a como o sistema de arquivos é
-configurado,
-
-pois algumas flags especiais podem ser usadas para alterar como
+configurado, pois algumas flags especiais podem ser usadas para alterar como
 esse campo é preenchido \cite{2_wiki.debian.org}:
 
 \begin{itemize}
@@ -317,12 +359,12 @@ esse campo é preenchido \cite{2_wiki.debian.org}:
 
 O uso do relatime passou a ser default para montar o sistema de arquivos devido
 aos problemas de perfomance ocasionados pelo atime. Segundo Ingo Molnar, "atualizar o valor
-de atime é de longe uma das deficiências de performance que o Linux possuir
+de atime é de longe uma das maiores deficiências de performance que o Linux possui
 hoje" \cite{3_corbet_2007}. Sendo assim, as informações de contexto que serão
-usadas, tempo de acesso, modificação e mudança, são aproximações e assim não
+usadas, tempo de acesso, modificação e mudança, são aproximações e não
 refletem perfeitamente o contexto de uso dos pacotes.
 
-Sendo assim, a informação temporal de cada pacote será obtida pela seguinte
+Dessa forma, a informação temporal de cada pacote será obtida pela seguinte
 fórmula:
 
 ClassificaçãoTempo = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
@@ -348,15 +390,15 @@ pacote recentemente atualizado tenha um peso menor, pois devido ao fato de que
 tanto o tempo de acesso quanto o de modificação são iguais o resultado do
 numerador, no calculo da classificação do pacote, será zero
 
-Vale ressaltar que existe uma limitação quanto a pacotes indiretamente usados,
-como por exemplo linguagens de programação. Se um pacote precisar delas para
-executar qualquer uma de suas funcionalidades, o tempo de acesso das mesmas
-também será atualizado, mesmo que o usuário não tenha diretamente executado o
-pacote.
+Vale ressaltar que existe uma limitação quanto a essa abordagem, o caso de
+pacotes que são executados indiretamente pelo usuário. Existem alguns pacotes
+que são executados mesmo sem o usuário necessitar fazer isso manualmente. Dado
+este contexto, foi preferível retirar pacotes que apresentam tal comportamento
+na hora de selecionar todos os pacotes do usuário.
 
 \section{Teste de hipóteses}
 
-Conforme mencionado na seção \ref{sec:hipoteses}, esta pesquisa se prõpoem a
+Conforme mencionado na seção \ref{sec:hipoteses}, esta pesquisa se propõem a
 criar duas abordagens distintas para prover contexto nas recomendações sendo
 feitas. Esta seção irá mostrar como ocorrerá cada abordagem proposta.
 
@@ -366,7 +408,7 @@ A proposta da abordagem determinística é de usar uma fórmula que altere
 a criação do perfil de usuário através dos pacotes instalados que foram mais
 recentemente usados. A Figura \ref{fig:abordagem_deterministica}
 contém o fluxo usado para realizar uma
-recomendação utilzando a abordagem determinística.
+recomendação utilizando a abordagem determinística.
 
 \begin{figure}[h]
   \centering
@@ -434,10 +476,10 @@ construído pela abordagem de aprendizado de máquina.
 Sendo assim, o enfoque dessa abordagem é usar um algoritmo supervisionado
 para criar o perfil do usuário baseado em seus pacotes. Dessa forma, é
 necessário definir como cada pacote será apresentado para algoritmo, além de
-definir também o valor de cada pacotes.
+definir também o valor de cada pacote.
 
 Para o valor do pacote, definiu-se a seguinte escala de classificação baseada na
-fórmula proposta na seção de Engenharia de Atributos:
+fórmula proposta na seção de Engenharia de Atributos\ref{engenharia_atributos}:
 
 \begin{table}[h]
 \centering
@@ -457,18 +499,21 @@ fórmula proposta na seção de Engenharia de Atributos:
 
 
 Com a escala definida e as informações de tempo coletadas para cada pacote,
-pode-se então criar a classificação de cada pacote manualmente instalado pelo usuário.
+pode-se então criar a classificação de cada pacote manualmente instalado pelo
+usuário.
 Isso se dá tudo por um script automatizado \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender/tree/master/src/bin}}
 que irá realizar tal função.
 
-Uma vez classificados, os pacotes então podem ser usados como entrada para o algoritmo supervisionado.
+Uma vez classificados, os pacotes então podem ser usados como entrada para o
+algoritmo supervisionado, visando assim geral o perfil do usuário.
 Entretanto, ainda é necessário definir como os dados presentes no pacote serão usados de entrada para o
 algoritmo de aprendizado supervisionado. Considerando que os principais dados do pacote sendo usados na
 recomendação são as debtags e as palavras que compõem sua descrição, escolheu-se usar uma abordagem de
 vetor binário para cada um dos items. Sendo assim, os vetor de entrada será composto pela agregação de dois vetores
 binários.
 
-Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags definidas pelo Debian. Sendo assim, o
+Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags
+válidas definidas pelo AppRecommeder, sendo no caso 276 debtags. Sendo assim, o
 vetor binário irá representar as debtags ordenadas em ordem alfabética. Dessa forma,
 o vetor binário de um dado pacote irá conter o valor "0" caso o mesmo não contenha uma debtag e "1" caso a mesma se encontre
 no pacote. Por exemplo, dado um conjunto de três debtags role:program, implemented-in:c e devel:editor, e um pacote com a debtag
@@ -483,15 +528,19 @@ termos dos pacotes do usuário e aplicar o filtro de termos comuns, a abordagem 
 similar ao vetor binário das debtags, onde os termos estarão representados em ordem alfabética e caso o pacote contenha tal termo em sua
 descrição, a posição do vetor associado ao termo será marcada como "1".
 
-Com a combinação desses valores, chega-se então a forma final da forma de entrada de um pacote para o uso de algoritmos de aprendizado
-supervisionados. Observa-se também que para propósitos de  armazenamento, a classificação do pacote também é armazenada ao final da combinação
+Com a combinação desses valores, chega-se então a forma final da entrada de um pacote para o uso de algoritmos de aprendizado
+supervisionados. Observa-se também que para propósitos de armazenamento, a classificação do pacote também é armazenada ao final da combinação
 dos vetores binários dos termos e debtags. A Figura X mostra a versão final da formatação de dados de um pacote:
+
+OBS: Imagem ainda não incluída pois o vetor binário dos termos ainda não está
+sendo filtrado, gerando assim um vetor muito grande para caber em uma imagem.
 
 Por fim, os pacotes então podem finalmente ser usados para alimentar o algoritmo de aprendizado escolhido para a pesquisa, sendo no caso um
 classificador bayesiano. A escolha desse classe de algoritmo se deu por alguns fatores. O primeiro se dá pela popularidade do algoritmo para
 sistemas de recomendação por conteúdo \cite{amatriain2011data}. Outro fator que levou a escolha desse algoritmo é a sua capacidade de produzir
-modelos eficazes mesmo quando o número de dados de treinamento não são encontrados em abundância \cite{segaran2007programming}. Essa implicação
-quanto aos dados foi feita mediante uma análise do número de pacotes médios para dados usuários, levantamento também realizado por \cite{araujo2011apprecommender}.
+modelos eficazes sem necessitar um enorme processamento de dados, além do fato
+de que o modelo gerado é facilmente compreensível, diferente de outros métodos,
+como redes neurais\cite{segaran2007programming}.
 
 Vale ressaltar também que algoritmos de aprendizado supervisionados não-lineares foram considerados, como redes neurais. Entretanto, segundo
 a pesquisa realizada por \cite{pazzani1997learning} o uso de redes neurais em relação ao classificador bayesiano não mostra nenhuma melhoria
@@ -503,67 +552,4 @@ aprendizado de máquina serão usadas para verificar se o modelo gerado está sa
 identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
-sendo que apenas os pacotes classificados com EX ou G qualificados para a recomendação ao usuário.
-
-\section{Coleta de dados}
-
-A coleta de dados é o método no qual usuários do AppRecommender poderão
-colaborar com a melhoria do sistema, pois esses dados serão utilizados para
-análise de eficiência da recomendação para um perfil de usuário.
-
-Afim de obter dados do usuário tanto quanto aos pacotes que esse utiliza,
-suas preferências e perfil, serão coletados certos dados, sendo eles:
-
-\begin{itemize}
-    \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
-    \item \textit{\textbf{Pacotes manualmente instalados:}} Estes serão coletados para filtrar as preferências do usuário, para que quando comparado aos pacotes instalados se possa diferenciar pacotes que são automaticamente instalados dos que foram manualmente instalados;
-    \item \textit{\textbf{Tempo de acesso e de modificação dos pacotes:}} Estes dados serão usados afim de obter informação quanto a classificação do pacote em relação ao tempo que este foi utilizado;
-    \item \textit{\textbf{Caminho do binário de cada pacote:}} Dados coletados afim de se saber qual o binário responsável pela execução do pacote;
-    \item \textit{\textbf{Versão do Kernel:}} Necessário para agrupar as recomendações e preferências entre usuários com mesmo kernel;
-    \item \textit{\textbf{Distribuição do sistema:}} Necessário para agrupar as recomendações e preferências entre usuários com a mesma distribuição.
-    \item \textit{\textbf{Dados do popcon:}} Informação que é utilizada para permitir executar os experimentos afim de executar os experimentos de análise dos dados.
-\end{itemize}
-
-A qualificação da recomendação também será analisada pela coleta de dados
-quanto a qual recomendação tem uma maior relevância para o usuário, onde
-uma recomendação é o conjunto de pacotes resultantes da execução do
-AppRecommender com certos parâmetros definidos. Segue o processo para
-coleta da relevância da recomendação para o usuário:
-
-\begin{itemize}
-    \item \textit{\textbf{Execução do AppRecommender:}} O AppRecommender é executado várias vezes com parâmetros diferentes, onde cada execução resulta em uma recomendação diferente;
-    \item \textit{\textbf{Agrupamento das recomendações:}} Todas as recomendações são agrupadas, ordenadas e são removidas as duplicações de pacotes entre as recomendações;
-    \item \textit{\textbf{Pontuação do usuário:}} Para cada pacote no agrupamento das recomendações é solicitado ao usuário que seja dada uma nota de 0 a 10 ao pacote;
-    \item \textit{\textbf{Armazenamento das informações:}} É coletado, ou seja, armazenado, cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
-\end{itemize}
-
-Para armazenar a coleta de dados é criado um diretório na raíz de diretórios
-do usuário, onde os dados coletados são
-armazenados em arquivos de texto, onde cada arquivo possui o nome de acordo
-com o dado que foi coletado e armazenado.
-
-
-\section{Cópias}
-
-Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2,
-o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da
-Banca Examinadora.
-
-Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a
-versão final de seu trabalho à Secretaria da FGA na seguinte forma:
-
-\begin{description}
-	\item 01 cópia encadernada para arquivo na FGA;
-	\item 01 cópia não encadernada (folhas avulsas) para arquivo na FGA;
-	\item 01 cópia em CD de todos os arquivos empregados no trabalho;
-\end{description}
-
-A cópia em CD deve conter, além do texto, todos os arquivos dos quais se
-originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.)
-contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e
-arquivos para aplicações especificas (programas em Fortran, C, Matlab,
-etc.) estes deverão também ser gravados em CD.
-
-O autor deverá certificar a não ocorrência de “vírus” no CD entregue a
-secretaria.
-
+sendo que apenas os pacotes classificados com EX ou G serão qualificados para a recomendação ao usuário.
