@@ -376,21 +376,21 @@ recomendação utilzando a abordagem determinística.
 \end{figure}
 
 A abordagem determinística é a combinação da estratégia TFIDF combinada com
-uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF.Para
+uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF. Para
 isso acontecer, um dicionário associa cada termo, debtag ou palavra da
 descrição, aos pacotes onde os mesmos se encontram. Com esse dicionário criado,
 no momento que o TFIDF for calculado, o peso temporal do termo também é
 calculado e seus valores são enfim multiplicados.
 
-Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor de
-tempo para cada pacote associado aquele termo pela fórmula definida na seção Engenharia de
-Atributos \ref{sec:engenharia_atributos} para atribuir o valor a cada um dos
-pacotes.
+Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor da
+classificação no tempo para cada pacote através da fórmula definida na seção
+Engenharia de Atributos \ref{sec:engenharia_atributos} para atribuir o valor
+a cada um dos pacotes.
 
-Com esse valor calculado, é usado uma função de decaimento exponencial afim de atribuir mais peso
-para pacotes que foram recentemente usados, para que dessa forma, seja possível obter controle quanto a
-suavidade da curva que relaciona a classificação no tempo com o peso do pacote,
-assim utilizando a seguinte função:
+Com esse valor calculado, é necessário atribuir mais peso para pacotes que
+foram recentemente usados, sendo assim é usado uma função de decaimento
+exponencial para obter controle quanto a suavidade da curva que relaciona
+a classificação no tempo com o peso do pacote, utilizando a seguinte função:
 
 \textbf{PesoPacote} = C / $\exp\left(({1 - ClassificaçãoTempo}) * {\lambda}\right)$
 
