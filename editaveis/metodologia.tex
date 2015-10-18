@@ -152,7 +152,7 @@ A licença do AppRecommender e GNU GPL e o projeto está disponível em reposit�
 público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
 contribuir com o projeto. Dessa forma, o código fonte da aplicação
 AppRecommender pode ser encontrado no repositório de projetos [Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
-Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do 
+Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do
 mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
 
@@ -340,12 +340,13 @@ Onde:
 \end{itemize}
 
 
-A equação apresentada irá retornar um valor de 0 a 100, sendo que quanto mais
-perto de 100, mais recente é considerado o arquivo. Vale ressaltar que a fórmula
+A equação apresentada irá retornar um valor de 0 a 1, sendo que quanto mais
+perto de 1, mais recente é considerado o arquivo. Vale ressaltar que a fórmula
 também leva em conta o tempo de modificação, pois em algumas situações alterar o
 tempo de modificação também altera o tempo de acesso, podendo ocasionar que um
-pacote recentemente atualizado tenha um peso maior, mesmo que o usuário não
-tenha diretamente o executado.
+pacote recentemente atualizado tenha um peso menor, pois devido ao fato de que
+tanto o tempo de acesso quanto o de modificação são iguais o resultado do
+numerador, no calculo da classificação do pacote, será zero
 
 Vale ressaltar que existe uma limitação quanto a pacotes indiretamente usados,
 como por exemplo linguagens de programação. Se um pacote precisar delas para
@@ -379,7 +380,7 @@ uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF.Para
 isso acontecer, um dicionário associa cada termo, debtag ou palavra da
 descrição, aos pacotes onde os mesmos se encontram. Com esse dicionário criado,
 no momento que o TFIDF for calculado, o peso temporal do termo também é
-calculado e seus valores são enfim multiplicados. 
+calculado e seus valores são enfim multiplicados.
 
 Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor de
 tempo para cada pacote associado aquele termo pela fórmula definida na seção Engenharia de
