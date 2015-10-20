@@ -8,16 +8,9 @@ baseada na definição proposta por Silva e Menezes, que afirmam que toda pesqui
 tem como objetivo encontrar respostas para hipóteses propostas
 \cite{da2005metodologia}
 
-Com essa definição em pauta, a hipótese proposta para a execução deste trabalho foi a seguinte:
-
-\begin{center}
-\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
-usuários de sistemas GNU/Linux levando em consideração o contexto de uso dos pacotes já instalados ?}
-\end{center}
-
-Baseado nesta hipótese central, pode-se ver que a pesquisa sendo desevolvida se
-enquadra como aplicada, quantitativa, exploratória, bibliográfica e
-experimental.
+Com o intuito de classificar a pesquisa sendo desevolvida, observou-se que a
+mesma se enquadra como aplicada, quantitativa, exploratória, bibliográfica e
+experimental \cite{da2005metodologia}.
 
 
 \section{Trabalhos relacionados}
@@ -43,17 +36,29 @@ do concurso criado pelo Netflix para aumentar a acurácia de suas recomendaçõe
 realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
 
 
-\section{Hipóteses} \label{sec:hipoteses}
+\section{Planejamento da pesquisa}
 
-Considerando um sistema de recomendação para pacotes usando o tempo como variável de contexto, as seguintes hipóteses foram definidas:
+Tendo como base os conceitos de recomendação apresentados e a forma dinâmica com
+que usuários instalam e usam novos pacotes em seus próprios sistemas, esta
+pesquisa visa então responder a seguinte questão problema:
 
-\begin{itemize} \item \textit{\textbf{Ao aumentar o peso de pacotes
+\begin{center}
+\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
+usuários de sistemas GNU/Linux levando em consideração o contexto de uso dos pacotes já instalados ?}
+\end{center}
+
+\subsection{Hipóteses} \label{sec:hipoteses}
+
+Considerando a questão problema definida, as seguintes hipóteses foram definidas
+como forma de validação:
+
+\begin{itemize} \item \textit{\textbf{h1:  Ao aumentar o peso de pacotes
 recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
 ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
 pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
 do perfil, acredita-se que a mesma irá produzir um perfil mais
 consistente do usuário, gerando assim recomendações mais efetivas.\item
-\textit{\textbf{Uma abordagem por aprendizado de máquina irá se comportar melhor
+\textit{\textbf{h2: Uma abordagem por aprendizado de máquina irá se comportar melhor
         que uma determinística para o problema proposto}}
 Considerando os dados presentes em pacotes Debian que podem ser
 usados para prover a recomendação, pode-se entender que o uso de uma abordagem
@@ -61,67 +66,20 @@ por aprendizado de máquina irá prover melhores resultados, devido a possível
 complexidade dos relacionamentos entre os atribuitos dos pacotes.
 \end{itemize}
 
-\section{Planejamento da pesquisa}
+\subsection{Seleção do projeto}
 
-Com o intuito de responder a questão principal do trabalho, juntamente com as
-hipóteses propostas, um fluxo de trabalho foi definido. A Figura
-\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+Para validar as hipóteses levantadas, faz-se necessário escolher um projeto
+um projeto software livre que implemente um sistema de recomendação de pacotes
+para sistemas GNU/Linux e que não use nenhuma informação de contexto em suas
+recomendações, de forma a permitir a comparação das abordagens propostas com as
+já implementadas pelo projeto.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
-  \caption{Processo usando para realização das atividades dessa pesquisa}
-  \label{fig:planejamento_pesquisa}
-\end{figure}
+\subsubsection{Descrição do projeto selecionado}
 
-\begin{enumerate}
-
-    \item \textbf{Selecionar projeto:}
-Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
-a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
-dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
-
-    \item \textbf{Obter código fonte:}
-Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
-
-    \item \textbf{Analisar projeto selecionado:}
-Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
-
-    \item \textbf{Coletar dados:}
-Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
-
-    \item \textbf{Analisar dados:}
-Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
-
-    \item \textbf{Executar projeto selecionado:}
-Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
-
-    \item \textbf{Coletar informações temporais:}
-Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
-
-    \item \textbf{Implementar abordagem deterministica:}
-Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
-
-    \item \textbf{Implementar abordagem por aprendizado de máquina:}
-Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
-
-    \item \textbf{Comparar resultados:}
-Para responder as hipóteses propostas será necessário não só comporar as duas
-abordagens propostas, determinística e não determinística, e sim comparar ambas
-também com as abordagens já implementadas pelo projeto proposto e verificar se
-as hipótes se sustentam.
-
-    \item \textbf{Realizar conclusões:}
-Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
-\end{enumerate}
-
-
-\section{Descrição do projeto selecionado}
-
-O projeto selecionado para testar as hipóteses foi o AppRecommender, um sistema de recomendação de aplicativos GNU/Linux,
-cuja principal característica é recomendar aplicações, onde “dada a lista de programas instalados em
-determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
-supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
+O projeto selecionado que atendia os requisitos propostos para a pesquisa foi o AppRecommender,
+um sistema de recomendação de aplicativos GNU/Linux, cuja principal característica é recomendar aplicações,
+onde “dada a lista de programas instalados em determinado sistema, o recomendador retorna uma lista de aplicativos
+sugeridos, que supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
 \cite{araujo2011apprecommender}.
 
 O AppRecommender possui três categorias para estratégias de recomendação, onde cada
@@ -147,11 +105,11 @@ de cada categoria de estratégia:
     afim de se obter diferentes recomendações.
 \end{itemize}
 
-O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
-partir do diretório do AppRecommender [Github
-    \footnote{\url{https://github.com/tassia/AppRecommender}}. Os
-argumentos utilizados na execução desse script determinam a categoria e a estratégia
-de recomendação a ser utilizada.
+Vale ressaltar que para recomendações colaborativas e híbridas, o AppRecommender
+utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo,
+entretanto esse não é o caso para recomendações puramente baseada em conteúdo,
+fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
+projeto.
 
 A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
 público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
@@ -160,10 +118,17 @@ AppRecommender pode ser encontrado no repositório de projetos [Github \footnote
 Vale ressaltar que as modificações realizadas foram realizadas em uma cópia local do
 mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
+\subsection{Coleta de dados}
 
-\section{Análise dos Dados}
+Nesta seção, serão descritos os dados necessários para a execução do
+AppRecommender, juntamente com os dados necessários para a coleta de
+informação contextual de tempo dos pacotes do usuário durante a
+recomendação.
 
-Para o projeto selecionado, a análise realizada pode ser vista na Tabela
+\subsubsection{AppRecommender}
+
+Para o projeto selecionado, observou-se a necessidade de diversos tipos
+de dados, que podem ser vistos na Tabela
 \ref{tab:dados_apprecommender}. Tal tabela mostra os dados usados no
 AppRecommender e como os mesmos podem ser obtidos.
 
@@ -221,6 +186,63 @@ desses dados, porém em menor escala do que uma recomendação colaborativa.
 Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
+
+
+Com o intuito de responder a questão principal do trabalho, juntamente com as
+hipóteses propostas, um fluxo de trabalho foi definido. A Figura
+\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
+  \caption{Processo usando para realização das atividades dessa pesquisa}
+  \label{fig:planejamento_pesquisa}
+\end{figure}
+
+\begin{enumerate}
+
+    \item \textbf{Selecionar projeto:}
+Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
+a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
+dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
+
+    \item \textbf{Obter código fonte:}
+Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
+
+    \item \textbf{Analisar projeto selecionado:}
+Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
+
+    \item \textbf{Coletar dados:}
+Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
+
+    \item \textbf{Analisar dados:}
+Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
+
+    \item \textbf{Executar projeto selecionado:}
+Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
+
+    \item \textbf{Coletar informações temporais:}
+Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
+
+    \item \textbf{Implementar abordagem deterministica:}
+Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
+
+    \item \textbf{Implementar abordagem por aprendizado de máquina:}
+Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
+
+    \item \textbf{Comparar resultados:}
+Para responder as hipóteses propostas será necessário não só comporar as duas
+abordagens propostas, determinística e não determinística, e sim comparar ambas
+também com as abordagens já implementadas pelo projeto proposto e verificar se
+as hipótes se sustentam.
+
+    \item \textbf{Realizar conclusões:}
+Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
+\end{enumerate}
+
+
+
+\section{Análise dos Dados}
 
 \section{Coleta de dados}
 
