@@ -139,34 +139,27 @@ AppRecommender e como os mesmos podem ser obtidos.
 \hline
 \rowcolor[HTML]{EFEFEF}
 {\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
-Lista de pacotes válidos &
-\parbox{10cm}{Esta lista irá ser usada na criação de uma índice de busca Xapian,
-que será usado para realizar a recomendação} &
-\parbox{10cm}{Pode-se usar os scripts get\_axipkgs.py obter todos os possíveis
-pacotes Debian,ou usar o script get\_programs.sh, que irá selecionar
-só pacotes que contém a Debtag role::program, indicando que o mesmo é um
-pacote executável.}\\ \hline
-Índice xapian de pacotes do usuário &
+Lista de nome dos pacotes válidos &
+\parbox{10cm}{Esta lista irá ser usada na construção de uma índice de busca
+usado para buscar os pacotes que podem ser recomendados} &
+Coleta automatizada via script \\ \hline
+Índice de busca para os pacotes do usuário &
 \parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
  colaborativas e híbridas}&
-\parbox{10cm}{Este Índice pode ser gerado via execução do script indexer\_axi.py
- passando os parâmetros certos}\\ \hline
+Criação automatizada via script\\ \hline
 Debtags válidas&
 \parbox{10cm}{Usado para filtrar os pacote que serão usados na
 recomendação}&
-\parbox{10cm}{Pode ser obtido pelo script get\_tags.py}\\ \hline
+Coleta automatizada via script\\ \hline
 Submissões do popularity contest&
-\parbox{10cm}{Usada para criar um índice Xapian de submissões do
+\parbox{10cm}{Usada para criar um índice de busca contendo as submissões do
 popularity-contest}&
-\parbox{10cm}{O projeto não provê uma forma automatizada de coletar tais dados,
-devido ao fato do mantenedor do popularity-contest não fornecer tais dados.}\\ \hline
-Indíce Xapian para submissões do popularity contest &
+\parbox{10cm}{Dados precisam ser manualmente coletados}\\ \hline
+Indíce de busca para submissões do popularity contest &
 \parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
 híbridas, assim como para a execução dos experimentos usados
 para avaliar as soluções desenvolvidas.} &
-\parbox{10cm}{Pode ser obtido pela execução do script indexer\_popcon.py.
-Entretanto, vale ressaltar que esse script parte do princípio que já existem
-submissões do popularity contest coletadas previamente.}\\ \hline
+\parbox{10cm}{Criação automatizada via script}\\ \hline
 \end{tabular}}
 \caption{Dados necessários para execução do AppRecommender}
 \label{tab:dados_apprecommender}
@@ -178,14 +171,14 @@ por scripts de coleta. Entretanto, este não é o caso para as submissões do
 popularity contest. Isso se dá pelo fato da aplicação não disponibilizar as submissões
 propriamente ditas, e sim as análises estatísticas feitas em cima das mesmas. Para o
 AppRecommender, tais dados foram obtidos por intermédio de um Debian Developer, sendo
-que algumas questões de relacionada a privacidade dos usuários se tornou necessária.
+que algumas questões relacionadas a privacidade dos usuários se tornou necessária.
 \cite{araujo2011apprecommender}. Tal problemática dificulta bastante o uso das
-estratégias colaborativas do AppRecommender, pois dependem desse banco de dados
+estratégias colaborativas do AppRecommender, pois as mesmas dependem desse banco de dados
 de submissões do popularity-contest. Entretanto, foi levantado também que os
 experimentos de comparação entre os algoritmos implementados também dependem
 desses dados, porém em menor escala do que uma recomendação colaborativa.
 Dessa forma, foi necessário pensar em uma estratégia
-de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
+de como coletar tais dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
 
 
