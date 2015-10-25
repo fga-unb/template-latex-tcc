@@ -47,6 +47,18 @@ pesquisa visa então responder a seguinte questão problema:
 usuários de sistemas GNU/Linux levando em consideração o contexto de uso dos pacotes já instalados ?}
 \end{center}
 
+Vale ressaltar que para responder esta questão problema, um conjunto de
+hipóteses foi criada e também um fluxo de trabalho, conforme pode ser visto na
+Figura \ref{fig:planejamento_pesquisa}. As hipóteses e o fluxo definido serão
+explicados nas seções à seguir.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
+  \caption{Processo usando para realização das atividades dessa pesquisa}
+  \label{fig:planejamento_pesquisa}
+\end{figure}
+
 \subsection{Hipóteses} \label{sec:hipoteses}
 
 Considerando a questão problema definida, as seguintes hipóteses foram definidas
@@ -341,20 +353,22 @@ pacotes e o tempo de acesso e modificação de acada um deles. A Figura
 Conforme pode ser observado na Figura \ref{fig:submissao_popcon}, após a
 primeira linha de cabeçalho, cada linha da submissão possui o seguinte formato:
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
-\begin{tabular}{cc}
+\newcommand\T{\rule{0pt}{2.8ex}}
+\newcommand\B{\rule[-1.8ex]{0pt}{0pt}}
+\begin{tabularx}{15cm}{| c | X |}
 \hline
 \rowcolor[HTML]{EFEFEF}
-{Campo} & {Descrição} \\ \hline
+{\textbf{Campo}} & \textbf{Descrição} \\ \hline
 {Tempo de acesso}  & Última vez que o arquivo foi acessado \\ \hline
 {Tempo de mudança}   & Última vez que informações do inode do arquivo foi
                        modificada\\ \hline
 {Nome}   & Nome do pacote                  \\ \hline
 {Caminho do pacote}   & Local onde o pacote se encontra no sistema \\ \hline
 {Tag}   & Campo opcional que pode classificar o pacote com algumas considerações
-          temporais, como se o mesmo é recente ou antigo\\ \hline
-\end{tabular}
+temporais, como se o mesmo é recente ou antigo\\ \hline
+\end{tabularx}
 \caption{Descrição dos campos de uma submissão ao popularity contest}
 \label{tab:submissao_popcon}
 \end{table}
@@ -368,7 +382,7 @@ aqueles com submissões mais próximas do perfil do usuário. Sendo assim, para 
 recomendações colaborativas, é necessário conter as submissões de vários
 usuários do popularity-contest, para que a vizinhança criada seja significativa.
 
-\subsubsection{Contexto temporal}
+\subsubsection{Contexto temporal} \label{sec:contexto_temporal}
 
 Dado esse conjunto de dados usados no AppRecommender, a pesquisa resolveu
 adicionar o contexto temporal apenas em recomendações baseadas em conteúdo. Isso
@@ -481,67 +495,14 @@ possuem uma das prioridades sendo filtradas, mas um processamento adicional é
 realizado para garantir que os pacotes contendo linguagens de programação
 continuem no perfil do usuário.
 
-Com o intuito de responder a questão principal do trabalho, juntamente com as
-hipóteses propostas, um fluxo de trabalho foi definido. A Figura
-\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+\subsection{Teste de hipótese}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
-  \caption{Processo usando para realização das atividades dessa pesquisa}
-  \label{fig:planejamento_pesquisa}
-\end{figure}
+Esta seção irá descrever como esta pesquisa pretende responder as hipóteses
+levantadas, mostrando assim como as duas abordagens propostas pelas hipóteses
+levantadas no projeto serão implementadas, assim como os resultados das mesmas
+serão comparadas entre si e com as abordagens já usadas no projeto selecionado.
 
-\begin{enumerate}
-
-    \item \textbf{Selecionar projeto:}
-Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
-a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
-dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
-
-    \item \textbf{Obter código fonte:}
-Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
-
-    \item \textbf{Analisar projeto selecionado:}
-Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
-
-    \item \textbf{Coletar dados:}
-Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
-
-    \item \textbf{Analisar dados:}
-Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
-
-    \item \textbf{Executar projeto selecionado:}
-Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
-
-    \item \textbf{Coletar informações temporais:}
-Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
-
-    \item \textbf{Implementar abordagem deterministica:}
-Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
-
-    \item \textbf{Implementar abordagem por aprendizado de máquina:}
-Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
-
-    \item \textbf{Comparar resultados:}
-Para responder as hipóteses propostas será necessário não só comporar as duas
-abordagens propostas, determinística e não determinística, e sim comparar ambas
-também com as abordagens já implementadas pelo projeto proposto e verificar se
-as hipótes se sustentam.
-
-    \item \textbf{Realizar conclusões:}
-Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
-\end{enumerate}
-
-
-
-\section{Teste de hipóteses}
-
-Conforme mencionado na seção \ref{sec:hipoteses}, esta pesquisa se propõem a
-criar duas abordagens distintas para prover contexto nas recomendações sendo
-feitas. Esta seção irá mostrar como ocorrerá cada abordagem proposta.
-
-\subsection{Abordagem determinística}
+\subsubsection{Abordagem determinística}
 
 A proposta da abordagem determinística é de usar uma fórmula que altere
 a criação do perfil de usuário através dos pacotes instalados que foram mais
@@ -558,14 +519,14 @@ recomendação utilizando a abordagem determinística.
 
 A abordagem determinística é a combinação da estratégia TFIDF combinada com
 uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF. Para
-isso acontecer, um dicionário associa cada termo, debtag ou palavra da
+isso acontecer, um dicionário associa cada termo, debtag ou termo da
 descrição, aos pacotes onde os mesmos se encontram. Com esse dicionário criado,
 no momento que o TFIDF for calculado, o peso temporal do termo também é
 calculado e seus valores são enfim multiplicados.
 
 Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor da
 classificação no tempo para cada pacote através da fórmula definida na seção
-Engenharia de Atributos \ref{sec:engenharia_atributos} para atribuir o valor
+Contexto Temporal \ref{sec:contexto_temporal} para atribuir o valor
 a cada um dos pacotes.
 
 Com esse valor calculado, é necessário atribuir mais peso para pacotes que
@@ -582,29 +543,34 @@ aplicação, e os valores achados que mais otimizaram a recomendação foram:
 
 \textbf{$\lambda$} = 1
 
-Após calcular o peso de cada pacote do termo, o peso to termo é obtido
-através da média aritmética dos pesos dos pacotes relacionados ao dado termo.
+Após calcular o peso de cada pacote do termo, o valor final é obtido ao se obter
+os cinco pacotes com maior valor e dividir o valor encontrado por cinco. Caso o
+termo não possua mais do que cinco pacotes associados, o menor valor do pacote
+associado ao termo será usado para preencher a lista dos pacotes faltando, sendo
+que o peso do pacote será descrecido de um valor para cada pacote no qual o mesmo irá
+preencher uma lacuna. Por exemplo, dado um termo x, que possui três pacotes
+associados com os seguintes pesos: [0.9, 0.8, 0.7], para preencher cinco
+pacotes, o valor de 0.7 seria replicado até o número de pacotes ser cinco, e em
+cada uma das iterações, tal valor seria decrescido por 0.05, logo o valor final
+da lista de pesos seria [0.9, 0.8, 0.7, 0.65, 0.6].
+
 Com o valor temporal calculado, pode-se enfim multiplicar tal valor com o TFIDF
 obtido para o dado termo. Este processo é realizado para todos os termos usados
 para se obter o perfil do usuário.
 
-Vale ressaltar que o TFIDF foi usado em relação ao ESet por permitir está fácil
-manipulação do peso temporal na construção do perfil no usuário, ao contrário do
-algoritmo ESet, onde seria necessário escolher não os termos mais usados, e sim
-os pacotes mais recentemente usados para realização da expansão de query. Apesar
-de também ser possível utilizar informação temporal neste contexto, foi
+Vale ressaltar que apesar de também ser possível utilizar informação temporal neste contexto, foi
 preferido utilizar o TFIDF inicialmente, visando entender como cada termo é
 priorizado dado a questão temporal proposta.
 
-\subsection{Aprendizado de máquina}
+\subsubsection{Aprendizado de máquina}
 
 Um dos problemas de se usar apenas a abordagem determinística é uma limitação
 encontrada no \textit{apt-xapian-index}, onde não é possível priorizar queries
-individuais quando se faz uma busca, por exemplo, dado que na criação do perfil
-do usuário, têm-se que o termo "python" apresentou um peso maior que "ruby", mas
-ambos os termos estão presentes na query de busca. Quando a busca for realizada,
-o peso dos termos será ignorado, tornando os termos equivalentes, mesmo que para
-o perfil do usuário eles não o são.
+individuais quando se faz uma busca, por exemplo, dado que o perfil
+do usuário possui os termos "python" e "ruby", sendo que o primeiro termo
+apresentou um peso maior que o segundo, na hora da criação da query, os pesos
+dos termos seria ignorado. Logo, quando a busca for realizada os termos serão
+equivalentes, mesmo que para o perfil do usuário eles não o são.
 
 Dessa forma, para a abordagem por aprendizado de máquina, escolheu-se aplicar a
 metodologia de filtragem pós-recomendação. Para a projeto em mãos, isso
@@ -615,10 +581,10 @@ construído pela abordagem de aprendizado de máquina.
 Sendo assim, o enfoque dessa abordagem é usar um algoritmo supervisionado
 para criar o perfil do usuário baseado em seus pacotes. Dessa forma, é
 necessário definir como cada pacote será apresentado para algoritmo, além de
-definir também o valor de cada pacote.
+definir também a categoria de cada pacote.
 
-Para o valor do pacote, definiu-se a seguinte escala de classificação baseada na
-fórmula proposta na seção de Engenharia de Atributos\ref{engenharia_atributos}:
+Para a categoria do pacote, definiu-se a seguinte escala de classificação baseada na
+fórmula proposta na seção Contexto Temporal \ref{sec:contexto_temporal}:
 
 \begin{table}[h]
 \centering
@@ -626,11 +592,11 @@ fórmula proposta na seção de Engenharia de Atributos\ref{engenharia_atributos
 \hline
 \rowcolor[HTML]{EFEFEF}
 {Escala} & {Valores} \\ \hline
-{Excelent(EX)}  & ClassificaçãoTempo >= 80                  \\ \hline
-{Great(G)}   & ClassificaçãoTempo >= 70                  \\ \hline
-{Medium(M)}   & ClassificaçãoTempo >= 50                  \\ \hline
-{Bad(B)}   & ClassificaçãoTempo >= 30                  \\ \hline
-{Horrible(H)}   &ClassificaçãoTempo<30                   \\ \hline
+{Excelent(EX)}  & ClassificaçãoTempo >= 0.8                  \\ \hline
+{Great(G)}   & ClassificaçãoTempo >= 0.7                  \\ \hline
+{Medium(M)}   & ClassificaçãoTempo >= 0.5                  \\ \hline
+{Bad(B)}   & ClassificaçãoTempo >= 0.3                  \\ \hline
+{Horrible(H)}   &ClassificaçãoTempo<0.3                   \\ \hline
 \end{tabular}
 \caption{Escala para classificação de um pacote baseado em seus atributos de tempo}
 \label{tab:classificacao_pacotes}
@@ -647,11 +613,11 @@ Uma vez classificados, os pacotes então podem ser usados como entrada para o
 algoritmo supervisionado, visando assim geral o perfil do usuário.
 Entretanto, ainda é necessário definir como os dados presentes no pacote serão usados de entrada para o
 algoritmo de aprendizado supervisionado. Considerando que os principais dados do pacote sendo usados na
-recomendação são as debtags e as palavras que compõem sua descrição, escolheu-se usar uma abordagem de
+recomendação são as Debtags e os termos que compõem sua descrição, escolheu-se usar uma abordagem de
 vetor binário para cada um dos items. Sendo assim, os vetor de entrada será composto pela agregação de dois vetores
 binários.
 
-Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags
+Para as Debtags, o vetor binário irá ter o tamanho igual ao número de Debtags
 válidas definidas pelo AppRecommeder, sendo no caso 276 debtags. Sendo assim, o
 vetor binário irá representar as debtags ordenadas em ordem alfabética. Dessa forma,
 o vetor binário de um dado pacote irá conter o valor "0" caso o mesmo não contenha uma debtag e "1" caso a mesma se encontre
@@ -659,7 +625,8 @@ no pacote. Por exemplo, dado um conjunto de três debtags role:program, implemen
 role:program associado a ele, o seu vetor binário seria o seguinte: [0, 0, 1].
 
 Para os termos da descrição, a formatação do vetor é um pouco diferente. Primeiramente, optou-se por usar os termos apenas presentes
-nos pacotes manualmente instalados do usuário e não no banco de dados do Debian. Isso se dá para reduzir o tamanho do vetor e também
+nos pacotes manualmente instalados do usuário e não na lista de pacotes válidos
+usados pela aplicação. Isso se dá para reduzir o tamanho do vetor e também
 pelo fato de que se um termo não aparece em nenhum pacote instalado pelo usuário, o mesmo em tese não terá nenhum peso relevante na
 classificação. Além disso, foi necessário retirar termos comuns do vetor de termos produzido, como por exemplo os termos "a" e "the" que
 aparecem em praticamente todo pacote mas não representam nenhuma vantagem na hora de avaliar um pacote. Uma vez gerado o vetor de todos os
@@ -669,10 +636,7 @@ descrição, a posição do vetor associado ao termo será marcada como "1".
 
 Com a combinação desses valores, chega-se então a forma final da entrada de um pacote para o uso de algoritmos de aprendizado
 supervisionados. Observa-se também que para propósitos de armazenamento, a classificação do pacote também é armazenada ao final da combinação
-dos vetores binários dos termos e debtags. A Figura X mostra a versão final da formatação de dados de um pacote:
-
-OBS: Imagem ainda não incluída pois o vetor binário dos termos ainda não está
-sendo filtrado, gerando assim um vetor muito grande para caber em uma imagem.
+dos vetores binários dos termos e debtags.
 
 Por fim, os pacotes então podem finalmente ser usados para alimentar o algoritmo de aprendizado escolhido para a pesquisa, sendo no caso um
 classificador bayesiano. A escolha desse classe de algoritmo se deu por alguns fatores. O primeiro se dá pela popularidade do algoritmo para
@@ -692,3 +656,8 @@ identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
 sendo que apenas os pacotes classificados com EX ou G serão qualificados para a recomendação ao usuário.
+
+\subsubsection{Comparação dos resultados}
+
+TBD
+
