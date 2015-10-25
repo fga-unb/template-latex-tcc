@@ -52,14 +52,14 @@ usuários de sistemas GNU/Linux levando em consideração o contexto de uso dos 
 Considerando a questão problema definida, as seguintes hipóteses foram definidas
 como forma de validação:
 
-\begin{itemize} \item \textit{\textbf{h1:  Ao aumentar o peso de pacotes
+\begin{itemize} \item \textit{\textbf{h1:Ao aumentar o peso de pacotes
 recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
 ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
 pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
 do perfil, acredita-se que a mesma irá produzir um perfil mais
 consistente do usuário, gerando assim recomendações mais efetivas.\item
 \textit{\textbf{h2: Uma abordagem por aprendizado de máquina irá se comportar melhor
-        que uma determinística para o problema proposto}}
+que uma determinística para o problema proposto}}
 Considerando os dados presentes em pacotes Debian que podem ser
 usados para prover a recomendação, pode-se entender que o uso de uma abordagem
 por aprendizado de máquina irá prover melhores resultados, devido a possível
@@ -181,64 +181,13 @@ Dessa forma, foi necessário pensar em uma estratégia
 de como coletar tais dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
 
+Vale ressaltar também que esses foi levantando o fato de que as recomendações
+colaborativas dependiam também de um serviço fornecido pela infra-estrutura do
+Debian, chamado de Debian Data Export, que era usado para facilitar a criação de
+queries no Ultimate Debian Database. Entretanto, este serviço se encontra
+atualmente fora do ar, sendo por isso não considerado na execução da pesquisa.
 
-Com o intuito de responder a questão principal do trabalho, juntamente com as
-hipóteses propostas, um fluxo de trabalho foi definido. A Figura
-\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
-  \caption{Processo usando para realização das atividades dessa pesquisa}
-  \label{fig:planejamento_pesquisa}
-\end{figure}
-
-\begin{enumerate}
-
-    \item \textbf{Selecionar projeto:}
-Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
-a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
-dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
-
-    \item \textbf{Obter código fonte:}
-Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
-
-    \item \textbf{Analisar projeto selecionado:}
-Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
-
-    \item \textbf{Coletar dados:}
-Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
-
-    \item \textbf{Analisar dados:}
-Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
-
-    \item \textbf{Executar projeto selecionado:}
-Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
-
-    \item \textbf{Coletar informações temporais:}
-Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
-
-    \item \textbf{Implementar abordagem deterministica:}
-Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
-
-    \item \textbf{Implementar abordagem por aprendizado de máquina:}
-Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
-
-    \item \textbf{Comparar resultados:}
-Para responder as hipóteses propostas será necessário não só comporar as duas
-abordagens propostas, determinística e não determinística, e sim comparar ambas
-também com as abordagens já implementadas pelo projeto proposto e verificar se
-as hipótes se sustentam.
-
-    \item \textbf{Realizar conclusões:}
-Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
-\end{enumerate}
-
-
-
-\section{Análise dos Dados}
-
-\section{Coleta de dados}
+\subsubsection{Usuários}
 
 Considerando a necessidade da obtenção dos dados de submissões do
 popularity-contest,sistema, foi necessário realizar a coleta dessas submissões
@@ -257,30 +206,62 @@ informações adicionais:
         algoritmos.
 \end{itemize}
 
-A qualificação da recomendação também será analisada pela coleta de dados
-quanto a qual recomendação tem uma maior relevância para o usuário, onde
-uma recomendação é o conjunto de pacotes resultantes da execução do
-AppRecommender com certos parâmetros definidos. Segue o processo para
-coleta da relevância da recomendação para o usuário:
+Com as duas abordagens propostas, também será realizado um teste quanto a
+qualidade da recomendação por usuários reais de sistemas Debian ou distros
+derivadas. Para isso, serão recomendados diversos pacote cada um usando uma
+abordagem diferente, segue para isso o seguinte processo foi definido:
 
 \begin{itemize}
-    \item \textit{\textbf{Execução do AppRecommender:}} O AppRecommender é executado várias vezes com parâmetros diferentes, onde cada execução resulta em uma recomendação diferente;
+    \item \textit{\textbf{Execução do AppRecommender:}} O AppRecommender é
+        executado várias vezes com abordagens diferentes, onde cada execução resulta em uma recomendação diferente;
     \item \textit{\textbf{Agrupamento das recomendações:}} Todas as recomendações são agrupadas, ordenadas e são removidas as duplicações de pacotes entre as recomendações;
     \item \textit{\textbf{Pontuação do usuário:}} Para cada pacote no agrupamento das recomendações é solicitado ao usuário que seja dada uma nota de 0 a 10 ao pacote;
-    \item \textit{\textbf{Armazenamento das informações:}} É coletado, ou seja, armazenado, cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
+    \item \textit{\textbf{Armazenamento das informações:}} É coletado cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
 \end{itemize}
 
-Para armazenar a coleta de dados é criado um diretório na raíz de diretórios
-do usuário, onde os dados coletados são
-armazenados em arquivos de texto, onde cada arquivo possui o nome de acordo
-com o dado que foi coletado e armazenado.
+\subsection{Análise dos Dados}
 
+Este seção irá mostrar a análise dos dados que são atualmente usados no
+AppRecommender, além de também apresentar os dados que a pesquisa pretende
+introduzir no seu processo de recomendação.
 
-\section{Engenharia de Atributos} \label{engenharia_atributos}
+\subsubsection{AppRecommender} \label{engenharia_atributos}
 
-Considerando as limitações da obtenção de dados já discutidas, a pesquisa teve
-como objetivo então se focar na recomendação baseada em conteúdo. Dessa forma,
-vale a pena detalhar os dados usados para fazer essa recomendação.
+Considerando a Tabela \ref{tab:dados_apprecommender}, pode se ver que tirando os
+indíces de buscas, existem três tipos de dados principais, sendo o primeiro
+deles a lista de pacotes validos no Debian. Esta lista é basicamente composta
+por todos os pacotes sendo usados no Debian, entretanto algumas considerações
+precisam ser feitas. A primeira delas é que esta lista é obtida conforme as
+configurações do \textit{sources.list} do usuário. Este arquivo é responsável
+por dizer ao \textit{apt} onde o mesmo irá encontrar os arquivos binários ou
+arquivos fonte dos pacote. A Figura \ref{fig:source_list} mostra o conteúdo deste arquivo:
+\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/source_list.eps}
+  \caption{Arquivo source.list de um sistema Debian}
+  \label{fig:source_list}
+\end{figure}
+
+Conforme visto na Figura \ref{fig:source_list}, pode-se ver que a mesma indica
+pelo rótulo \textit{deb} onde irá puxar os arquivos binários e pelo
+\textit{deb-src} onde o mesmo irá puxar os arquivos fonte. Além disso, após o
+link de cada um dos rótulos, existem também atributos, sendo eles a distribuição
+do usuário e os componentes da mesma. Na figura, pode-se ver que o usuário está
+usando a distribuição unstable do Debian. Além disso, o Debian pode possuir três
+tipos de pacotes, sendo eles:
+
+\begin{itemize}
+    \item \textbf{Main:} pacotes totalmente software livre;
+    \item \textbf{Contrib:} pacotes software livre, mas que dependem de
+        softwares não livres;
+    \item \textbf{Non-free:} pacotes que não são software livre;
+\end{itemize}
+
+Sendo assim, como a lista de pacotes válidos é obtida localmente, a mesma irá ser baseada tanto na
+distribuição que o usuário usa, além dos componentes que o mesmo possui no seu
+\textit{sources.list}.
 
 Considerando que apenas pacotes Debian podem ser recomendados, os dados sendo
 usados atualmente para a realização de uma recomendação podem ser vistos no
@@ -411,6 +392,61 @@ pacotes que são executados indiretamente pelo usuário. Existem alguns pacotes
 que são executados mesmo sem o usuário necessitar fazer isso manualmente. Dado
 este contexto, foi preferível retirar pacotes que apresentam tal comportamento
 na hora de selecionar todos os pacotes do usuário.
+
+
+Com o intuito de responder a questão principal do trabalho, juntamente com as
+hipóteses propostas, um fluxo de trabalho foi definido. A Figura
+\ref{fig:planejamento_pesquisa} sistematiza tal fluxo, facilitando assim a visualização do processo adotado.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
+  \caption{Processo usando para realização das atividades dessa pesquisa}
+  \label{fig:planejamento_pesquisa}
+\end{figure}
+
+\begin{enumerate}
+
+    \item \textbf{Selecionar projeto:}
+Selecionar um projeto de software livre que implemente um sistema de recomendação baseada em conteúdo e que não leve em consideração questões temporais do pacote quando se realiza tanto
+a criação do perfil de usuário e a recomendação propriamente dita. Além disso, deve-se também levar em consideração as dependências do projeto, desde os bibliotecas que depende e os
+dados necessitados. Caso o projeto necessite de dados que não possam ser obtidos pelo pesquisadores deste trabalho, o mesmo não poderá ser considerado.
+
+    \item \textbf{Obter código fonte:}
+Obter o código fonte do projeto em questão, para que o mesmo possa ser alterado visando o estudo das hipóteses levantadas
+
+    \item \textbf{Analisar projeto selecionado:}
+Nesta etapa, o projeto deve ser analisado, visando a compreensão de como o mesmo funciona e, principalmente, os dados necessários para a execução adequada do projeto.
+
+    \item \textbf{Coletar dados:}
+Para prover os possíveis dados necessários para o projeto selecionado, uma estratégia de coleta de dados precisa ser definida e implementada.
+
+    \item \textbf{Analisar dados:}
+Será necessário analisar os dados coletados, visando descartar dados inválidos e classificar o que foi coletado conforme as necessidades do projeto escolhido.
+
+    \item \textbf{Executar projeto selecionado:}
+Com os dados e as dependências do projeto resolvidas, o mesmo deve ser executado, visando encontrar possíveis problemas de execução que não foram previstos e também observar as funcionalidades do projeto.
+
+    \item \textbf{Coletar informações temporais:}
+Deve-se implementar uma forma de coletar as informações temporais dos pacotes sendo usados pelo usuário e também prover uma forma de classificar essa informação coletada.
+
+    \item \textbf{Implementar abordagem deterministica:}
+Para responder a primeira questão proposta, será necessária implementar uma equação matemática que use as informações de tempo coletadas, juntamente com os outros atributos já usados no projeto selecionado para prover um recomendação.
+
+    \item \textbf{Implementar abordagem por aprendizado de máquina:}
+Implementar uma abordagem não-deterministica, no caso uma estratégia de aprendizado de máquina, para usar as informações de tempo coletadas juntamente com os outros atributos providos pelo projeto selecionado para compor um a recomendação.
+
+    \item \textbf{Comparar resultados:}
+Para responder as hipóteses propostas será necessário não só comporar as duas
+abordagens propostas, determinística e não determinística, e sim comparar ambas
+também com as abordagens já implementadas pelo projeto proposto e verificar se
+as hipótes se sustentam.
+
+    \item \textbf{Realizar conclusões:}
+Com a comparações dos resultados terminada, a mesma deve ser analisada e conclusões devem ser geradas baseada nos fatos apresentados.
+\end{enumerate}
+
+
 
 \section{Teste de hipóteses}
 
