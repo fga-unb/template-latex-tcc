@@ -30,18 +30,10 @@ wireshark.
   \label{fig:wireshark_result}
 \end{figure}
 
-Host para qual a ferramenta foi apontada: 192.168.0.153.
-
-Servidor para o qual o ping foi enviado: www.google.com.br.
-
-Protocolos de transporte utilizado: UDP.
-
-Protocolos de rede utilizados: IP, ICMP.
-
 O seguinte processo descreve a execução do programa ping mostrando os
 protocolos utilizados na camada de transporte e de rede, e também
 ilustrando de forma simples os dados dos pacotes enviados pela rede.
-Nesse precosso o cliente é o computador com ip 192.168.0.153, e o
+Nesse precosso o cliente é o computador com IP 192.168.0.153, e o
 servidor é o site www.google.com.br.
 
 O cliente envia um pacote UDP para o DNS, utilizando o protocolo
@@ -67,7 +59,7 @@ o protocolo IP, enviando uma mensagem com o endereço IP do nome
     \end{figure}
 
 O cliente envia uma mensagem para o servidor utilizando o protocolo ICMP,
-através do IP, ilustrado na figura~\ref{fig:pkg_client_to_server}.
+através do protocolo IP, ilustrado na figura~\ref{fig:pkg_client_to_server}.
 
     \begin{figure}[h]
       \centering
@@ -77,7 +69,7 @@ através do IP, ilustrado na figura~\ref{fig:pkg_client_to_server}.
     \end{figure}
 
 O servidor responde o cliente com um pacote, também utilizando o ICMP
-através do IP, ilustrado na figura~\ref{fig:pkg_server_to_client}.
+através do protocolo IP, ilustrado na figura~\ref{fig:pkg_server_to_client}.
 
     \begin{figure}[h]
       \centering
@@ -87,11 +79,10 @@ através do IP, ilustrado na figura~\ref{fig:pkg_server_to_client}.
     \end{figure}
 
 Nesse experimento foram enviados 9 pacotes e 9 pacotes foram recebidos
-pelo ping, logo não ocorreu perda de pacote, as tabelas a baixo mostram
-um resumo do tráfego de pacotes, as figuras~\ref{fig:pkg_icmp_seq_2}
-\ref{fig:pkg_icmp_seq_3}~\ref{fig:pkg_icmp_seq_4} mostram as transmissões
-desses 18 pacotes, onde cada figura apresenta um par que contém o pacote
-enviado e o pacote recebido.
+pelo ping, logo não ocorreu perda de pacote, as figuras~\ref{fig:pkg_icmp_seq_2}
+\ref{fig:pkg_icmp_seq_3}~\ref{fig:pkg_icmp_seq_4} mostram um resumo do
+tráfego de pacotes através das transmissões desses 18 pacotes, onde cada
+figura apresenta um par que contém o pacote enviado e o pacote recebido.
 
     \begin{figure}[h]
       \centering
