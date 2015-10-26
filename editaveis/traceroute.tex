@@ -1,6 +1,5 @@
 \chapter{Traceroute}
 
-\section{Ferramenta Traceroute}
 O utilitário traceroute, que foi escrito por Van Jacobson em 1987, é uma
 ferramenta de diagnóstico que nos permite ver a rota que datagramas IP seguem
  quando são enviados de um host a outro.
@@ -41,13 +40,8 @@ Tempo Excedido da mensagem Porta Inalcançável para saber quando parar.
 Na terceira parte do segundo problema deste trabalho devemos realizar os testes
 utilizando o traceroute como ferramenta para diagnóstico de rede,
 além disso utilizaremos o wireshark como ferramenta de captura de pacotes,
-todos os testes deste experimento foram feitos utilizando:
-
-\begin{itemize}
-  \item[linux:] Linux debian jessie, kernel 4.1.0-2-amd64
-  \item[wireshark] Wireshark 1.12.8
-  \item[traceroute] 2.0.21
-\end{itemize}
+todos os testes deste experimento foram feitos utilizando: Linux debian jessie, kernel 4.1.0-2-amd64
+, Wireshark 1.12.8 e  traceroute 2.0.21.
 
 Para preparar o wireshark devemos selecionar uma interface de rede para monitorar,
 para fazer isto basta ir ao menu superior na opção capture -> iterfaces, ou
@@ -59,7 +53,6 @@ pelo atalho ctrl +i.
   \caption{Configurando wireshark}
   \label{fig:f1}
 \end{figure}
-
 
 Após clicar em start a rede começa a ser monitorada como, por exemplo,
 na rede escolhida podemos ver a comunicação entre os dispositivos que estão
@@ -169,6 +162,13 @@ Por fim, quando o pacote consegue chegar a origem sem receber TTL excedido
 consegue-se finalmente atingir o endereço ip do gmail.com conhecido no
 início deste experimento.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/f10.eps}
+  \caption{Captura de pacotes com wireshark}
+  \label{fig:f10}
+\end{figure}
+
 Durante o experimento notou-se algo curioso, notamos que os pacotes que chegavam
 em D1 até H1 possuem um protocolo diferente em relação ao UDP, o chamado QUIC
 (Quick UDP Internet Connections), desenvolvido pela google a partir de 2012 e
@@ -179,13 +179,6 @@ latência de transporte, e estimativa de largura de banda em cada direção para
 evitar o congestionamento. O objetivo de longo prazo para o Google, QUIC
 pretende ser quase equivalente a uma conexão TCP independente, mas com muito
 menor latência.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/f10.eps}
-  \caption{Captura de pacotes com wireshark}
-  \label{fig:f10}
-\end{figure}
 
 Uma outra curiosidade no experimento é que também encontramos segmentos com
 protocolo TLS v1 que é um protocolo de segurança de proteção para serviços de email.
