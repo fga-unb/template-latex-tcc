@@ -29,21 +29,21 @@ Com isso dito, um uso típico do Nmap é pelo comando:
 
 \$ nmap www.google.com
 
-Nesse comando, o Nmap irá scannear um único host, sendo no caso o endereço
+Nesse comando, o Nmap escaneará um único host, sendo no caso o endereço
 \textit{www.google.com}. Quando o Nmap é usado dessa forma, algumas opções
-defualt são usadas. Por default, o Nmap irá descobrir host e depois fazer o
-scannear cada um deles. Além disso, para tentar descobrir hosts, o Nmap irá 
+defualt são usadas. Por default, o Nmap descobrirá host e depois fazer o
+escanear cada um deles. Além disso, para tentar descobrir hosts, o Nmap irá
 estabelecer uma conexão com um host nas portas 80 e 443 usando pacotes TCP SYN e ACK.
 O envio desses dois pacotes são usados para tentar passar por firewalls comuns, que barram
 segmentos do tipo TCP SYN.
 
 Para descobrir o estado das portas de um host, a opção default do Nmap é por
 fazer a varredura usando a estratégia TCP SYN. O que basicamente acontece é que
-o Nmap irá enviar um TCP SYN para uma porta, se alguma aplicação enviar um
-pacote TCP SYNACK, o Nmap irá entender que a porta está aberta e então enviar um 
+o Nmap enviará um TCP SYN para uma porta, se alguma aplicação enviar um
+pacote TCP SYNACK, o Nmap entenderá que a porta está aberta e então enviar um
 TCP RST para fechar a conexão. Caso a recebe um TCP RST, o Nmap vai entender que
-a porta está fechada e caso o mesmo não recebe nenhum resposta depois de um
-determinado número de retransmissões, o mesmo irá enteder que a porta está sendo
+a porta está fechada e caso o mesmo não recebe nenhuma resposta depois de um
+determinado número de retransmissões, o mesmo entenderá que a porta está sendo
 filtrada.
 
 Para verificar está comportamento de fato, uma ferramenta de captura de pacotes
@@ -52,7 +52,7 @@ a captura de pacotes para o comando Nmap:
 
 \$ nmap -p 80,443,22,568 www.google.com
 
-Onde a opção -p indica quais portas serão scanneadas.
+Onde a opção -p indica quais portas serão escaneadas.
 
 \begin{figure}[h]
   \centering
@@ -72,11 +72,11 @@ onde o Nmap tenta estabelecer conexões nas portas 80 e 443. Pode ser visto que 
 443 e um TCP ACK para a porta 80. Percebe-se que ambos os pacotes recebem uma resposta, mostrando que o host está ativo.
 
 Nas linhas 8-11, pode ser visto o Nmap tentando enviar um pacote SYN para cada porta especificada. Nas linhas 12-13 percebe-se
-que o Nmap recebeu um pacote TCP SYNACK da porta 80, ou seja, a porta é considerad aberta. Após isso, o Nmap fecha a conexão com
+que o Nmap recebeu um pacote TCP SYNACK da porta 80, ou seja, a porta é considera aberta. Após isso, o Nmap fecha a conexão com
 um TCP RST. Esse mesmo comportamento acontece nas linhas 14-15 para a porta 443. Para as outras portas, percebe-se que o Nmap começa a
 retransmitir pacotes destinados aquela porta, identificando que talvez a porta esteja sendo filtrada.
 
-A Figura \ref{fig:saida_nmap} mostra a saída obtida ao usar o nmap para executar o comando mostrado. Pode-se ver que a saída mostrada pelo Nmap corrabora
+A Figura \ref{fig:saida_nmap} mostra a saída obtida ao usar o nmap para executar o comando mostrado. Pode-se ver que a saída mostrada pelo Nmap corrobora
 perfeitamente com a análise feita em cima da captura de pacotes.
 
 \begin{figure}[h]
@@ -88,8 +88,6 @@ perfeitamente com a análise feita em cima da captura de pacotes.
 
 
 Sendo assim, pode-se concluir que o Nmap usa o protocolo TCP da camada de transporte e o protocolo IP da camada de rede para executar suas funcionalidades
-em uma chamada típica. Entretanto, vale ressaltar que o Nmap também pode ser usado de outras formas, permitindo scannear redes com protocolo UDP da camada de transporte
+em uma chamada típica. Entretanto, vale ressaltar que o Nmap também pode ser usado de outras formas, permitindo escanear redes com protocolo UDP da camada de transporte
 e até como o protocolo ICMP da camada de rede. Entretanto, para se usar tal funcionalidade é necessário com que o usuário passe algumas flags especiais na hora
 de executar o comando, ou seja, não é o cenário típico de uso.
-
-
