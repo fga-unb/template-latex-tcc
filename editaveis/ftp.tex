@@ -1,0 +1,27 @@
+\chapter{FTP}
+
+O protocolo FTP (\textit{File Transfer Protocol}) foi designado para a transferência de dados entre computadores através e uma rede TCP/IP.
+
+\section{Experimento}
+Para análise do tráfego de dados foi utilizada uma rede local Ethernet com CIDR \texttt{192.168.6.0/24}. Foram configurados dois computadores em uma rede local:
+
+\begin{itemize}
+	\item Um cliente FTP: Arch Linux, Filezilla, IP \texttt{192.168.6.100};
+	\item Um servidor FTP: Debian Linx 8, VSFTPD, IP \texttt{192.168.6.104};
+	\item Roteador WRN150, 100mbps;
+	\item Cabeamento Ethernet;
+	\item Software de captura Wireshark (no cliente).
+\end{itemize}
+
+O Wireshark foi configurado para filtrar apenas pacotes entre o cliente e o servidor.
+
+\textbf{Objetivos:} executar login, listar diretório e transferir um arquivo.
+
+\section{Tráfego}
+Ao conectar o cliente FTP com o servidor a primeira troca de mensagens é referente ao estabelecimento de uma conexão através do protocolo FTP, utilizando o\textit{three way handshaking}.
+
+Após esse passo o cliente realiza autenticação através da porta 21 (a partir a porta de origem 35580). Após autenticado o cliente envia comandos CWD e PWD  para obter a lista com os arquivos da pasta atual.
+
+Através do comando RETR o cliente pede um arquvo do servidor FTP. Ao aceitar a requisição o cliente abre uma nova conexão com o servidor a partir da porta 39887 (cliente) com destino à porta 26373 (servidor).
+
+O arquivo é transferido com sucesso. Após a transferência o cliente executa o encerramento de sessão com o servidor FTP e, por fim, encerra sua conexão com o protocolo TCP, usado a \textit{flag} FIN e FIN/ACK.
