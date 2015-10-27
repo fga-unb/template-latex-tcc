@@ -1,0 +1,29 @@
+\chapter{HTTP}
+
+O protocolo HTTP (\textit{HyperText Transfer Protocol}) foi designado para exibir simples páginas pela internet.
+
+\section{Experimento}
+Para análise do tráfego de dados foi utilizada uma rede local Ethernet com CIDR \texttt{192.168.6.0/24}. Foram configurados dois computadores em uma rede local:
+
+\begin{itemize}
+	\item Um cliente HTTP: Arch Linux, Chrome Brower, IP \texttt{192.168.6.100};
+	\item Um servidor FTP: Debian Linx 8, Rails/Unicorn, IP \texttt{192.168.6.104};
+	\item Roteador WRN150, 100mbps;
+	\item Cabeamento Ethernet;
+	\item Software de captura Wireshark (no cliente).
+\end{itemize}
+
+O página aberta no servidor era a página de login do Noosfero.
+
+O Wireshark foi configurado para filtrar apenas pacotes entre o cliente e o servidor.
+
+\textbf{Objetivos:} abrir uma página HTML.
+
+\section{Tráfego}
+A primeira grande diferença  entre os outros protocolos é em relação a quantidade de conexões abertas quando o cliente se conecta ao servidor, totalizando cerca de seis conexões. Isso talvez justifique a pequena demora para abrir a primeira página.
+
+O cliente utilizou as seguintes portas: 50050, 50052, 50054, 50056, 50058 e 50060.
+
+De todos os pacotes transferidos apenas um sofreu retransmissão.
+
+O navegador só encerrou as conexões com o servidor (usando FIN/ACK) após ser fechado, provavelmete ele as mantém para navegar no mesmo site (e evitar o pequeno atraso do começo).
