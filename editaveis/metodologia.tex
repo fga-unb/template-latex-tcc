@@ -117,18 +117,23 @@ de cada categoria de estratégia:
     afim de se obter diferentes recomendações.
 \end{itemize}
 
-Vale ressaltar que para recomendações colaborativas e híbridas, o AppRecommender
+Para as recomendações colaborativas e híbridas, o AppRecommender
 utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo,
 entretanto esse não é o caso para recomendações puramente baseada em conteúdo,
 fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
 projeto.
+
+O projeto também utiliza tanto estratégias offline e testes de usuário para
+validar as recomendações implementadas, sendo que as estratégia offline tem como
+forte base a análise de curvas ROC e os testes de usuário visam analisar
+principalmente a precisão e novidade das recomendações.
 
 A licença do AppRecommender e GNU GPL e o projeto está disponível em repositório
 público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
 contribuir com o projeto. Dessa forma, o código fonte da aplicação
 AppRecommender pode ser encontrado no repositório de projetos [Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
 
-Vale ressaltar que as modificações foram realizadas em uma cópia local do 
+As modificações foram realizadas em uma cópia local do 
 mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
 \subsection{Coleta de dados}
@@ -231,7 +236,7 @@ Debian, chamado de Debian Data Export, que era usado para facilitar a criação 
 queries no Ultimate Debian Database. Entretanto, este serviço se encontra
 atualmente fora do ar, sendo por isso não considerado na execução da pesquisa.
 
-\subsubsection{Usuários}
+\subsubsection{Usuários} \label{sec:coleta_dados_usuario}
 
 Considerando a necessidade da obtenção dos dados de submissões do
 popularity-contest,sistema, foi necessário realizar a coleta dessas submissões
@@ -326,6 +331,11 @@ caso do AppRecommender, a query de busca é o perfil gerado para o usuário.
 Vale ressaltar que este pacote é usado para construir todos os índices de busca
 apontados pela Tabela \ref{tab:dados_apprecommender}
 Finalmente, os pacotes retornados são então a recomendação final da aplicação.
+
+Com isso dito, o AppRecommender implementa estratégias de recomendação que
+misturam algum dos dados na geração do perfil do usuário. Existem estratégias
+que usam apenas Debtags, enquanto outras combinam de forma balanceada termos da
+descrição com Debtags no perfil do usuário gerado.
 
 
 \subsubsubsection{Recomendação colaborativa}
@@ -659,5 +669,127 @@ sendo que apenas os pacotes classificados com EX ou G serão qualificados para a
 
 \subsubsection{Comparação dos resultados}
 
-TBD
+Esta seção é destinada a demonstrar como as soluções implementadas serão
+comparadas entre si e entre as soluções ja implementadas pelo projeto
+selecionado. Vale ressaltar que a comparação de resultados visa principalmente
+responder as hipóteses levantadas na pesquisa.
 
+Com isso em consideração, esta pesquisa escolheu seguir o modelo proposto na
+implementação do AppRecommender, onde o mesmo usava comparações tanto offline
+quanto estudos de caso com usuários reais. Entretanto, tanto os testes offline
+quanto o estudo de usuário precisarão ser modificados, visando adaptar ao
+contexto temporal proposto na pesquisa.
+
+\subsubsubsection{Comparação offline}
+
+Para comparar as soluções desenvolvidas, os testes realizados no AppRecommender
+implementaram o uso de duas métricas distintas, sendo a uma medida da precisão e
+cobertura alcançado pelos algoritmos desenvolvidos, visando principalmente
+definir o tamanho do perfil do usuário ou o tamanho de vizinhança, para
+estratégias baseadas em conteúdo e colaborativas. A segunda métrica, AUC, é
+usada visando a comparação entre os modelos. Conforme visto na seção "Sistemas
+de recomendação", essa métrica é basicamente a soma da área de uma curva ROC,
+que analisa principalmente a relação de recomendações de itens considerados
+verdadeiros positivos e verdadeiro negativos.
+
+Dessa forma, como o foco do trabalho esta na comparação de implementações,
+decidiu-se focar os esforços na análise da curva ROC. O processo para construir
+tais curvas se encontra automatizado e depende apenas do uso de
+20 submissões aleatórias do popularity-contest para funcionar. Vale ressaltar
+que cada submissão do popularity-contest serve como forma de mostrar os pacotes
+do usuário e por consequência criar o perfil do mesmo para estratégias baseadas
+em conteúdo. Após a entrada desses dados, cada submissão passa por um processo de
+validação cruzada múltiplas vezes e seus resultados são convergidos para um
+valor definidos na curva ROC. Após se analisar todas as soluções, a curva é
+apresentada e o valor de AUC é calculado. A Figura \ref{fig:roc_apprecommender}
+mostra uma curva ROC gerada para uma estratégia baseada em conteúdo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/roc_apprecommender.eps}
+  \caption{Curva ROC para uma estratégia baseada em conteúdo do AppRecommeder}
+  \label{fig:roc_apprecommender}
+\end{figure}
+
+
+Para possibilitar a execução desses tipo de teste, os dados usados serão os
+coletados de acordo com a seção \ref{sec:coleta_dados_usuario}. Entretanto, 
+pode-se perceber que o processo citado não leva em conta nenhum contexto temporal
+do usuário. Sendo assim, será necessário adaptar este modelo tanto para a
+solução deterministica quanto para a solução por aprendizado de máquina. Dessa
+forma, a principal mudança será permitir que que os scripts existentes para
+gerar a curva ROC aceitem informações temporais.
+
+Por fim, vale dizer que o tamanho do perfil de usuário usado será o obtido
+experimentalmente na solução do AppRecommender e que as soluções implementadas
+só serão comparadas com as duas soluções baseadas em conteúdo que possuíram o
+maior valor de AUC, com o intuito de tornar o processo de comparação mais ágil.
+
+\subsubsubsection{Estudo com usuários}
+
+Devido a subjetividade inerente sobre o que um usuário considera uma boa
+recomendação, esta pesquisa também irá considerar estudo de usuários para
+avaliar as soluções implementadas. Para esta estratégia, será seguindo um modelo
+similar ao usado nos testes de usuário do próprio AppRecommender. Entrentato
+algumas modificações serão realizadas no processo.
+
+O teste de usuário realizado pelo AppRecommender foi realizado online, onde cada
+usuário tinha acesso a uma aplicação rodando o AppRecommender. Essa aplicação
+funcionava como front-end para a aplicação e escolhia uma estratégia aleatória
+do AppRecommender para ser avaliada. O usuário então teria acesso a 10
+recomendações, onde cada recomendação provê uma descrição do curta e longa do
+pacote, o link para seu \textit{upstream} e uma imagem do pacote em uso. O
+usuário então avaliaria o pacote recomendado e seguiria para o próximo pacote.
+Ao final de uma recomendação, o usuário poderia então escolher se gostaria de
+analisar uma outra estratégia de recomendação, onde então o processo se
+repetiria.
+
+Como modificações neste processo, esta pesquisa resolveu realizar o estudo de
+usuário de forma offline. Além disso, o processo de teste também foi alterado.
+Para esta pesquisa resolveu-se usar o teste de apenas quatro estratégias de
+recomendação, sendo duas propostas pelo AppRecommender e as duas soluções
+propostas. Além disso, resolveu-se também usar uma abordagem por linha de
+comando, com o intuinto de agilizar os testes de usuário e possibilitar que os
+mesmos possam ser repetido mais vezes. 
+
+Dessa forma, o teste de usuário contará com a recomendação de 20 pacotes,
+sendo que cada recomendação irá recomendar 20 pacotes ao todo. A ordem com que
+as recomendações são realizadas aleatoriamente e as informações apresentadas
+para cada pacote serão as mesmas definidas pelo próprio AppRecommender, com
+exceção da foto do pacote. Para cada pacote recomendado, o usuário irá poder
+avaliar o mesmo pelo linha de comando. Após avaliar todos os pacotes, o teste
+será finalizado e as informações serão coletadas pelos responsáveis pela
+pesquisa.
+
+Para as métricas e a escala de avaliação, resolveu-se usar as mesmas definidas
+pelo AppRecommender \cite{araujo2011apprecommender}. A escala de avaliação
+possui quatro itens que são definidos a seguir:
+
+\begin{itemize}
+    \item \textbf{Ruim: } Recomendação que não agrada ao usuário.
+    \item \textbf{Redundante: } Usuário possui aplicativos similares para o item
+        sendo recomendado.
+    \item \textbf{Útil: } Usuário acha que a recomendação lhe proporciona um
+            pacote útil.
+    \item \textbf{Surpresa boa: } Usuário considera a recomendação útil e além
+        do mais inesperada.
+\end{itemize}
+
+Para as métricas usadas considera-se que as avaliações Ruim e Redundante são
+falso positivos e Útil e Surpresa boa são verdadeiro positivos. Além disso,
+quando se avalia na linha de comando, as mesmas serão numeradas de 1 até 4.
+
+Considerando isso, as métricas usadas para comparar as estratégias são as
+seguintes:
+
+\begin{itemize}
+    \item \textbf{Precisão: } $\frac{VerdadeirosPositivos}{VerdadeirosPositivos
+        + FalsoNegativos}$
+    \item \textbf{Novidade: } $\frac{NumSurpresaBoa}{VerdadeirosPositivos +
+        FalsoNegativos}$
+\end{itemize}
+
+Sendo assim, cada recomendação usada será avaliada por essas duas métricas no
+contexto de um usuário. Ao final, a média dessa métricas serão calculada para
+todos os usuários participante da pesquisa, com o intuinto de comparar as
+estratégias de maneira siginificativa.
