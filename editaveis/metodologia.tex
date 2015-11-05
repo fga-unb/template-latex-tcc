@@ -133,7 +133,7 @@ público, permitindo assim que qualquer pessoa possa visualizar o código fonte 
 contribuir com o projeto. Dessa forma, o código fonte da aplicação
 AppRecommender pode ser encontrado no repositório de projetos [Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
 
-As modificações foram realizadas em uma cópia local do 
+As modificações foram realizadas em uma cópia local do
 mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
 \subsection{Coleta de dados}
@@ -385,7 +385,7 @@ temporais, como se o mesmo é recente ou antigo\\ \hline
 
 Baseado nesta informações, o perfil do usuário em uma recomendação colaborativa
 é criado baseado em uma submissão popcon, extraindo do mesmo os pacotes usados e
-as informações temporais do mesmo. 
+as informações temporais do mesmo.
 
 Para a recomendação propriamente dita, os vizinhos mais próximos do usuário são
 aqueles com submissões mais próximas do perfil do usuário. Sendo assim, para as
@@ -553,24 +553,48 @@ aplicação, e os valores achados que mais otimizaram a recomendação foram:
 
 \textbf{$\lambda$} = 1
 
-Após calcular o peso de cada pacote do termo, o valor final é obtido ao se obter
-os cinco pacotes com maior valor e dividir o valor encontrado por cinco. Caso o
-termo não possua mais do que cinco pacotes associados, o menor valor do pacote
-associado ao termo será usado para preencher a lista dos pacotes faltando, sendo
-que o peso do pacote será descrecido de um valor para cada pacote no qual o mesmo irá
-preencher uma lacuna. Por exemplo, dado um termo x, que possui três pacotes
-associados com os seguintes pesos: [0.9, 0.8, 0.7], para preencher cinco
-pacotes, o valor de 0.7 seria replicado até o número de pacotes ser cinco, e em
-cada uma das iterações, tal valor seria decrescido por 0.05, logo o valor final
-da lista de pesos seria [0.9, 0.8, 0.7, 0.65, 0.6].
+Após calcular o peso de cada pacote do termo, o valor temporal de um termo pode ser
+descrito através das seguintes funções matemáticas, onde cada termo "T", possui uma
+lista de pacotes "P", onde essa lista possui um tamanho "N".
+
+$T = \{P_1, P_2, ..., P_N\}$
+
+Onde cada pacote "P" possui um peso "w" com valores entre 0 e 1, esse peso
+é definido pela função W(P), que foi previamente explicado, a função que
+define o valor do peso de um pacote.
+
+$W(Pi) = w_i , \quad 0 <= w_i <= 1$
+
+Aplicando essa função para cada pacote do termo é formada a lista dos pesos
+dos pacotes de cada termo, e então essa lista é ordenada, gerando a lista
+dos pesos ordenados teta "$\theta$".
+
+$sort(\{w_1, w_2, ..., w_n\}) = \{\theta_1, \theta_2, ..., \theta_n\}$
+
+Para calcular o peso do termo é utilizado os cinco maiores pesos de pacote
+associados ao termo, ou seja, se algum termo possui uma lista com tamanho "n"
+menor do que cinco pacotes, onde "n" indica o tamanho da lista, para cada peso
+de pacote que está faltando na lista para completar o tamanho cinco, este peso
+é definido como igual ao peso anterior com um decréscimo de $\alpha$, onde
+através de experimentações, o valor de $\alpha$ foi definido como 0,05.
+
+$\theta_j = \theta_{j-1} - \alpha , \quad j = n+1, n+2, ..., 4$
+
+Logo o valor temporal do termo é calculado pela média aritmética desses
+cinco pesos de pacote.
+
+$ValorTemporalDoTermo = \frac{1}{5} * \sum\limits_{i=1}^{5} \theta_i$
 
 Com o valor temporal calculado, pode-se enfim multiplicar tal valor com o TFIDF
 obtido para o dado termo. Este processo é realizado para todos os termos usados
 para se obter o perfil do usuário.
 
-Vale ressaltar que apesar de também ser possível utilizar informação temporal neste contexto, foi
-preferido utilizar o TFIDF inicialmente, visando entender como cada termo é
-priorizado dado a questão temporal proposta.
+Vale ressaltar que apesar de também ser possível utilizar informação temporal
+neste contexto, foi preferido utilizar o TFIDF inicialmente, visando entender
+como cada termo é priorizado dado a questão temporal proposta.
+
+Através do processo determinístico os termos são ordenados, então o perfil
+do usuário é criado utilizando os termos de maiores pesos.
 
 \subsubsection{Aprendizado de máquina}
 
@@ -713,7 +737,7 @@ mostra uma curva ROC gerada para uma estratégia baseada em conteúdo.
 
 
 Para possibilitar a execução desses tipo de teste, os dados usados serão os
-coletados de acordo com a seção \ref{sec:coleta_dados_usuario}. Entretanto, 
+coletados de acordo com a seção \ref{sec:coleta_dados_usuario}. Entretanto,
 pode-se perceber que o processo citado não leva em conta nenhum contexto temporal
 do usuário. Sendo assim, será necessário adaptar este modelo tanto para a
 solução deterministica quanto para a solução por aprendizado de máquina. Dessa
@@ -750,7 +774,7 @@ Para esta pesquisa resolveu-se usar o teste de apenas quatro estratégias de
 recomendação, sendo duas propostas pelo AppRecommender e as duas soluções
 propostas. Além disso, resolveu-se também usar uma abordagem por linha de
 comando, com o intuinto de agilizar os testes de usuário e possibilitar que os
-mesmos possam ser repetido mais vezes. 
+mesmos possam ser repetido mais vezes.
 
 Dessa forma, o teste de usuário contará com a recomendação de 20 pacotes,
 sendo que cada recomendação irá recomendar 20 pacotes ao todo. A ordem com que
