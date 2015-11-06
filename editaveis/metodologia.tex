@@ -86,7 +86,7 @@ para sistemas GNU/Linux e que não use nenhuma informação de contexto em suas
 recomendações, de forma a permitir a comparação das abordagens propostas com as
 já implementadas pelo projeto.
 
-\subsubsection{Descrição do projeto selecionado}
+\subsection{Descrição do projeto selecionado}
 
 O projeto selecionado que atendia os requisitos propostos para a pesquisa foi o AppRecommender,
 um sistema de recomendação de aplicativos GNU/Linux, cuja principal característica é recomendar aplicações,
@@ -136,14 +136,14 @@ AppRecommender pode ser encontrado no repositório de projetos [Github \footnote
 As modificações foram realizadas em uma cópia local do
 mesmo, sendo essa mantida pelos pesquisadores deste trabalho [Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
-\subsection{Coleta de dados}
+\section{Coleta de dados}
 
 Nesta seção, serão descritos os dados necessários para a execução do
 AppRecommender, juntamente com os dados necessários para a coleta de
 informação contextual de tempo dos pacotes do usuário durante a
 recomendação.
 
-\subsubsection{AppRecommender}
+\subsection{AppRecommender}
 
 Para o projeto selecionado, observou-se a necessidade de diversos tipos
 de dados, que podem ser vistos na Tabela
@@ -236,7 +236,7 @@ Debian, chamado de Debian Data Export, que era usado para facilitar a criação 
 queries no Ultimate Debian Database. Entretanto, este serviço se encontra
 atualmente fora do ar, sendo por isso não considerado na execução da pesquisa.
 
-\subsubsection{Usuários} \label{sec:coleta_dados_usuario}
+\subsection{Usuários} \label{sec:coleta_dados_usuario}
 
 Considerando a necessidade da obtenção dos dados de submissões do
 popularity-contest,sistema, foi necessário realizar a coleta dessas submissões
@@ -268,16 +268,14 @@ abordagem diferente, segue para isso o seguinte processo foi definido:
     \item \textit{\textbf{Armazenamento das informações:}} É coletado cada uma das recomendações, o agrupamento das recomendações e as pontuações de cada pacote.
 \end{itemize}
 
-\subsection{Análise dos Dados}
+\section{Análise dos Dados}
 
 Este seção irá mostrar a análise dos dados que são usados tanto para a
 realização de um experimento offline quanto para a recomendação em si. Além
 disso, também será apresentado os novos dados que esta pesquisa se proponhe a
 anexar as atuais recomendações.
 
-\subsubsection{AppRecommender}
-
-\subsubsubsection{Recomendação baseada em conteúdo}
+\subsection{Recomendação baseada em conteúdo}
 
 Para recomendações baseadas em conteúdo, é necessário analisar tanto os dados
 que são usados para construir o pefil do usuário quanto para realizar a
@@ -338,7 +336,7 @@ que usam apenas Debtags, enquanto outras combinam de forma balanceada termos da
 descrição com Debtags no perfil do usuário gerado.
 
 
-\subsubsubsection{Recomendação colaborativa}
+\subsection{Recomendação colaborativa}
 
 O principal dado usado na recomendação colaborativa são as submissões do
 popularity-contest. O popularity-contest é um sistema usado pelo Debian para
@@ -392,7 +390,7 @@ aqueles com submissões mais próximas do perfil do usuário. Sendo assim, para 
 recomendações colaborativas, é necessário conter as submissões de vários
 usuários do popularity-contest, para que a vizinhança criada seja significativa.
 
-\subsubsection{Contexto temporal} \label{sec:contexto_temporal}
+\subsection{Contexto temporal} \label{sec:contexto_temporal}
 
 Dado esse conjunto de dados usados no AppRecommender, a pesquisa resolveu
 adicionar o contexto temporal apenas em recomendações baseadas em conteúdo. Isso
@@ -505,14 +503,14 @@ possuem uma das prioridades sendo filtradas, mas um processamento adicional é
 realizado para garantir que os pacotes contendo linguagens de programação
 continuem no perfil do usuário.
 
-\subsection{Teste de hipótese}
+\section{Teste de hipótese}
 
 Esta seção irá descrever como esta pesquisa pretende responder as hipóteses
 levantadas, mostrando assim como as duas abordagens propostas pelas hipóteses
 levantadas no projeto serão implementadas, assim como os resultados das mesmas
 serão comparadas entre si e com as abordagens já usadas no projeto selecionado.
 
-\subsubsection{Abordagem determinística}
+\subsection{Abordagem determinística}
 
 A proposta da abordagem determinística é de usar uma fórmula que altere
 a criação do perfil de usuário através dos pacotes instalados que foram mais
@@ -601,7 +599,7 @@ como cada termo é priorizado dado a questão temporal proposta.
 Através do processo determinístico os termos são ordenados, então o perfil
 do usuário é criado utilizando os termos de maiores pesos.
 
-\subsubsection{Aprendizado de máquina}
+\subsection{Aprendizado de máquina}
 
 Um dos problemas de se usar apenas a abordagem determinística é uma limitação
 encontrada no \textit{apt-xapian-index}, onde não é possível priorizar queries
@@ -696,7 +694,7 @@ identificação de \textit{overfitting} e \textit{underfitting}.
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
 sendo que apenas os pacotes classificados com EX ou G serão qualificados para a recomendação ao usuário.
 
-\subsubsection{Comparação dos resultados}
+\section{Comparação dos resultados}
 
 Esta seção é destinada a demonstrar como as soluções implementadas serão
 comparadas entre si e entre as soluções ja implementadas pelo projeto
@@ -709,7 +707,7 @@ quanto estudos de caso com usuários reais. Entretanto, tanto os testes offline
 quanto o estudo de usuário precisarão ser modificados, visando adaptar ao
 contexto temporal proposto na pesquisa.
 
-\subsubsubsection{Comparação offline}
+\subsection{Comparação offline}
 
 Para comparar as soluções desenvolvidas, os testes realizados no AppRecommender
 implementaram o uso de duas métricas distintas, sendo a uma medida da precisão e
@@ -754,7 +752,7 @@ experimentalmente na solução do AppRecommender e que as soluções implementad
 só serão comparadas com as duas soluções baseadas em conteúdo que possuíram o
 maior valor de AUC, com o intuito de tornar o processo de comparação mais ágil.
 
-\subsubsubsection{Estudo com usuários}
+\subsection{Estudo com usuários}
 
 Devido a subjetividade inerente sobre o que um usuário considera uma boa
 recomendação, esta pesquisa também irá considerar estudo de usuários para
