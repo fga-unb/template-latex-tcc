@@ -552,35 +552,40 @@ aplicação, e os valores achados que mais otimizaram a recomendação foram:
 \textbf{C} = 1
 
 \textbf{$\lambda$} = 1
+\\
 
 Após calcular o peso de cada pacote do termo, o valor temporal de um termo pode ser
-descrito através das seguintes funções matemáticas, onde cada termo "T", possui uma
-lista de pacotes "P", onde essa lista possui um tamanho "N".
+descrito através das seguintes funções matemáticas, onde cada termo ``T'', possui uma
+lista de pacotes ``P'', onde essa lista possui um tamanho ``T''.
 
 $T = \{P_1, P_2, ..., P_N\}$
+\\
 
-Onde cada pacote "P" possui um peso "w" com valores entre 0 e 1, esse peso
-é definido pela função W(P), que foi previamente explicado, a função que
-define o valor do peso de um pacote.
+Além disso, cada pacote ``N'' possui um peso ``w'' com valores entre 0 e 1. Esse peso
+é definido pela função W(P), que foi previamente explicada na seção
+\ref{sec:contexto_temporal}
 
 $W(Pi) = w_i , \quad 0 <= w_i <= 1$
+\\
 
 Aplicando essa função para cada pacote do termo é formada a lista dos pesos
-dos pacotes de cada termo, e então essa lista é ordenada, gerando a lista
-dos pesos ordenados teta "$\theta$".
+dos pacotes. Essa lista é então ordenada, gerando a lista
+dos pesos ordenados teta ``$\theta$''.
 
 $sort(\{w_1, w_2, ..., w_n\}) = \{\theta_1, \theta_2, ..., \theta_n\}$
+\\
 
-Para calcular o peso do termo é utilizado os cinco maiores pesos de pacote
-associados ao termo, ou seja, se algum termo possui uma lista com tamanho "n"
-menor do que cinco pacotes, onde "n" indica o tamanho da lista, para cada peso
-de pacote que está faltando na lista para completar o tamanho cinco, este peso
+Para calcular o peso total do termo é utilizado os cinco maiores pesos de pacote
+associados ao mesmo, ou seja, se algum termo possui uma lista com tamanho ``N''
+menor do que cinco pacotes, onde ``N'' indica o tamanho da lista, para cada peso
+necessário para completar o valor total de cinco um pacotes, um novo peso
 é definido como igual ao peso anterior com um decréscimo de $\alpha$, onde
-através de experimentações, o valor de $\alpha$ foi definido como 0,05.
+através de experimentações, o valor de $\alpha$ foi definido como 0.05.
 
 $\theta_j = \theta_{j-1} - \alpha , \quad j = n+1, n+2, ..., 4$
+\\
 
-Logo o valor temporal do termo é calculado pela média aritmética desses
+Por fim, o valor temporal do termo é calculado pela média aritmética desses
 cinco pesos de pacote.
 
 $ValorTemporalDoTermo = \frac{1}{5} * \sum\limits_{i=1}^{5} \theta_i$
