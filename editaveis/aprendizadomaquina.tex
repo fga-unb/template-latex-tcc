@@ -17,11 +17,30 @@ dos novos dados de entrada.
 
 Como exemplo, o aprendizado de máquina pode ser usado para identificar
 um número em uma imagem. Supondo que uma imagem seja uma matriz de pixels
-28x28 e que os pixels estão em escala de cinza, ou seja, vão de 0 a 255,
-o algoritmo deve receber várias entradas como treinamento, para que possa
-aprender a identificar os números, para cada entrada no treinamento há um
-rótulo, que é um número de 0 a 9, que identifica qual número está na imagem,
-e uma sequencia de 784 pixels que representam a matriz 28x28 da imagem.
+28x28 e que os pixels estão em escala de cinza, ou seja, vão de 0 a 255, e
+que essa imagem se trata de um número, o algoritmo deve receber várias
+entradas como treinamento, contendo a imagem e o número que corresponde a
+essa imagem. Após o treinamento o programa deve ser capaz de
+receber uma imagem 28x28 e identificar qual número está na imagem.
+
+\subsection{Aprendizado supervisionado}
+
+Uma das principais técnicas de aprendizado de máquina é o aprendizado
+supervisionado, onde é fornecido um treinamento com o conhecimento do
+ambiente, o treinamento é composto por um conjunto de exemplos com entradas
+e uma saída esperada~\cite{bruno2010aprendizadomaquina}.
+
+O objetivo do aprendizado supervisionado é induzir conceitos a partir de
+exemplos que estão pré-classificados, em outras palavras, exemplos que
+possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadomaquina}.
+Utilizado quando se tem tanto as perguntas quanto as respostas, o
+aprendizado supervisionado é utilizado para se obter uma classificação,
+funções de aproximação ou modelagem e previsões baseadas no tempo.
+
+Utilizando do exemplo do algoritmo que identifica um número em uma imagem,
+na utilização do aprendizado supervisionado para cada entrada no treinamento
+há um rótulo, que é um número de 0 a 9, que identifica qual número está na
+imagem, e uma sequencia de 784 pixels que representam a matriz 28x28 da imagem.
 A figura~\ref{fig:tabela_ml_treinamento} mostra um exemplo das entradas de
 treinamento.
 
@@ -45,13 +64,3 @@ será o resultado da execução do algoritmo.
   \caption{Entradas de dados para o algoritmo determinar o rótulo}
   \label{fig:tabela_ml_entrada}
 \end{figure}
-
-\subsection{Aprendizado supervisionado}
-
-O objetivo do aprendizado supervisionado é induzir conceitos a partir de
-exemplos que estão pré-classificados, em outras palavras, exemplos que
-possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadomaquina}.
-Utilizado quando se tem tanto as perguntas quanto as respostas, o
-aprendizado supervisionado é utilizado para se obter uma classificação,
-funções de aproximação ou modelagem e previsões baseadas no tempo.
-
