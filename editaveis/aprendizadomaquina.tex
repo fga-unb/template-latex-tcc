@@ -1,0 +1,57 @@
+\section{Aprendizado de máquina}
+
+Aprendizado pode ser definido como qualquer mudança em um sistema que
+otimize o seu desempenho na segunda vez que ele repetir a mesma tarefa,
+ou outra tarefa da mesma população~\cite{custodio2010aprendizadomaquina}.
+
+O aprendizado de máquina utiliza um princípio de inferência denominado
+indução, onde através de um conjunto particular de exemplos é possível
+obter conclusões genéricas~\cite{bruno2010aprendizadomaquina}. De um modo
+abstrato o aprendizado de máquina funciona como uma caixa preta, onde
+independente de como é implementado, o algoritmo deve ser capaz de receber
+várias entradas com suas respectivas saídas, como informações de treinamento,
+essa é a parte aonde ocorre o aprendizado, após isso o algoritmo deve
+ser capaz de apresentar um resultado para cada novo dado de entrada no
+algoritmo, onde quanto melhor for o treinamento, melhor os resultados
+dos novos dados de entrada.
+
+Como exemplo, o aprendizado de máquina pode ser usado para identificar
+um número em uma imagem. Supondo que uma imagem seja uma matriz de pixels
+28x28 e que os pixels estão em escala de cinza, ou seja, vão de 0 a 255,
+o algoritmo deve receber várias entradas como treinamento, para que possa
+aprender a identificar os números, para cada entrada no treinamento há um
+rótulo, que é um número de 0 a 9, que identifica qual número está na imagem,
+e uma sequencia de 784 pixels que representam a matriz 28x28 da imagem.
+A figura~\ref{fig:tabela_ml_treinamento} mostra um exemplo das entradas de
+treinamento.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_treinamento.eps}
+  \caption{Entradas de treinamento para o aprendizado de máquina}
+  \label{fig:tabela_ml_treinamento}
+\end{figure}
+
+Após ser realizada a etapa de treinamento, ao receber uma sequencia de 784
+pixels, o algoritmo deve responder qual o rótulo, que é o número de 0 a 9,
+correspondente a sequencia de 784 pixels. A figura~\ref{fig:tabela_ml_entrada}
+mostra um exemplo de uma entrada para o algoritmo, a diferença dessa entrada
+para uma entrada de treinamento é que essa não possui o rótulo, pois o rótulo
+será o resultado da execução do algoritmo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_entrada.eps}
+  \caption{Entradas de dados para o algoritmo determinar o rótulo}
+  \label{fig:tabela_ml_entrada}
+\end{figure}
+
+\subsection{Aprendizado supervisionado}
+
+O objetivo do aprendizado supervisionado é induzir conceitos a partir de
+exemplos que estão pré-classificados, em outras palavras, exemplos que
+possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadomaquina}.
+Utilizado quando se tem tanto as perguntas quanto as respostas, o
+aprendizado supervisionado é utilizado para se obter uma classificação,
+funções de aproximação ou modelagem e previsões baseadas no tempo.
+
