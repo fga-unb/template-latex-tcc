@@ -33,9 +33,8 @@ e uma saída esperada~\cite{bruno2010aprendizadomaquina}.
 O objetivo do aprendizado supervisionado é induzir conceitos a partir de
 exemplos que estão pré-classificados, em outras palavras, exemplos que
 possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadomaquina}.
-Utilizado quando se tem tanto as perguntas quanto as respostas, o
-aprendizado supervisionado é utilizado para se obter uma classificação,
-funções de aproximação ou modelagem e previsões baseadas no tempo.
+Utilizado quando se tem tanto as perguntas quanto as respostas, o aprendizado
+supervisionado é utilizado para se obter uma classificação e funções de aproximação.
 
 Utilizando do exemplo do algoritmo que identifica um número em uma imagem,
 na utilização do aprendizado supervisionado para cada entrada no treinamento
@@ -64,3 +63,18 @@ será o resultado da execução do algoritmo.
   \caption{Entradas de dados para o algoritmo determinar o rótulo}
   \label{fig:tabela_ml_entrada}
 \end{figure}
+
+\subsubsection{Bayes Ingênuo}
+
+Um algoritmo supervisionado, e bastante utilizado no aprendizado de máquina,
+o bayes ingênuo, também conhecido como naive bayes, é denominado ingênuo devido
+ao fato de que o algoritmo assume que os atributos são condicionalmente
+independentes, ou seja, considera-se que as entradas são independentes entre
+si, porém, mesmo partindo dessa ingenuidade os resultados não comprometem a
+qualidade~\cite{bruno2010aprendizadomaquina}.
+
+Mesmo com essa independencia dos atributos, o bayes ingênuo é um método
+bastante efetivo e frequentemente oferece uma precisão comparável aos outros
+métodos (comparável à métodos pertencentes ao estado da arte), e estudos
+também mostram que o bayes ingênuo pode aprender a função de classificação
+ótima~\cite{santos2010naivebayes}.
