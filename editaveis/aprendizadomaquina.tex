@@ -71,10 +71,60 @@ o bayes ingênuo, também conhecido como naive bayes, é denominado ingênuo dev
 ao fato de que o algoritmo assume que os atributos são condicionalmente
 independentes, ou seja, considera-se que as entradas são independentes entre
 si, porém, mesmo partindo dessa ingenuidade os resultados não comprometem a
-qualidade~\cite{bruno2010aprendizadomaquina}.
+qualidade~\cite{bruno2010aprendizadomaquina}. Mesmo com essa independencia dos
+atributos, o bayes ingênuo é um método bastante efetivo e frequentemente oferece
+uma precisão comparável aos outros métodos (comparável à métodos pertencentes ao
+estado da arte), e estudos também mostram que o bayes ingênuo pode aprender a
+função de classificação ótima~\cite{santos2010naivebayes}.
 
-Mesmo com essa independencia dos atributos, o bayes ingênuo é um método
-bastante efetivo e frequentemente oferece uma precisão comparável aos outros
-métodos (comparável à métodos pertencentes ao estado da arte), e estudos
-também mostram que o bayes ingênuo pode aprender a função de classificação
-ótima~\cite{santos2010naivebayes}.
+No caso do reconhecimento de um número em uma imagem 28x28, o vetor de pixels
+que forma a imagem, ilustrado na figura~\ref{fig:tabela_ml_treinamento}, será
+reescrito de forma que só irá possuir os valor 0 ou 255, por exemplo, todos os
+pixels a baixo de 50 serão considerados como 0, e todos os pixels com valor igual
+ou maior a 50 serão considerados como como 255, ou seja, a imagem ficará em preto
+e branco, como mostra a figura~\ref{fig:tabela_ml_treinamento_convertida}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_treinamento_convertida.eps}
+  \caption{Entradas modificadas de treinamento para o aprendizado de máquina}
+  \label{fig:tabela_ml_treinamento_convertida}
+\end{figure}
+
+Utilizando agora o vetor de pixels da figura~\ref{fig:tabela_ml_treinamento_convertida}
+é necessário realizar o treinamento do algortitmo, onde se deve armazenar as informações
+dos rótulo referente a cada pixel no vetor de pixels, onde para cada rótulo deve ser
+armazenado quantos pixels 0 e quantos pixels 255 o rótulo possui para cada pixe, por
+exemplo, o rótulo dois possui dois pixels zero e nenhum pixel 255 na primeira posição do
+vetor de pixel, e possui um pixel 0 e um pixel 255 na ultima posição do vetor. Realizando
+esse processo para todos os rótulos em todos os pixels do vetor que forma a imagem, a
+contagem de quantos pixels diferentes cada rótulo possui é ilustrada na
+figura~\ref{fig:tabela_ml_treinamento_convertida}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/rotulos_e_pixels.eps}
+  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \label{fig:rotulos_e_pixels}
+\end{figure}
+
+Após a realização do treinamento, resultando em dados como mostra a
+figura~\ref{fig:tabela_ml_treinamento_convertida}, o algoritmo agora está pronto para
+receber dados de entrada, um vetor contendo os 784 pixels que formam a imagem, e então
+retornar qual o número que está na imagem. Para a entrada ilustrada na
+figura~\ref{fig:bayes_dado_entrada}, o algoritmo convert para o formato onde os
+pixels são classificados em 0 ou 255, como mostra a figura~\ref{fig:bayes_dado_entrada_convertida},
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada_convertida.eps}
+  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \label{fig:bayes_dado_entrada_convertida}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada.eps}
+  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \label{fig:bayes_dado_entrada}
+\end{figure}
