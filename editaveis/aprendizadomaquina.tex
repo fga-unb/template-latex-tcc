@@ -110,10 +110,21 @@ figura~\ref{fig:tabela_ml_treinamento_convertida}.
 
 Após a realização do treinamento, resultando em dados como mostra a
 figura~\ref{fig:tabela_ml_treinamento_convertida}, o algoritmo agora está pronto para
-receber dados de entrada, um vetor contendo os 784 pixels que formam a imagem, e então
-retornar qual o número que está na imagem. Para a entrada ilustrada na
-figura~\ref{fig:bayes_dado_entrada}, o algoritmo convert para o formato onde os
-pixels são classificados em 0 ou 255, como mostra a figura~\ref{fig:bayes_dado_entrada_convertida},
+receber os dados de entrada, um vetor contendo os 784 pixels que formam a imagem, e então
+a decisão acerca da classe à qual um objeto pertence é tomada de acordo com o modelo
+de probabilidade máxima posterior~\cite{araujo2011apprecommender}, sendo assim, é
+calculado a probabilidade de cada número entre 0 e 9 conter esse vetor de pixels, e então
+retornar o número que possui a maior probabilidade, ou seja, qual o número que está na
+imagem. Para a entrada ilustrada na figura~\ref{fig:bayes_dado_entrada}, o algoritmo
+converte para o formato onde os pixels são classificados em 0 ou 255, como mostra a
+figura~\ref{fig:bayes_dado_entrada_convertida}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada.eps}
+  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \label{fig:bayes_dado_entrada}
+\end{figure}
 
 \begin{figure}[h]
   \centering
@@ -122,9 +133,48 @@ pixels são classificados em 0 ou 255, como mostra a figura~\ref{fig:bayes_dado_
   \label{fig:bayes_dado_entrada_convertida}
 \end{figure}
 
+Através do modelo de probabilidade máxima posterior é utilizado a seguinte equação.
+
+\begin{center}
+
+$ c_{map} \ = \ {arg max}_{c \in C} \ \hat{P}(c) \ \prod\limits_{1 \leq i \leq n} \hat{P}(x_i | c)  $
+\\
+\end{center}
+
+Onde $c$ é uma classe, ou número de 0 a 9, $c_{map}$ é a classe de maior probabilidade,
+ou o número que possui a maior probabilidade de possuir o vetor de pixels, $C$ é o
+conjunto de todas as classes, neste caso, o conjunto de números de 0 a 9.
+
+{\^P}(c) é a frequencia relativa da classe c, que se trata da frequência de um rótulo
+nas entradas do treinamento dividido pela quantidade de rótulos, a seguinte fórmula
+apresenta como é calculado {\^P}(c).
+
+\begin{center}
+
+$ \hat{P}(c) \ = \ \frac{N_c}{N} $
+\\
+\end{center}
+
+Onde N é a quantidade de rótulos no treinamento, e $N_c$ é a quantidade de um mesmo
+rótulo nos dados de treinamento, onde $N_{2}$ é 2, {\^P}(2) é $\frac{2}{5}$, a
+figura~\ref{fig:frequencia_relativa} mostra a frequencia relativa de  cada um dos
+números, ou rótulos, do exemplo.
+
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada.eps}
-  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
-  \label{fig:bayes_dado_entrada}
+  \includegraphics[width=0.9\textwidth]{figuras/frequencia_relativa.eps}
+  \caption{Frequência relativa dos rótulos do treinamento}
+  \label{fig:frequencia_relativa}
 \end{figure}
+
+Cada parâmetro condicional $\hat{P}(x_i | c)$ é um peso que representa a qualidade
+do atributo $x_i$ como indicador da classe c~\cite{araujo2011apprecommender}. No
+exemplo, $x_i$ representa uma posiçao no vetor de pixels, onde essa probabilidade
+pode ser calculada através da seguinte fórmula.
+
+\begin{center}
+
+$ \hat{P}(x_i | c) \ = \ \frac{T_{cx}}{\sum\limits_{x' \in V}T_{cx'}} $
+\\
+\end{center}
+
