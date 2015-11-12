@@ -104,7 +104,7 @@ figura~\ref{fig:tabela_ml_treinamento_convertida}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/rotulos_e_pixels.eps}
-  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que formam a imagem}
   \label{fig:rotulos_e_pixels}
 \end{figure}
 
@@ -122,16 +122,18 @@ figura~\ref{fig:bayes_dado_entrada_convertida}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada.eps}
-  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \caption{Entrada de dados com os pixels do vetor que formam a imagem}
   \label{fig:bayes_dado_entrada}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada_convertida.eps}
-  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que forma a imagem}
+  \caption{Entrada de dados convertida, com os pixels do vetor que formam a imagem}
   \label{fig:bayes_dado_entrada_convertida}
 \end{figure}
+
+As fórmulas utilizadas a seguir são demonstradas no mestrado da Tássia Araujo Camões.
 
 Através do modelo de probabilidade máxima posterior é utilizado a seguinte equação.
 
@@ -168,13 +170,63 @@ números, ou rótulos, do exemplo.
 \end{figure}
 
 Cada parâmetro condicional $\hat{P}(x_i | c)$ é um peso que representa a qualidade
-do atributo $x_i$ como indicador da classe c~\cite{araujo2011apprecommender}. No
-exemplo, $x_i$ representa uma posiçao no vetor de pixels, onde essa probabilidade
-pode ser calculada através da seguinte fórmula.
+do atributo $x_i$ como indicador da classe c. No exemplo, $x_i$ representa uma
+posiçao no vetor de pixels, ou seja, o valor do pixel na posição i, onde essa
+probabilidade pode ser calculada através da seguinte fórmula.
 
 \begin{center}
 
-$ \hat{P}(x_i | c) \ = \ \frac{T_{cx}}{\sum\limits_{x' \in V}T_{cx'}} $
+$ \hat{P}(x_i | c) \ = \ \frac{T_{cx} + 1}{\sum\limits_{x' \in V}T_{cx'} + 1} $
 \\
 \end{center}
 
+``Onde $T_{cx}$ é o número de ocorrências de x em objetos de exemplo da classe c''
+\citeonline{araujo2011apprecommender}, no exemplo, $T_{cx}$ é a quantidade de
+ocorrências de um valor do pixel, que é o x, para um dado rótulo, definido pela
+variavel c, logo o utilizando o vetor de entrada mostrado na figura~\ref{fig:bayes_dado_entrada_convertida},
+o valor de T, onde a classe c é o rótulo 2 para o primeiro pixel dos dados dados
+de entrada de entrada da figura~\ref{fig:bayes_dado_entrada_convertida} é 2, pois
+há dois rótulos de valor dois que o primeiro pixel é o valor zero, a figura~\ref{fig:tcx_dos_rotulos}
+mostra os valores $T_{cx}$ utilizando os dados de entrada da figura~\ref{fig:bayes_dado_entrada_convertida}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/tcx_dos_rotulos.eps}
+  \caption{Tcx dos rótulos}
+  \label{fig:tcx_dos_rotulos}
+\end{figure}
+
+O valor V é o conjunto dos atributos que uma classe c possui, logo, no exemplo
+do reconhecimento de dígito na imagem, V é um conjunto que possui dois valores
+0 e 255, sendo assim, a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' é igual a
+quantidade de rótulos c nos dados de treinamento da figura~\ref{fig:tabela_ml_treinamento_convertida},
+no caso, a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' para o rótulo 2 é igual
+a dois, pois há dois rótulos 2, a figura~\ref{fig:somatoria_tcx_dos_rotulos}
+mostra a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' para todos os rótulos dos
+dados de treinamento para os dados de entrada da figura~\ref{fig:bayes_dado_entrada_convertida}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/somatoria_tcx_dos_rotulos.eps}
+  \caption{Tcx dos rótulos}
+  \label{fig:somatoria_tcx_dos_rotulos}
+\end{figure}
+
+Utilizando os dados da figura~\ref{fig:tcx_dos_rotulos} e da figura~\ref{fig:somatoria_tcx_dos_rotulos}
+se realiza os calculos de probabilidade para os dados de entrada da
+figura~\ref{fig:bayes_dado_entrada_convertida}, onde está demonstrado apenas para
+os pixels 1, 2 e 784 da imagem, que são mostrados na figura~\ref{fig:probabilidades_dos_rotulos},
+onde o rótulo de maior probabilidade usando esses três pixels é o rótulo X, o
+correto é aplicar o cáculo a todos os pixels, porém, por se tratar de um exemplo
+optou-se por aplicar apenas a esses três pixels, o 1, 2 e 784.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/probabilidades_dos_rotulos.eps}
+  \caption{Probabilidade dos rótulos para cada pixel}
+  \label{fig:probabilidades_dos_rotulos}
+\end{figure}
+
+Através dessa demonstração e considerando apenas os três pixels, 1, 2 e 784,
+para a entrada de dados da figura~\ref{fig:bayes_dado_entrada_convertida}, o
+algoritmo responderá que o numéro na imagem é o X.
