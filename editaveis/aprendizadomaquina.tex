@@ -16,12 +16,16 @@ algoritmo, onde quanto melhor for o treinamento, melhor os resultados
 dos novos dados de entrada.
 
 Como exemplo, o aprendizado de máquina pode ser usado para identificar
-um número em uma imagem. Supondo que uma imagem seja uma matriz de pixels
-28x28 e que os pixels estão em escala de cinza, ou seja, vão de 0 a 255, e
-que essa imagem se trata de um número, o algoritmo deve receber várias
-entradas como treinamento, contendo a imagem e o número que corresponde a
-essa imagem. Após o treinamento o programa deve ser capaz de
-receber uma imagem 28x28 e identificar qual número está na imagem.
+a classificação de um conjunto de atributos. Supondo que um conjunto
+possua cinco atributos binários, ou seja, os atributos apenas possuí os
+valores 0 e 1, o algoritmo deve ser treinado usando como entrada vários
+atributos com sua respectiva classificação, essa classificação
+varia entre 0, 1 e 2, onde os significado desses valores são: 0 é ruim,
+1 é mediano e 2 é bom. Após o algoritmo ser treinado ele está pronto
+para receber um conjunto de atributos e então retornar a classificação
+desses atributos, baseando-se no treinamento recebido, logo a qualidade
+da resposta do algoritmo está diretamente relacionado a qualidade do
+treinamento.
 
 \subsection{Aprendizado supervisionado}
 
@@ -36,33 +40,53 @@ possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadoma
 Utilizado quando se tem tanto as perguntas quanto as respostas, o aprendizado
 supervisionado é utilizado para se obter uma classificação e funções de aproximação.
 
-Utilizando do exemplo do algoritmo que identifica um número em uma imagem,
-na utilização do aprendizado supervisionado para cada entrada no treinamento
-há um rótulo, que é um número de 0 a 9, que identifica qual número está na
-imagem, e uma sequencia de 784 pixels que representam a matriz 28x28 da imagem.
-A figura~\ref{fig:tabela_ml_treinamento} mostra um exemplo das entradas de
-treinamento.
+Utilizando do exemplo do algoritmo que classifica um conjunto de atributos,
+na utilização do aprendizado supervisionado, para cada entrada do treinamento
+existe um rótulo, que se trata da classificação do conjunto de atributos, ou
+seja, apenas possui os valores 0, 1 e 2, entrada também possui os valores dos
+atributos associados ao rótulo. A tabela~\ref{tab:entradas_de_treinamento}
+mostra um exemplo das entradas de treinamento.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_treinamento.eps}
-  \caption{Entradas de treinamento para o aprendizado de máquina}
-  \label{fig:tabela_ml_treinamento}
-\end{figure}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF}
+{\textbf{Rótulo}} & {\textbf{Atributo 1}} & {\textbf{Atributo 2}} & {\textbf{Atributo 3}} & {\textbf{Atributo 4}} & {\textbf{Atributo 5}} \\ \hline
+1 & 1 & 0 & 1 & 0 & 1 \\
+\hline
+2 & 0 & 1 & 1 & 0 & 1 \\
+\hline
+0 & 1 & 0 & 0 & 1 & 1 \\
+\hline
+1 & 1 & 0 & 1 & 1 & 0 \\
+\hline
+2 & 0 & 1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}}
+\caption{Entradas de treinamento para o aprendizado de máquina}
+\label{tab:entradas_de_treinamento}
+\end{table}
 
-Após ser realizada a etapa de treinamento, ao receber uma sequencia de 784
-pixels, o algoritmo deve responder qual o rótulo, que é o número de 0 a 9,
-correspondente a sequencia de 784 pixels. A figura~\ref{fig:tabela_ml_entrada}
-mostra um exemplo de uma entrada para o algoritmo, a diferença dessa entrada
-para uma entrada de treinamento é que essa não possui o rótulo, pois o rótulo
-será o resultado da execução do algoritmo.
+Após ser realizada a etapa de treinamento, ao receber uma sequencia de cinco
+atributos, o algoritmo deve retornar qual o rótulo, ou seja, a classificação,
+correspondente a esses atributos. A tabela~\ref{tab:entrada_para_classificar}
+mostra um exemplo de entrada para o algoritmo, a diferença dessa entrada para
+a de treinamento é que essa não possui o rótulo, pois o rótulo será o resultado
+da execução do algoritmo.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_entrada.eps}
-  \caption{Entradas de dados para o algoritmo determinar o rótulo}
-  \label{fig:tabela_ml_entrada}
-\end{figure}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF}
+{\textbf{Atributo 1}} & {\textbf{Atributo 2}} & {\textbf{Atributo 3}} & {\textbf{Atributo 4}} & {\textbf{Atributo 5}} \\ \hline
+1 & 1 & 0 & 0 & 1 \\
+\hline
+\end{tabular}}
+\caption{Entrada de dados para o algoritmo determinar o rótulo}
+\label{tab:entrada_para_classificar}
+\end{table}
 
 \subsubsection{Bayes Ingênuo}
 
@@ -77,61 +101,234 @@ uma precisão comparável aos outros métodos (comparável à métodos pertencen
 estado da arte), e estudos também mostram que o bayes ingênuo pode aprender a
 função de classificação ótima~\cite{santos2010naivebayes}.
 
-No caso do reconhecimento de um número em uma imagem 28x28, o vetor de pixels
-que forma a imagem, ilustrado na figura~\ref{fig:tabela_ml_treinamento}, será
-reescrito de forma que só irá possuir os valor 0 ou 255, por exemplo, todos os
-pixels a baixo de 50 serão considerados como 0, e todos os pixels com valor igual
-ou maior a 50 serão considerados como como 255, ou seja, a imagem ficará em preto
-e branco, como mostra a figura~\ref{fig:tabela_ml_treinamento_convertida}.
+No caso da classificação dos atributos, onde para cada entrada há o rótulo, ou
+seja, a classificação, seguido dos cinco atributos que possuem essa classificação,
+como mostra a tabela~\ref{tab:entradas_de_treinamento}. Na utilização do Bayes
+Ingênuo a tabela~\ref{tab:entradas_de_treinamento} será dividida em uma matriz D
+com os dados dos atributos, as dimensões dessa matriz são ``${e \times a}$'', onde
+``e'' é o número de entradas e ``a'' é o número de atributos, e a outra parte da
+divisão da tabela~\ref{tab:entradas_de_treinamento} é um vetor coluna L com os
+dados dos rótulos, onde suas dimensões são ``${e \times 1}$''.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/tabela_ml_treinamento_convertida.eps}
-  \caption{Entradas modificadas de treinamento para o aprendizado de máquina}
-  \label{fig:tabela_ml_treinamento_convertida}
-\end{figure}
+$$D=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 & 1 \\
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & 1 & 0 \\
+0 & 1 & 1 & 1 & 0 \\
+\end{array}
+\right]_{e \times a}$$
 
-Utilizando agora o vetor de pixels da figura~\ref{fig:tabela_ml_treinamento_convertida}
-é necessário realizar o treinamento do algortitmo, onde se deve armazenar as informações
-dos rótulo referente a cada pixel no vetor de pixels, onde para cada rótulo deve ser
-armazenado quantos pixels 0 e quantos pixels 255 o rótulo possui para cada pixe, por
-exemplo, o rótulo dois possui dois pixels zero e nenhum pixel 255 na primeira posição do
-vetor de pixel, e possui um pixel 0 e um pixel 255 na ultima posição do vetor. Realizando
-esse processo para todos os rótulos em todos os pixels do vetor que forma a imagem, a
-contagem de quantos pixels diferentes cada rótulo possui é ilustrada na
-figura~\ref{fig:tabela_ml_treinamento_convertida}.
+$$L=\left[
+\begin{array}{c}
+1 \\
+2 \\
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{e \times 1}$$
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/rotulos_e_pixels.eps}
-  \caption{Rótulos e sua quantidade de pixels para cada pixel do vetor que formam a imagem}
-  \label{fig:rotulos_e_pixels}
-\end{figure}
+Para o algoritmo funcionar também é necessário ter conhecimento de quais são as
+classificações que os atributos podem receber, essas classificações são informadas
+através do vetor coluna B, com dimensões ``${l \times 1}$'', onde ``l'' é o número
+de rótulos, ou classificações possíveis.
 
-Após a realização do treinamento, resultando em dados como mostra a
-figura~\ref{fig:tabela_ml_treinamento_convertida}, o algoritmo agora está pronto para
-receber os dados de entrada, um vetor contendo os 784 pixels que formam a imagem, e então
-a decisão acerca da classe à qual um objeto pertence é tomada de acordo com o modelo
-de probabilidade máxima posterior~\cite{araujo2011apprecommender}, sendo assim, é
-calculado a probabilidade de cada número entre 0 e 9 conter esse vetor de pixels, e então
-retornar o número que possui a maior probabilidade, ou seja, qual o número que está na
-imagem. Para a entrada ilustrada na figura~\ref{fig:bayes_dado_entrada}, o algoritmo
-converte para o formato onde os pixels são classificados em 0 ou 255, como mostra a
-figura~\ref{fig:bayes_dado_entrada_convertida}.
+$$B=\left[
+\begin{array}{c}
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada.eps}
-  \caption{Entrada de dados com os pixels do vetor que formam a imagem}
-  \label{fig:bayes_dado_entrada}
-\end{figure}
+Utilizando a matriz D e os vetores L e B, monta-se a matriz de adjacência A, onde
+cada linha dessa matriz representa respectivamente uma linha do vetor B, e cada
+coluna da matriz representa um atributo. A matriz de adjacência A também é uma
+matriz com valores binários, onde um indica a presença do atributo na classificação,
+e zero indica a ausência do atributo na classificação. Logo a matriz A possui
+dimensões ``${l \times e}$''.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/bayes_dado_entrada_convertida.eps}
-  \caption{Entrada de dados convertida, com os pixels do vetor que formam a imagem}
-  \label{fig:bayes_dado_entrada_convertida}
-\end{figure}
+$$A=\left[
+\begin{array}{ccccc}
+0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{e \times a}$$
+
+Utilizando a matriz A pode-se calcular o vetor com o histograma do vetor L, onde
+cada linha do vetor histograma H representa respectivamente um possível rótulo da
+matriz B, e o valor de cada linha representa o número de pacotes no qual o rótulo
+está associado. O vetor coluna H é calculado pela multiplicação da matriz A pelo
+vetor coluna com todos os valores sendo 1, onde esse vetor coluna possui ``e''
+linhas, logo as dimensões do vetor coluna H são ``${l \times 1}$''
+
+$$H=A * \left[
+\begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+\end{array}
+\right]_{e \times 1}$$
+
+$$H=\left[
+\begin{array}{c}
+1 \\
+2 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
+
+Utilizando o vetor H é calculado a probabilidade de cada rótulo, que é representada
+pelo vetor  PL, resultante da divisão do vetor H por ``l''.
+
+\begin{center}
+$PL= \frac{1}{l} * H$
+\end{center}
+
+$$PL=\left[
+\begin{array}{c}
+\frac{1}{3} \\
+\frac{2}{3} \\
+\frac{2}{3} \\
+\end{array}
+\right]_{l \times 1}$$
+
+O próximo passo é calcular a matriz PD1, que se trata da probabilidade de um
+atributo ser igual a um, na relação entre os rótulos possíveis, o vetor B, e os
+atributos da matriz D. Para isso é necessário identificar quantos atributos cada
+rótulo possui, obtido pela multiplicação da matriz de adjacência A com a matriz
+de dos atribudos D, resultando na matriz R contendo para cada possível rótulo
+quantos atributos este possui. A matrix PD1 é resultado da multiplicação entre a
+matriz inversa da diagonal feita pelo vetor H com a matriz R.
+
+\begin{center}
+$R = A * D$
+\end{center}
+
+$$R=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+2 & 0 & 2 & 1 & 1 \\
+0 & 2 & 2 & 1 & 1 \\
+\end{array}
+\right]_{l \times a}$$
+
+$$diag(H)=\left[
+\begin{array}{ccc}
+\frac{1}{3} & 0 & 0 \\
+0 & \frac{2}{3} & 0 \\
+0 & 0 & \frac{2}{3} \\
+\end{array}
+\right]_{l \times l}$$
+
+$$diag(H)^{-1}=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & \frac{1}{2} & 0 \\
+0 & 0 & \frac{1}{2} \\
+\end{array}
+\right]_{l \times l}$$
+
+\begin{center}
+$PD1 = diag(H)^{-1} * R$
+\end{center}
+
+$$PD1=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+Também é necessário identificar a matriz PD0, que indica a probabilidade dos
+atributos possuirem o valor zero, essa matriz pode ser obtida através da
+expressão ``$1 - PD1$''.
+
+\begin{center}
+$PD0 \ = \ 1 \ - \ PD1$
+\end{center}
+
+$$PD0=\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+É necessário transformar as matrizes PD1 e PD0 em matrizes quadradas,
+sendo suas dimensoes ``${l \times a}$'', a matriz quadrada deve possuir
+a maior dentre as duas dimensões, neste caso as matrizes devem possuir
+as dimensões ``${a \times a}$'', para que isso aconteça as matrizes são
+multiplicadas pela matriz identidade de dimensões ``${a \times l}$''.
+
+$$PD1=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]_{a \times l}
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+= \left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+$$PD0=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]_{a \times l}
+\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+= \left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+Obtendo o vetor PL, que é a probabilidade individual de cada rótulo, e a
+matrizes PD1 e PD0, que são a probabilidade da relação entre os rótulos
+possíveis e os atributos da matriz D, o treinamento do algoritmo está
+finalizado.
+
+
+---------------------------------------------------------------
+
+TODO - ASSOCIAR FÓRMULAS DA TASSIA COM A PARTE MATEMÁTICA ACIMA
 
 As fórmulas utilizadas a seguir são demonstradas no mestrado da Tássia Araujo Camões.
 
@@ -143,9 +340,10 @@ $ c_{map} \ = \ {arg max}_{c \in C} \ \hat{P}(c) \ \prod\limits_{1 \leq i \leq n
 \\
 \end{center}
 
-Onde $c$ é uma classe, ou número de 0 a 9, $c_{map}$ é a classe de maior probabilidade,
-ou o número que possui a maior probabilidade de possuir o vetor de pixels, $C$ é o
-conjunto de todas as classes, neste caso, o conjunto de números de 0 a 9.
+Onde $c$ é uma classe, que se trata dos rótulos, $c_{map}$ é a classe de maior
+probabilidade, ou seja, o rótulo que possui a maior probabilidade de possuir o vetor
+de atributos, $C$ é o conjunto de todas as classes, neste caso, o conjunto dos números
+0 e 1.
 
 {\^P}(c) é a frequencia relativa da classe c, que se trata da frequência de um rótulo
 nas entradas do treinamento dividido pela quantidade de rótulos, a seguinte fórmula
