@@ -407,11 +407,89 @@ $$PV=\left[
 \end{array}
 \right]_{a \times a}$$
 
+Através da matriz PV é obtido o vetor coluna ``u'', onde o cada linha
+do vetor u corresponde a multiplicação dos elementos da linha da matriz
+PV.
 
+$$u=\left[
+\begin{array}{c}
+0 \\
+0.25 \\
+0 \\
+0 \\
+0 \\
+\end{array}
+\right]_{a \times 1}$$
 
+Assim como foi feita uma operação nas matrizes PD1 e PD0 para que as
+matrizes fiquem quadradas, é necessário que o vetor u tenha a mesma
+dimensão do vetor B, que é o vetor com os os possíveis labels, para
+isso multiplica-se o vetor u pela diagonal unitária com dimensão
+quantidade de labels ``l'' pela quantidade de atributos ``a''.
 
+$$u=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+\end{array}
+\right]_{l \times a}
+\left[
+\begin{array}{c}
+0 \\
+0.25 \\
+0 \\
+0 \\
+0 \\
+\end{array}
+\right]_{a \times 1}
+$$
 
+$$u=\left[
+\begin{array}{c}
+0 \\
+0.25 \\
+0 \\
+\end{array}
+\right]_{l \times 1}
+$$
 
+O vetor PF contendo a probabilidade de cada rótulo para o vetor de
+entrada v, é obtido pela relação entre a probabilidade de cada rótulo,
+o vetor PL, com o vetor u, onde PF é o resultado da multiplicação da
+diagonal do vetor PL com o vetor u.
+
+$$PF=\left[
+\begin{array}{ccccc}
+\frac{1}{3} & 0 & 0 \\
+0 & \frac{2}{3} & 0 \\
+0 & 0 & \frac{2}{3} \\
+\end{array}
+\right]_{l \times l}
+\left[
+\begin{array}{c}
+0 \\
+\frac{1}{4} \\
+0 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+$$PF=\left[
+\begin{array}{c}
+0 \\
+\frac{1}{6} \\
+0 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+O rótulo que possui maior probabilidade para o vetor de entrada v, é
+o rótulo 1, ou a classificação 1 para o exemplo, pois o rótulo 1 no
+vetor B está na mesma linha que a maior probabilidade no vetor PF.
+Logo a resposta do algoritmo para a entrada do vetor v é o rótulo 1,
+essa é a aplicação do algoritmo naive bayes para o exemplo da classificação
+do conjunto de atributos.
 
 
 
