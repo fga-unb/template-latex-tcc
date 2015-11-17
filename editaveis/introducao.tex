@@ -1,8 +1,87 @@
 \chapter*[Introdução]{Introdução}
 \addcontentsline{toc}{chapter}{Introdução}
 
-Este documento apresenta considerações gerais e preliminares relacionadas 
-à redação de relatórios de Projeto de Graduação da Faculdade UnB Gama 
-(FGA). São abordados os diferentes aspectos sobre a estrutura do trabalho, 
-uso de programas de auxilio a edição, tiragem de cópias, encadernação, etc.
+Segundo \citeonline{burke2002hybrid}, sistemas de recomendação são aqueles que
+produzem recomendações individualizadas como saída ou que guiam o usuário
+usuário de forma personalizada para itens interessantes ou úteis em um conjunto
+grande de opções. Com essa definição em mente, muitas empresas buscam
+impulsionar tanto a venda como a visualização dos itens que possuem a até mesmo
+melhor direcionar produtos para o usuário. Exemplo clássicos desse uso são a
+Amazon provendo um loja online praticamente toda personalizada
+\cite{jannach2008finding}, e a empresa Netflix que usa sistema de recomendação
+para prover filmes a seus usuários. Vale ressaltar que esta empresa recentemente
+realizou um concurso no valor de um milhão de doláres para quem pudesse melhorar
+a performance do seu sistema de recomendação \cite{koren2009matrix}.
 
+Com essa informação em mente, pode-se ver que sistemas de recomendação podem
+trazer benefícios para grande gama de aplicações em contextos diferentes. Um
+desses contextos pode ser a recomendação de pacotes GNU/Linux. Um dos sistemas
+GNU/Linux que existem é o Debian, que no período de realização desse trabalho
+possui 49096 pacotes para em seus repositórios \footnote{Dados coletados
+08/11/2015}. Dado este número elevado de pacotes, usuários podem ter
+dificuldades em encontrar pacotes que lhes agradem ou até mesmo ficarem sabendo
+de algum novo pacote no sistema. Além disso, sistemas de recomendação também
+podem ajudar a comunidade, pois com mais usuários do pacote, pode-se entender que
+o número de \textit{bugs} registrados possa aumentar, podendo assim aumentar a qualidade
+do software sendo usado.
+
+Entretanto, dado a gama de pacotes disponíveis em sistemas Debian, prover uma
+recomendação útil para o usuário pode se tornar um problema. Partindo do
+pressuposto que o usuário usa apenas uma parte dos seus pacotes em um dado
+momento, entender o contexto temporal  do uso de pacotes pode acarretar em recomendações reais e
+mais úteis ao usuário.
+
+Afim de colaborar com o sistema Debian esta pesquisa visa juntar informações
+temporais de uso de pacotes à um sistema de recomendação de pacotes já existente.
+Para isso duas abordagens serão propostas, uma determinística e uma por aprendizado
+de máquina. Com essas abordagens, a pesquisa visa estão entender se o contexto temporal
+irá trazer melhorias para as recomendações feitas pelo sistema.
+
+\section{Justificativa}
+
+Sabendo do crescente número de pacotes presentes no repositório do Debian e a
+necessidade de se criar uma comunidade em torno desses pacotes, este trabalho
+visa ajudar tantos os usuários Debian que gostariam de usar mais pacotes que
+lhes forneçam funcionalidades interessantes no seu dia-a-dia, quanto a própria
+comunidade Debian, ao possibilitar que mais usuários usem determinados pacotes,
+podendo assim aumentar a comunidade em torno do mesmo.
+
+Além disso, esta pesquisa também visa servir de insumo para outros estudos
+relacionados a recomendação de pacotes GNU/Linux ou até mesmo pesquisas
+interessadas em aplicar contexto temporal em seus sistemas de recomendação.
+
+\section{Objetivo}
+
+Este trabalho tem como principal objetivo estudar como contexto temporal pode
+afetar a recomendação de pacotes GNU/Linux. Nesta etapa inicial do projeto,
+pretende-se especificar os modelos que serão usados para extrair informação
+temporal de um pacote, além de modelos de uso dessas informações em um sistema
+de recomendação.
+
+No entanto, para realizar tais feitos, será necessário um aprofundamento na
+teoria de sistemas de recomendação e aprendizado de máquina, com o intuinto de
+dominar tais conceitos, principalmente as peculiaridades de cada um.
+
+Com o conhecimento teórico adquirido, a parte prática do projeto pode começar a
+ser realizada, onde um software livre de recomendação de pacotes será usado como
+base para implementação das novas abordagens contendo informação temporal. Além
+disso, será necessário também realizar comparações entre as abordagens originais
+propostas pela aplicação e as novas, propostas pela pesquisa.
+
+Com a comparação realizada, pode-se então analisar o impacto do contexto
+temporal nas recomendações realizadas, visando principalmente averiguar se as
+recomendações estão consoantes com as expectativas do usuário.
+
+Em resumo, está pesquisa visa responder a seguinte questão-problema:
+
+\textit{"É possível melhorar a recomendação de pacotes usando contexto temporal
+dos pacotes de um usuário ?"}
+
+\section{Organização do trabalho}
+
+Este trabalho está dividido em 3 capítulos distintos. No capítulo 2,
+são apresentadas as revisões bibliográficas feitas para sistemas de recomendação e aprendizado de máquina.
+No capítulo 3, é apresentado a metodologia proposta para está pesquisa, contendo desde as hipóteses levantadas para a pesquisa,
+ como o sistema de recomendação usado como base e como os resultados obtidos serão comparados. Por fim, o último capítulo é usado para relatar
+algumas considerações do trabalho sendo desenvolvido, como os resultados obtidos até o momento, além de atividades que ainda precisam ser feitas,
+usando um contexto de um cronograma para relatar tais atividades.
