@@ -81,7 +81,7 @@ da execução do algoritmo.
 \hline
 \rowcolor[HTML]{EFEFEF}
 {\textbf{Atributo 1}} & {\textbf{Atributo 2}} & {\textbf{Atributo 3}} & {\textbf{Atributo 4}} & {\textbf{Atributo 5}} \\ \hline
-1 & 1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 1 & 0 \\
 \hline
 \end{tabular}}
 \caption{Entrada de dados para o algoritmo determinar o rótulo}
@@ -324,6 +324,96 @@ Obtendo o vetor PL, que é a probabilidade individual de cada rótulo, e a
 matrizes PD1 e PD0, que são a probabilidade da relação entre os rótulos
 possíveis e os atributos da matriz D, o treinamento do algoritmo está
 finalizado.
+
+Com o algoritmo treinado, ele está pronto para receber um vetor com
+os atributos, como mostra a tabela~\ref{tab:entrada_para_classificar},
+é usado como exemplo o vetor v, que possui dimensões ``${1 \times a}$''.
+
+$$v=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}$$
+
+O próximo passo é montar a matriz PV, que se trata da matriz de
+probabilidade para o vetor, onde se trata da junção das matrizes
+PD1 e PD0, onde para cada coluna do vetor v, se o valor for um
+utiliza a coluna da matriz PD1, se o valor for zero, utiliza a
+coluna da matriz PD0. Em outras palavras, a matriz PV é resultante
+da soma dos produtos entre PD1 e a matriz diagonal de v, com PD0
+e a matriz diagonal de v', onde o vetor v' se trata do vetor v
+porém os valores de 1 e 0 são alternados.
+
+$$v'=1-\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}
+=
+\left[
+\begin{array}{ccccc}
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{1 \times a}
+$$
+
+$$PV=
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
++
+\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
+\left[
+\begin{array}{ccccc}
+0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+\end{array}
+\right]_{a \times a}
+$$
+
+$$PV=\left[
+\begin{array}{ccccc}
+1 & 1 & 0 & 1 & 0 \\
+1 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+
+
+
+
+
+
+
 
 
 ---------------------------------------------------------------
