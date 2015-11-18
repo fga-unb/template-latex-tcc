@@ -88,7 +88,7 @@ da execução do algoritmo.
 \label{tab:entrada_para_classificar}
 \end{table}
 
-\subsubsection{Bayes Ingênuo}
+\subsection{Bayes Ingênuo}
 
 Um algoritmo supervisionado, e bastante utilizado no aprendizado de máquina,
 o bayes ingênuo, também conhecido como naive bayes, é denominado ingênuo devido
@@ -184,13 +184,13 @@ $$H=\left[
 \right]_{l \times 1}$$
 
 Utilizando o vetor H é calculado a probabilidade de cada rótulo, que é representada
-pelo vetor  PL, resultante da divisão do vetor H por ``l''.
+pelo vetor PH, resultante da divisão do vetor H por ``e''.
 
 \begin{center}
-$PL= \frac{1}{l} * H$
+$PH= \frac{1}{e} * H$
 \end{center}
 
-$$PL=\left[
+$$PH=\left[
 \begin{array}{c}
 \frac{1}{3} \\
 \frac{2}{3} \\
@@ -198,12 +198,12 @@ $$PL=\left[
 \end{array}
 \right]_{l \times 1}$$
 
-O próximo passo é calcular a matriz PD1, que se trata da probabilidade de um
+O próximo passo é calcular a matriz PR1, que se trata da probabilidade de um
 atributo ser igual a um, na relação entre os rótulos possíveis, o vetor B, e os
 atributos da matriz D. Para isso é necessário identificar quantos atributos cada
 rótulo possui, obtido pela multiplicação da matriz de adjacência A com a matriz
 de dos atribudos D, resultando na matriz R contendo para cada possível rótulo
-quantos atributos este possui. A matrix PD1 é resultado da multiplicação entre a
+quantos atributos este possui. A matrix PR1 é resultado da multiplicação entre a
 matriz inversa da diagonal feita pelo vetor H com a matriz R.
 
 \begin{center}
@@ -235,10 +235,10 @@ $$diag(H)^{-1}=\left[
 \right]_{l \times l}$$
 
 \begin{center}
-$PD1 = diag(H)^{-1} * R$
+$PR1 = diag(H)^{-1} * R$
 \end{center}
 
-$$PD1=\left[
+$$PR1=\left[
 \begin{array}{ccccc}
 1 & 0 & 0 & 1 & 1 \\
 1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
@@ -246,15 +246,15 @@ $$PD1=\left[
 \end{array}
 \right]_{l \times a}$$
 
-Também é necessário identificar a matriz PD0, que indica a probabilidade dos
+Também é necessário identificar a matriz PR0, que indica a probabilidade dos
 atributos possuirem o valor zero, essa matriz pode ser obtida através da
-expressão ``$1 - PD1$''.
+expressão ``$1 - PR1$''.
 
 \begin{center}
-$PD0 \ = \ 1 \ - \ PD1$
+$PR0 \ = \ 1 \ - \ PR1$
 \end{center}
 
-$$PD0=\left[
+$$PR0=\left[
 \begin{array}{ccccc}
 0 & 1 & 1 & 0 & 0 \\
 0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
@@ -262,13 +262,13 @@ $$PD0=\left[
 \end{array}
 \right]_{l \times a}$$
 
-É necessário transformar as matrizes PD1 e PD0 em matrizes quadradas,
+É necessário transformar as matrizes PR1 e PR0 em matrizes quadradas,
 sendo suas dimensoes ``${l \times a}$'', a matriz quadrada deve possuir
 a maior dentre as duas dimensões, neste caso as matrizes devem possuir
 as dimensões ``${a \times a}$'', para que isso aconteça as matrizes são
 multiplicadas pela matriz identidade de dimensões ``${a \times l}$''.
 
-$$PD1=\left[
+$$PR1=\left[
 \begin{array}{ccc}
 1 & 0 & 0 \\
 0 & 1 & 0 \\
@@ -294,7 +294,7 @@ $$PD1=\left[
 \end{array}
 \right]_{a \times a}$$
 
-$$PD0=\left[
+$$PR0=\left[
 \begin{array}{ccc}
 1 & 0 & 0 \\
 0 & 1 & 0 \\
@@ -320,8 +320,8 @@ $$PD0=\left[
 \end{array}
 \right]_{a \times a}$$
 
-Obtendo o vetor PL, que é a probabilidade individual de cada rótulo, e a
-matrizes PD1 e PD0, que são a probabilidade da relação entre os rótulos
+Obtendo o vetor PH, que é a probabilidade individual de cada rótulo, e a
+matrizes PR1 e PR0, que são a probabilidade da relação entre os rótulos
 possíveis e os atributos da matriz D, o treinamento do algoritmo está
 finalizado.
 
@@ -337,10 +337,10 @@ $$v=\left[
 
 O próximo passo é montar a matriz PV, que se trata da matriz de
 probabilidade para o vetor, onde se trata da junção das matrizes
-PD1 e PD0, onde para cada coluna do vetor v, se o valor for um
-utiliza a coluna da matriz PD1, se o valor for zero, utiliza a
-coluna da matriz PD0. Em outras palavras, a matriz PV é resultante
-da soma dos produtos entre PD1 e a matriz diagonal de v, com PD0
+PR1 e PR0, onde para cada coluna do vetor v, se o valor for um
+utiliza a coluna da matriz PR1, se o valor for zero, utiliza a
+coluna da matriz PR0. Em outras palavras, a matriz PV é resultante
+da soma dos produtos entre PR1 e a matriz diagonal de v, com PR0
 e a matriz diagonal de v', onde o vetor v' se trata do vetor v
 porém os valores de 1 e 0 são alternados.
 
@@ -356,6 +356,11 @@ $$v'=1-\left[
 \end{array}
 \right]_{1 \times a}
 $$
+\\
+
+\begin{center}
+$PV = PR1 * diagonal(v) \ + \ PR0 * diagonal(v')$
+\end{center}
 
 $$PV=
 \left[
@@ -409,19 +414,56 @@ $$PV=\left[
 
 Através da matriz PV é obtido o vetor coluna ``u'', onde o cada linha
 do vetor u corresponde a multiplicação dos elementos da linha da matriz
-PV.
+PV, porém devido ao fato de uma probabilidade zero em uma linha da matriz
+PV irá fazer com que a multiplicação da linha seja igual a zero, para
+impedir esse problema é somado 1 a matriz PV. Como a matriz pode ter
+centenas de atributos ``a'' existe o problema de que a multiplicação
+desses elementos tornem a multiplicação das linhas da matriz um número
+muito grande, ou um número muito pequeno, afim de impedir que ocorra
+problemas computacionais com o tamanho dos números, ao invés de multiplicar
+as linhas da matriz, é somado o log de cada elemento da matriz PV resultando
+no vetor ``u''.
 
+\begin{center}
+$PV = PV + 1$
+$$PV=\left[
+\begin{array}{ccccc}
+2 & 2 & 1 & 2 & 1 \\
+2 & 2 & 2 & \frac{3}{2} & \frac{3}{2} \\
+1 & 1 & 2 & \frac{3}{2} & \frac{3}{2} \\
+1 & 1 & 1 & 1 & 1 \\
+1 & 1 & 1 & 1 & 1 \\
+\end{array}
+\right]_{a \times a}$$
+\end{center}
+
+\begin{center}
+$PV = log(PV)$
+$$PV=\left[
+\begin{array}{ccccc}
+0.69315 & 0.69315 & 0.00000 & 0.69315 & 0.00000 \\
+0.69315 & 0.69315 & 0.69315 & 0.40547 & 0.40547 \\
+0.00000 & 0.00000 & 0.69315 & 0.40547 & 0.40547 \\
+0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
+0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
+\end{array}
+\right]_{a \times a}$$
+\end{center}
+
+\begin{center}
+$u \ = \ soma Das Linhas de PV$
 $$u=\left[
 \begin{array}{c}
-0 \\
-0.25 \\
-0 \\
-0 \\
-0 \\
+2.07944 \\
+2.89037 \\
+1.50408 \\
+0.00000 \\
+0.00000 \\
 \end{array}
 \right]_{a \times 1}$$
+\end{center}
 
-Assim como foi feita uma operação nas matrizes PD1 e PD0 para que as
+Assim como foi feita uma operação nas matrizes PR1 e PR0 para que as
 matrizes fiquem quadradas, é necessário que o vetor u tenha a mesma
 dimensão do vetor B, que é o vetor com os os possíveis labels, para
 isso multiplica-se o vetor u pela diagonal unitária com dimensão
@@ -436,50 +478,74 @@ $$u=\left[
 \right]_{l \times a}
 \left[
 \begin{array}{c}
-0 \\
-0.25 \\
-0 \\
-0 \\
-0 \\
+2.07944 \\
+2.89037 \\
+1.50408 \\
+0.00000 \\
+0.00000 \\
 \end{array}
 \right]_{a \times 1}
 $$
 
 $$u=\left[
 \begin{array}{c}
-0 \\
-0.25 \\
-0 \\
+2.07944 \\
+2.89037 \\
+1.50408 \\
 \end{array}
 \right]_{l \times 1}
 $$
 
 O vetor PF contendo a probabilidade de cada rótulo para o vetor de
 entrada v, é obtido pela relação entre a probabilidade de cada rótulo,
-o vetor PL, com o vetor u, onde PF é o resultado da multiplicação da
-diagonal do vetor PL com o vetor u.
+o vetor PH, com o vetor u, onde PF é o resultado da multiplicação da
+diagonal do vetor PH com o vetor u, onde o vetor PH deve passar pelo
+mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois fazer
+o log.
+
+\begin{center}
+$PH = 1 + PH$
+$$PH=\left[
+\begin{array}{c}
+\frac{4}{3} \\
+\frac{5}{3} \\
+\frac{5}{3} \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
+
+\begin{center}
+$PH = log(PH)$
+$$PH=\left[
+\begin{array}{c}
+0.28768 \\
+0.51083 \\
+0.51083 \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
 
 $$PF=\left[
 \begin{array}{ccccc}
-\frac{1}{3} & 0 & 0 \\
-0 & \frac{2}{3} & 0 \\
-0 & 0 & \frac{2}{3} \\
+0.28768 & 0 & 0 \\
+0 & 0.51083 & 0 \\
+0 & 0 & 0.51083 \\
 \end{array}
 \right]_{l \times l}
 \left[
 \begin{array}{c}
-0 \\
-\frac{1}{4} \\
-0 \\
+2.07944 \\
+2.89037 \\
+1.50408 \\
 \end{array}
 \right]_{l \times 1}
 $$
 
 $$PF=\left[
 \begin{array}{c}
-0 \\
-\frac{1}{6} \\
-0 \\
+0.59822 \\
+1.47648 \\
+0.76832 \\
 \end{array}
 \right]_{l \times 1}
 $$
