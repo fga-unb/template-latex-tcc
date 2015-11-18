@@ -550,115 +550,27 @@ $$PF=\left[
 \right]_{l \times 1}
 $$
 
-O rótulo que possui maior probabilidade para o vetor de entrada v, é
-o rótulo 1, ou a classificação 1 para o exemplo, pois o rótulo 1 no
-vetor B está na mesma linha que a maior probabilidade no vetor PF.
-Logo a resposta do algoritmo para a entrada do vetor v é o rótulo 1,
-essa é a aplicação do algoritmo naive bayes para o exemplo da classificação
-do conjunto de atributos.
+O rótulo que possui maior probabilidade para o vetor de entrada v, é o
+rótulo 1, ou a classificação 1 para o exemplo, pois o rótulo 1 no vetor
+B está na mesma linha que a maior probabilidade no vetor PF. Logo a resposta
+do algoritmo para a entrada do vetor v é o rótulo 1, essa é a aplicação
+do algoritmo naive bayes para o exemplo da classificação do conjunto de
+atributos.
 
-
-
-
----------------------------------------------------------------
-
-TODO - ASSOCIAR FÓRMULAS DA TASSIA COM A PARTE MATEMÁTICA ACIMA
-
-As fórmulas utilizadas a seguir são demonstradas no mestrado da Tássia Araujo Camões.
-
-Através do modelo de probabilidade máxima posterior é utilizado a seguinte equação.
+O classificador bayesiano pode ser calculado através do modelo de probabilidade
+máxima posterior, ``dado que C é o conjunto de classes e x o objeto a ser
+classificado, a classe atribuída será a que apresentar maior probabilidade
+condicionada a x. {\^P} é utilizado em vez de P porque geralmente não se sabe
+o valor exato das probabilidades, que são estimadas a partir dos dados de
+treinamento''\citeonline{araujo2011apprecommender}.
 
 \begin{center}
-
 $ c_{map} \ = \ {arg max}_{c \in C} \ \hat{P}(c) \ \prod\limits_{1 \leq i \leq n} \hat{P}(x_i | c)  $
 \\
 \end{center}
 
-Onde $c$ é uma classe, que se trata dos rótulos, $c_{map}$ é a classe de maior
-probabilidade, ou seja, o rótulo que possui a maior probabilidade de possuir o vetor
-de atributos, $C$ é o conjunto de todas as classes, neste caso, o conjunto dos números
-0 e 1.
-
-{\^P}(c) é a frequencia relativa da classe c, que se trata da frequência de um rótulo
-nas entradas do treinamento dividido pela quantidade de rótulos, a seguinte fórmula
-apresenta como é calculado {\^P}(c).
-
-\begin{center}
-
-$ \hat{P}(c) \ = \ \frac{N_c}{N} $
-\\
-\end{center}
-
-Onde N é a quantidade de rótulos no treinamento, e $N_c$ é a quantidade de um mesmo
-rótulo nos dados de treinamento, onde $N_{2}$ é 2, {\^P}(2) é $\frac{2}{5}$, a
-figura~\ref{fig:frequencia_relativa} mostra a frequencia relativa de  cada um dos
-números, ou rótulos, do exemplo.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/frequencia_relativa.eps}
-  \caption{Frequência relativa dos rótulos do treinamento}
-  \label{fig:frequencia_relativa}
-\end{figure}
-
-Cada parâmetro condicional $\hat{P}(x_i | c)$ é um peso que representa a qualidade
-do atributo $x_i$ como indicador da classe c. No exemplo, $x_i$ representa uma
-posiçao no vetor de pixels, ou seja, o valor do pixel na posição i, onde essa
-probabilidade pode ser calculada através da seguinte fórmula.
-
-\begin{center}
-
-$ \hat{P}(x_i | c) \ = \ \frac{T_{cx} + 1}{\sum\limits_{x' \in V}T_{cx'} + 1} $
-\\
-\end{center}
-
-``Onde $T_{cx}$ é o número de ocorrências de x em objetos de exemplo da classe c''
-\citeonline{araujo2011apprecommender}, no exemplo, $T_{cx}$ é a quantidade de
-ocorrências de um valor do pixel, que é o x, para um dado rótulo, definido pela
-variavel c, logo o utilizando o vetor de entrada mostrado na figura~\ref{fig:bayes_dado_entrada_convertida},
-o valor de T, onde a classe c é o rótulo 2 para o primeiro pixel dos dados dados
-de entrada de entrada da figura~\ref{fig:bayes_dado_entrada_convertida} é 2, pois
-há dois rótulos de valor dois que o primeiro pixel é o valor zero, a figura~\ref{fig:tcx_dos_rotulos}
-mostra os valores $T_{cx}$ utilizando os dados de entrada da figura~\ref{fig:bayes_dado_entrada_convertida}.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/tcx_dos_rotulos.eps}
-  \caption{Tcx dos rótulos}
-  \label{fig:tcx_dos_rotulos}
-\end{figure}
-
-O valor V é o conjunto dos atributos que uma classe c possui, logo, no exemplo
-do reconhecimento de dígito na imagem, V é um conjunto que possui dois valores
-0 e 255, sendo assim, a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' é igual a
-quantidade de rótulos c nos dados de treinamento da figura~\ref{fig:tabela_ml_treinamento_convertida},
-no caso, a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' para o rótulo 2 é igual
-a dois, pois há dois rótulos 2, a figura~\ref{fig:somatoria_tcx_dos_rotulos}
-mostra a somatória ``$\sum\limits_{x' \in V}T_{cx'}$'' para todos os rótulos dos
-dados de treinamento para os dados de entrada da figura~\ref{fig:bayes_dado_entrada_convertida}.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/somatoria_tcx_dos_rotulos.eps}
-  \caption{Tcx dos rótulos}
-  \label{fig:somatoria_tcx_dos_rotulos}
-\end{figure}
-
-Utilizando os dados da figura~\ref{fig:tcx_dos_rotulos} e da figura~\ref{fig:somatoria_tcx_dos_rotulos}
-se realiza os calculos de probabilidade para os dados de entrada da
-figura~\ref{fig:bayes_dado_entrada_convertida}, onde está demonstrado apenas para
-os pixels 1, 2 e 784 da imagem, que são mostrados na figura~\ref{fig:probabilidades_dos_rotulos},
-onde o rótulo de maior probabilidade usando esses três pixels é o rótulo X, o
-correto é aplicar o cáculo a todos os pixels, porém, por se tratar de um exemplo
-optou-se por aplicar apenas a esses três pixels, o 1, 2 e 784.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/probabilidades_dos_rotulos.eps}
-  \caption{Probabilidade dos rótulos para cada pixel}
-  \label{fig:probabilidades_dos_rotulos}
-\end{figure}
-
-Através dessa demonstração e considerando apenas os três pixels, 1, 2 e 784,
-para a entrada de dados da figura~\ref{fig:bayes_dado_entrada_convertida}, o
-algoritmo responderá que o numéro na imagem é o X.
+Onde {\^P}(c) se trata dos valores do vetor PH, o produtório $\hat{P}(x_i | c)$
+é representado pelo vetor u, e a seleção do maior arguemento de ${c \in C}$
+acontece na seleção do elemento do vetor B, que representa os rótulos que os
+atributos podem receber, relacionado a mesma linha do maior elemento no vetor PF,
+que representa a probabilidade associada a cada rótulo.
