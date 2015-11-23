@@ -87,48 +87,61 @@ da execução do algoritmo.
 
 \subsection{Classificador Bayesiano}
 
-Uma técnica famosa de algoritmos supervisionados é o classificador bayesiano, que é normalmente
-chamado de \textit{naive bayes}. Esse algoritmo é baseado no princípio da probabilidade bayesiana,
-entretanto, diferente do modelo em si, ele admite que os atributos de um dado são sempre independentes
-um do outro, mesmo que os atributos possuam alguma dependência um do outro \cite{segaran2007programming}
+Uma técnica famosa de algoritmos supervisionados é o classificador bayesiano,
+que é normalmente chamado de \textit{naive bayes}. Esse algoritmo é baseado no
+princípio da probabilidade bayesiana, entretanto, diferente do modelo em si,
+ele admite que os atributos de um dado são sempre independentes um do outro,
+mesmo que os atributos possuam alguma dependência um do outro \cite{segaran2007programming}
 
-Sendo assim, o classificador bayesiano irá basicamente classificar um dado como pertencente a uma classe, se tal classe
-obter o maior valor de probabilidade dentre os valores de classe possíveis. Dessa forma, pode-se dizer que
-a classificação bayesiana segue o seguinte formato:
+Sendo assim, o classificador bayesiano irá basicamente classificar um dado
+como pertencente a uma classe, se tal classe obter o maior valor de
+probabilidade dentre os valores de classe possíveis. Dessa forma, pode-se
+dizer que a classificação bayesiana segue o seguinte formato:
 
 $Classificador = max(p(C_{y})*\prod_{i=1}^{N}p(x_{i}|C_{y}))$
 
 Onde:
 
 \begin{itemize}
-    \item \textbf{$C_{y}$: } Uma das classes possíveis para classificar um dado;
+    \item \textbf{$C_{y}$: } Uma das classes possíveis para classificar um
+    dado;
     \item \textbf{n: } Número total de itens;
-    \item \textbf{$p(C_{y})$: } Probabilidade da classe ``y'' dentro do conjunto de dados. Pode ser calculado pela
-    fórmula: $\frac{NC_{y}}{N}$.
-
-        Onde:
-        
-            \begin{itemize}
-                \item \textbf{$NC_{y}$: } Número de itens classificados como ''y'';
-                \item \textbf{$N_{t}$: } Número total de itens;
-            \end{itemize}
-    \item \textbf{$p(x_{i}|C_{y}$: } Cálculo da probabilidade bayesiana em si, assumindo que as variáveis são independentes.
-    Tal expressão pode ser calculada pela seguinte fórmula: $\frac{Nxi_{C_{y}}}{NC_{y}}$. Onde $Nxi_{C_{y}}$ é o número de vezes
-    que o atributo $x_{i}$ aparece dentro de um dado marcado como $C_{y}$.
+    \item \textbf{$p(C_{y})$: } Probabilidade da classe ``y'' dentro do
+    conjunto de dados. Pode ser calculado pela
+    fórmula: $\frac{NC_{y}}{N_{t}}$.
+    Onde:
+      \begin{itemize}
+          \item \textbf{$NC_{y}$: } Número de itens da classe ''y'';
+          \item \textbf{$N_{t}$: } Número total de classes;
+      \end{itemize}
+    \item \textbf{$p(x_{i}|C_{y})$: } Cálculo da probabilidade bayesiana
+    em si, assumindo que as variáveis são independentes. Tal expressão
+    pode ser calculada pela seguinte fórmula: $\frac{Nxi_{C_{y}}}{NC_{y}}$.
+    Onde $Nxi_{C_{y}}$ é o número de vezes que o atributo $x_{i}$ aparece
+    dentro de um dado marcado como $C_{y}$.
 \end{itemize}
 
-Dessa forma, pode-se ver o modelo gerado por esse algoritmo supervisionado é nada mais com que as probabilidades $p(C_{y})$ e 
-$p(x_{i}|C_{y})$ para todas as possíveis classificações que serão usadas no problema. Dessa forma, os dados usados para alimentar tal algoritmo
-são para criar exatamente tais dados. Uma vez com eles calculados, o modelo do algoritmo está completo, podendo o mesmo ser usado para
-classificar dados ainda não vistos.
+Dessa forma, pode-se ver o modelo gerado por esse algoritmo supervisionado
+é nada mais com que as probabilidades $p(C_{y})$ e $p(x_{i}|C_{y})$ para
+todas as possíveis classificações que serão usadas no problema. Dessa forma,
+os dados usados para alimentar tal algoritmo são para criar exatamente tais
+dados. Uma vez com eles calculados, o modelo do algoritmo está completo,
+podendo o mesmo ser usado para classificar dados ainda não vistos.
 
-Vale ressaltar que o modelo apresentado tem como base a classificação bayesiana usando o modelo de Bernoulli, onde os valores de $x_{i}$ são valores binários,
-indicando assim a presença ou não de um atributo em um certo dado. Para valores discretos, pode-se usar outros modelos, como o Gaussiano, onde seria necessário
-o cálculo da média e variância dos atributos para as dadas classes de classificação \cite{zhang2004optimality}.
+Vale ressaltar que o modelo apresentado tem como base a classificação
+bayesiana usando o modelo de Bernoulli, onde os valores de $x_{i}$ são valores
+binários, indicando assim a presença ou não de um atributo em um certo dado.
+Para valores discretos, pode-se usar outros modelos, como o Gaussiano, onde
+seria necessário o cálculo da média e variância dos atributos para as dadas
+classes de classificação \cite{zhang2004optimality}.
 
-Apesar da simplicidade desse algoritmo, alguns cuidados devem ser observados. O primeiro é caso as variáveis possuam bastante dependência entres elas, tal modelo pode acarretar
-problemas. Outra questão se dá no uso dos atributos que são usados para gerar classificar um dado. Apesar dessa preocupação estar presente em algoritmos supervisionados em geral,
-o número de cálculos necessários para esse sistema aumenta consideravelmente a cada novo atributos novo adicionado, podendo assim ocasionar problemas de performance.
+Apesar da simplicidade desse algoritmo, alguns cuidados devem ser observados.
+O primeiro cuidado é analisar as variáveis, pois quando estas possuem uma grande
+dependência entre elas, pode levar o modelo a acarretar problemas. O outro cuidado
+se dá no uso dos atributos que são usados para gerar a classificação de um dado.
+Apesar dessa preocupação estar presente em algoritmos supervisionados em geral,
+o número de cálculos necessários para esse sistema aumenta consideravelmente a
+cada novo atributo adicionado, podendo assim ocasionar problemas de performance.
 
 \subsection{Engenharia de atributos}
 
@@ -184,7 +197,7 @@ fenômenos é pela técnica estatística de validação cruzada. Essa técnica �
 comumente usada para avaliar modelos preditivos, e se baseia na separação dos
 dados existentes em uma parte de treinamento e uma parte de teste. A conjunto de
 dados de treinamento é usado para alimentar o algoritmo. Após o treinamento,
-e o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}. 
+e o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}.
 
 Uma forma de tornar o processo de validação cruzada visual é o uso de curvas de
 aprendizado. Uma curva de aprendizado pode ser vista como a relação das curvas
@@ -228,7 +241,7 @@ usados, é esperado que as curvas se aproximem mais uma da outra.
 O uso desses gráficos pode-se bastante útil para encontrar casos de \textit{overfitting} e \textit{underfitting} pois tais casos podem ser claramente identificados
 observando-se o gráfico. Em um conjunto de teste onde ao final, as curvas de treinamento erro estão muito distantes, pode-se entender que o algoritmo
 está apresentando \textit{underfitting}. Entretanto, caso as curvas estejam muito próximas quando se usa todos os dados de treinamento alocados, pode-se entender
-uma baixa variância do modelo, identificando assim um caso de \textit{overfitting}. 
+uma baixa variância do modelo, identificando assim um caso de \textit{overfitting}.
 
 \subsection{Bayes Ingênuo}
 
