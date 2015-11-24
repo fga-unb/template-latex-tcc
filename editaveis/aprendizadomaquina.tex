@@ -190,7 +190,7 @@ de aprendizado de máquina, principalmente quanto a escalabilidade do mesmo.
 \subsection{Validação cruzada}
 
 Uma das formas de validar se o algoritmo não está sofrendo \textit{overfitting}
-e o seu oposto, \textit{undefitting}, onde o algoritmo apresenta elevado valor
+e o seu oposto, \textit{underfitting}, onde o algoritmo apresenta elevado valor
 de \textit{bias} para as entradas usadas como teste, ou seja, o modelo criado
 pelo algoritmo é muito simples. Uma forma de observar a ocorrência desses dois
 fenômenos é pela técnica estatística de validação cruzada. Essa técnica é
@@ -211,9 +211,10 @@ ser visto como melhor foco na Figura \ref{fig:curva_aprendizado}.
   \label{fig:curva_aprendizado}
 \end{figure}
 
-Pode-se ver na figura \ref{fig:curva_aprendizado}, o eixo das ordenadas representa o valor do erro, enquanto
-o erro das abscissas representa o tamanho do conjunto de dado usado para treinamento. Para calcular
-o erro apresentado nos gráficos, pode-se usar qualquer fórmula estatística para tal fim. Entretanto, uma das mais comuns
+Pode-se ver na figura \ref{fig:curva_aprendizado}, o eixo das ordenadas representa
+o valor do erro, enquanto o eixo das abscissas representa o tamanho do conjunto de
+dado usado para treinamento. Para calcular o erro apresentado nos gráficos, pode-se
+usar qualquer fórmula estatística para tal fim. Entretanto, uma das mais comuns
 quando se trata de validação cruzada é a seguinte \cite{1_ng}:
 
 \begin{equation}
@@ -228,20 +229,27 @@ Onde:
 
 \begin{itemize}
     \item \textbf{m: } Tamanho do conjunto de teste;
-    \item \textbf{$h(x_{i}$): } Função que reflete o modelo criado por um algoritmo de aprendizado de máquina, ou seja, recebe um dado e retorna um classificação.
+    \item \textbf{$h(x_{i}$): } Função que reflete o modelo criado por um algoritmo
+    de aprendizado de máquina, ou seja, recebe um dado e retorna um classificação.
     \item \textbf{$y(x): $} Valore real da classificação para o dado sendo apresentado
     \item \textbf{$m_{teste}$: } Tamanho do conjunto de teste obtido por validação cruzada.
 \end{itemize}
 
-Dessa forma, pode-se ver que o gráfico mostra a evolução do modelo produzido pelos dados de treinamento
-em relação ao conjunto de dados obtidos pela validação cruzada, variando-se o número de dados usados no treinamento. É esperado que inicialmente, as curvas fiquem bem distantes
-uma da outra, pois com poucos dados de treinamento, o conjunto de teste apresentára erros altos, enquanto o conjunto de treinamento não. Entrentanto, com mais dados de treinamento
-usados, é esperado que as curvas se aproximem mais uma da outra.
+Dessa forma, pode-se ver que o gráfico mostra a evolução do modelo produzido pelos
+dados de treinamento em relação ao conjunto de dados obtidos pela validação cruzada,
+variando-se o número de dados usados no treinamento. É esperado que inicialmente, as
+curvas fiquem bem distantes uma da outra, pois com poucos dados de treinamento, o
+conjunto de teste apresentára erros altos, enquanto o conjunto de treinamento não.
+Entrentanto, com mais dados de treinamento usados, é esperado que as curvas se
+aproximem mais uma da outra.
 
-O uso desses gráficos pode-se bastante útil para encontrar casos de \textit{overfitting} e \textit{underfitting} pois tais casos podem ser claramente identificados
-observando-se o gráfico. Em um conjunto de teste onde ao final, as curvas de treinamento erro estão muito distantes, pode-se entender que o algoritmo
-está apresentando \textit{underfitting}. Entretanto, caso as curvas estejam muito próximas quando se usa todos os dados de treinamento alocados, pode-se entender
-uma baixa variância do modelo, identificando assim um caso de \textit{overfitting}.
+O uso desses gráficos pode-se bastante útil para encontrar casos de \textit{overfitting}
+e \textit{underfitting} pois tais casos podem ser claramente identificados observando-se
+o gráfico. Em um conjunto de teste onde ao final, as curvas de treinamento e de erro estão
+muito distantes, pode-se entender que o algoritmo está apresentando \textit{underfitting}.
+Entretanto, caso as curvas estejam muito próximas quando se usa todos os dados de
+treinamento alocados, pode-se entender uma baixa variância do modelo, identificando assim
+um caso de \textit{overfitting}.
 
 \subsection{Bayes Ingênuo}
 
