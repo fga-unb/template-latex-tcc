@@ -112,6 +112,79 @@ Vale ressaltar que outras abordagens também podem ser usadas, como normalizaç�
 usando o tamanho médio dos documentos presentes na base de todos os documentos e
 \textit{TF} médio entre todos os \textit{TF}s \cite{araujo2011apprecommender}.
 
+\chapter{Coleta de dados do usuário}
+
+A coleta de dados do usuário é realizada através do script ``collect\_user\_data.py'',
+localizado no caminho ``src/bin/data\_collect'' dentro do projeto AppRecommender.
+A execução do script segue os seguintes passos:
+
+\begin{itemize}
+  \item \textit{\textbf{Coletar informações do sistema:}} Nesse passo é coletado
+  as informações quanto a versão do kernel do linux, e a versão da distribuição,
+  essas informações são coletadas através dos seguintes comandos:
+  \begin{itemize}
+    \item Versão do kernel: \$ uname -s -r
+    \item Versão da distribuição: \$ lsb\_release -a
+  \end{itemize}
+  Essas informações são armazenadas no arquivo ``pc\_informations.txt'';
+
+  \item \textit{\textbf{Coletar todos os pacotes do usuário:}} Esses pacotes são
+  obtidos através do comando ``\$ /usr/bin/dpkg --get-selections'', que retorna
+  uma lista de pacotes do usuário onde para cada pacote segue a informação
+  ``install'' ou ``deinstall'', então é feito um filtro para capturar apenas os
+  pacotes instalados, ou seja, que possuem a informação ``install''. Então essa
+  lista de pacotes é armazenada no arquivo ``all\_pkgs.txt'';
+
+  \item \textit{\textbf{Coletar pacotes manualmente instalados:}} Esses pacotes são
+  coletados através do comando ``\$ apt-mark showmanual'' que retorna a lista de
+  pacotes manualmente instalados, e após coletar os pacotes eles são armazenados
+  no arquivo ``manual\_installed\_pkgs.txt'';
+
+  \item \textit{\textbf{Coletar tempo dos pacotes:}} Nesse passo é coletado o
+  tempo de acesso e de modificação de cada pacote. Estes dados serão usados afim
+  de obter informação quanto a classificação do pacote em relação ao tempo que
+  este foi utilizado, para isso se coleta o tempo de acesso e o tempo de modificação
+  de cada pacote, esses tempos são coletados através do comando ``stat'', onde se
+  utiliza a flag ``-c'' com o parâmetro ``\%Y'' para coletar o tempo de modificação,
+  ou o parâmetro ``\%X'' para se coletar o tempo de acesso, e após esse parâmetro é
+  passado o nome do executável do pacote desejado, para otimizar a busca do pacote é
+  utilizado o comando ``which'', que retorna o caminho completo para o executável.
+  Logo os dados do tempo de acesso e de modificação são coletados através do seguinte
+  comando:
+  \begin{itemize}
+      \item Tempo de acesso: \$ stat -c '\%X' `which [executável]`
+      \item Tempo de modificação: \$ stat -c '\%Y' `which [executável]`
+  \end{itemize}
+  Esses dados são coletados e então armazenados no arquivo ``pkgs\_time.txt'',
+  onde para cada linha há o nome do pacote seguido do tempo de modificação e
+  depois o tempo de acesso;
+
+  \item \textit{\textbf{Caminho do binário de cada pacote:}} Esses dados são
+  coletados através do comando ``which'', passando como parâmetro o nome do
+  pacote, ou seja, é executado o comando ``\$ which [pacote]'' para cada um
+  dos pacotes do usuário e então esses dados são armazenados no arquivo
+  ``pkgs\_binary.txt'', onde em cada linha há o nome do pacote seguido do
+  caminho para o seu binário;
+
+  \item \textit{\textbf{Submissão do popularity-contest:}} Os dados do
+  popularity-contest são obtidos através da execução do script ``popularity-contest'',
+  que está no mesmo diretório do script de coleta de dados.
+\end{itemize}
+
+Todas essas coletas citadas acima são executadas em uma thread, enquanto
+na thread principal é executado a coleta de preferências do usuário, onde
+é executado o AppRecommender com algumas estratégias, detre elas as criadas
+neste trabalho. Após a execução dessas estratégias de recomendação os
+pacotes recomendados, de todas as estratégias, são colocados em uma única
+lista, e então ordenados pelo nome, em seguida é passado pacote por pacote
+solicitando ao usuário que faça uma avaliação do pacote, pontuando cada um
+deles de 1 a 4. Após o usuário terminar de avaliar os pacotes é criado um
+arquico para cada recomendação, onde cada arquivo inicia com a sigla da
+recomendação seguido de ``\_recommendation.txt''.
+
+O diretório onde os arquivos da coleta são armazenados é o ``app\_recommender\_log/'',
+localizado na raiz do sistema do usuário.
+
 
 \chapter{Bayes Ingênuo} \label{sec:bayes_ingenuo}
 
