@@ -168,18 +168,24 @@ A execução do script segue os seguintes passos:
 
   \item \textit{\textbf{Submissão do popularity-contest:}} Os dados do
   popularity-contest são obtidos através da execução do script ``popularity-contest'',
-  que está no mesmo diretório do script de coleta de dados.
+  que está no mesmo diretório do script de coleta de dados. Vale ressaltar que
+  esse é o script original do popularity contest. Essa abordagem foi escolhida
+  pois para executar o popularity contest, permissão de super usuário era
+  necessária, o que pode ocasionar problemas na coleta de dados. Dessa forma,
+  adaptou-se o script original, modificando por exemplo o caminho de onde o
+  mesmo buscava o arquivo de configuração necessário e também criando a própria
+  versão do arquivo de configuração para a pesquisa.
 \end{itemize}
 
 Todas essas coletas citadas acima são executadas em uma thread, enquanto
 na thread principal é executado a coleta de preferências do usuário, onde
-é executado o AppRecommender com algumas estratégias, detre elas as criadas
+é executado o AppRecommender com algumas estratégias, dentre elas as criadas
 neste trabalho. Após a execução dessas estratégias de recomendação os
 pacotes recomendados, de todas as estratégias, são colocados em uma única
 lista, e então ordenados pelo nome, em seguida é passado pacote por pacote
 solicitando ao usuário que faça uma avaliação do pacote, pontuando cada um
 deles de 1 a 4. Após o usuário terminar de avaliar os pacotes é criado um
-arquico para cada recomendação, onde cada arquivo inicia com a sigla da
+arquivo para cada recomendação, onde cada arquivo inicia com a sigla da
 recomendação seguido de ``\_recommendation.txt''.
 
 O diretório onde os arquivos da coleta são armazenados é o ``app\_recommender\_log/'',
