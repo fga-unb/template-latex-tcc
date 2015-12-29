@@ -2,7 +2,7 @@
 
 No decorrer deste trabalho, alguns marcos foram alcançados. Primeiramente, os
 integrantes da pesquisa estabeleceram um bom conhecimento sobre sistemas de
-recomendação e aprendizado de máquina, fazendo então possível que esses
+recomendação e aprendizado de máquina, tornando então possível que esses
 conhecimentos sejam colocados em prática.
 
 Além disso, modificações foram realizadas no projeto escolhido para ser usado
@@ -11,13 +11,13 @@ projeto foram atualizadas e um estudo foi realizado com o intuito de prover os
 meios necessários para o projeto funcionar. Esse objetivo foi alcançado e
 algumas técnicas de engenharia de software foram também aplicadas para tornar o
 desenvolvimento do projeto mais fácil, como atualizar os testes existentes, adicionar novos testes
-e centralizar a execução dos mesmos além prover também uma forma automatizada de
+e centralizar a execução dos mesmos, além prover também uma forma automatizada de
 verificar o padrão de codificação.
 
 Para os objetivos da pesquisa, já está implementada uma forma de coletar e
 classificar os pacotes com bases em suas informações temporais, além da criação
 da estratégia de recomendação utilizando a abordagem determinística proposta no
-trabalho, entretanto, os pesos usados na mesma ainda precisam ser melhor escolhidos.
+trabalho. Entretanto, os pesos usados na mesma ainda precisam ser melhor escolhidos.
 
 Para a estratégia de aprendizado de máquina, os scripts necessários para coletar
 os dados dos pacotes, extrair seus atributos e classificá-los também estão
@@ -26,9 +26,10 @@ implementada, porém tal implementação ainda carece de algumas melhorias,
 principalmente na parte de teste.
 
 Por fim, o script para uma coleta de dados juntamente com o script de testes de
-usuário foram finalizados também.
+usuário foram finalizados também. Entrentanto, ainda se faz necessário adaptar o
+uso de curvas ROC para o contexto temporal proposto.
 
-Baseado nas considerações feitas será apresentado na seção \ref{sec:cronagrama} um cronograma
+Baseado nas considerações feitas, será apresentado na seção \ref{sec:cronagrama} um cronograma
 para a continuação da pesquisa.
 
 \section{Cronograma} \label{sec:cronagrama}
@@ -64,26 +65,26 @@ em uma estratégia de recomendação, ou seja, será criado uma estratégia
 no AppRecommender que utiliza o aprendizado de máquina para recomendar
 pacotes.
 
-Nessa etapa será estudado e analizado o TensorFlow, a ferramenta do
+Nessa etapa será estudado e analisado o TensorFlow, a ferramenta do
 google para aprendizado de máquina, pois sua utilização no AppRecommender
 resultaria em um grande avanço ao projeto, devido ao fato de que o
 google possui uma boa experiência na área de aprendizado de máquina,
 logo sua ferramenta deve ser eficiente e confiável.
 
 Após essa primeira coleta de dados e da análise dos resultados, será
-estudado a apresentação dos dados, visualização dos algoritmos e também
-verificar se os algoritmos precisam ser adaptados como por exemplo
+estudada a apresentação dos dados, visualização dos algoritmos e também
+verificar se os algoritmos precisam ser adaptados como, por exemplo,
 diminuir o número de atributos usados na técnica de aprendizado de máquina.
 
-Então os resultados da coleta serão formalizados, afim de que o leitor
+Uma vez que esta etapa seja concluída, os resultados da coleta serão formalizados, afim de que o leitor
 possa compreender para que servem os dados e o que foi realizado com esses
 dados para se chegar aos resultados. Utilizando esses resultados também
 será feita uma atualização nas fórmulas e nas estratégias de recomendações
-criadas, afim de otimizar a recomendação.
+criadas, a fim de otimizar a recomendação.
 
-Depois de se compreender os dados, os resultados e otimizar a recomendação
+Depois de compreender os dados, os resultados e otimizar a recomendação,
 será feita uma segunda coleta de dados, onde com os resultados dessa coleta
 será realizado o teste de hipótese será enfim realizado.
 
-Por último, os resultado serão estão descritos na segunda etapa da pequisa e o
+Por último, os resultados serão descritos na segunda etapa da pequisa e o
 texto será revisado e atualizado mediante os resultados encontrados

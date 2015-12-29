@@ -6,15 +6,15 @@ Sendo assim, um sistema de recomendação pode ser usado em diversos contextos,
 desde melhorar a experiência de usuário a até mesmo melhorar a taxa de vendas
 em uma aplicação comercial. Além disso, um sistema de recomendação também pode
 ser usado para recomendar uma grande gama de itens, como filmes e livros
-\cite{ricci2011introduction}. Para realizar a tarefa de recomendação, duas abordagens distintas podem ser usadas,
+\cite{ricci2011introduction}. Para realizar a tarefa de recomendação, duas abordagens distintas podem ser usadas:
 recomendação não-personalizadas e personalizadas.
 
 Recomendações não-personalizadas são aquelas que não usam nenhuma informação do
 usuário para realizar a recomendação. Exemplo de estratégias assim podem ser
 visto em sites de música que apresentam a lista das 10 músicas mais
-ouvidas. Já recomendações personalizadas são aquelas que usam as avaliações já
+ouvidas. Já recomendações personalizadas, são aquelas que usam as avaliações já
 realizadas por um usuário sobre um item para criar uma função preditiva que irá avaliar itens que ainda não foram
-avaliados pelo usuário e então recomendar aqueles que possuem maior valor
+avaliados pelo usuário. Então, o sistema recomenda aqueles que possuem maior valor
 apresentado pela função preditiva. A Figura \ref{fig:modelo_recomendacao} mostra
 o processo para realizar uma recomendação personalizada.
 
@@ -30,7 +30,7 @@ para um sistema de recomendação são os usuários do mesmo e os dados relacion
 a este mesmo usuário. No que tange o sistema de recomendação em si, pode-se
 observar fatores importantes no design do mesmo, como o perfil do usuário, o
 algoritmo de recomendação ou estratégia a ser usada e a infra-estrura a ser
-usada. Além disso, nenhum sistema de recomendação está imune do contexto no qual
+usada. Além disso, nenhum sistema de recomendação está imune ao contexto no qual
 o mesmo será usado.
 
 Vale considerar que o perfil do usuário e a estratégia de recomendação usadas
@@ -42,7 +42,7 @@ fundamentais para a seleção de uma estratégia de recomendação, pois depende
 da configuração desses atributos, algumas estratégias
 de recomendação devem ser descartadas \cite{picault2011get}.
 
-\section{Estratégias de recomendação}
+\section{Estratégias de recomendação} \label{sec:estrategias_recomendacao}
 
 Com o conjunto de dados definidos, pode-se então escolher uma estratégia de
 recomendação adequada. Para agrupar tais estratégias, considerou-se taxinomia de
@@ -72,7 +72,7 @@ estudadas.
         algoritmo, ou seja, seleciona os atributos escolhidos do mesmo. O
         \textit{Profile Learner} é o responsável por criar o perfil do
         usuário, analisando os dados filtrados pelo \textit{Content Analyser} e
-        criando um perfil de acordo com um modelo definido definido arquiteto do
+        criando um perfil de acordo com um modelo definido arquiteto do
         sistema de recomendação. Uma técnica normalmente aplicada para essa tarefa
         é a do uso do \textit{Term Frequency-Inverse Term Frequency (TFIDF)}
         para selecionar os atributos de maior impacto nos itens avaliados pelo
@@ -85,8 +85,8 @@ estudadas.
         forma de avaliar a similaridade entre dois itens.
 
         Dado essas características da recomendação baseada por conteúdo, pode-se
-        perceber que a mesma pode sofrer o problema de superespecialização, pois
-        a mesma pode ter dificuldades em classificar itens que nunca foram
+        perceber que a mesma pode sofrer o problema de superespecialização, já
+        que podem haver dificuldades em classificar itens que nunca foram
         usados pelo usuário e também recomendar apenas itens próximos ao atual
         perfil do mesmo, dificultando assim a recomendação que podem vir a se
         tornar uma surpresa para o usuário. \cite{lops2011content}.
@@ -102,13 +102,13 @@ estudadas.
         populares quando se trata de sistemas de recomendação
         \cite{ricci2011introduction}.
 
-        Entretanto, vale dizer que esse tipo de estratégia necessita fortemente
+        Entretanto, vale ressaltar que esse tipo de estratégia necessita fortemente
         de uma ampla base de usuários para que a mesma possa ser aplicada. Isso
         se dá pela necessidade de criar uma vizinhança significativa de usuários
         com gostos similiares. Sendo assim, para aplicações que não possuem uma
         base de usuário relacionados ou até mesmo tratam do seu usuário de forma
-        isolada, tal estratégia pode se mostrar bastante complicada de
-        implementar. Além disso, outro problema é que essa estratégia tem um
+        isolada, tal estratégia pode ter uma implementação bastante complicada.
+        Além disso, outro problema é que essa estratégia tem um
         grande problema para recomendar itens que não possuem avaliações por
         nenhum usuário, o que dependendo da motivação usada para criar o sistema
         de recomendação, pode vir a se tornar um problema.
@@ -117,8 +117,8 @@ estudadas.
 
     \item \textbf{Estratégias híbridas: } Estratégias que combinam uma ou mais
         estratégias para gerarem uma recomendação. Normalmente tais estratégias
-        são combinadas para que os pontos fracos de uma estratégia seja
-        suavizada pela outra. Por exemplo, combinar estratégias colaborativas com
+        são combinadas para que os pontos fracos de uma estratégia sejam
+        suavizados pela outra. Por exemplo, combinar estratégias colaborativas com
         baseadas em conteúdo pode resolver problemas de superespecialização
         gerados por estratégias baseadas em conteúdo e também resolver problemas
         de recomendação de itens que ainda não foram avaliados, o que não
@@ -131,16 +131,16 @@ estudadas.
 
 Apesar de os modelos apresentados na seção \ref{sec:estrategias_recomendacao}
 serem bastante distintos um do outro, cada um deles pode usar algumas
-abordagens diferenciadas para tornar o perfil do usuário mais próximo a
-realidade. Para isso, Uma abordagem que pode ser usado é a de recomendação
+abordagens diferenciadas para tornar o perfil do usuário mais próximo à
+realidade. Para isso, Uma abordagem que pode ser usada é a de recomendação
 baseada em contexto. Para esta recomendação, os itens avaliados pelo usuário são
 combinados com informações de contexto do próprio usuário. Segundo \cite{berry1997data},
 contexto pode ser definido como uma informação que caracteriza os estágios de
 vida de um usuário e que pode determinar mudanças de preferências e status
 do mesmo. Informações de contexto podem ser obtidas de forma implícita ou até
 mesmo serem subentendidas pelo sistema, podendo assim gerar novos atributos
-interessantes para o perfil do usuário. Um exemplo de informação contextual é a
-quanto tempo um usuário realizou a avaliação de um item. Um sistema de
+interessantes para o perfil do usuário. Um exemplo de informação contextual
+seria o tempo no qual um usuário realizou a avaliação de um item. Um sistema de
 recomendação pode usar essa informação para priorizar avaliações mais recentes
 do que mais antigas, visando manter um perfil mais atualizado do usuário.
 
@@ -157,7 +157,7 @@ personalizado, três abordagens distintas são propostas por
         temporal de contexto para filtrar itens avaliados a muito tempo.
     \item \textbf{filtragem pós recomendação: } Após uma recomendação ter sido
         executada, os itens recomendados são filtrados por informações
-        contextuais. Como por exemplo, supondo que um usuário esteja procurando
+        contextuais. Por exemplo, supondo que um usuário esteja procurando
         sugestões de restaurantes, o sistema pode fazer essa sugestão e usar a
         localização do usuário para retirar restaurantes muito longes da sua
         localização atual.
@@ -178,15 +178,15 @@ usadas \cite{herlocker2004evaluating}:
         interage com o sistema de recomendação com algum propósito específico.
 \end{itemize}
 
-Vale ressaltar que cada um dos experimentos tem papéis bem definidos. Sendo
-assim necessário compreeender o porquê do seu uso para avaliar sistemas de
+Vale ressaltar que cada um dos experimentos tem papéis bem definidos, sendo
+assim, necessário compreeender o porquê do seu uso para avaliar sistemas de
 recomendação.
 
 \subsection{Experimentos offline} \label{sec:rec_experimentos_offline}
 
-Experimentos offline tem normalmente a intenção de avaliar aspectos como à
+Experimentos offline tem normalmente a intenção de avaliar aspectos como a
 acurácia e cobertura de um sistema de recomendação. Normalmente, os itens
-avaliados pelo usuário são divididos em dois grupos, aprendizado e teste. Os
+avaliados pelo usuário são divididos em dois grupos: aprendizado e teste. Os
 itens marcados como aprendizado são usados para popular o sistema de
 recomendação. Já os itens marcados como teste são usados para avaliar se o
 sistema de recomendação conseguiu recomendar algum deles. Sendo assim, os itens
@@ -233,13 +233,13 @@ boa forma de comparar modelos é usando a métrica AUC \textit{(Area Under
 Curve)}. Segundo \cite{herlocker2004evaluating}, se duas recomendações forem
 aleatoriamente escolhidas, sendo uma positiva e outra considerada negativa, o
 AUC irá ser numericamente igual a probabilidade do sistema positivo ser melhor
-pontuado que a recomendação negativa, o que se encaixa perfeitamente para
+pontuado que a recomendação negativa, o que se encaixa perfeitamente na
 comparação entre diferentes estratégias de recomendação.
 
 \subsection{Experimentos com usuário}
 
 Para experimentos com usuários, um conjunto de usuários é selecionado, visando
-com que os mesmos interejam com o sistema, e sejam capazes de responder algumas
+a interação dos mesmos com o sistema, de forma que eles sejam capazes de responder algumas
 questões objetivas e até mesmo subjetivas quanto ao processo de recomendação e
 os próprios itens sendo recomendados.
 

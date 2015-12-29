@@ -76,7 +76,7 @@ estratégia de recomendação irá prover melhor resultados que uma abordagem
 determinística para criação do perfil}}
 Considerando os dados presentes em pacotes Debian que podem ser
 usados para prover a recomendação, pode-se entender que o uso de uma abordagem
-por aprendizado de máquina irá prover melhores resultados, devido a possível
+por aprendizado de máquina irá prover melhores resultados, devido à possível
 quantidade de atributos que podem caracterizar um pacote.
 \end{itemize}
 
@@ -104,7 +104,7 @@ colaborativas, e híbridas. Segue abaixo as especificações de cada categoria d
 \begin{itemize}
     \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
         visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
-        onde esse perfil é uma lista composta por Debtags ou termos contidos nas descrições de pacotes que são
+        onde o mesmo consiste em uma lista composta por Debtags ou termos contidos nas descrições de pacotes que são
         definidas pelo algoritmo de estratégia escolhida. Através dessa lista, a base de dados
         com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
         relevantes para o perfil criado.
@@ -119,14 +119,14 @@ colaborativas, e híbridas. Segue abaixo as especificações de cada categoria d
 \end{itemize}
 
 Para as recomendações colaborativas e híbridas, o AppRecommender
-utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo,
-entretanto esse não é o caso para recomendações puramente baseada em conteúdo,
+utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo.
+Entretanto esse não é o caso para recomendações puramente baseadas em conteúdo,
 fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
 projeto.
 
 O projeto também utiliza tanto estratégias offline e testes de usuário para
-validar as recomendações implementadas, sendo que as estratégia offline tem como
-base a análise de curvas ROC e os testes de usuário visam analisar
+validar as recomendações implementadas, sendo que as estratégias offline têm como
+base a análise de curvas ROC, enquanto os testes de usuário visam analisar
 principalmente a precisão e novidade das recomendações.
 
 A licença do AppRecommender é GNU GPL e o projeto está disponível em repositório
@@ -233,14 +233,14 @@ tipos de pacotes, sendo eles:
 \end{itemize}
 
 Sendo assim, como a lista de pacotes válidos é obtida localmente, a mesma irá ser baseada tanto na
-distribuição que o usuário usa, além dos componentes que o mesmo possui no seu
+distribuição que o usuário usa, como dos componentes que o mesmo possui no seu
 \textit{sources.list}.
 
 Por fim, vale ressaltar que foi identificado que as recomendações
 colaborativas dependiam também de um serviço fornecido pela infra-estrutura do
 Debian, chamado de Debian Data Export, que era usado para facilitar a criação de
 queries no Ultimate Debian Database. Entretanto, este serviço se encontra
-atualmente fora do ar, sendo por isso não considerado na execução da pesquisa.
+atualmente fora do ar, e, por isso, não é considerado na execução da pesquisa.
 
 \subsection{Usuários} \label{sec:coleta_dados_usuario}
 
@@ -252,7 +252,8 @@ informações adicionais, já visando a análise dos dados temporais:
 \begin{itemize}
     \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
     \item \textit{\textbf{Pacotes manualmente instalados:}} Estes serão coletados para filtrar as preferências do usuário, para que quando comparado aos pacotes instalados se possa diferenciar pacotes que são automaticamente instalados dos que foram manualmente instalados;
-    \item \textit{\textbf{Tempo de acesso e de modificação dos pacotes:}} Estes dados serão usados afim de obter informação quanto a classificação do pacote em relação ao tempo que este foi utilizado;
+    \item \textit{\textbf{Tempo de acesso e de modificação dos pacotes:}} Estes dados serão usados afim de obter
+        informação quanto à classificação do pacote em relação ao tempo que este foi utilizado;
     \item \textit{\textbf{Caminho do binário de cada pacote:}} Dados coletados afim de se saber qual o binário responsável pela execução do pacote;
     \item \textit{\textbf{Versão do Kernel:}} Necessário para agrupar as recomendações e preferências entre usuários com mesmo kernel;
     \item \textit{\textbf{Distribuição do sistema:}} Necessário para agrupar as recomendações e preferências entre usuários com a mesma distribuição.
@@ -265,7 +266,7 @@ informações adicionais, já visando a análise dos dados temporais:
 
 Este seção irá mostrar a análise dos dados que são usados tanto para a
 realização de um experimento offline quanto para a recomendação em si. Além
-disso, também será apresentado os novos dados que esta pesquisa se propõe a
+disso, também serão apresentados os novos dados que esta pesquisa se propõe a
 anexar as atuais recomendações.
 
 \subsection{Recomendação baseada em conteúdo}
@@ -327,13 +328,13 @@ peso. Este perfil é usado então para consultar toda a base de pacotes
 do usuário, baseado em seu \textit{sources.list}.
 Isso é realizado através do \textit{apt-xapian-index}, uma aplicação
 que provê uma forma de buscar pacotes no Debian por meio de \textit{queries}, sendo que no
-caso do AppRecommender, a query de busca é o perfil gerado para o usuário. Dessa
+caso do AppRecommender, a \textit{query} de busca é o perfil gerado para o usuário. Dessa
 forma, a \textit{query} gerada é composta por cada item do perfil do usuário, sendo que a
 aplicação retorna os resultados que apresentam o maior número de termos passados
 na \textit{query}.
 Vale ressaltar que este pacote é usado para construir todos os índices de busca
 apontados pela Tabela \ref{tab:dados_apprecommender}.
-Finalmente, os pacotes retornados são então a recomendação final da aplicação.
+Finalmente, os pacotes retornados são a recomendação final da aplicação.
 
 Com isso dito, o AppRecommender implementa estratégias de recomendação que
 misturam algum dos dados na geração do perfil do usuário. Existem estratégias
@@ -399,12 +400,12 @@ usuários do popularity-contest, para que a vizinhança criada seja significativ
 
 Dado esse conjunto de dados usados no AppRecommender, a pesquisa resolveu
 adicionar o contexto temporal apenas em recomendações baseadas em conteúdo. Isso
-se dá pelo fato das recomendações colaborativas já usarem tal atributo e
+se dá pelo fato das recomendações colaborativas já usarem tal atributo e,
 principalmente, pela dificuldade na obtenção dos dados necessários para execução
 das estratégias colaborativas.
 
 Com isso dito, o novo atributo que esta pesquisa pretende
-adicionar é o contexto de uso de um pacote, sendo no caso, a última vez que o
+adicionar é o contexto de uso de um pacote, ou seja, a última vez que o
 mesmo foi usado. Em distribuições Debian, isso pode ser verificado via comando
 \textit{stat}, que recebe como parâmetro o caminho para um pacote.
 A saída deste programa pode ser visualizada na Figura \ref{fig:comando_stat}.
@@ -475,14 +476,14 @@ Onde:
 A equação apresentada irá retornar um valor de 0 a 1, sendo que quanto mais
 perto de 1, mais recente é considerado o arquivo. Vale ressaltar que a fórmula
 também leva em conta o tempo de modificação, pois em algumas situações alterar o
-tempo de modificação também altera o tempo de acesso, podendo ocasionar que um
-pacote recentemente atualizado, mas não usado, possua um peso maior do que um
+tempo de modificação também altera o tempo de acesso, podendo ocasionar em um
+pacote recentemente atualizado, mas não usado, com um peso maior do que um
 pacote recentemente usado.
 
-Vale ressaltar que existe uma limitação quanto a essa abordagem, o caso de
+Vale ressaltar que existe uma limitação quanto à essa abordagem, o caso de
 pacotes que não são diretamente executados pelo usuário. Alguns pacotes são
 executados toda vez que um usuário realiza certa tarefa, ou até mesmo quando o
-sistema é iniciado. Dessa forma, em ordem de remover alguns pacotes, decidiu-se
+sistema é iniciado. Dessa forma, a fim de remover alguns pacotes, decidiu-se
 remover da lista de pacote dos usuáris os pacotes com algumas prioridades definidas.
 A prioridade de um pacote pode ser vista também no arquivo \textit{control} de um pacote, conforme visto
 na Figura \ref{fig:control_pacote}. O Debian permite que cada pacote tenha
@@ -510,7 +511,7 @@ continuem no perfil do usuário.
 
 \section{Teste de hipótese}
 
-Esta seção irá descrever como esta pesquisa pretende responder as hipóteses
+Esta seção irá descrever como esta pesquisa pretende responder às hipóteses
 levantadas, mostrando assim como as duas abordagens propostas pelas hipóteses
 levantadas no projeto serão implementadas, assim como os resultados das mesmas
 serão comparadas entre si e com as abordagens já usadas no projeto selecionado.
@@ -544,7 +545,7 @@ a cada um dos pacotes.
 
 Com esse valor calculado, é necessário atribuir mais peso para pacotes que
 foram recentemente usados, sendo assim é usado uma função de decaimento
-exponencial para obter controle quanto a suavidade da curva que relaciona
+exponencial para obter controle quanto à suavidade da curva que relaciona
 a classificação no tempo com o peso do pacote, utilizando a seguinte função:
 
 \textbf{PesoPacote} = C / $\exp\left(-({1 - ClassificaçãoTempo}) * {\lambda}\right)$
@@ -573,7 +574,7 @@ dos pesos ordenados theta ``$\theta$''.
 $sort(\{w_1, w_2, ..., w_n\}) = \{\theta_1, \theta_2, ..., \theta_n\}$
 \\
 
-Para calcular o peso total do termo é utilizado os cinco maiores pesos de pacote
+Para calcular o peso do termo total, são utilizados os cinco maiores pesos de pacote
 associados ao mesmo, ou seja, se algum termo possui uma lista com tamanho ``N''
 menor do que cinco pacotes, onde ``N'' indica o tamanho da lista, para cada peso
 necessário para completar o valor total de cinco um pacotes, um novo peso
@@ -596,14 +597,14 @@ para se obter o perfil do usuário.
 
 Um dos problemas de se usar apenas a abordagem determinística é uma limitação
 encontrada no \textit{apt-xapian-index}, onde não é possível priorizar termos
-dentro de um \textit{query} quando se faz uma busca, por exemplo, dado que o perfil
+dentro de um \textit{query} quando se faz uma busca. Por exemplo, dado que o perfil
 do usuário possui os termos ``python'' e ``ruby'', sendo que o primeiro termo
 apresentou um peso maior que o segundo, na hora da criação da \textit{query}, os pesos
 dos termos são ignorados. Logo, quando a busca for realizada os termos serão
 equivalentes, mesmo que para o perfil do usuário eles não o sejam.
 
 Dessa forma, para a abordagem por aprendizado de máquina, escolheu-se aplicar a
-metodologia de filtragem pós-recomendação. Para a projeto em mãos, isso
+metodologia de filtragem pós-recomendação. Para o projeto em mãos, isso
 significa que o mesmo irá continuar fazendo a recomendação conforme foi
 desenhado, mas as recomendações serão filtradas pelo perfil de usuário
 construído pela abordagem de aprendizado de máquina.
@@ -640,7 +641,7 @@ Isso é realizado mediante um script automatizado \footnote{\url{https://github.
 que irá realizar tal função.
 
 Uma vez classificados, os pacotes então podem ser usados como entrada para o
-algoritmo supervisionado, visando assim geral o perfil do usuário.
+algoritmo supervisionado, visando assim gerar o perfil do usuário.
 Entretanto, ainda é necessário definir como os dados presentes no pacote serão usados de entrada para o
 algoritmo de aprendizado supervisionado. Considerando que os principais dados do pacote sendo usados na
 recomendação são as Debtags e os termos que compõem sua descrição, escolheu-se usar uma abordagem de
@@ -656,18 +657,18 @@ no pacote. Por exemplo, dado um conjunto de três Debtags, role:program, impleme
 role:program associado a ele, o seu vetor binário seria o seguinte: [0, 0, 1].
 
 Para os termos da descrição, a formatação do vetor é um pouco diferente. Primeiramente, optou-se por usar os termos apenas presentes
-nos pacotes manualmente instalados do usuário e não na lista de pacotes válidos
+nos pacotes manualmente instalados do usuário, e não na lista de pacotes válidos
 usados pela aplicação. Isso se dá para reduzir o tamanho do vetor e também
 pelo fato de que se um termo não aparece em nenhum pacote instalado pelo
 usuário, o mesmo, em tese, não terá nenhum peso relevante na
 classificação. Além disso, usou-se a estratégia de TFIDF para retirar termos não
 relevantes. Para isso, calculou-se o peso TFIDF de todos os termos do usuário.
-Com essa informação em mãoes, a média do TFIDF é encontrada e termos com valores menores que a
+Com essa informação em mãos, a média do TFIDF é encontrada e termos com valores menores que a
 média não são usados no vetor binário. Após aplicação deste filtro, a abordagem de vetor binário pode ser usada, funcionando de forma
 similar ao vetor binário das Debtags, onde os termos estarão representados em ordem alfabética e caso o pacote contenha tal termo em sua
 descrição, a posição do vetor associado ao termo será marcada como ``1''.
 
-Com a combinação desses valores, chega-se então a forma final da entrada de um pacote para o uso de algoritmos de aprendizado
+Com a combinação desses valores, chega-se então à forma final da entrada de um pacote para o uso de algoritmos de aprendizado
 supervisionados. Observa-se também que para propósitos de armazenamento, a classificação do pacote também é armazenada ao final da combinação
 dos vetores binários dos termos e Debtags. O papel desse vetor pode ser visto na
 seção \ref{sec:bayes_ingenuo}, onde tal o vetor binário representa uma linha da
@@ -775,7 +776,7 @@ repetiria.
 
 Como modificações neste processo, esta pesquisa resolveu realizar o estudo de
 usuário de forma offline. Além disso, o processo de teste também foi alterado.
-Para esta pesquisa resolveu-se usar o teste de apenas quatro estratégias de
+Para esta pesquisa, resolveu-se usar o teste de apenas quatro estratégias de
 recomendação, sendo duas propostas pelo AppRecommender e as duas soluções
 propostas. Além disso, resolveu-se também usar uma abordagem por linha de
 comando, com o intuinto de agilizar os testes de usuário e possibilitar que os
@@ -783,7 +784,7 @@ mesmos possam ser repetidos mais vezes.
 
 Dessa forma, o teste de usuário contará com a recomendação de 20 pacotes,
 sendo que cada recomendação irá recomendar 5 pacotes ao todo. A ordem com que
-as recomendações são realizadas é aleatoria e as informações apresentadas
+as recomendações são realizadas é aleatória e as informações apresentadas
 para cada pacote serão as mesmas definidas pelo próprio AppRecommender, com
 exceção da foto do pacote. Para cada pacote recomendado, o usuário irá poder
 avaliar o mesmo pelo linha de comando. Após avaliar todos os pacotes, o teste
@@ -819,6 +820,6 @@ seguintes:
 \end{itemize}
 
 Sendo assim, cada recomendação usada será avaliada por essas duas métricas no
-contexto de um usuário. Ao final, a média dessa métricas serão calculada para
+contexto de um usuário. Ao final, as médias dessas métricas serão calculadas para
 todos os usuários participante da pesquisa, com o intuito de comparar as
 estratégias de maneira siginificativa.

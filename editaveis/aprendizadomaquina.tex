@@ -7,12 +7,12 @@ ou outra tarefa da mesma população~\cite{custodio2010aprendizadomaquina}.
 O aprendizado de máquina utiliza um princípio de inferência denominado
 indução, onde através de um conjunto particular de exemplos é possível
 obter conclusões genéricas~\cite{bruno2010aprendizadomaquina}. De um modo
-abstrato o aprendizado de máquina funciona como uma caixa preta, onde
+abstrato, o aprendizado de máquina funciona como uma caixa preta, onde
 independente de como é implementado, o mesmo deve ser capaz de encontrar padrões
 nos dados apresentados e criar um modelo para dados que ainda não foram vistos.
 
 Como exemplo, o aprendizado de máquina pode ser usado para classifcar
-um conjunto de atributos. Exemplo assim são bastante comuns quando se fala em
+um conjunto de atributos. Exemplos assim são bastante comuns quando se fala em
 aprendizado de máquina. \citeonline{lecun1989backpropagation} usou algoritmos de
 aprendizado de máquina para classificar códigos postais escritos a mão. Outro
 exemplo está no trabalho de \citeonline{stallkamp2012man}, que usa método de
@@ -36,12 +36,13 @@ supervisionado é utilizado para se obter uma classificação e funções de apr
 tais algoritmos produzem um modelo à partir de dados já classificados capaz de estimar classificações
 para dados ainda não vistos.
 
-Utilizando do exemplo do algoritmo que classifica um conjunto de atributos,
-na utilização do aprendizado supervisionado, para cada entrada do treinamento
-existe um rótulo, que se trata da classificação do conjunto de atributos, ou
-seja, apenas possui os valores 0, 1 e 2, entrada também possui os valores dos
-atributos associados ao rótulo. A tabela~\ref{tab:entradas_de_treinamento}
-mostra um exemplo das entradas de treinamento.
+Utilizando-se do exemplo do algoritmo que classifica um conjunto de atributos,
+no contexto do aprendizado de máquina supervisionado, para cada entrada
+disponível no treinamento, está associado um rótulo e valor de um determinado
+atributo (variando entre 0,1 e 2). O rótulo consiste na classificação de
+determinado conjunto de atributos. A tabela~\ref{tab:entradas_de_treinamento}
+mostra um exemplo de algumas entradas de treinamento, com os rótulos e os
+valores associados a alguns atributos.
 
 \begin{table}[h]
 \centering
@@ -67,8 +68,8 @@ mostra um exemplo das entradas de treinamento.
 Após ser realizada a etapa de treinamento, ao receber uma sequencia de cinco
 atributos, o algoritmo deve retornar qual o rótulo, ou seja, a classificação,
 correspondente a esses atributos. A tabela~\ref{tab:entrada_para_classificar}
-mostra um exemplo de entrada para o algoritmo, a diferença dessa entrada para
-a de treinamento é que essa não possui o rótulo, pois o rótulo será o resultado
+mostra um exemplo de entrada para o algoritmo, sendo que a diferença entre
+essa entrada para a de treinamento, é que essa não possui o rótulo, pois o rótulo será o resultado
 da execução do algoritmo.
 
 \begin{table}[h]
@@ -88,8 +89,8 @@ da execução do algoritmo.
 \subsection{Classificador Bayesiano} \label{sec:classificador_bayesiano}
 
 Uma técnica famosa de algoritmos supervisionados é o classificador bayesiano,
-que é normalmente chamado de \textit{naive bayes}. Esse algoritmo é baseado no
-princípio da probabilidade bayesiana, entretanto, diferente do modelo em si,
+que é normalmente chamado de bayes ingênuo. Esse algoritmo é baseado no
+princípio da probabilidade bayesiana. Entretanto, diferente do modelo em si,
 ele admite que os atributos de um dado são sempre independentes um do outro,
 mesmo que os atributos possuam alguma dependência um do outro \cite{segaran2007programming}
 
@@ -122,10 +123,10 @@ Onde:
 \end{itemize}
 
 Dessa forma, pode-se ver o modelo gerado por esse algoritmo supervisionado
-é nada mais com que as probabilidades $p(C_{y})$ e $p(x_{i}|C_{y})$ para
+é nada mais do que as probabilidades $p(C_{y})$ e $p(x_{i}|C_{y})$ para
 todas as possíveis classificações que serão usadas no problema. Dessa forma,
-os dados usados para alimentar tal algoritmo são para criar exatamente tais
-dados. Uma vez com eles calculados, o modelo do algoritmo está completo,
+os dados usados para alimentar tal algoritmo são usados para criar exatamente tais
+dados. Uma vez que os mesmos sejam calculados, o modelo do algoritmo está completo,
 podendo o mesmo ser usado para classificar dados ainda não vistos.
 
 Vale ressaltar que o modelo apresentado tem como base a classificação
@@ -159,7 +160,7 @@ aprendizado de máquina.
 Um dos efeitos diretos desse problema é o caso chamado de \textit{overfitting}.
 Esse problema acontece quando um algoritmo fica viciado nas entradas na qual foi
 treinado e não apresenta resultados satisfatórios quando recebe dados desconhecidos.
-Sendo assim, uma das formas de evitar tal problema é selecionar bem os atributos
+Uma das formas de evitar tal problema é selecionar bem os atributos
 de um projeto ou até mesmo usar técnicas para diminuir a dimensionalidade de uma
 variável de entrada.
 
@@ -173,7 +174,7 @@ dimensão de uma variável. Um exemplo dessa técnica é o \textit{Principal
 Component Analysis (PCA) } que ordena os atributos que maior contribuem para a
 variância dos dados em relação ao método de mínimos quadrados
 \cite{amatriain2011data}. Normalmente, tal método ignora atributos após a
-variãncia acumulada passar de 90\%.
+variância acumulada passar de 90\%.
 
 Apesar da aplicação de ambas as formas em conjunto serem possíveis, vale lembrar
 que ambas possuem limitações. Para a seleção manual de atributos, pode-se ter
@@ -195,7 +196,7 @@ de \textit{bias} para as entradas usadas como teste, ou seja, o modelo criado
 pelo algoritmo é muito simples. Uma forma de observar a ocorrência desses dois
 fenômenos é pela técnica estatística de validação cruzada. Essa técnica é
 comumente usada para avaliar modelos preditivos, e se baseia na separação dos
-dados existentes em uma parte de treinamento e uma parte de teste. A conjunto de
+dados existentes em uma parte de treinamento e uma parte de teste. O conjunto de
 dados de treinamento é usado para alimentar o algoritmo. Após o treinamento,
 e o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}.
 
@@ -237,11 +238,11 @@ Onde:
 
 Dessa forma, pode-se ver que o gráfico mostra a evolução do modelo produzido pelos
 dados de treinamento em relação ao conjunto de dados obtidos pela validação cruzada,
-variando-se o número de dados usados no treinamento. É esperado que inicialmente, as
+variando-se o número de dados usados no treinamento. Espera-se que, inicialmente, as
 curvas fiquem bem distantes uma da outra, pois com poucos dados de treinamento, o
-conjunto de teste apresentára erros altos, enquanto o conjunto de treinamento não.
-Entrentanto, com mais dados de treinamento usados, é esperado que as curvas se
-aproximem mais uma da outra.
+conjunto de teste apresentára erros altos, enquanto o conjunto de treinamento
+não sofre do mesmo problema. Entrentanto, com mais dados de treinamento usados,
+é esperado que as curvas se aproximem mais uma da outra.
 
 O uso desses gráficos pode-se bastante útil para encontrar casos de \textit{overfitting}
 e \textit{underfitting} pois tais casos podem ser claramente identificados observando-se
