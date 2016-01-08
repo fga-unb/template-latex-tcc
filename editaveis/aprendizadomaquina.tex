@@ -91,10 +91,10 @@ da execução do algoritmo.
 Uma técnica famosa de algoritmos supervisionados é o classificador bayesiano,
 que é normalmente chamado de bayes ingênuo. Esse algoritmo é baseado no
 princípio da probabilidade bayesiana. Entretanto, diferente do modelo em si,
-ele admite que os atributos de um dado são sempre independentes um do outro,
+ele admite que os atributos de um item são sempre independentes um do outro,
 mesmo que os atributos possuam alguma dependência um do outro \cite{segaran2007programming}
 
-Sendo assim, o classificador bayesiano irá basicamente classificar um dado
+Sendo assim, o classificador bayesiano irá basicamente classificar um item
 como pertencente a uma classe, se tal classe obter o maior valor de
 probabilidade dentre os valores de classe possíveis. Dessa forma, pode-se
 dizer que a classificação bayesiana segue o seguinte formato:
@@ -106,7 +106,7 @@ Onde:
 \begin{itemize}
     \item \textbf{$C_{y}$: } Uma das classes possíveis para classificar um
     dado;
-    \item \textbf{n: } Número total de itens;
+    \item \textbf{N: } Número total de itens;
     \item \textbf{$p(C_{y})$: } Probabilidade da classe ``y'' dentro do
     conjunto de dados. Pode ser calculado pela
     fórmula: $\frac{NC_{y}}{N_{t}}$.
@@ -126,7 +126,7 @@ Dessa forma, pode-se ver o modelo gerado por esse algoritmo supervisionado
 é nada mais do que as probabilidades $p(C_{y})$ e $p(x_{i}|C_{y})$ para
 todas as possíveis classificações que serão usadas no problema. Dessa forma,
 os dados usados para alimentar tal algoritmo são usados para criar exatamente tais
-dados. Uma vez que os mesmos sejam calculados, o modelo do algoritmo está completo,
+valores. Uma vez que os mesmos sejam calculados, o modelo do algoritmo está completo,
 podendo o mesmo ser usado para classificar dados ainda não vistos.
 
 Vale ressaltar que o modelo apresentado tem como base a classificação
@@ -139,7 +139,7 @@ classes de classificação \cite{zhang2004optimality}.
 Apesar da simplicidade desse algoritmo, alguns cuidados devem ser observados.
 O primeiro cuidado é analisar as variáveis, pois quando estas possuem uma grande
 dependência entre elas, pode levar o modelo a acarretar problemas. O outro cuidado
-se dá no uso dos atributos que são usados para gerar a classificação de um dado.
+se dá no uso dos atributos que são usados para gerar a classificação de um item.
 Apesar dessa preocupação estar presente em algoritmos supervisionados em geral,
 o número de cálculos necessários para esse sistema aumenta consideravelmente a
 cada novo atributo adicionado, podendo assim ocasionar problemas de performance.
@@ -198,12 +198,12 @@ fenômenos é pela técnica estatística de validação cruzada. Essa técnica �
 comumente usada para avaliar modelos preditivos, e se baseia na separação dos
 dados existentes em uma parte de treinamento e uma parte de teste. O conjunto de
 dados de treinamento é usado para alimentar o algoritmo. Após o treinamento,
-e o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}.
+o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}.
 
 Uma forma de tornar o processo de validação cruzada visual é o uso de curvas de
 aprendizado. Uma curva de aprendizado pode ser vista como a relação das curvas
-erro do conjunto de dados de treinamento e a curva dos dados de teste. Isso pode
-ser visto como melhor foco na Figura \ref{fig:curva_aprendizado}.
+de erro do conjunto de dados de treinamento e a curva de erro dos dados de teste. Isso pode
+ser visto com melhor foco na Figura \ref{fig:curva_aprendizado}.
 
 \begin{figure}[h]
   \centering

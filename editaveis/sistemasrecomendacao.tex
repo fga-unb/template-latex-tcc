@@ -35,7 +35,7 @@ o mesmo será usado.
 
 Vale considerar que o perfil do usuário e a estratégia de recomendação usadas
 são bastante dependentes um do outro. O perfil do usuário é a forma como o
-usuário será representado no sistema, podendo ser gerado de inúmeras maneira,
+usuário será representado no sistema, podendo ser gerado de inúmeras maneiras,
 como uma lista de itens avaliados por exemplo. Sendo assim, características dos itens,
 números de itens avaliados e a forma como o perfil do usuário é modelado são aspectos
 fundamentais para a seleção de uma estratégia de recomendação, pois dependendo
@@ -68,16 +68,16 @@ estudadas.
         Pode-se ver pela Figura \ref{fig:recomendacao_conteudo} que uma recomendação
         por conteúdo se baseia fortemente em alguns itens chave. O
         \textit{Content Analyser} é a parte do sistema de recomendação que
-        transforma os itens avaliados pelo usuário em entradas válidas pelo
+        transforma os itens avaliados pelo usuário em entradas válidas para o
         algoritmo, ou seja, seleciona os atributos escolhidos do mesmo. O
         \textit{Profile Learner} é o responsável por criar o perfil do
         usuário, analisando os dados filtrados pelo \textit{Content Analyser} e
-        criando um perfil de acordo com um modelo definido arquiteto do
+        criando um perfil de acordo com um modelo definido pelo
         sistema de recomendação. Uma técnica normalmente aplicada para essa tarefa
         é a do uso do \textit{Term Frequency-Inverse Term Frequency (TFIDF)}
         para selecionar os atributos de maior impacto nos itens avaliados pelo
         usuário, e então compor o perfil do usuário com tais termos
-        \cite{lops2011content}. Por fim, o \textit{Filtering compenent} nada mais é do que uma
+        \cite{lops2011content}. Por fim, o \textit{Filtering component} nada mais é do que uma
         ferramenta que recebe o perfil do usuário como entrada e usa o mesmo
         para filtrar os melhores itens que se aproximam desse perfil da base de
         dados possível. Sendo assim, a função preditiva desta estratégia de
@@ -89,7 +89,7 @@ estudadas.
         que podem haver dificuldades em classificar itens que nunca foram
         usados pelo usuário e também recomendar apenas itens próximos ao atual
         perfil do mesmo, dificultando assim a recomendação que podem vir a se
-        tornar uma surpresa para o usuário. \cite{lops2011content}.
+        tornar uma surpresa para o mesmo. \cite{lops2011content}.
 
     \item \textbf{Estratégias colaborativas:} Estratégias que recomendam itens
         de usuários com avaliações similares aos itens avaliados pelo usuário
@@ -129,12 +129,12 @@ estudadas.
 
 \section{Contexto em sistemas de recomendação}
 
-Apesar de os modelos apresentados na seção \ref{sec:estrategias_recomendacao}
+Apesar dos modelos apresentados na seção \ref{sec:estrategias_recomendacao}
 serem bastante distintos um do outro, cada um deles pode usar algumas
 abordagens diferenciadas para tornar o perfil do usuário mais próximo à
-realidade. Para isso, Uma abordagem que pode ser usada é a de recomendação
+realidade. Para isso, uma abordagem que pode ser usada é a de recomendação
 baseada em contexto. Para esta recomendação, os itens avaliados pelo usuário são
-combinados com informações de contexto do próprio usuário. Segundo \cite{berry1997data},
+combinados com informações de contexto do próprio usuário. Segundo \citeonline{berry1997data},
 contexto pode ser definido como uma informação que caracteriza os estágios de
 vida de um usuário e que pode determinar mudanças de preferências e status
 do mesmo. Informações de contexto podem ser obtidas de forma implícita ou até
@@ -204,8 +204,8 @@ podem cair em quatro categorias distintas:
 \end{itemize}
 
 Uma estratégia normalmente usada para comparar possíveis estratégias de
-recomendação são as curvas ROC. Tais curvas analisam a frequência de valores
-verdadeiros positivos \textit{(TPR)} sobre a frequência de valores falso
+recomendação são as curvas ROC. Tais curvas analisam a taxa de valores
+verdadeiros positivos \textit{(TPR)} sobre a taxa de valores falso
 positivos \textit{(FPR)}. A Figura
 \ref{fig:curva_roc} mostra o comportamento típico de uma curva ROC.
 
@@ -220,7 +220,7 @@ Conforme pode ser visto na Figura \ref{fig:curva_roc}, a taxa de verdadeiros
 positivos se encontra no eixo das ordenadas e o de falso positivo, nas
 abcissas. Pode-se ver também alguns pontos informativos. O primeiro desses
 pontos é o (0, 0), que representa uma recomendação sem resultados positivos nem
-negativos. O segundo ponto, (0, 1) representa um recomendação perfeita, sem
+negativos. O segundo ponto, (0, 1) representa uma recomendação perfeita, sem
 resultados negativos, o que seria o contrário do ponto (1, 0). Por fim, o ponto
 (1,1) representa recomendações que marcaram todas os itens como positivos. Além
 disso, pode-se ver que um recomendador com comportamento aleatório, se
@@ -230,7 +230,7 @@ seguir horizontalmente até o ponto (1, 1) \cite{araujo2011apprecommender}.
 
 Consideranto que vários exemplos são produzidos para gerar uma curva ROC, uma
 boa forma de comparar modelos é usando a métrica AUC \textit{(Area Under
-Curve)}. Segundo \cite{herlocker2004evaluating}, se duas recomendações forem
+Curve)}. Segundo \citeonline{herlocker2004evaluating}, se duas recomendações forem
 aleatoriamente escolhidas, sendo uma positiva e outra considerada negativa, o
 AUC irá ser numericamente igual a probabilidade do sistema positivo ser melhor
 pontuado que a recomendação negativa, o que se encaixa perfeitamente na
@@ -255,4 +255,4 @@ comprometidos.
 Por fim, este tipo de experimento também permite coletar diversos dados sobre
 como o usuário utiliza a aplicação, além de poder prover dados qualitativos
 sobre a própria recomendação, podendo assim responder uma gama bem maior de
-questão do que os experimentos offline.
+questões do que os experimentos offline.
