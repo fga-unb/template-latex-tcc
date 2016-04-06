@@ -362,64 +362,6 @@ $$PR0=\left[
 \end{array}
 \right]_{l \times a}$$
 
-É necessário transformar as matrizes PR1 e PR0 em matrizes quadradas,
-sendo suas dimensões ``${l \times a}$'', a matriz quadrada deve possuir
-a maior dentre as duas dimensões, neste caso as matrizes devem possuir
-as dimensões ``${a \times a}$'', para que isso aconteça as matrizes são
-multiplicadas pela matriz identidade de dimensões ``${a \times l}$''.
-
-$$PR1=\left[
-\begin{array}{ccc}
-1 & 0 & 0 \\
-0 & 1 & 0 \\
-0 & 0 & 1 \\
-0 & 0 & 0 \\
-0 & 0 & 0 \\
-\end{array}
-\right]_{a \times l}
-\left[
-\begin{array}{ccccc}
-1 & 0 & 0 & 1 & 1 \\
-1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
-0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
-\end{array}
-\right]_{l \times a}
-= \left[
-\begin{array}{ccccc}
-1 & 0 & 0 & 1 & 1 \\
-1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
-0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
-0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 \\
-\end{array}
-\right]_{a \times a}$$
-
-$$PR0=\left[
-\begin{array}{ccc}
-1 & 0 & 0 \\
-0 & 1 & 0 \\
-0 & 0 & 1 \\
-0 & 0 & 0 \\
-0 & 0 & 0 \\
-\end{array}
-\right]_{a \times l}
-\left[
-\begin{array}{ccccc}
-0 & 1 & 1 & 0 & 0 \\
-0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
-1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
-\end{array}
-\right]_{l \times a}
-= \left[
-\begin{array}{ccccc}
-0 & 1 & 1 & 0 & 0 \\
-0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
-1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
-0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 \\
-\end{array}
-\right]_{a \times a}$$
-
 Obtendo o vetor PH, que é a probabilidade individual de cada rótulo, e a
 matrizes PR1 e PR0, o treinamento do algoritmo está completo.
 
@@ -466,10 +408,8 @@ $$PV=
 1 & 0 & 0 & 1 & 1 \\
 1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
 0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
-0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 \\
 \end{array}
-\right]_{a \times a}
+\right]_{l \times a}
 \left[
 \begin{array}{ccccc}
 1 & 0 & 0 & 0 & 0 \\
@@ -485,10 +425,8 @@ $$PV=
 0 & 1 & 1 & 0 & 0 \\
 0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
 1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
-0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 \\
 \end{array}
-\right]_{a \times a}
+\right]_{l \times a}
 \left[
 \begin{array}{ccccc}
 0 & 0 & 0 & 0 & 0 \\
@@ -505,10 +443,8 @@ $$PV=\left[
 1 & 1 & 0 & 1 & 0 \\
 1 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
 0 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
-0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 \\
 \end{array}
-\right]_{a \times a}$$
+\right]_{l \times a}$$
 
 O próximo passo seria então usar a matriz PV para encontrar classificação que
 apresenta maior valor para o vetor v. Antes disso, decidiu-se normatizar todos
@@ -531,90 +467,59 @@ as linhas da matriz, é somado o log de cada elemento da matriz PV resultando
 no vetor ``u''.
 
 \begin{center}
-$PV = PV_{a \times a} + 1$
+$PV_{l \times a} = PV_{a \times a} + 1$
 $$PV=\left[
 \begin{array}{ccccc}
 2 & 2 & 1 & 2 & 1 \\
 2 & 2 & 2 & \frac{3}{2} & \frac{3}{2} \\
 1 & 1 & 2 & \frac{3}{2} & \frac{3}{2} \\
-1 & 1 & 1 & 1 & 1 \\
-1 & 1 & 1 & 1 & 1 \\
 \end{array}
-\right]_{a \times a}$$
+\right]_{l \times a}$$
 \end{center}
 
 \begin{center}
-$PV = log(PV_{a \times a})$
+$PV_{l \times a} = log(PV_{l \times a})$
 $$PV=\left[
 \begin{array}{ccccc}
 0.69315 & 0.69315 & 0.00000 & 0.69315 & 0.00000 \\
 0.69315 & 0.69315 & 0.69315 & 0.40547 & 0.40547 \\
 0.00000 & 0.00000 & 0.69315 & 0.40547 & 0.40547 \\
-0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
-0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
 \end{array}
-\right]_{a \times a}$$
+\right]_{l \times a}$$
 \end{center}
 
-Com a matriz PV normatizada, pode-se então obter a matriz ``u''. Essa matriz
-representa é um vetor coluna, onde cada linha representa a soma de todos os
-elementos de uma linha da matriz PV. Originalmente, considerou-se fazer a
+Com a matriz PV normatizada, pode-se então obter o vetor ``u''. Esse vetor é
+representado por um vetor coluna, onde cada linha representa a soma de todos os
+elementos de uma linha da matriz PV, logo o vetor ``u'' é resultado da multiplicão
+da matriz PV com um vetor unitário de dimensão ``a'' por 1, onde ``a'' representa
+também o número de linhas da matriz PV. Originalmente, considerou-se fazer a
 multiplicação dos elementos da linha da matriz PV ao invés da soma, entretanto
 como a PV pode conter até centenas de atributos ``a'', o número obtido pela
 multiplicação pode ser muito pequeno, ocasionando problemas computacionais.
 Dessa forma, a adição foi preferida ao invés da multiplicação.
 
 \begin{center}
-$u \ = \ soma Das Linhas de PV$
-$$u=\left[
+$$u \ = \ PV _{l \times a} * \left[
 \begin{array}{c}
-2.07944 \\
-2.89037 \\
-1.50408 \\
-0.00000 \\
-0.00000 \\
+1 \\
+1 \\
+1 \\
 \end{array}
 \right]_{a \times 1}$$
+$$u=\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+\end{array}
+\right]_{l \times 1}$$
 \end{center}
 
-Assim como foi feita uma operação nas matrizes PR1 e PR0 para que as
-matrizes fiquem quadradas, é necessário que o vetor coluna u tenha a mesma
-dimensão do vetor B, que é o vetor com as possíveis classificações, para
-isso multiplica-se o vetor u pela diagonal unitária com dimensão
-igual a quantidade de classificações ``l'' pela quantidade de atributos ``a''.
-
-$$u=\left[
-\begin{array}{ccccc}
-1 & 0 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 & 0 \\
-0 & 0 & 1 & 0 & 0 \\
-\end{array}
-\right]_{l \times a}
-\left[
-\begin{array}{c}
-2.07944 \\
-2.89037 \\
-1.50408 \\
-0.00000 \\
-0.00000 \\
-\end{array}
-\right]_{a \times 1}
-$$
-
-$$u=\left[
-\begin{array}{c}
-2.07944 \\
-2.89037 \\
-1.50408 \\
-\end{array}
-\right]_{l \times 1}
-$$
-
 O vetor PF contendo a probabilidade de cada classificação para o vetor de
-entrada v é obtido pela relação entre PH com o vetor u, onde PF é o resultado da multiplicação da
-diagonal do vetor PH com o vetor u. Vale ressaltar que o vetor PH deve passar pelo
-mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois normatizar pela
-função logarítmica.
+entrada v é obtido pela relação entre PH com o vetor u, onde PF é o resultado
+da soma do vetor PH com o vetor u. Vale ressaltar que o vetor PH deve passar
+pelo mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois normatizar
+pela função logarítmica.
 
 \begin{center}
 $PH = 1 + PH_{l \times 1}$
@@ -643,15 +548,16 @@ $$PH=\left[
 0.33647 \\
 \end{array}
 \right]_{l \times 1}$$
-\end{center}
 
+$PF = PH_{l \times 1} + u_{l \times 1}$
 $$PF=\left[
-\begin{array}{ccccc}
-0.18232 & 0 & 0 \\
-0 & 0.33647 & 0 \\
-0 & 0 & 0.33647 \\
+\begin{array}{c}
+0.18232 \\
+0.33647 \\
+0.33647 \\
 \end{array}
-\right]_{l \times l}
+\right]_{l \times 1}
++
 \left[
 \begin{array}{c}
 2.07944 \\
@@ -663,12 +569,13 @@ $$
 
 $$PF=\left[
 \begin{array}{c}
-0.37913 \\
-0.97253 \\
-0.50608 \\
+2.26176 \\
+3.22684 \\
+1.84055 \\
 \end{array}
 \right]_{l \times 1}
 $$
+\end{center}
 
 Por fim, a classificação que possui a maior probabilidade para o vetor de
 entrada v, é a classificação ``1'', pois a classificação ``1'' no vetor
