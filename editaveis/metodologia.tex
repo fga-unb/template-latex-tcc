@@ -32,7 +32,7 @@ a forma mais padrão de se usar o tempo para recomendação. Entretanto, o traba
 seus resultados
 
 Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação
-vencedor do concurso criado pelo Netflix para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação
+vencedor do concurso criado pelo \textit{Netflix} para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação
 dos filmes realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
 
 
@@ -136,7 +136,7 @@ contribuir com o projeto. O código fonte da aplicação pode ser encontrado no
 repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
 
 As modificações propostas nesta pesquisa foram realizadas em uma cópia local do
-mesmo, sendo essa mantida pelos pesquisadores deste trabalho Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
+mesmo, sendo essa mantida pelos pesquisadores deste trabalho no Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
 
 \section{Coleta de dados}
 
@@ -459,7 +459,7 @@ refletem perfeitamente o contexto de uso dos pacotes.
 Com isso dito, a informação temporal de cada pacote será obtida pela seguinte
 fórmula:
 
-ClassificaçãoTempo = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
+PesoTemporalDoPacote = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
 TempoModificação}$
 
 
@@ -549,10 +549,10 @@ foram recentemente usados, sendo assim é usado uma função de decaimento
 exponencial para obter controle quanto à suavidade da curva que relaciona
 a classificação no tempo com o peso do pacote, utilizando a seguinte função:
 
-\textbf{PesoPacote} = C / $\exp\left(-({1 - ClassificaçãoTempo}) * {\lambda}\right)$
+\textbf{PesoPacote} = C / $\exp\left(-({1 - PesoTemporalDoPacote}) * {\lambda}\right)$
 
 Onde C e alfa são constantes usadas para alterar a velocidade do decaimento da
-curva e o peso dado a variável \textit{ClassificaçãoTempo}, respectivamente.
+curva e o peso dado a variável \textit{PesoTemporalDoPacote}, respectivamente.
 
 Após calcular o peso de cada pacote do termo, o valor temporal de um termo pode ser
 descrito através das seguintes funções matemáticas, onde cada termo ``T'', possui uma
@@ -624,11 +624,9 @@ fórmula proposta na seção Contexto Temporal \ref{sec:contexto_temporal}:
 \hline
 \rowcolor[HTML]{EFEFEF}
 {Escala} & {Valores} \\ \hline
-{Excelent(EX)}  & ClassificaçãoTempo >= 0.8                  \\ \hline
-{Great(G)}   & ClassificaçãoTempo >= 0.7                  \\ \hline
-{Medium(M)}   & ClassificaçãoTempo >= 0.5                  \\ \hline
-{Bad(B)}   & ClassificaçãoTempo >= 0.3                  \\ \hline
-{Horrible(H)}   &ClassificaçãoTempo < 0.3                   \\ \hline
+{ReallyUseful(RU)}  & PesoTemporalDoPacote >= 0.8                  \\ \hline
+{Usefull(U)}   & PesoTemporalDoPacote >= 0.7                  \\ \hline
+{NotUsefull(NU)}   & PesoTemporalDoPacote >= 0.5                  \\ \hline
 \end{tabular}
 \caption{Escala para classificação de um pacote baseado em seus atributos de tempo}
 \label{tab:classificacao_pacotes}
@@ -698,7 +696,7 @@ satisfatório, como a validação cruzada e curvas de aprendizado, sendo o foco 
 identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
-sendo que apenas os pacotes classificados como ``\textit{EX}'' ou ``\textit{G}'' serão qualificados para a recomendação ao usuário.
+sendo que apenas os pacotes classificados como ``\textit{RU}'' serão qualificados para a recomendação ao usuário.
 
 \section{Comparação dos resultados}
 

@@ -11,7 +11,7 @@ abstrato, o aprendizado de máquina funciona como uma caixa preta, onde
 independente de como é implementado, o mesmo deve ser capaz de encontrar padrões
 nos dados apresentados e criar um modelo para dados que ainda não foram vistos.
 
-Como exemplo, o aprendizado de máquina pode ser usado para classifcar
+Como exemplo, o aprendizado de máquina pode ser usado para classificar
 um conjunto de atributos. Exemplos assim são bastante comuns quando se fala em
 aprendizado de máquina. \citeonline{lecun1989backpropagation} usou algoritmos de
 aprendizado de máquina para classificar códigos postais escritos a mão. Outro
@@ -65,7 +65,7 @@ valores associados a alguns atributos.
 \label{tab:entradas_de_treinamento}
 \end{table}
 
-Após ser realizada a etapa de treinamento, ao receber uma sequencia de cinco
+Após ser realizada a etapa de treinamento, ao receber uma sequência de cinco
 atributos, o algoritmo deve retornar qual o rótulo, ou seja, a classificação,
 correspondente a esses atributos. A tabela~\ref{tab:entrada_para_classificar}
 mostra um exemplo de entrada para o algoritmo, sendo que a diferença entre
@@ -137,12 +137,8 @@ seria necessário o cálculo da média e variância dos atributos para as dadas
 classes de classificação \cite{zhang2004optimality}.
 
 Apesar da simplicidade desse algoritmo, alguns cuidados devem ser observados.
-O primeiro cuidado é analisar as variáveis, pois quando estas possuem uma grande
-dependência entre elas, pode levar o modelo a acarretar problemas. O outro cuidado
-se dá no uso dos atributos que são usados para gerar a classificação de um item.
-Apesar dessa preocupação estar presente em algoritmos supervisionados em geral,
-o número de cálculos necessários para esse sistema aumenta consideravelmente a
-cada novo atributo adicionado, podendo assim ocasionar problemas de performance.
+Um dos principais cuidados é analisar as variáveis, pois quando estas possuem uma grande
+dependência entre elas, pode levar o modelo a acarretar problemas.
 
 \subsection{Engenharia de atributos}
 
@@ -190,7 +186,7 @@ de aprendizado de máquina, principalmente quanto a escalabilidade do mesmo.
 
 \subsection{Validação cruzada}
 
-Uma das formas de validar se o algoritmo não está sofrendo \textit{overfitting}
+Existem algumas formas de validar se o algoritmo não está sofrendo \textit{overfitting}
 e o seu oposto, \textit{underfitting}, onde o algoritmo apresenta elevado valor
 de \textit{bias} para as entradas usadas como teste, ou seja, o modelo criado
 pelo algoritmo é muito simples. Uma forma de observar a ocorrência desses dois
@@ -232,7 +228,7 @@ Onde:
     \item \textbf{m: } Tamanho do conjunto de teste;
     \item \textbf{$h(x_{i}$): } Função que reflete o modelo criado por um algoritmo
     de aprendizado de máquina, ou seja, recebe um dado e retorna um classificação.
-    \item \textbf{$y(x): $} Valore real da classificação para o dado sendo apresentado
+    \item \textbf{$y(x): $} Valor real da classificação para o dado sendo apresentado
     \item \textbf{$m_{teste}$: } Tamanho do conjunto de teste obtido por validação cruzada.
 \end{itemize}
 
@@ -240,7 +236,7 @@ Dessa forma, pode-se ver que o gráfico mostra a evolução do modelo produzido 
 dados de treinamento em relação ao conjunto de dados obtidos pela validação cruzada,
 variando-se o número de dados usados no treinamento. Espera-se que, inicialmente, as
 curvas fiquem bem distantes uma da outra, pois com poucos dados de treinamento, o
-conjunto de teste apresentára erros altos, enquanto o conjunto de treinamento
+conjunto de teste apresentará erros altos, enquanto o conjunto de treinamento
 não sofre do mesmo problema. Entrentanto, com mais dados de treinamento usados,
 é esperado que as curvas se aproximem mais uma da outra.
 
