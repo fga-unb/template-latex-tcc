@@ -242,7 +242,7 @@ $$B=\left[
 \right]_{l \times 1}$$
 
 Utilizando a matriz D e os vetores L e B, monta-se a matriz de adjacência A, onde
-cada linha dessa matriz representa respectivamente um classificação possível, e cada
+cada linha dessa matriz representa respectivamente uma classificação possível, e cada
 coluna da matriz identifica se um item da matriz D foi classificado de acordo
 com a classificação representada pela linha em que se encontra. A matriz de adjacência A também é uma
 matriz com valores binários, onde ``1'' indica a presença do item na classificação,
@@ -282,7 +282,7 @@ $$H=\left[
 \end{array}
 \right]_{l \times 1}$$
 
-Utilizando o vetor H é calculado a probabilidade de cada classificação, que é representada
+Utilizando o vetor H, é calculado a probabilidade de cada classificação, que é representada
 pelo vetor PH, resultante da divisão do vetor H por ``e''.
 
 \begin{center}
@@ -450,21 +450,9 @@ O próximo passo seria então usar a matriz PV para encontrar classificação qu
 apresenta maior valor para o vetor v. Antes disso, decidiu-se normatizar todos
 os valores de PV pelo função logaritmo. Entretanto, alguns valores de PV podem
 possuir o valor ``0'', pois tal valor indica que um determinado atributo para
-uma dada classificação não nunca apareceu. Considerando que tal valor não é
+uma dada classificação nunca apareceu. Considerando que tal valor não é
 definido na função logaritmo, resolveu-se antes somar ``1'' a matriz PV e logo
-após calcular calcular a matriz logaritmica dessa nova matriz.
-
-Através da matriz PV é obtido o vetor coluna ``u'', onde cada linha
-do vetor u corresponde a multiplicação dos elementos da linha da matriz
-PV, porém devido ao fato de uma probabilidade zero em uma linha da matriz
-PV irá fazer com que a multiplicação da linha seja igual a zero, para
-impedir esse problema é somado 1 a matriz PV. Como a matriz pode ter
-centenas de atributos ``a'' existe o problema de que a multiplicação
-desses elementos tornem a multiplicação das linhas da matriz um número
-muito grande, ou um número muito pequeno, afim de impedir que ocorra
-problemas computacionais com o tamanho dos números, ao invés de multiplicar
-as linhas da matriz, é somado o log de cada elemento da matriz PV resultando
-no vetor ``u''.
+após calcular a matriz logaritmica dessa nova matriz.
 
 \begin{center}
 $PV_{l \times a} = PV_{a \times a} + 1$
