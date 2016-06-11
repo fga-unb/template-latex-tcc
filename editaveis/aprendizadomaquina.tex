@@ -196,54 +196,29 @@ dados existentes em uma parte de treinamento e uma parte de teste. O conjunto de
 dados de treinamento é usado para alimentar o algoritmo. Após o treinamento,
 o conjunto de teste é então usado para validar o algoritmo. \cite{araujo2011apprecommender}.
 
-Uma forma de tornar o processo de validação cruzada visual é o uso de curvas de
-aprendizado. Uma curva de aprendizado pode ser vista como a relação das curvas
-de erro do conjunto de dados de treinamento e a curva de erro dos dados de teste. Isso pode
-ser visto com melhor foco na Figura \ref{fig:curva_aprendizado}.
+Uma outra abordagem recorrente quando se fala em validação cruzada é a execução
+da mesma por um número definido de vezes. Isso acontece com o intuito de
+aumentar a confiança nos resultados apresentados, pois com maior repetição do
+algoritmo, pode-se esperar que os conjuntos de treinamento e teste serão sempre
+diferentes, fazendo com que a média do resultado final seja mais robusta em
+relação a realidade.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/curva_aprendizado.eps}
-  \caption{Exemplo de uma curva de aprendizado \cite{1_ng} }
-  \label{fig:curva_aprendizado}
-\end{figure}
+Para verificar um resultado, uma das métricas mais simples é a comparação item a
+item dos resultados esperados pelos resultados obtidos, que pode ser obtida por:
 
-Pode-se ver na figura \ref{fig:curva_aprendizado}, o eixo das ordenadas representa
-o valor do erro, enquanto o eixo das abscissas representa o tamanho do conjunto de
-dado usado para treinamento. Para calcular o erro apresentado nos gráficos, pode-se
-usar qualquer fórmula estatística para tal fim. Entretanto, uma das mais comuns
-quando se trata de validação cruzada é a seguinte \cite{1_ng}:
-
-\begin{equation}
-ErroTreinamento = \frac{1}{2m}*\sum_{i=0}^{m}(h(x_{i}) - y(x_{i}))^2
-\end{equation}
-
-\begin{equation}
-ErroTeste = \frac{1}{2m_{teste}}*\sum_{i=0}^{m_{teste}}(h(x_{t}^{i}) - y(x_{t}^{i}))^2
-\end{equation}
+$PorcentagemAcertos = \frac{NumVerdadeirosPositivos}{NumItensTest}$
 
 Onde:
 
 \begin{itemize}
-    \item \textbf{m: } Tamanho do conjunto de teste;
-    \item \textbf{$h(x_{i}$): } Função que reflete o modelo criado por um algoritmo
-    de aprendizado de máquina, ou seja, recebe um dado e retorna um classificação.
-    \item \textbf{$y(x): $} Valor real da classificação para o dado sendo apresentado
-    \item \textbf{$m_{teste}$: } Tamanho do conjunto de teste obtido por validação cruzada.
+    \item \textbf{NumVerdadeirosPositivos:} Número de itens classificados
+        corretamento pelo algoritmo.
+    \item \textbf{NumItensTeste:} Números de itens contido no conjunto de dados de testes
 \end{itemize}
 
-Dessa forma, pode-se ver que o gráfico mostra a evolução do modelo produzido pelos
-dados de treinamento em relação ao conjunto de dados obtidos pela validação cruzada,
-variando-se o número de dados usados no treinamento. Espera-se que, inicialmente, as
-curvas fiquem bem distantes uma da outra, pois com poucos dados de treinamento, o
-conjunto de teste apresentará erros altos, enquanto o conjunto de treinamento
-não sofre do mesmo problema. Entrentanto, com mais dados de treinamento usados,
-é esperado que as curvas se aproximem mais uma da outra.
-
-O uso desses gráficos pode-se bastante útil para encontrar casos de \textit{overfitting}
-e \textit{underfitting} pois tais casos podem ser claramente identificados observando-se
-o gráfico. Em um conjunto de teste onde ao final, as curvas de treinamento e de erro estão
-muito distantes, pode-se entender que o algoritmo está apresentando \textit{underfitting}.
-Entretanto, caso as curvas estejam muito próximas quando se usa todos os dados de
-treinamento alocados, pode-se entender uma baixa variância do modelo, identificando assim
-um caso de \textit{overfitting}.
+Entretanto, essa métrica deve ser usada com cautela, pois caso um conjunto de
+dados apresente muito mais um rótulo do que outros, tal métrica pode passar
+orientação errada quanto a real acurácia do algoritmo. Por exemplo, dado um
+conjunto de teste onde 95\% dos dados são rotulados como ``X`` e o resto rotulado
+como ``Y``, um classificador que sempre rotula um dado como ``X`` obterá uma
+resultado de 95\% de acurácia, apesar de não ser nada útil.
