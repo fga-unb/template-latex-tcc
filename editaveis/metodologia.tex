@@ -706,60 +706,21 @@ selecionado. Vale ressaltar que a comparação de resultados visa principalmente
 responder as hipóteses levantadas na pesquisa.
 
 Com isso em consideração, esta pesquisa escolheu seguir o modelo proposto na
-implementação do \textit{AppRecommender}, onde o mesmo usava comparações tanto offline
-quanto estudos de caso com usuários reais. Entretanto, tanto os testes offline
-quanto o estudo de usuário precisarão ser modificados, visando adaptar ao
-contexto temporal proposto na pesquisa.
+implementação do \textit{AppRecommender}, entretanto com o foco nos experimentos
+com os usuários. Isso se dá pelo aspecto mais subjetivo das hipóteses da
+pesquisa.
 
-\subsection{Comparação offline}
-
-Para comparar as soluções desenvolvidas, os testes realizados no
-\textit{AppRecommender} implementaram o uso de duas métricas distintas,
-sendo uma a medida da precisão e cobertura alcançado pelos algoritmos desenvolvidos,
-visando principalmente definir o tamanho do perfil do usuário ou o tamanho de vizinhança, para
-estratégias baseadas em conteúdo e colaborativas. A segunda métrica, AUC, é
-usada visando a comparação entre os modelos. Conforme visto na seção
-\ref{sec:rec_experimentos_offline}, essa métrica é basicamente a soma da área de uma curva ROC,
-que analisa principalmente a relação de recomendações de itens considerados
-verdadeiros positivos e verdadeiro negativos.
-
-Dessa forma, como o foco do trabalho esta na comparação de implementações,
-decidiu-se focar os esforços na análise da curva ROC. O processo para construir
-tais curvas se encontra automatizado e depende apenas do uso de
-20 submissões aleatórias do \textit{popularity-contest} para funcionar. Vale ressaltar
-que cada submissão do \textit{popularity-contest} serve como forma de mostrar os pacotes
-do usuário e por consequência criar o perfil do mesmo para estratégias baseadas
-em conteúdo. Após a entrada desses dados, cada submissão passa por um processo de
-validação cruzada múltiplas vezes e seus resultados são convergidos para um
-valor definidos na curva ROC. Após se analisar todas as soluções, a curva é
-apresentada e o valor de AUC é calculado. A Figura \ref{fig:roc_apprecommender}
-mostra uma curva ROC gerada para uma estratégia baseada em conteúdo.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/roc_apprecommender.eps}
-  \caption{Curva ROC para uma estratégia baseada em conteúdo do AppRecommeder}
-  \label{fig:roc_apprecommender}
-\end{figure}
-
-
-Para possibilitar a execução desses tipo de teste, os dados usados serão os
-coletados de acordo com a seção \ref{sec:coleta_dados_usuario}. Entretanto,
-pode-se perceber que o processo citado não leva em conta nenhum contexto temporal
-do usuário. Sendo assim, será necessário adaptar este modelo tanto para a
-solução determinística quanto para a solução por aprendizado de máquina. Dessa
-forma, a principal mudança será permitir que que os scripts existentes para
-gerar a curva ROC aceitem informações temporais.
-
-Por fim, vale dizer que o tamanho do perfil de usuário usado será o obtido
-experimentalmente na solução do \textit{AppRecommender} e que as soluções implementadas
-só serão comparadas com as duas soluções baseadas em conteúdo que possuíram o
-maior valor de AUC, com o intuito de tornar o processo de comparação mais ágil.
+Além disso, essa pesquisa tem como foco realizar dois experimentos com usuários,
+sendo o primeiro experimento podendo ser considerado um teste piloto, onde um
+grupo de usuários irá realizar o experimento, sendo ao final problemas e
+observações levantadas para melhorar as soluções propostas. O segundo
+experimento terá foco então em propor alternativas para as questões levantadas
+no primeiro experimento, visando assim tentar melhorar seus resultados.
 
 \subsection{Estudo com usuários}
 
 Devido a subjetividade inerente sobre o que um usuário considera uma boa
-recomendação, esta pesquisa também irá considerar estudo de usuários para
+recomendação, esta pesquisa irá focar em estudos de usuários para
 avaliar as soluções implementadas. Para esta estratégia, será seguido um modelo
 similar ao usado nos testes de usuário do próprio \textit{AppRecommender}. Entrentato
 algumas modificações serão realizadas no processo.
