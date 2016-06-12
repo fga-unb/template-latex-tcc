@@ -4,6 +4,109 @@ Este capítulo visa relatar os resultados obtidos em ambos os experimentos
 realizados para verificar a validades das hipóteses propostas neste trabalho.
 Dessa forma, cada experimento será analisado em uma sessão própria.
 
+\subsection{Primeiro Experimento}
+
+A primeira coleta do primeiro experimento foi realizada com 16 pessoas, onde
+elas concordaram com os termos do Anexo D. Nessa experimento foram analisados
+três estratégias de recomendação, sendo elas:
+
+\begin{itemize}
+    \item \textbf{cbh:} Estratégia baseada em conteúdo, onde metade do
+    perfil do usuário é formado por debtags e a outra metade por termos
+    da descrição dos pacotes, tanto as debtags e os termos são definidos
+    utilizando a técnica do TFIDF;
+    \item \textbf{cbtm:} Estratégia baseada em conteúdo utilisando o contexto
+    temporal, assim como na estratégia `cbh`, o perfil do usuário é composto
+    por duas metades, sendo as debtags e os termos da descrição dos pacotes,
+    porém eles são definidos através de dois pesos, sendo o primeiro uma
+    análise de quais pacotes foram recentemente utilizados, e o segundo peso
+    se trata da utilização do TFIDF;
+    \item \textbf{cbml:} Estratégia baseada em conteúdo, onde o perfil do
+    usuário é formado tanto por debtags quanto termos, porém não é composto
+    por metade de cada um, utilizando esse perfil é realizado a
+    recomendação de vários pacotes, então é utilizado o algoritmo de
+    aprendizado de máquina para identificar quais dentre esses pacotes
+    devem ser recomendados.
+\end{itemize}
+
+Dentre as estratégias a `cbh` já estava implementada no AppRecommender, e as
+estratégias `cbtm` e `cbml` se tratam das estratégias implementadas afim de
+testar as hipóteses desse trabalho.
+
+Para cada estratégia foram selecionadas as 10 melhores recomendações
+e essas foram ordenadas em ordem alfabética e apresentadas uma a uma para
+o usuário realizar a pontuação, como foi descrito anteriormente.
+
+A coleta de dados apresentou os resultados apresentados na figura
+\ref{fig:primeiro_experimento}
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/primeiro_experimento.eps}
+  \caption{Resultados do primeiro experimento}
+  \label{fig:primeiro_experimento}
+\end{figure}
+
+Analisando os dados coletados pode-se observar que os indices de recomendações
+ruins das estratégias `cbh` e `cbml` foram maiores que os indices da estratégia
+`cbtm`, e também é notável a diferença entre recomendações úteis e surpresas
+boas, pois a estratégia `cbtm` possui 45 recomendações nessas classificações
+enquanto as estratégias `cbml` e `cbh` possuem 35.
+
+Através dos dados coletados observa-se que mesmo a estratégia `cbtm` possuindo
+um pouco de destaque, todas as estratégias aprensentaram um índice muito alto
+de recomendações ruins
+
+Através desses dados coletados realizou-se uma análise das métricas propostas
+no Anexo D, a figura \ref{fig:metricas_segundo_experimento} apresenta os valores
+das métricas.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/metricas_primeiro_experimento.eps}
+  \caption{Métricas do primeiro experimento}
+  \label{fig:metricas_primeiro_experimento}
+\end{figure}
+
+Analisando a precisão e a novidade de cada recomendação, observa-se que a
+estratégia que apresentou melhores resultados embora por pouca diferença,
+foi a estratégia `cbtm`, fato que pode demonstrar que a estratégia
+determinística se saiu melhor que a estratégia de aprendizado de máquina, para
+esses usuários que participaram do experimento.
+
+Outra informação coletada no experimento foi a validação cruzada, onde a
+figura \ref{fig:primeiro_experimento_cross_validation} apresenta as a média
+das métricas coletadas da validação cruzada de cada usuário.
+
+Analisando os gráficos da figura \ref{fig:primeiro_experimento_cross_validation}
+observa-se que a unica métrica que está acima de 50\% é a acurácia, o que
+indica que o algoritmo de aprendizagem de máquina, ou o tratamento de dados,
+como a definição do perfil do usuário, podem ser melhorados afim de que os
+resultados dessas métricas possam ser melhorados.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/primeiro_experimento_cross_validation.eps}
+  \caption{Métricas obtidas através da validação cruzada dos usuários que
+  participaram do experimento}
+  \label{fig:primeiro_experimento_cross_validation}
+\end{figure}
+
+Os resultados desse primeiro experimento não foram o que os pesquisadores desse
+projeto esperavam, pois esperava-se que os resultados obtidos tivessem um
+resultado mais satisfatório quanto a qualidade das recomendações, porém, esse
+primeiro experimento foi executado com o objetivo de coletar dados afim de
+compreender mais sobre o perfil dos usuários e o que estava sendo recomendado,
+e então utilizar isso para melhorar o sistema de recomendação e posteriormente
+realizar um segundo experimento onde de fato o objetivo é comparar qual
+estratégia se saiu melhor.
+
 \section{Segundo experimento}
 
 Dado os resultados do primeiro experimento, as seguinte medidas foram tomadas
@@ -117,7 +220,7 @@ pacote instalados pelo \textit{rvm}, o que causa a redundância.
 
 Por fim, é necessário entender por que a melhoria encontrada foi de 3\%-5\% em
 relação as estratégias baseadas em conteúdo já implementadas pelo
-\textit{AppRecommender}. O gráfico \ref{fig:segundo_experimento_cross_validation}  
+\textit{AppRecommender}. O gráfico \ref{fig:segundo_experimento_cross_validation}
 mostra a média de acurácia para cada estratégia de aprendizado de máquina. Tal
 gráfico mostra que nenhuma estratégia teve média muito alta de acurácia, sendo
 que acredita-se que a melhora encontrada por essas estratégias foi devido a
