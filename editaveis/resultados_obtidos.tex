@@ -48,6 +48,23 @@ para o segundo experimento:
    \textit{Really Useful} (RU) são passados usados para criar o perfil do
    usuário. Isso se dá pelo fato de tentar reduzir o perfil do usuário e fazer
    com o mesmo seja mais focado nos gostos atuais do usuário.
+
+   \item \textbf{Uso da estratégia \textit{cb} ao invés da \textit{cbml}:} Para
+   o primeiro experimento, a estratégia \textit{cbh} foi usada. Entretanto,
+   o segundo experimento quis colocar mais foco nos termos dos pacotes e
+   não de forma equilibrada como funciona o \textit{cbh}. Dessa forma,
+   a estratégia do \textit{AppRecommender} usada para comparação com as
+   estratégias de contexto temporal, foi a estratégia \textit{cb}, que usa
+   tanto termos do pacote como debtags, mas não garante que as mesmas sejam
+   apareçam na mesma quantidade no perfil do usuário.
+
+   \item \textbf{Mudança de nome da estratégia \textit{cbml} para
+   \textit{mlbva}:} Como agora existem duas estratégias distintas usando
+   aprendizado de máquina, resolveu-se renomear a estratégia \textit{cbml}
+   para \textit{mlbva}, que significa \textit{Machine Learning Binary
+   Vector Approach}. Esse padrão também é seguido para a estratégia de
+   \textit{bag of words}, \textit{mlbow}, que significa \textit{Machine
+   Learning Bag Of Words}.
 \end{itemize}
 
 Além desses pontos já citados, o segundo experimento também foi realizado com
@@ -107,9 +124,12 @@ ferramentas.
 
 Além disso, pode-se perceber que a estratégia determinística com contexto
 temporal \textit{cbtm} foi a que recomendou mais pacotes ruins considerados pelo
-usuário, ou seja, a estratégia não atende aos requisitos.
+usuário, ou seja, a estratégia não atende aos requisitos. Isso difere dos
+resultados encontrados no primeiro experimento. Percebeu-se então que a mudança
+no cálculo temporal favoreceu as estratégias de aprendizado de máquina, mas não
+a determinística.
 
-Sobre a questão de redundância, percebeu-se também um problema quanto a pacote
+Sobre a questão de redundância, percebeu-se também um problema quanto a pacotes
 instalados por outros gerenciadores de pacote. Por exemplo, caso o usuário seja
 um programador ruby e tenha instalado pacotes ruby via \textit{apt} e
 \textit{Ruby Version Manager} (rvm), o \textit{AppRecommender} pode recomendar
@@ -117,7 +137,7 @@ pacote instalados pelo \textit{rvm}, o que causa a redundância.
 
 Por fim, é necessário entender por que a melhoria encontrada foi de 3\%-5\% em
 relação as estratégias baseadas em conteúdo já implementadas pelo
-\textit{AppRecommender}. O gráfico \ref{fig:segundo_experimento_cross_validation}  
+\textit{AppRecommender}. O gráfico \ref{fig:segundo_experimento_cross_validation}
 mostra a média de acurácia para cada estratégia de aprendizado de máquina. Tal
 gráfico mostra que nenhuma estratégia teve média muito alta de acurácia, sendo
 que acredita-se que a melhora encontrada por essas estratégias foi devido a
