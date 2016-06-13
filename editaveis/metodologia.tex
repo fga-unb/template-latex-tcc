@@ -768,7 +768,7 @@ possui quatro itens que são definidos a seguir:
 \end{itemize}
 
 Para as métricas usadas considera-se que as avaliações Ruim e Redundante são
-falso positivos e Útil e Surpresa boa são verdadeiro positivos. Além disso,
+falso negativos e Útil e Surpresa boa são verdadeiro positivos. Além disso,
 quando se avalia na linha de comando, as mesmas serão numeradas de 1 até 4.
 
 Considerando isso, as métricas usadas para comparar as estratégias são as
@@ -778,6 +778,8 @@ seguintes:
     \item \textbf{Precisão: } $\frac{VerdadeirosPositivos}{VerdadeirosPositivos
         + FalsoNegativos}$
     \item \textbf{Novidade: } $\frac{NumSurpresaBoa}{VerdadeirosPositivos +
+        FalsoNegativos}$
+    \item \textbf{Ruim: } $\frac{NumRuim}{VerdadeirosPositivos +
         FalsoNegativos}$
 \end{itemize}
 
