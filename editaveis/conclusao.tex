@@ -1,0 +1,44 @@
+\chapter[Conclusão]{Conclusão}
+
+Com os resultados obtidos, pode-se perceber que ambas as hipóteses, \textit{h1}
+e \textit{h2} se provaram verdadeiras, porém com ressalvas. Para hipótese
+\textit{h1}, percebeu-se um aumento em todas as estratégias de contexto
+temporal quanto a precisão das recomendações, entretanto, a estratégia
+determinística também teve um aumento de recomendações negativas ao usuário, o
+que dessa forma, leva-se a entender que o contexto temporal sozinho não foi
+responsável pelas melhorias. Para a hipótese \textit{h2}, percebeu-se que sim,
+as estratégias de aprendizado de máquina se comportaram melhor que a
+determinística, mas novamente, acredita-se que esse foi o caso pela combinação
+de pré-filtragem dos pacotes juntamente com o contexto temporal que acontecia
+nas estratégias de aprendizado de máquina, o que não era o caso da estratégia
+determinística, que só usava o contexto temporal e não o de pré-filtragem.
+
+Dessa forma, os responsáveis por esta pesquisa entendem que para recomendações
+baseadas em conteúdo, o perfil do usuário teve relação bem mais importante com o
+sucesso das recomendações do que as estratégias propriamente ditas. Percebeu-se
+que as estratégias de recomendação melhoram quando usou-se o contexto temporal
+para melhor filtrar os pacotes usados para compor o perfil do usuário e não para
+selecionar os pacotes após a recomendação.
+
+Dessa forma, acredita-se que para a recomendação de pacotes, esta pesquisa
+entende que o foco da recomendação não deve estar apenas nas estratégias usadas
+para fazer a recomendação propriamente dita e sim no conjunto de seleção de
+quais pacotes devem alimentar o recomendador e depois usar uma estratégia
+para representar e selecionar os pacotes para uma recomendação
+
+Além disso, os responsáveis pela pesquisa entendem também que existem algumas
+contribuições que podem ser feitas ao próprio sistema Debian que possa facilitar
+a tarefa de recomendação. A principal dela seria a criação de um log para uso de
+pacotes similar ao que acontece com o relatime. Diariamente, seria registrado
+quais pacotes tiveram seu atime alterado. Esse arquivo seria então a frequência
+de uso de pacote pelo usuário, o que proveria ao contexto temporal a frequência
+de uso de pacotes, fazendo assim uma análise ainda mais próxima ao perfil do
+usuário.
+
+Por fim, conclui-se então que a pesquisa feita usou um bom indicador para melhorar as
+recomendações de pacotes, o contexto temporal de seu uso, entretanto,
+percebeu-se que a pesquisa deveria ter focado mais no conjunto de dados usado
+para alimentar o sistema de recomendação e também na relacionamento entre tais
+pacotes desenvolvidos, pois apesar da melhoria observada pela novas estratégias,
+percebeu-se pelo segundo experimento uma relação mais direta entre os dados que
+são usados para alimentar o recomendador e a recomendação propriamente dita.
