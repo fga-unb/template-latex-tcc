@@ -1,0 +1,40 @@
+\chapter[Trabalhos futuros]{Trabalhos futuros}
+
+Dado as questões levantadas pela pesquisa, foi possível levantar alguns
+possíveis trabalhos futuros:
+
+\begin{itemize}
+  \item \textbf{Uso do arquivo history do usuário para complementar contexto
+  temporal:} Apesar do arquivo \textit{bash\_history} do usuário apenas conter um
+  histórico de comandos usados pelo usuário, tal arquivo pode conter informações
+  importantes sobre a frequência de uso de algumas aplicações pelo usuário,
+  podendo complementar a análise temporal feita.
+  \item \textbf{Melhorar estratégias de aprendizado de máquina:} Dado os
+  problemas já citados pelas estratégias de aprendizado de máquina, pode-se
+  investigar novas metodologias para lidar com os problemas citados, como poucos
+  dados de treinamento e complexidade de uso dos mesmos.
+  \item \textbf{\textit{Cluster} de interesse do usuário:} Essa nova estratégia seria
+  para criar \textit{clusters} de gostos do usuário com base em seus pacotes e
+  buscar pacotes baseado na identidade desse \textit{cluster} e não nos pacotes
+  em si.
+  \item \textbf{Melhorar contexto temporal:} As estratégias de contexto
+  temporal ainda apresentam problemas para pacotes recentemente atualizados.
+  Isso se dá pelo fato que ainda não é possível saber se um pacote foi
+  recentemente utilizado e atualizado pelo sistema, pois a operação de
+  atualização opera tanto sobre o \textit{ctime} quanto \textit{atime}. Dessa
+  forma, pode-se buscar maneira de resolver tal problema.
+  \item \textbf{Evitar redundância de recomendação de pacotes:} Pacotes
+  instalados pelo usuário por outros gerenciadores de pacotes, como
+  \textit{rvm} do ruby ou o \textit{pip} do python, não devem ser
+  recomendados. Dessa forma, deve-se entender um mecanismo de verificar a
+  existência desses pacotes e retirá-los da recomendação. Além disso, deve-se
+  verificar também redundância entre pacotes dentro de uma recomendação,
+  pois dois pacotes similares não devem estar presentes na mesma
+  recomendação.
+  \item \textbf{Uso de experimentos offline:} Experimentos offline eram
+  implementados no \textit{AppRecommender} com o intuito de comparar as
+  estratégias de forma mais rápida e prática, pois não era necessário
+  sempre fazer testes com usuários. Para o contexto temporal usado, tais
+  experimentos deveriam ser modificados e melhor explorados para se
+  adequar a finalidade da pesquisa.
+\end{itemize}
