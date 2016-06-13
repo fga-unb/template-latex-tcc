@@ -1,0 +1,90 @@
+\chapter[Considerações preliminares]{Considerações preliminares}
+
+No decorrer deste trabalho, alguns marcos foram alcançados. Primeiramente, os
+integrantes da pesquisa estabeleceram um bom conhecimento sobre sistemas de
+recomendação e aprendizado de máquina, tornando então possível que esses
+conhecimentos sejam colocados em prática.
+
+Além disso, modificações foram realizadas no projeto escolhido para ser usado
+nesta pesquisa, o \textit{AppRecommender}. Primeiramente, as dependências de pacote do
+projeto foram atualizadas e um estudo foi realizado com o intuito de prover os
+meios necessários para o projeto funcionar. Esse objetivo foi alcançado e
+algumas técnicas de engenharia de software foram também aplicadas para tornar o
+desenvolvimento do projeto mais fácil, como atualizar os testes existentes, adicionar novos testes
+e centralizar a execução dos mesmos, além de prover também uma forma automatizada de
+verificar o padrão de codificação.
+
+Para os objetivos da pesquisa, já está implementada uma forma de coletar e
+classificar os pacotes com bases em suas informações temporais, além da criação
+da estratégia de recomendação utilizando a abordagem determinística proposta no
+trabalho. Entretanto, os pesos usados na mesma ainda precisam ser melhor escolhidos.
+
+Para a estratégia de aprendizado de máquina, os scripts necessários para coletar
+os dados dos pacotes, extrair seus atributos e classificá-los também estão
+prontos. A técnica proposta para realizar o aprendizado de máquina também está
+implementada, porém tal implementação ainda carece de algumas melhorias,
+principalmente na parte de teste.
+
+Por fim, o script para uma coleta de dados juntamente com o script de testes de
+usuário foram finalizados também. Entrentanto, ainda se faz necessário adaptar o
+uso de curvas ROC para o contexto temporal proposto.
+
+Baseado nas considerações feitas, será apresentado na seção \ref{sec:cronagrama} um cronograma
+para a continuação da pesquisa.
+
+\section{Cronograma} \label{sec:cronagrama}
+
+Afim de apresentar uma continuação para este trabalho, a tabela~\ref{tab:atividades_futuras},
+apresenta as atividades a serem realizadas e suas respectivas datas.
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF}
+{\textbf{Atividade}} & {\textbf{Data de Início}} & {\textbf{Data de Término}} \\ \hline
+Finalizar aprendizado de máquina & 01/01/2016 & 15/02/2016 \\
+Estudo do TensorFlow & 16/02/2016 & 29/02/2016 \\
+Primeira coleta / análise dos resultados & 01/03/2016 & 31/03/2016 \\
+Formalizar resultado da coleta & 01/04/2016 & 30/04/2016 \\
+Segunda coleta / teste de hipótese & 01/05/2016 & 31/05/2016 \\
+Finalizar documento & 01/06/2016 & 30/06/2016 \\
+\hline
+\end{tabular}}
+\caption{Atividades a serem realizadas}
+\label{tab:atividades_futuras}
+\end{table}
+
+O objetivo inicial na próxima fase do projeto é finalizar o aprendizado
+de máquina. Onde o primeiro passo a fazer é a implementação do aprendizado
+de máquina, dos testes, e também implementar tanto a validação cruzada quanto
+curvas de aprendizado, possibilitando assim avaliar o modelo desenvolvido.
+
+Após o aprendizado de máquina estar implementado este deve ser adicionado
+em uma estratégia de recomendação, ou seja, será criado uma estratégia
+no AppRecommender que utiliza o aprendizado de máquina para recomendar
+pacotes.
+
+Nessa etapa será estudado e analisado o \textit{TensorFlow}, a ferramenta do
+\textit{Google} para aprendizado de máquina, pois sua utilização no
+\textit{AppRecommender} resultaria em um grande avanço ao projeto, devido ao fato de que o
+\textit{Google} possui uma boa experiência na área de aprendizado de máquina,
+logo sua ferramenta deve ser eficiente e confiável.
+
+Após essa primeira coleta de dados e da análise dos resultados, será
+estudada a apresentação dos dados, visualização dos algoritmos e também
+verificar se os algoritmos precisam ser adaptados como, por exemplo,
+diminuir o número de atributos usados na técnica de aprendizado de máquina.
+
+Uma vez que esta etapa seja concluída, os resultados da coleta serão formalizados, afim de que o leitor
+possa compreender para que servem os dados e o que foi realizado com esses
+dados para se chegar aos resultados. Utilizando esses resultados também
+será feita uma atualização nas fórmulas e nas estratégias de recomendações
+criadas, a fim de otimizar a recomendação.
+
+Depois de compreender os dados, os resultados e otimizar a recomendação,
+será feita uma segunda coleta de dados, onde com os resultados dessa coleta
+o teste de hipótese será enfim realizado.
+
+Por último, os resultados serão descritos na segunda etapa da pequisa e o
+texto será revisado e atualizado mediante os resultados encontrados
