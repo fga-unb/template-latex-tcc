@@ -138,15 +138,16 @@ pacote instalados pelo \textit{rvm}, o que causa a redundância.
 Por fim, é necessário entender por que a melhoria encontrada foi de 3\%-5\% em
 relação as estratégias baseadas em conteúdo já implementadas pelo
 \textit{AppRecommender}. O gráfico \ref{fig:segundo_experimento_cross_validation}
-mostra a média de acurácia para cada estratégia de aprendizado de máquina. Tal
-gráfico mostra que nenhuma estratégia teve média muito alta de acurácia, sendo
+mostra a média da métrica de acurácia \textit{PorcentagemAcertos}, definida na seção
+\ref{subsec:validacao_cruzada}, para cada estratégia de aprendizado de máquina.
+Tal gráfico mostra que nenhuma estratégia teve média muito alta de acurácia, sendo
 que acredita-se que a melhora encontrada por essas estratégias foi devido a
 pré-filtragem de pacotes e não para a pós filtragem dos mesmos.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento_cross_validation.eps}
-  \caption{Acurácia obtida via cross validation para cada estratégia de aprendizado de máquina}
+    \caption{Métrica \textit{PorcentagemAcertos} obtida via cross validation para cada estratégia de aprendizado de máquina}
   \label{fig:segundo_experimento_cross_validation}
 \end{figure}
 
@@ -154,7 +155,7 @@ Vale ressaltar que mesmo com a estratégia de pré-filtragem sendo a que tenha
 proporcionado a melhora de resultados, pode-se ver que entre as estratégias de
 aprendizado de máquina, as estratégias de classificação também tiveram uma
 influência, pois todas as estratégias faziam a pré-filtragem de forma idêntica,
-mas foi a \textit{mlbow} com o sudo de \textit{bag of words} e \textit{TFIDF} que
+mas foi a \textit{mlbow} com o uso de \textit{bag of words} e \textit{TFIDF} que
 se mostrou com melhores resultados.
 
 À partir dessa análise, acredita-se que um dos principais motivos para a baixa acurácia dos algoritmos
