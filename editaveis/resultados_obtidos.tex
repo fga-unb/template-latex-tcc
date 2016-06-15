@@ -59,8 +59,8 @@ um pouco de destaque, todas as estratégias aprensentaram um índice muito alto
 de recomendações ruins
 
 O gráfico apresentado na figura \ref{fig:metricas_segundo_experimento} mostra
-a análise das métricas propostas no trabalho, que são: precisão, novidade e
-ruim.
+a análise das métricas propostas na seção \ref{sec:estudo_usuario}, que são:
+precisão, novidade e ruim.
 
 \pagebreak
 
@@ -83,20 +83,21 @@ figura \ref{fig:primeiro_experimento_cross_validation} apresenta a média da
 métrica de precisão, coletada da validação cruzada de cada usuário.
 
 Analisando os gráficos da figura \ref{fig:primeiro_experimento_cross_validation}
-observa-se que a a precisão do aprendizado de máquina é de apenas 22,87\%,
-o que indica que os resultados das recomendações não são exatamente o que se
-espera pela técnica do cross validation, o que demonstra que até o proximo
-experimento deve ser realizado melhorias quanto ao tratamento dos dados, como a
-definição do perfil do usuário, que pode ser melhorado afim de que os
-resultados dessa métrica possam ser melhorados.
+observa-se que a métrica \textit{PorcentagemAcertos} para a estratégia `cbml`
+de aprendizado de máquina é de apenas 22,87\%, o que indica que os resultados
+das recomendações não são exatamente o que se espera pela técnica do cross
+validation, o que demonstra que até o proximo experimento deve ser realizado
+melhorias quanto ao tratamento dos dados, como a definição do perfil do
+usuário, que pode ser melhorado afim de que os resultados dessa métrica possam
+ser melhorados.
 
 \pagebreak
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/primeiro_experimento_cross_validation.eps}
-  \caption{Métricas obtidas através da validação cruzada dos usuários que
-  participaram do experimento}
+  \caption{Métrica \textit{PorcentagemAcertos} obtida via cross validation para
+  estratégia `cbml` de aprendizado de máquina}
   \label{fig:primeiro_experimento_cross_validation}
 \end{figure}
 
