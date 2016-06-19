@@ -18,13 +18,13 @@ compras de diversos usuários. Tal abordagem foi comparada com um modelo de reco
 sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão
 quando o tempo foi usado como parâmetro do perfil de usuário.
 
-Outra pesquida relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um
+Outra pesquisa relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um
 sistema de recomendação colaborativo sensível ao tempo foi criado. O sistema proposto usava uma função de
 decaimento exponencial para priorizar itens recentemente avaliados e diminuir o peso de itens avaliados a mais tempo na recomendação.
 Quando comparado a um sistema de
 recomendação colaborativa clássico, percebeu-se um aumento de acurácia para o recomendador sensível ao tempo.
 
-Além de comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
+Além da comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
 \cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente descartado, e sim caso
 seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos
 testes realizados, percebeu-se que criar o modelo de usuário dessa forma apresenta vantagens sobre
@@ -105,7 +105,7 @@ colaborativas, e híbridas. Segue abaixo as especificações de cada categoria d
 \begin{itemize}
     \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
         visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
-        onde o mesmo consiste em uma lista composta por Debtags ou termos contidos nas descrições de pacotes que são
+        onde o mesmo consiste em uma lista composta por \textit{Debtags} ou termos contidos nas descrições de pacotes que são
         definidas pelo algoritmo de estratégia escolhida. Através dessa lista, a base de dados
         com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
         relevantes para o perfil criado.
@@ -194,16 +194,11 @@ necessários para a execução do \textit{AppRecommender} podem ser obtidos de f
 por scripts de coleta. Entretanto, este não é o caso para as submissões do
 \textit{popularity-contest}. Isso se dá pelo fato da aplicação não disponibilizar as submissões
 propriamente ditas, e sim as análises estatísticas feitas em cima das mesmas. Para o
-\textit{AppRecommender}, tais dados foram obtidos por intermédio de um Debian Developer, sendo
-que algumas questões relacionadas a privacidade dos usuários se tornou necessária.
+\textit{AppRecommender}, tais dados foram obtidos por intermédio de um
+\textit{Debian Developer}, sendo que algumas questões relacionadas a privacidade dos usuários se tornou necessária.
 \cite{araujo2011apprecommender}. Tal problemática dificulta bastante o uso das
 estratégias colaborativas do \textit{AppRecommender}, pois as mesmas dependem desse banco de dados
-de submissões do \textit{popularity-contest}. Entretanto, foi levantado também que os
-experimentos de comparação entre os algoritmos implementados também dependem
-desses dados, porém em menor escala do que uma recomendação colaborativa.
-Dessa forma, foi necessário pensar em uma estratégia
-de como coletar tais dados, principalmente visando o funcionamento dos experimentos propostos
-para a avaliação dos algoritmos.
+de submissões do \textit{popularity-contest}. 
 
 Uma observação também importante se dá na forma como a lista de pacotes válidos
 é obtida, pois a mesma é obtida conforme as configurações do \textit{sources.list} do usuário. Este arquivo é responsável
@@ -223,7 +218,7 @@ pelo rótulo \textit{deb} onde irá puxar os arquivos binários e pelo
 \textit{deb-src} onde o mesmo irá puxar os arquivos fonte. Além disso, após o
 link de cada um dos rótulos, existem também atributos, sendo eles a distribuição
 do usuário e os componentes da mesma. Na figura, pode-se ver que o usuário está
-usando a distribuição unstable do Debian. Além disso, o Debian pode possuir três
+usando a distribuição \textit{unstable} do Debian. Além disso, o Debian pode possuir três
 tipos de pacotes, sendo eles:
 
 \begin{itemize}
@@ -239,16 +234,15 @@ distribuição que o usuário usa, como dos componentes que o mesmo possui no se
 
 Por fim, vale ressaltar que foi identificado que as recomendações
 colaborativas dependiam também de um serviço fornecido pela infra-estrutura do
-Debian, chamado de Debian Data Export, que era usado para facilitar a criação de
-queries no Ultimate Debian Database. Entretanto, este serviço se encontra
+Debian, chamado de \textit{Debian Data Export}, que era usado para facilitar a criação de
+queries no \textit{Ultimate Debian Database}. Entretanto, este serviço se encontra
 atualmente fora do ar, e, por isso, não é considerado na execução da pesquisa.
 
 \subsection{Usuários} \label{sec:coleta_dados_usuario}
 
-Considerando a necessidade da obtenção dos dados de submissões do
-\textit{popularity-contest}, foi necessário realizar a coleta dessas submissões
-de forma manual. Além de coletar tais informações, decidiu-se coletar algumas
-informações adicionais, já visando a análise dos dados temporais:
+De forma a melhor avaliar como o contexto temporal está sendo usado pelas novas
+estratégias, decidiu-se junto com o experimento de usuário, coletar as seguintes
+informações: 
 
 \begin{itemize}
     \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
@@ -259,16 +253,15 @@ informações adicionais, já visando a análise dos dados temporais:
     \item \textit{\textbf{Versão do Kernel:}} Necessário para agrupar as recomendações e preferências entre usuários com mesmo kernel;
     \item \textit{\textbf{Distribuição do sistema:}} Necessário para agrupar as recomendações e preferências entre usuários com a mesma distribuição.
     \item \textit{\textbf{Submissão do popularity-contest:}} Informação que é
-        utilizada para permitir executar os experimentos de comparação de
-        algoritmos.
+        utilizada para permitir a comparação do contexto temporal implementado
+        na pesquisa e o usado pelo \textit{popularity-contest}.
 \end{itemize}
 
 \section{Análise dos Dados}
 
-Este seção irá mostrar a análise dos dados que são usados tanto para a
-realização de um experimento offline quanto para a recomendação em si. Além
-disso, também serão apresentados os novos dados que esta pesquisa se propõe a
-anexar as atuais recomendações.
+Este seção irá mostrar a análise dos dados que são usados para prover uma
+recomendação propriamente dita. Além disso, também serão apresentados os novos dados
+que esta pesquisa se propõe a anexar as atuais recomendações.
 
 \subsection{Recomendação baseada em conteúdo}
 
@@ -294,25 +287,25 @@ usuário. A Figura \ref{fig:control_pacote} mostra um exemplo desse arquivo.
 \end{figure}
 
 Os principais dados usados para compor o perfil do usuário são a
-descrição e as Debtags de cada pacote instalado.
+descrição e as \textit{Debtags} de cada pacote instalado.
 
-As Debtags são basicamente um forma de melhor categorizar um pacote fora das 33
+As \textit{Debtags} são basicamente uma forma de melhor categorizar um pacote fora das 33
 seções disponíveis no Debian, além também de permitir que um pacote seja
 categorizado em diferentes frentes ao mesmo tempo \cite{zini2005cute}. Isso pode ser visto na Figura
-\ref{fig:control_pacote}, onde o software \textit{vim} possui as Debtags
-\textit{devel::editor} e \textit{interface::commandline}, ou seja, está se
+\ref{fig:control_pacote}, onde o software \textit{vim} possui as
+\textit{Debtags} \textit{devel::editor} e \textit{interface::commandline}, ou seja, está se
 enquadrando tanto como um editor de texto e uma aplicação que roda em linha de
 comando.
 
-O processo de criação de Debtags é manual, ou seja, um usuário deve associar uma
-Debtag a um pacote e a comunidade Debian deve verificar se aquela Debtag
-sugerida condiz com a aplicação em si. Atualmente, existem 45432 pacotes
+O processo de criação de \textit{Debtags} é manual, ou seja, um usuário deve associar uma
+\textit{Debtag} a um pacote e a comunidade Debian deve verificar se aquela
+\textit{Debtag} sugerida condiz com a aplicação em si. Atualmente, existem 45432 pacotes
 categorizados com Debtags \footnote{Dados
-coletados dia 06/12/2016}.
+coletados dia 06/12/2015}.
 
-Por fim, vale lembrar que nem todas as Debtags são consideradas significativas
+Por fim, vale lembrar que nem todas as \textit{Debtags} são consideradas significativas
 para o processo de recomendação, sendo que uma filtragem é realizada visando
-selecionar apenas as Debtags válidas para a construção do perfil do usuário
+selecionar apenas as \textit{Debtags} válidas para a construção do perfil do usuário
 \cite{araujo2011apprecommender}.
 
 A segunda fonte de dados usada é a descrição do pacote, sendo no caso cada termo
@@ -324,7 +317,7 @@ onde os termos de maior peso são usados para compor tal perfil. Isso é feito p
 algoritmos como \textit{Term Frequency Inverse Document Frequency Sub-Linear}
 (TFIDF-sublinear).
 
-O perfil de usuário é então uma lista contendo os termos e Debtags de maior
+O perfil de usuário é então uma lista contendo os termos e \textit{Debtags} de maior
 peso. Este perfil é usado então para consultar toda a base de pacotes
 do usuário, baseado em seu \textit{sources.list}.
 Isso é realizado através do \textit{apt-xapian-index}, uma aplicação
@@ -339,8 +332,8 @@ Finalmente, os pacotes retornados são a recomendação final da aplicação.
 
 Com isso dito, o \textit{AppRecommender} implementa estratégias de recomendação que
 misturam algum dos dados na geração do perfil do usuário. Existem estratégias
-que usam apenas Debtags, enquanto outras combinam de forma balanceada termos da
-descrição com Debtags no perfil do usuário gerado.
+que usam apenas \textit{Debtags}, enquanto outras combinam de forma balanceada termos da
+descrição com \textit{Debtags} no perfil do usuário gerado.
 
 
 \subsection{Recomendação colaborativa}
@@ -377,7 +370,7 @@ primeira linha de cabeçalho, cada linha da submissão possui o seguinte formato
 \rowcolor[HTML]{EFEFEF}
 {\textbf{Campo}} & \textbf{Descrição} \\ \hline
 {Tempo de acesso}  & Última vez que o arquivo foi acessado \\ \hline
-{Tempo de mudança}   & Última vez que informações do inode do arquivo foi
+{Tempo de mudança}   & Última vez que informações do \textit{inode} do arquivo foi
                        modificada\\ \hline
 {Nome}   & Nome do pacote                  \\ \hline
 {Caminho do pacote}   & Local onde o pacote se encontra no sistema \\ \hline
@@ -427,7 +420,7 @@ atributos de tempo de um dado arquivo \cite{1_haas}:
     \item \textbf{Modify:} Última vez que conteúdo de um arquivo foi modificado.
     \item \textbf{Change:} Última vez que o status de um arquivo foi modificado,
         como mudar as permissões do arquivo ou seu dono, ou seja, modificar o
-        inode do arquivo.
+        \textit{inode} do arquivo.
 \end{itemize}
 
 Dessa forma, pode ser visto que o campo \textit{Access} de um arquivo é um dos
@@ -534,7 +527,7 @@ recomendação utilizando a abordagem determinística.
 
 A abordagem determinística é a combinação da estratégia TFIDF combinada com
 uma fórmula para adicionar o peso do tempo ao peso calculado pelo TFIDF. Para
-isso acontecer, um dicionário associa cada termo, Debtag ou termo da
+isso acontecer, um dicionário associa cada termo, \textit{Debtag} ou termo da
 descrição, aos pacotes onde os mesmos se encontram. Com esse dicionário criado,
 no momento que o TFIDF for calculado, o peso temporal do termo também é
 calculado e seus valores são enfim multiplicados.
@@ -643,13 +636,13 @@ Uma vez classificados, os pacotes então podem ser usados como entrada para o
 algoritmo supervisionado, visando assim gerar o perfil do usuário.
 Entretanto, ainda é necessário definir como os dados presentes no pacote serão usados de entrada para o
 algoritmo de aprendizado supervisionado. Considerando que os principais dados do pacote sendo usados na
-recomendação são as Debtags e os termos que compõem sua descrição, escolheu-se usar uma abordagem de
+recomendação são as \textit{Debtags} e os termos que compõem sua descrição, escolheu-se usar uma abordagem de
 vetor binário para cada um dos items. Sendo assim, o vetor de entrada será composto pela agregação de dois vetores
 binários.
 
-Para as Debtags, o vetor binário irá ter o tamanho igual ao número de Debtags
-válidas definidas pelo AppRecommeder, sendo no caso 276 Debtags
-\cite{araujo2011apprecommender}. Dessa forma,
+Para as \textit{Debtags}, o vetor binário irá ter o tamanho igual ao número de
+\textit{Debtags} válidas definidas pelo AppRecommeder, sendo no caso 276
+\textit{Debtags} \cite{araujo2011apprecommender}. Dessa forma,
 o vetor binário de um dado pacote irá conter o valor ``0'' caso o mesmo não
 contenha uma Debtag e ``1'' caso a mesma se encontre
 no pacote. Por exemplo, dado um conjunto de três Debtags, \textit{role:program},
@@ -692,7 +685,7 @@ resultados satisfatórios, mudar então para um algoritmo supervisionado não-li
 É importante também ressaltar que o algoritmo será validado não só pela técnicas
 usadas no \textit{AppRecommender}, mas também técnicas próprias de
 aprendizado de máquina serão usadas para verificar se o modelo gerado está
-satisfatório, como a validação cruzada e curvas de aprendizado, sendo o foco principal a
+satisfatório, como a validação cruzada, sendo o foco principal a
 identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
@@ -738,14 +731,15 @@ repetiria.
 
 Como modificações neste processo, esta pesquisa resolveu realizar o estudo de
 usuário de forma offline. Além disso, o processo de teste também foi alterado.
-Para esta pesquisa, resolveu-se usar o teste de apenas quatro estratégias de
-recomendação, sendo duas propostas pelo \textit{AppRecommender} e as duas soluções
-propostas. Além disso, resolveu-se também usar uma abordagem por linha de
+Para esta pesquisa, resolveu-se comparar uma estratégia já implementada pelo
+\textit{AppRecommender} com as outras estratégias implementadas nesta pesquisa.
+Além disso, resolveu-se também usar uma abordagem por linha de
 comando, com o intuinto de agilizar os testes de usuário e possibilitar que os
 mesmos possam ser repetidos mais vezes.
 
-Dessa forma, o teste de usuário contará com a recomendação de 20 pacotes,
-sendo que cada recomendação irá recomendar 5 pacotes ao todo. A ordem com que
+Dessa forma, o teste de usuário contará com a recomendação de ``x'' pacotes por
+estratégia usada. Tal valor será decidido de acordo com o número de estratégias
+usadas. A ordem com que
 as recomendações são realizadas é aleatória e as informações apresentadas
 para cada pacote serão as mesmas definidas pelo próprio \textit{AppRecommender}, com
 exceção da foto do pacote. Para cada pacote recomendado, o usuário irá poder
@@ -783,7 +777,7 @@ seguintes:
         FalsoNegativos}$
 \end{itemize}
 
-Sendo assim, cada recomendação usada será avaliada por essas duas métricas no
+Sendo assim, cada recomendação usada será avaliada por essas três métricas no
 contexto de um usuário. Ao final, as médias dessas métricas serão calculadas para
 todos os usuários participante da pesquisa, com o intuito de comparar as
 estratégias de maneira siginificativa.
