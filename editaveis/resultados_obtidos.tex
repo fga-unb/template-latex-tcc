@@ -11,17 +11,17 @@ para cada pessoa foram analisadas três estratégias de recomendação, sendo el
 
 \begin{itemize}
     \item \textbf{cbh:} Estratégia baseada em conteúdo, onde metade do
-    perfil do usuário é formado por debtags e a outra metade por termos
-    da descrição dos pacotes, tanto as debtags e os termos são definidos
+    perfil do usuário é formado por \textit{Debtags} e a outra metade por termos
+    da descrição dos pacotes, tanto as \textit{Debtags} e os termos são definidos
     utilizando a técnica do TFIDF;
     \item \textbf{cbtm:} Estratégia baseada em conteúdo utilisando o contexto
     temporal, assim como na estratégia `cbh`, o perfil do usuário é composto
-    por duas metades, sendo as debtags e os termos da descrição dos pacotes,
+    por duas metades, sendo as \textit{Debtags} e os termos da descrição dos pacotes,
     porém eles são definidos através de dois pesos, sendo o primeiro uma
     análise de quais pacotes foram recentemente utilizados, e o segundo peso
     se trata da utilização do TFIDF;
     \item \textbf{cbml:} Estratégia baseada em conteúdo, onde o perfil do
-    usuário é formado tanto por debtags quanto termos, porém não é composto
+    usuário é formado tanto por \textit{Debtags} quanto termos, porém não é composto
     por metade de cada um, utilizando esse perfil é realizado a
     recomendação de vários pacotes, então é utilizado o algoritmo de
     aprendizado de máquina para identificar quais dentre esses pacotes
@@ -118,7 +118,12 @@ para o segundo experimento:
 \begin{itemize}
    \item \textbf{Mudar cálculo do contexto temporal de um pacote: } Visto que
    pelo primeiro experimento, o contexto temporal do pacote não estava
-   refletindo bem os usos do usuário, o cálculo do contexto temporal de um
+   refletindo bem os usos do usuário. Isso percebido por analisar as informações
+   temporais do \textit{popularity-contest} junto com os arquivos usados pela
+   abordagens desta pesquisa para realizar o cálculo do contexto temporal.
+   Percebeu-se que não seria ideal apenas verificar por pacotes com
+   arquivos binários, mas sim por qualquer pacote que forneça alguma
+   biblioteca também. Dessa forma, o cálculo do contexto temporal de um
    pacote foi atualizado. O contexto temporal de um pacote agora é calculado de
    forma semelhante ao obtido pelo \textit{popularity-contest}, onde o tempo de
    acesso de cada arquivo relacionado a um pacote é observado e o maior tempo
@@ -161,7 +166,7 @@ para o segundo experimento:
    não de forma equilibrada como funciona o \textit{cbh}. Dessa forma,
    a estratégia do \textit{AppRecommender} usada para comparação com as
    estratégias de contexto temporal, foi a estratégia \textit{cb}, que usa
-   tanto termos do pacote como debtags, mas não garante que as mesmas sejam
+   tanto termos do pacote como \textit{Debtags}, mas não garante que as mesmas sejam
    apareçam na mesma quantidade no perfil do usuário.
 
    \item \textbf{Mudança de nome da estratégia \textit{cbml} para
@@ -171,6 +176,18 @@ para o segundo experimento:
    Vector Approach}. Esse padrão também é seguido para a estratégia de
    \textit{bag of words}, \textit{mlbow}, que significa \textit{Machine
    Learning Bag Of Words}.
+
+   \item \textbf{Retirar pacotes que possuem dependências de programas não
+   instalados no sistema do usuário:} Durante o primeiro experimento, foi
+   observado a recomendação de alguns pacotes relacionados a pacotes que não
+   estavam presentes no sistema do usuário, como o pacote
+   \textit{auto-complete-el}, que é um pacote que adiciona a funcionalida
+   de auto-completar para o pacote \textit{emacs}. Entretanto, se o usuário
+   não tem o pacote \textit{emacs} instalado, tal recomendação não é de
+   grande ajuda. Dessa forma, pacotes que dependem de pacotes executáveis,
+   só podem ser recomendados se tais dependências já estiverem instaladas
+   no sistema do usuário.
+    
 \end{itemize}
 
 Além desses pontos já citados, o segundo experimento também foi realizado com
