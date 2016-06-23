@@ -194,13 +194,13 @@ localizado na raiz do sistema do usuário.
 
 \chapter{Bayes Ingênuo} \label{sec:bayes_ingenuo}
 
-Dado o contexto do classificador bayesiano apresentado na seção
+Dado o contexto do classificador bayesiano apresentado na Seção
 \ref{sec:classificador_bayesiano}, resolveu-se implementar tais fórmulas usando
 apenas manipulação de matrizes. Essa decisão se deu principalmente por questões
 de performance, principalmente pelo fato de que o perfil do usuário pode mudar
 com alta frequência, necessitando que o treinamento do algoritmo seja eficaz.
 
-Para mostrar o modelo criado, a tabela \ref{tab:entradas_de_treinamento} será
+Para mostrar o modelo criado, a Tabela \ref{tab:entradas_de_treinamento} será
 usada. Primeiramente, esta tabela será dividida em duas matrizes distintas, D e
 L. A matriz D representa os atributos de cada item. Dessa forma, sua dimensão
 será ``${e \times a}$'', onde ``e'' é significa os número de itens na tabela, e
@@ -366,7 +366,7 @@ Obtendo o vetor PH, que é a probabilidade individual de cada rótulo, e a
 matrizes PR1 e PR0, o treinamento do algoritmo está completo.
 
 Com o algoritmo treinado, ele está pronto para receber um vetor com
-os atributos, como mostra a tabela~\ref{tab:entrada_para_classificar},
+os atributos, como mostra a Tabela~\ref{tab:entrada_para_classificar},
 é usado como exemplo o vetor v, que possui dimensões ``${1 \times a}$''.
 
 $$v=\left[
@@ -571,7 +571,7 @@ B está na mesma linha que a maior probabilidade no vetor PF. Logo a resposta
 do algoritmo para a entrada do vetor v é a classificação ``1''.
 
 Relacionando a algebra linear utilizada como exemplo, à fórmula previamente
-explicada na seção \ref{sec:classificador_bayesiano}, é possível identificar cada
+explicada na Seção \ref{sec:classificador_bayesiano}, é possível identificar cada
 elemento da fórmula a uma matriz ou vetor do exemplo.
 
 $Classificador = max(p(C_{y})*\prod_{i=1}^{N}p(x_{i}|C_{y}))$

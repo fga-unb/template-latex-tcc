@@ -533,7 +533,7 @@ no momento que o TFIDF for calculado, o peso temporal do termo também é
 calculado e seus valores são enfim multiplicados.
 
 Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor da
-classificação no tempo para cada pacote através da fórmula definida na seção
+classificação no tempo para cada pacote através da fórmula definida na Seção
 Contexto Temporal \ref{sec:contexto_temporal} para atribuir o valor
 a cada um dos pacotes.
 
@@ -555,7 +555,7 @@ $T = \{P_1, P_2, ..., P_N\}$
 \\
 
 Além disso, cada pacote ``N'' possui um peso ``w'' com valores entre 0 e 1. Esse peso
-é definido pela função W(P), que foi previamente explicada na seção
+é definido pela função W(P), que foi previamente explicada na Seção
 \ref{sec:contexto_temporal}
 
 $W(Pi) = w_i , \quad 0 <= w_i <= 1$
@@ -609,7 +609,7 @@ necessário definir como cada pacote será apresentado para algoritmo, além de
 definir também a categoria de cada pacote.
 
 Para a categoria do pacote, definiu-se a seguinte escala de classificação baseada na
-fórmula proposta na seção Contexto Temporal \ref{sec:contexto_temporal}:
+fórmula proposta na Seção Contexto Temporal \ref{sec:contexto_temporal}:
 
 \begin{table}[h]
 \centering
@@ -664,7 +664,7 @@ descrição, a posição do vetor associado ao termo será marcada como ``1''.
 Com a combinação desses valores, chega-se então à forma final da entrada de um pacote para o uso de algoritmos de aprendizado
 supervisionados. Observa-se também que para propósitos de armazenamento, a classificação do pacote também é armazenada ao final da combinação
 dos vetores binários dos termos e Debtags. O papel desse vetor pode ser visto na
-seção \ref{sec:bayes_ingenuo}, onde tal vetor binário representa uma linha da
+Seção \ref{sec:bayes_ingenuo}, onde tal vetor binário representa uma linha da
 matrix ``D'' e a classificação representa uma linha da matrix ``L''. Logo, o
 conjunto de todos os pacotes que serão usados no algoritmo formam de fato a
 matrix ``D''.
