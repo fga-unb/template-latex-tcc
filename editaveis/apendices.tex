@@ -2,12 +2,705 @@
 
 \partapendices
 
-\chapter{Primeiro Apêndice}
+\chapter{Term Frequency-Inverse Document Frequency}\label{ape:tfidf}
 
-Texto do primeiro apêndice.
+A técnica \textit{Term Frequency-Inverse Document Frequency (TFIDF)} é uma
+medida estátistica usada prioritariamente para indicar a importância de um termo
+em dado documento em relação a uma base de documentos \cite{1_rajaraman_ullman_2011}.
 
-\chapter{Segundo Apêndice}
+Para calcular tal fator, duas etapas distintas são necessárias:
 
-Texto do segundo apêndice.
+\begin{itemize}
+    \item \textbf{\textit{TF: Term Frequency: }} Calcula quantas vezes um termo
+    aparece em um dado documento. Dessa forma, seu cálculo pode realizado pela
+    seguinte fórmula:
+
+    TF(t) = N(t,d)/T(d)
+
+    Onde:
+    \begin{itemize}
+        \item \textbf{N(t, d): } Número de vezes que o termo ``t'' aparece no
+        documento ``d''.
+        \item \textbf{T(D): } Número de termos presentes no documento ``d''.
+    \end{itemize}
+
+    \item \textbf{\textit{IDF: Inverse Document Frequency: }} Usada para diminuir o
+    peso de termos muito frequentes em documentos, como os termos ``para'' ou
+    ``é''. Para fazer isso, a seguinte fórmula pode ser usada:
+
+    IDF(t) = log(NumDocumentos/D(t))
+
+    Onde:
+    \begin{itemize}
+        \item \textbf{NumDocumentos: } Quantidade de documentos presentes na
+        base.
+        \item \textbf{D(T): } Número de documentos que contém o termo ``t''.
+    \end{itemize}
+\end{itemize}
+
+Com os fatore \textbf{TF} e \textbf{IDF} calculados, basta multiplicar tais
+valores para encontar o valor da importância de um termo dado uma base de
+documentos. Sendo assim, pode-se entender que o valor do \textit{TFIDF} será
+alto para um termo ``t'' se o mesmo é encontrado muitas vezes em um dado
+documento e poucas vezes na coleção de documentos.
+
+Existem também outras formas de calcular os valores \textit{TF} e \textit{IDF}.
+Essas formas tendem a priorizar certos aspectos em relação ao texto. Uma dessas
+abordagens é chamada de \textit{TFIDF-sublinear}. Essa técnica é usada para
+atenuar o valor do \textit{TF} para quando um termo é bastante presente em um
+documento, mas não é muito presente na base de documentos. A atenuação do valor
+do \textit{TF} pode se justificar em casos quando um termo que aparece mais de
+uma vez no documento não deva ter um peso substancialmente maior que um termo
+que aparece uma única vez. Para calcular o \textit{TF} para este caso, pode-se
+usar a seguinte fórmula:
+
+TF-sublinear(t) = 1 + log(TF(t))
+
+Vale ressaltar que outras abordagens também podem ser usadas, como normalização
+usando o tamanho médio dos documentos presentes na base de todos os documentos e
+\textit{TF} médio entre todos os \textit{TF}s \cite{araujo2011apprecommender}.
+
+Para calcular tal fator, duas etapas distintas são necessárias:
+
+\begin{itemize}
+    \item \textbf{\textit{TF: Term Frequency: }} Calcula quantas vezes um termo
+    aparece em um dado documento. Dessa forma, seu cálculo pode realizado pela
+    seguinte fórmula:
+
+    TF(t) = N(t,d)/T(d)
+
+    Onde:
+    \begin{itemize}
+        \item \textbf{N(t, d): } Número de vezes que o termo ``t'' aparece no
+        documento ``d''.
+        \item \textbf{T(D): } Número de termos presentes no documento ``d''.
+    \end{itemize}
+
+    \item \textbf{\textit{IDF: Inverse Document Frequency: }} Usada para diminuir o
+    peso de termos muito frequentes em documentos, como os termos ``para'' ou
+    ``é''. Para fazer isso, a seguinte fórmula pode ser usada:
+
+    IDF(t) = log(NumDocumentos/D(t))
+
+    Onde:
+    \begin{itemize}
+        \item \textbf{NumDocumentos: } Quantidade de documentos presentes na
+        base.
+        \item \textbf{D(T): } Número de documentos que contém o termo ``t''.
+    \end{itemize}
+\end{itemize}
+
+Com os fatore \textbf{TF} e \textbf{IDF} calculados, basta multiplicar tais
+valores para encontar o valor da importância de um termo dado uma base de
+documentos. Sendo assim, pode-se entender que o valor do \textit{TFIDF} será
+alto para um termo ``t'' se o mesmo é encontrado muitas vezes em um dado
+documento e poucas vezes na coleção de documentos.
+
+Existem também outras formas de calcular os valores \textit{TF} e \textit{IDF}.
+Essas formas tendem a priorizar certos aspectos em relação ao texto. Uma dessas
+abordagens é chamada de \textit{TFIDF-sublinear}. Essa técnica é usada para
+atenuar o valor do \textit{TF} para quando um termo é bastante presente em um
+documento, mas não é muito presente na base de documentos. A atenuação do valor
+do \textit{TF} pode se justificar em casos quando um termo que aparece mais de
+uma vez no documento não deva ter um peso substancialmente maior que um termo
+que aparece uma única vez. Para calcular o \textit{TF} para este caso, pode-se
+usar a seguinte fórmula:
+
+TF-sublinear(t) = 1 + log(TF(t))
+
+Vale ressaltar que outras abordagens também podem ser usadas, como normalização
+usando o tamanho médio dos documentos presentes na base de todos os documentos e
+\textit{TF} médio entre todos os \textit{TF}s \cite{araujo2011apprecommender}.
+
+\chapter{Coleta de dados do usuário}\label{ape:coleta_de_dados}
+
+A coleta de dados do usuário é realizada através do script ``collect\_user\_data.py'',
+localizado no caminho ``src/bin/data\_collect'' dentro do projeto AppRecommender.
+A execução do script segue os seguintes passos:
+
+\begin{itemize}
+  \item \textit{\textbf{Coletar informações do sistema:}} Nesse passo é coletado
+  as informações quanto a versão do kernel do linux, e a versão da distribuição,
+  essas informações são coletadas através dos seguintes comandos:
+  \begin{itemize}
+    \item Versão do kernel: \$ uname -s -r
+    \item Versão da distribuição: \$ lsb\_release -a
+  \end{itemize}
+  Essas informações são armazenadas no arquivo ``pc\_informations.txt'';
+
+  \item \textit{\textbf{Coletar todos os pacotes do usuário:}} Esses pacotes são
+  obtidos através do comando ``\$ /usr/bin/dpkg --get-selections'', que retorna
+  uma lista de pacotes do usuário onde para cada pacote segue a informação
+  ``install'' ou ``deinstall'', então é feito um filtro para capturar apenas os
+  pacotes instalados, ou seja, que possuem a informação ``install''. Então essa
+  lista de pacotes é armazenada no arquivo ``all\_pkgs.txt'';
+
+  \item \textit{\textbf{Coletar pacotes manualmente instalados:}} Esses pacotes são
+  coletados através do comando ``\$ apt-mark showmanual'' que retorna a lista de
+  pacotes manualmente instalados, e após coletar os pacotes eles são armazenados
+  no arquivo ``manual\_installed\_pkgs.txt'';
+
+  \item \textit{\textbf{Coletar tempo dos pacotes:}} Nesse passo é coletado o
+  tempo de acesso e de modificação de cada pacote. Estes dados serão usados afim
+  de obter informação quanto a classificação do pacote em relação ao tempo que
+  este foi utilizado, para isso se coleta o tempo de acesso e o tempo de modificação
+  de cada pacote, esses tempos são coletados através do comando ``stat'', onde se
+  utiliza a flag ``-c'' com o parâmetro ``\%Y'' para coletar o tempo de modificação,
+  ou o parâmetro ``\%X'' para se coletar o tempo de acesso, e após esse parâmetro é
+  passado o nome do executável do pacote desejado, para otimizar a busca do pacote é
+  utilizado o comando ``which'', que retorna o caminho completo para o executável.
+  Logo os dados do tempo de acesso e de modificação são coletados através do seguinte
+  comando:
+  \begin{itemize}
+      \item Tempo de acesso: \$ stat -c '\%X' `which [executável]`
+      \item Tempo de modificação: \$ stat -c '\%Y' `which [executável]`
+  \end{itemize}
+  Esses dados são coletados e então armazenados no arquivo ``pkgs\_time.txt'',
+  onde para cada linha há o nome do pacote seguido do tempo de modificação e
+  depois o tempo de acesso;
+
+  \item \textit{\textbf{Caminho do binário de cada pacote:}} Esses dados são
+  coletados através do comando ``which'', passando como parâmetro o nome do
+  pacote, ou seja, é executado o comando ``\$ which [pacote]'' para cada um
+  dos pacotes do usuário e então esses dados são armazenados no arquivo
+  ``pkgs\_binary.txt'', onde em cada linha há o nome do pacote seguido do
+  caminho para o seu binário;
+
+  \item \textit{\textbf{Submissão do popularity-contest:}} Os dados do
+  popularity-contest são obtidos através da execução do script ``popularity-contest'',
+  que está no mesmo diretório do script de coleta de dados. Vale ressaltar que
+  esse é o script original do popularity contest. Essa abordagem foi escolhida
+  pois para executar o popularity contest, permissão de super usuário era
+  necessária, o que pode ocasionar problemas na coleta de dados. Dessa forma,
+  adaptou-se o script original, modificando por exemplo o caminho de onde o
+  mesmo buscava o arquivo de configuração necessário e também criando a própria
+  versão do arquivo de configuração para a pesquisa.
+\end{itemize}
+
+Todas essas coletas citadas acima são executadas em uma thread, enquanto
+na thread principal é executado a coleta de preferências do usuário, onde
+é executado o AppRecommender com algumas estratégias, dentre elas as criadas
+neste trabalho. Após a execução dessas estratégias de recomendação os
+pacotes recomendados, de todas as estratégias, são colocados em uma única
+lista, e então ordenados pelo nome, em seguida é passado pacote por pacote
+solicitando ao usuário que faça uma avaliação do pacote, pontuando cada um
+deles de 1 a 4. Após o usuário terminar de avaliar os pacotes é criado um
+arquivo para cada recomendação, onde cada arquivo inicia com a sigla da
+recomendação seguido de ``\_recommendation.txt''.
+
+O diretório onde os arquivos da coleta são armazenados é o ``app\_recommender\_log/'',
+localizado na raiz do sistema do usuário.
+
+
+\chapter{Bayes Ingênuo} \label{ape:bayes_ingenuo}
+
+Dado o contexto do classificador bayesiano apresentado na Seção
+\ref{sec:classificador_bayesiano}, resolveu-se implementar tais fórmulas usando
+apenas manipulação de matrizes. Essa decisão se deu principalmente por questões
+de performance, principalmente pelo fato de que o perfil do usuário pode mudar
+com alta frequência, necessitando que o treinamento do algoritmo seja eficaz.
+
+Para mostrar o modelo criado, a Tabela \ref{tab:entradas_de_treinamento} será
+usada. Primeiramente, esta tabela será dividida em duas matrizes distintas, D e
+L. A matriz D representa os atributos de cada item. Dessa forma, sua dimensão
+será ``${e \times a}$'', onde ``e'' é significa os número de itens na tabela, e
+``a'' representa o número de atributos que cada item possui. Já a matriz L
+representa a classificação para cada item ``e'' encontrado na matriz D. Dessa
+forma, a mesma será uma matriz coluna com dimensão ``${e \times 1}$''.
+
+$$D=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 & 1 \\
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & 1 & 0 \\
+0 & 1 & 1 & 1 & 0 \\
+\end{array}
+\right]_{e \times a}$$
+
+$$L=\left[
+\begin{array}{c}
+1 \\
+2 \\
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{e \times 1}$$
+
+Para o algoritmo funcionar também é necessário ter conhecimento de quais são as
+classificações possíveis, essas classificações são informadas
+através do vetor coluna B, com dimensões ``${l \times 1}$'', onde ``l'' é o número
+de classificações possíveis.
+
+$$B=\left[
+\begin{array}{c}
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
+
+Utilizando a matriz D e os vetores L e B, monta-se a matriz de adjacência A, onde
+cada linha dessa matriz representa respectivamente uma classificação possível, e cada
+coluna da matriz identifica se um item da matriz D foi classificado de acordo
+com a classificação representada pela linha em que se encontra. A matriz de adjacência A também é uma
+matriz com valores binários, onde ``1'' indica a presença do item na classificação,
+e ``0'' indica a ausência do item na classificação. Logo a matriz A possui
+dimensões ``${l \times e}$''.
+
+$$A=\left[
+\begin{array}{ccccc}
+0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{l \times e}$$
+
+Utilizando a matriz A pode-se calcular o vetor com o histograma do vetor L, onde
+cada linha do vetor histograma H representa uma possível
+classificação da matriz B, e o valor de cada coluna representa o número de itens
+no qual a classificação está associada. O vetor coluna H é calculado pela multiplicação da matriz A pelo
+vetor coluna com todos os valores sendo ``1'', onde esse vetor coluna possui ``e''
+linhas, logo as dimensões do vetor coluna H são ``${l \times 1}$''
+
+$$H=A_{l \times e} * \left[
+\begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+\end{array}
+\right]_{e \times 1}$$
+
+$$H=\left[
+\begin{array}{c}
+1 \\
+2 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
+
+Utilizando o vetor H, é calculado a probabilidade de cada classificação, que é representada
+pelo vetor PH, resultante da divisão do vetor H por ``e''.
+
+\begin{center}
+$PH= \frac{1}{e} * H_{l \times 1}$
+\end{center}
+
+$$PH=\left[
+\begin{array}{c}
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+
+O próximo passo é calcular a matriz PR1, que se trata da probabilidade de um
+atributo ser igual a ``1'', na relação entre as classificações possíveis, o vetor B, e os
+atributos da matriz D. Para isso é necessário identificar quantos atributos
+estão presentes em cada uma das classificações possíveis, valor esse  obtido pela multiplicação da matriz A
+com a matriz D, resultando na matriz R contendo para cada possível classificação
+quantos atributos estão presentes na mesma. Com a matriz R calculada, pode-se
+obter a matriz de probabilidade PR1, que é o resultado da multiplicação entre a
+matriz inversa da diagonal feita pelo vetor H com a matriz R.
+
+\begin{center}
+$R = A_{l \times e} * D_{e \times a}$
+\end{center}
+
+$$R=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+2 & 0 & 2 & 1 & 1 \\
+0 & 2 & 2 & 1 & 1 \\
+\end{array}
+\right]_{l \times a}$$
+
+$$diag(H)=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 2 \\
+\end{array}
+\right]_{l \times l}$$
+
+$$diag(H)^{-1}=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & \frac{1}{2} & 0 \\
+0 & 0 & \frac{1}{2} \\
+\end{array}
+\right]_{l \times l}$$
+
+\begin{center}
+$PR1 = diag(H)^{-1}_{l \times l} * R_{l \times a}$
+\end{center}
+
+$$PR1=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+Também é necessário identificar a matriz PR0, que indica a probabilidade dos
+atributos possuirem o valor zero, essa matriz pode ser obtida através da
+expressão ``$1 - PR1$''.
+
+\begin{center}
+$PR0 \ = \ 1 \ - \ PR1_{l \times a}$
+\end{center}
+
+$$PR0=\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+Obtendo o vetor PH, que é a probabilidade individual de cada rótulo, e a
+matrizes PR1 e PR0, o treinamento do algoritmo está completo.
+
+Com o algoritmo treinado, ele está pronto para receber um vetor com
+os atributos, como mostra a Tabela~\ref{tab:entrada_para_classificar},
+é usado como exemplo o vetor v, que possui dimensões ``${1 \times a}$''.
+
+$$v=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}$$
+
+O próximo passo é montar a matriz PV, que se trata da matriz de
+probabilidade para o vetor. Essa matriz é criada através da junção das matrizes
+PR1 e PR0. Entretanto, esse junção tem relação direta com os valores do vetor v,
+pois se uma de suas colunas encontra-se o ``1'', deve-se utilizar a coluna da matriz PR1,
+e o contrário, utilliza-se a coluna da matriz PR0. Em outras palavras, a matriz PV é resultante
+da soma dos produtos entre PR1 e a matriz diagonal de v, com PR0
+e a matriz diagonal de v', onde o vetor v' se trata do vetor v com seus valores
+alternados.
+
+$$v'=1-\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}
+=
+\left[
+\begin{array}{ccccc}
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{1 \times a}
+$$
+\\
+
+\begin{center}
+$PV = PR1_{a \times a} * diagonal(v)_{a \times a} \ + \ PR0_{a \times a} * diagonal(v')_{a \times a}$
+\end{center}
+
+$$PV=
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
++
+\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+\left[
+\begin{array}{ccccc}
+0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+\end{array}
+\right]_{a \times a}
+$$
+
+$$PV=\left[
+\begin{array}{ccccc}
+1 & 1 & 0 & 1 & 0 \\
+1 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+O próximo passo seria então usar a matriz PV para encontrar classificação que
+apresenta maior valor para o vetor v. Antes disso, decidiu-se normatizar todos
+os valores de PV pelo função logaritmo. Entretanto, alguns valores de PV podem
+possuir o valor ``0'', pois tal valor indica que um determinado atributo para
+uma dada classificação nunca apareceu. Considerando que tal valor não é
+definido na função logaritmo, resolveu-se antes somar ``1'' a matriz PV e logo
+após calcular a matriz logaritmica dessa nova matriz.
+
+\begin{center}
+$PV_{l \times a} = PV_{a \times a} + 1$
+$$PV=\left[
+\begin{array}{ccccc}
+2 & 2 & 1 & 2 & 1 \\
+2 & 2 & 2 & \frac{3}{2} & \frac{3}{2} \\
+1 & 1 & 2 & \frac{3}{2} & \frac{3}{2} \\
+\end{array}
+\right]_{l \times a}$$
+\end{center}
+
+\begin{center}
+$PV_{l \times a} = log(PV_{l \times a})$
+$$PV=\left[
+\begin{array}{ccccc}
+0.69315 & 0.69315 & 0.00000 & 0.69315 & 0.00000 \\
+0.69315 & 0.69315 & 0.69315 & 0.40547 & 0.40547 \\
+0.00000 & 0.00000 & 0.69315 & 0.40547 & 0.40547 \\
+\end{array}
+\right]_{l \times a}$$
+\end{center}
+
+Com a matriz PV normatizada, pode-se então obter o vetor ``u''. Esse vetor é
+representado por um vetor coluna, onde cada linha representa a soma de todos os
+elementos de uma linha da matriz PV, logo o vetor ``u'' é resultado da multiplicão
+da matriz PV com um vetor unitário de dimensão ``a'' por 1, onde ``a'' representa
+também o número de linhas da matriz PV. Originalmente, considerou-se fazer a
+multiplicação dos elementos da linha da matriz PV ao invés da soma, entretanto
+como a PV pode conter até centenas de atributos ``a'', o número obtido pela
+multiplicação pode ser muito pequeno, ocasionando problemas computacionais.
+Dessa forma, a adição foi preferida ao invés da multiplicação.
+
+\begin{center}
+$$u \ = \ PV _{l \times a} * \left[
+\begin{array}{c}
+1 \\
+1 \\
+1 \\
+\end{array}
+\right]_{a \times 1}$$
+$$u=\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
+
+O vetor PF contendo a probabilidade de cada classificação para o vetor de
+entrada v é obtido pela relação entre PH com o vetor u, onde PF é o resultado
+da soma do vetor PH com o vetor u. Vale ressaltar que o vetor PH deve passar
+pelo mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois normatizar
+pela função logarítmica.
+
+\begin{center}
+$PH = 1 + PH_{l \times 1}$
+$$PH=1 + \left[
+\begin{array}{c}
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+$$PH=\left[
+\begin{array}{c}
+\frac{6}{5} \\
+\frac{7}{5} \\
+\frac{7}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
+
+\begin{center}
+$PH = log(PH)$
+$$PH=\left[
+\begin{array}{c}
+0.18232 \\
+0.33647 \\
+0.33647 \\
+\end{array}
+\right]_{l \times 1}$$
+
+$PF = PH_{l \times 1} + u_{l \times 1}$
+$$PF=\left[
+\begin{array}{c}
+0.18232 \\
+0.33647 \\
+0.33647 \\
+\end{array}
+\right]_{l \times 1}
++
+\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+$$PF=\left[
+\begin{array}{c}
+2.26176 \\
+3.22684 \\
+1.84055 \\
+\end{array}
+\right]_{l \times 1}
+$$
+\end{center}
+
+Por fim, a classificação que possui a maior probabilidade para o vetor de
+entrada v, é a classificação ``1'', pois a classificação ``1'' no vetor
+B está na mesma linha que a maior probabilidade no vetor PF. Logo a resposta
+do algoritmo para a entrada do vetor v é a classificação ``1''.
+
+Relacionando a algebra linear utilizada como exemplo, à fórmula previamente
+explicada na Seção \ref{sec:classificador_bayesiano}, é possível identificar cada
+elemento da fórmula a uma matriz ou vetor do exemplo.
+
+$Classificador = max(p(C_{y})*\prod_{i=1}^{N}p(x_{i}|C_{y}))$
+
+Onde:
+
+\begin{itemize}
+    \item \textbf{$C$:} Conjunto das classes possíveis representado pelo vetor B;
+    \item \textbf{$n$: } Número total de itens, representado pela dimensão ``a'',
+    que se trata do número de atributos na matriz D, ou o número de atributos
+    no vetor ``v'';
+    \item \textbf{$p(C)$: } Probabilidade de cada classe no conjunto de classes
+    possíveis, representado pelo vetor PH;
+    \item \textbf{$p(x_{i}|C_{y})$: } Cálculo da probabilidade bayesiana
+    em si, assumindo que as variáveis são independentes, representado pela
+    matriz PV.
+\end{itemize}
+
+
+\chapter{Termo de consentimento livre e esclarecido - Primeiro Experimento}
+
+O (a) Senhor(a) está sendo convidado(a) a participar da pesquisa
+\textit{Estratégia de contexto temporal em recomendação de pacotes GNU/Linux}
+
+Este pesquisa tem como objetivo coletar os seguintes dados do usuário:
+
+\begin{itemize}
+    \item Versão do sistema operacional do usuário;
+    \item Versão do kernel do usuário;
+    \item Versão do processador do usuário;
+    \item Lista de todos os pacotes instalados na máquina do usuário;
+    \item Lista de todos os pacotes manualmente instalados;
+    \item Tempo de acesso e modificação de todos os pacotes manualmente instalados;
+    \item Caminho de todos os pacotes manualmente instalados;
+    \item Submissão do usuário para o sistema popularity-contest;
+    \item Data e hora da coleta
+\end{itemize}
+
+O(a) senhor(a) receberá todos os esclarecimentos necessários antes e no decorrer da pesquisa e
+lhe asseguramos que seu nome não aparecerá, sendo mantido o mais rigoroso sigilo através da omissão total de quaisquer
+informações que permitam identificá-lo(a)
+
+A sua participação será através da instação da aplicação AppRecommender na sua própria máquina,
+juntamente com a execução de um script responsável pela coleta dos dados citados como objetivo da pesquisa.
+Sua participação é voluntária, isto é, não há pagamento por sua colaboração.
+
+Os resultados da pesquisa serão divulgados na primeira parte do trabalho de conclusão de curso
+dos alunos Lucas Albuquerque Medeiros de Moura e Luciano Prestes Calvancati.
+
+Se o(a) Senhor(a) tiver qualquer dúvida em relação à pesquisa, por
+favor mande um e-mail para: lucas.moura128@gmail.com ou lucianopcbr@gmail.com.
+
+Este documento foi elaborado em duas vias, uma ficará com o pesquisador responsável e
+a outra com o sujeito da pesquisa.
+
+Ao concordar com este termo, o senhor(a) cederá os dados coletados sem recompensa financeira e
+para uso em pesquisa científica sem fins lucrativos apenas. Esses dados não serão repassados para terceiros.
+
+\begin{center}
+\begin{tabular}{ll}
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Nome/Assinatura}\\[8ex]% adds space between the two sets of signatures
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Pesquisador Responsável}\\[8ex]% adds space between the two sets of signatures
+\end{tabular}
+\end{center}
+
+\hfill Brasília, \makebox[0.5in]{\hrulefill} de \makebox[1.5in]{\hrulefill} de \makebox[1in]{\hrulefill}
+
+\chapter{Termo de consentimento livre e esclarecido - Segundo Experimento}
+
+O (a) Senhor(a) está sendo convidado(a) a participar da pesquisa
+\textit{Estratégia de contexto temporal em recomendação de pacotes GNU/Linux}
+
+Este pesquisa tem como objetivo coletar os seguintes dados do usuário:
+
+\begin{itemize}
+    \item Versão do sistema operacional do usuário;
+    \item Versão do kernel do usuário;
+    \item Versão do processador do usuário;
+    \item Lista de todos os pacotes instalados na máquina do usuário;
+    \item Lista de todos os pacotes manualmente instalados;
+    \item Tempo de acesso e modificação de todos os pacotes manualmente instalados;
+    \item Submissão do usuário para o sistema popularity-contest;
+    \item Data e hora da coleta
+\end{itemize}
+
+O(a) senhor(a) receberá todos os esclarecimentos necessários antes e no decorrer da pesquisa e
+lhe asseguramos que seu nome não aparecerá, sendo mantido o mais rigoroso sigilo através da omissão total de quaisquer
+informações que permitam identificá-lo(a)
+
+\begin{center}
+\begin{tabular}{ll}
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Nome/Assinatura}\\[8ex]% adds space between the two sets of signatures
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Pesquisador Responsável}\\[8ex]% adds space between the two sets of signatures
+\end{tabular}
+\end{center}
+
+\pagebreak
+
+A sua participação será através da instação da aplicação AppRecommender na sua própria máquina,
+juntamente com a execução de um script responsável pela coleta dos dados citados como objetivo da pesquisa.
+Além disso, também será coletada a sua avaliação para um determinado números de
+pacotes gerado pela ferramenta AppRecommender. Sua participação é voluntária, isto é, não há pagamento por sua colaboração.
+
+Os resultados da pesquisa serão divulgados na segunda parte do trabalho de conclusão de curso
+dos alunos Lucas Albuquerque Medeiros de Moura e Luciano Prestes Calvancati.
+
+
+Se o(a) Senhor(a) tiver qualquer dúvida em relação à pesquisa, por
+favor mande um e-mail para: lucas.moura128@gmail.com ou lucianopcbr@gmail.com.
+
+Este documento foi elaborado em duas vias, uma ficará com o pesquisador responsável e
+a outra com o sujeito da pesquisa.
+
+Ao concordar com este termo, o senhor(a) cederá os dados coletados sem recompensa financeira e
+para uso em pesquisa científica sem fins lucrativos apenas. Esses dados não serão repassados para terceiros.
+
+\begin{center}
+\begin{tabular}{ll}
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Nome/Assinatura}\\[8ex]% adds space between the two sets of signatures
+\centerline{\makebox[2.5in]{\hrulefill}}\\
+\centerline{Pesquisador Responsável}\\[8ex]% adds space between the two sets of signatures
+\end{tabular}
+\end{center}
+
+\hfill Brasília, \makebox[0.5in]{\hrulefill} de \makebox[1.5in]{\hrulefill} de \makebox[1in]{\hrulefill}
 
 \end{apendicesenv}

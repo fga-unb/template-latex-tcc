@@ -1,204 +1,204 @@
-\chapter[Metodologia]{Metodologia}
+  \chapter[Metodologia]{Metodologia}
 
-Este capítulo é destinado à apresentar toda a metodologia aplicada nesta
-pesquisa. A metodologia está sendo baseada na definição proposta por Silva e Menezes, que afirmam que toda pesquisa
-tem como objetivo encontrar respostas para hipóteses propostas
-\cite{da2005metodologia}
+  Este capítulo é destinado à apresentar toda a metodologia aplicada nesta
+  pesquisa. A metodologia está sendo baseada na definição proposta por Silva e Menezes, que afirmam que toda pesquisa
+  tem como objetivo encontrar respostas para hipóteses propostas
+  \cite{da2005metodologia}
 
-Com o intuito de classificar a pesquisa sendo desevolvida, observou-se que a
-mesma pode ser enquadrada como aplicada, quantitativa, exploratória, bibliográfica e
-experimental \cite{da2005metodologia}.
-
-
-\section{Trabalhos relacionados}
-
-Durante a pesquisa deste trabalho, encontrou-se alguns trabalhos que também estudam recomendação baseada em contexto, sendo o tempo um dos
-principais atributos do contexto. Em \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
-compras de diversos usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
-sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão
-quando o tempo foi usado como parâmetro do perfil de usuário.
-
-Outra pesquisa relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um
-sistema de recomendação colaborativo sensível ao tempo foi criado. O sistema proposto usava uma função de
-decaimento exponencial para priorizar itens recentemente avaliados e diminuir o peso de itens avaliados a mais tempo na recomendação.
-Quando comparado a um sistema de
-recomendação colaborativa clássico, percebeu-se um aumento de acurácia para o recomendador sensível ao tempo.
-
-Além da comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
-\cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente descartado, e sim caso
-seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos
-testes realizados, percebeu-se que criar o modelo de usuário dessa forma apresenta vantagens sobre
-a forma mais padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor
-seus resultados
-
-Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação
-vencedor do concurso criado pelo \textit{Netflix} para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação
-dos filmes realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
+  Com o intuito de classificar a pesquisa sendo desevolvida, observou-se que a
+  mesma pode ser enquadrada como aplicada, quantitativa, exploratória, bibliográfica e
+  experimental \cite{da2005metodologia}.
 
 
-\section{Planejamento da pesquisa}
+  \section{Trabalhos relacionados}
 
-Tendo como base os conceitos de recomendação apresentados e a forma dinâmica com
-que usuários instalam e usam novos pacotes em seus próprios sistemas, esta
-pesquisa visa então responder a seguinte questão problema:
+  Durante a pesquisa deste trabalho, encontrou-se alguns trabalhos que também estudam recomendação baseada em contexto, sendo o tempo um dos
+  principais atributos do contexto. Em \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
+  compras de diversos usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
+  sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão
+  quando o tempo foi usado como parâmetro do perfil de usuário.
 
-\begin{center}
-\textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
-usuários de sistemas GNU/Linux levando em consideração o contexto temporal de
-uso dos seus pacotes já instalados ?}
-\end{center}
+  Outra pesquisa relacionada foi a de \cite{ding2005time}. Nesta pesquisa, um
+  sistema de recomendação colaborativo sensível ao tempo foi criado. O sistema proposto usava uma função de
+  decaimento exponencial para priorizar itens recentemente avaliados e diminuir o peso de itens avaliados a mais tempo na recomendação.
+  Quando comparado a um sistema de
+  recomendação colaborativa clássico, percebeu-se um aumento de acurácia para o recomendador sensível ao tempo.
 
-Vale ressaltar que para responder esta questão problema, um conjunto de
-hipóteses foi criada juntamente com um fluxo de trabalho, conforme pode ser visto na
-Figura \ref{fig:planejamento_pesquisa}. As hipóteses e o fluxo definido serão
-explicados nas seções à seguir.
+  Além da comparação de sistema de recomendação, foi também encontrado um trabalho que propõe um modelo diferente do clássico uso do tempo em recomendação, como o usado em
+  \cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente descartado, e sim caso
+  seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos
+  testes realizados, percebeu-se que criar o modelo de usuário dessa forma apresenta vantagens sobre
+  a forma mais padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor
+  seus resultados
 
-\begin{figure}[h]
+  Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação
+  vencedor do concurso criado pelo \textit{Netflix} para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação
+  dos filmes realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
+
+
+  \section{Planejamento da pesquisa}
+
+  Tendo como base os conceitos de recomendação apresentados e a forma dinâmica com
+  que usuários instalam e usam novos pacotes em seus próprios sistemas, esta
+  pesquisa visa então responder a seguinte questão problema:
+
+  \begin{center}
+  \textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
+  usuários de sistemas GNU/Linux levando em consideração o contexto temporal de
+  uso dos seus pacotes já instalados ?}
+  \end{center}
+
+  Vale ressaltar que para responder esta questão problema, um conjunto de
+  hipóteses foi criada juntamente com um fluxo de trabalho, conforme pode ser visto na
+  Figura \ref{fig:planejamento_pesquisa}. As hipóteses e o fluxo definido serão
+  explicados nas seções à seguir.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
+    \caption{Processo usado para realização das atividades dessa pesquisa}
+    \label{fig:planejamento_pesquisa}
+  \end{figure}
+
+  \subsection{Hipóteses} \label{sec:hipoteses}
+
+  Considerando a questão problema definida, as seguintes hipóteses foram definidas
+  como forma de validação:
+
+  \begin{itemize} \item \textit{\textbf{h1:Ao aumentar o peso de pacotes
+  recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
+  ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
+  pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
+  do perfil, acredita-se que a mesma irá produzir um perfil mais
+  consistente do usuário, gerando assim recomendações mais efetivas.\item
+  \textit{\textbf{h2: O perfil de usuário gerado por aprendizado de máquina aplicado a uma
+  estratégia de recomendação irá prover melhor resultados que uma abordagem
+  determinística para criação do perfil}}
+  Considerando os dados presentes em pacotes Debian que podem ser
+  usados para prover a recomendação, pode-se entender que o uso de uma abordagem
+  por aprendizado de máquina irá prover melhores resultados, devido à possível
+  quantidade de atributos que podem caracterizar um pacote.
+  \end{itemize}
+
+  \subsection{Seleção do projeto}
+
+  Para validar as hipóteses levantadas, faz-se necessário escolher um projeto de
+  software livre que implemente um sistema de recomendação de pacotes
+  para sistemas GNU/Linux e que não use nenhuma informação de contexto em suas
+  recomendações, de forma a permitir a comparação das abordagens propostas com as
+  já implementadas pelo projeto.
+
+  \subsection{Descrição do projeto selecionado}
+
+  O projeto selecionado que atendia os requisitos propostos para a pesquisa foi o
+  \textit{AppRecommender}, um sistema de recomendação de aplicativos GNU/Linux,
+  cuja principal característica é recomendar aplicações,
+  onde “dada a lista de programas instalados em determinado sistema, o recomendador retorna uma lista de aplicativos
+  sugeridos, que supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
+  \cite{araujo2011apprecommender}.
+
+  O \textit{AppRecommender} possui três categorias para estratégias de recomendação, onde cada
+  estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
+  através de uma lista de pacotes instalados no sistema. Essas categorias são: baseadas em conteúdo,
+  colaborativas, e híbridas. Segue abaixo as especificações de cada categoria de estratégia:
+
+  \begin{itemize}
+      \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
+          visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
+          onde o mesmo consiste em uma lista composta por \textit{Debtags} ou termos contidos nas descrições de pacotes que são
+          definidas pelo algoritmo de estratégia escolhida. Através dessa lista, a base de dados
+          com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
+          relevantes para o perfil criado.
+      \item \textit{\textbf{Colaborativas:}} Essa estratégia de recomendação visa
+          a sugestão de novos pacotes via análise de outros usuários com perfis
+          semelhantes ao do usuário, ou seja, tal estratégia visa recomendar novos
+          pacotes de acordo com os pacotes instalados dos vizinhos mais próximos
+          ao perfil do usuário.
+      \item \textit{\textbf{Híbridas:}} Essa categoria
+          de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
+          afim de se obter diferentes recomendações.
+  \end{itemize}
+
+  Para as recomendações colaborativas e híbridas, o \textit{AppRecommender}
+  utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo.
+  Entretanto esse não é o caso para recomendações puramente baseadas em conteúdo,
+  fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
+  projeto.
+
+  O projeto também utiliza tanto estratégias offline e testes de usuário para
+  validar as recomendações implementadas, sendo que as estratégias offline têm como
+  base a análise de curvas ROC, enquanto os testes de usuário visam analisar
+  principalmente a precisão e novidade das recomendações.
+
+  A licença do \textit{AppRecommender} é GNU GPL e o projeto está disponível em repositório
+  público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
+  contribuir com o projeto. O código fonte da aplicação pode ser encontrado no
+  repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
+
+  As modificações propostas nesta pesquisa foram realizadas em uma cópia local do
+  mesmo, sendo essa mantida pelos pesquisadores deste trabalho no Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
+
+  \section{Coleta de dados}
+
+  Nesta seção, serão descritos os dados necessários para a execução do
+  \textit{AppRecommender}, juntamente com os dados necessários para a coleta de
+  informação contextual de tempo dos pacotes do usuário durante a
+  recomendação.
+
+  \subsection{AppRecommender}
+
+  Para o projeto selecionado, observou-se a necessidade de diversos tipos
+  de dados, que podem ser vistos na Tabela
+  \ref{tab:dados_apprecommender}. Tal tabela mostra os dados usados no
+  \textit{AppRecommender} e como os mesmos podem ser obtidos.
+
+  \begin{table}[h]
   \centering
-  \includegraphics[width=0.9\textwidth]{figuras/planejamento_pesquisa.eps}
-  \caption{Processo usado para realização das atividades dessa pesquisa}
-  \label{fig:planejamento_pesquisa}
-\end{figure}
+  \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
+  \hline
+  \rowcolor[HTML]{EFEFEF}
+  {\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
+  Lista de nome dos pacotes válidos &
+  \parbox{10cm}{Esta lista irá ser usada na construção de um índice de busca
+  usado para buscar os pacotes que podem ser recomendados} &
+  Coleta automatizada via script \\
+  \hline
+  Índice de busca para os pacotes do usuário &
+  \parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
+   colaborativas e híbridas}&
+  Criação automatizada via script\\
+  \hline
+  Debtags válidas&
+  \parbox{10cm}{Usado para filtrar os pacote que serão usados na
+  recomendação}&
+  Coleta automatizada via script\\
+  \hline
+  Submissões do popularity contest&
+  \parbox{10cm}{Usada para criar um índice de busca contendo as submissões do
+  popularity-contest de todos os usuários que possuem uma submissão}&
+  \parbox{10cm}{Dados precisam ser manualmente coletados}\\
+  \hline
+  Indíce de busca para submissões do popularity contest &
+  \parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
+  híbridas, assim como para a execução dos experimentos usados
+  para avaliar as soluções desenvolvidas.} &
+  \parbox{10cm}{Criação automatizada via script}\\
+  \hline
+  \end{tabular}}
+  \caption{Dados necessários para execução do AppRecommender}
+  \label{tab:dados_apprecommender}
+  \end{table}
 
-\subsection{Hipóteses} \label{sec:hipoteses}
-
-Considerando a questão problema definida, as seguintes hipóteses foram definidas
-como forma de validação:
-
-\begin{itemize} \item \textit{\textbf{h1:Ao aumentar o peso de pacotes
-recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
-ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
-pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
-do perfil, acredita-se que a mesma irá produzir um perfil mais
-consistente do usuário, gerando assim recomendações mais efetivas.\item
-\textit{\textbf{h2: O perfil de usuário gerado por aprendizado de máquina aplicado a uma
-estratégia de recomendação irá prover melhor resultados que uma abordagem
-determinística para criação do perfil}}
-Considerando os dados presentes em pacotes Debian que podem ser
-usados para prover a recomendação, pode-se entender que o uso de uma abordagem
-por aprendizado de máquina irá prover melhores resultados, devido à possível
-quantidade de atributos que podem caracterizar um pacote.
-\end{itemize}
-
-\subsection{Seleção do projeto}
-
-Para validar as hipóteses levantadas, faz-se necessário escolher um projeto de
-software livre que implemente um sistema de recomendação de pacotes
-para sistemas GNU/Linux e que não use nenhuma informação de contexto em suas
-recomendações, de forma a permitir a comparação das abordagens propostas com as
-já implementadas pelo projeto.
-
-\subsection{Descrição do projeto selecionado}
-
-O projeto selecionado que atendia os requisitos propostos para a pesquisa foi o
-\textit{AppRecommender}, um sistema de recomendação de aplicativos GNU/Linux,
-cuja principal característica é recomendar aplicações,
-onde “dada a lista de programas instalados em determinado sistema, o recomendador retorna uma lista de aplicativos
-sugeridos, que supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
-\cite{araujo2011apprecommender}.
-
-O \textit{AppRecommender} possui três categorias para estratégias de recomendação, onde cada
-estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
-através de uma lista de pacotes instalados no sistema. Essas categorias são: baseadas em conteúdo,
-colaborativas, e híbridas. Segue abaixo as especificações de cada categoria de estratégia:
-
-\begin{itemize}
-    \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
-        visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
-        onde o mesmo consiste em uma lista composta por \textit{Debtags} ou termos contidos nas descrições de pacotes que são
-        definidas pelo algoritmo de estratégia escolhida. Através dessa lista, a base de dados
-        com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
-        relevantes para o perfil criado.
-    \item \textit{\textbf{Colaborativas:}} Essa estratégia de recomendação visa
-        a sugestão de novos pacotes via análise de outros usuários com perfis
-        semelhantes ao do usuário, ou seja, tal estratégia visa recomendar novos
-        pacotes de acordo com os pacotes instalados dos vizinhos mais próximos
-        ao perfil do usuário.
-    \item \textit{\textbf{Híbridas:}} Essa categoria
-        de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
-        afim de se obter diferentes recomendações.
-\end{itemize}
-
-Para as recomendações colaborativas e híbridas, o \textit{AppRecommender}
-utiliza uma sistemática para aumentar o peso de pacotes baseados no seu tempo.
-Entretanto esse não é o caso para recomendações puramente baseadas em conteúdo,
-fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
-projeto.
-
-O projeto também utiliza tanto estratégias offline e testes de usuário para
-validar as recomendações implementadas, sendo que as estratégias offline têm como
-base a análise de curvas ROC, enquanto os testes de usuário visam analisar
-principalmente a precisão e novidade das recomendações.
-
-A licença do \textit{AppRecommender} é GNU GPL e o projeto está disponível em repositório
-público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
-contribuir com o projeto. O código fonte da aplicação pode ser encontrado no
-repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
-
-As modificações propostas nesta pesquisa foram realizadas em uma cópia local do
-mesmo, sendo essa mantida pelos pesquisadores deste trabalho no Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
-
-\section{Coleta de dados}
-
-Nesta seção, serão descritos os dados necessários para a execução do
-\textit{AppRecommender}, juntamente com os dados necessários para a coleta de
-informação contextual de tempo dos pacotes do usuário durante a
-recomendação.
-
-\subsection{AppRecommender}
-
-Para o projeto selecionado, observou-se a necessidade de diversos tipos
-de dados, que podem ser vistos na Tabela
-\ref{tab:dados_apprecommender}. Tal tabela mostra os dados usados no
-\textit{AppRecommender} e como os mesmos podem ser obtidos.
-
-\begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
-\hline
-\rowcolor[HTML]{EFEFEF}
-{\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
-Lista de nome dos pacotes válidos &
-\parbox{10cm}{Esta lista irá ser usada na construção de um índice de busca
-usado para buscar os pacotes que podem ser recomendados} &
-Coleta automatizada via script \\
-\hline
-Índice de busca para os pacotes do usuário &
-\parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
- colaborativas e híbridas}&
-Criação automatizada via script\\
-\hline
-Debtags válidas&
-\parbox{10cm}{Usado para filtrar os pacote que serão usados na
-recomendação}&
-Coleta automatizada via script\\
-\hline
-Submissões do popularity contest&
-\parbox{10cm}{Usada para criar um índice de busca contendo as submissões do
-popularity-contest de todos os usuários que possuem uma submissão}&
-\parbox{10cm}{Dados precisam ser manualmente coletados}\\
-\hline
-Indíce de busca para submissões do popularity contest &
-\parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
-híbridas, assim como para a execução dos experimentos usados
-para avaliar as soluções desenvolvidas.} &
-\parbox{10cm}{Criação automatizada via script}\\
-\hline
-\end{tabular}}
-\caption{Dados necessários para execução do AppRecommender}
-\label{tab:dados_apprecommender}
-\end{table}
-
-Conforme pode ser observado na Tabela \ref{tab:dados_apprecommender}, muito dos dados
-necessários para a execução do \textit{AppRecommender} podem ser obtidos de forma automatizada
-por scripts de coleta. Entretanto, este não é o caso para as submissões do
-\textit{popularity-contest}. Isso se dá pelo fato da aplicação não disponibilizar as submissões
+  Conforme pode ser observado na Tabela \ref{tab:dados_apprecommender}, muito dos dados
+  necessários para a execução do \textit{AppRecommender} podem ser obtidos de forma automatizada
+  por scripts de coleta. Entretanto, este não é o caso para as submissões do
+  \textit{popularity-contest}. Isso se dá pelo fato da aplicação não disponibilizar as submissões
 propriamente ditas, e sim as análises estatísticas feitas em cima das mesmas. Para o
 \textit{AppRecommender}, tais dados foram obtidos por intermédio de um
 \textit{Debian Developer}, sendo que algumas questões relacionadas a privacidade dos usuários se tornou necessária.
 \cite{araujo2011apprecommender}. Tal problemática dificulta bastante o uso das
 estratégias colaborativas do \textit{AppRecommender}, pois as mesmas dependem desse banco de dados
-de submissões do \textit{popularity-contest}. 
+de submissões do \textit{popularity-contest}.
 
 Uma observação também importante se dá na forma como a lista de pacotes válidos
 é obtida, pois a mesma é obtida conforme as configurações do \textit{sources.list} do usuário. Este arquivo é responsável
@@ -242,7 +242,7 @@ atualmente fora do ar, e, por isso, não é considerado na execução da pesquis
 
 De forma a melhor avaliar como o contexto temporal está sendo usado pelas novas
 estratégias, decidiu-se junto com o experimento de usuário, coletar as seguintes
-informações: 
+informações:
 
 \begin{itemize}
     \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
@@ -256,6 +256,8 @@ informações:
         utilizada para permitir a comparação do contexto temporal implementado
         na pesquisa e o usado pelo \textit{popularity-contest}.
 \end{itemize}
+
+O Apêndice \ref{ape:coleta_de_dados} explica como os dados são coletados.
 
 \section{Análise dos Dados}
 
@@ -664,7 +666,7 @@ descrição, a posição do vetor associado ao termo será marcada como ``1''.
 Com a combinação desses valores, chega-se então à forma final da entrada de um pacote para o uso de algoritmos de aprendizado
 supervisionados. Observa-se também que para propósitos de armazenamento, a classificação do pacote também é armazenada ao final da combinação
 dos vetores binários dos termos e Debtags. O papel desse vetor pode ser visto na
-Seção \ref{sec:bayes_ingenuo}, onde tal vetor binário representa uma linha da
+Seção \ref{ape:bayes_ingenuo}, onde tal vetor binário representa uma linha da
 matrix ``D'' e a classificação representa uma linha da matrix ``L''. Logo, o
 conjunto de todos os pacotes que serão usados no algoritmo formam de fato a
 matrix ``D''.

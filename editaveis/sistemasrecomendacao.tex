@@ -72,17 +72,18 @@ estudadas.
         algoritmo, ou seja, seleciona os atributos escolhidos do mesmo. O
         \textit{Profile Learner} é o responsável por criar o perfil do
         usuário, analisando os dados filtrados pelo \textit{Content Analyser} e
-        criando um perfil de acordo com um modelo definido pelo
-        sistema de recomendação. Uma técnica normalmente aplicada para essa tarefa
-        é a \textit{Term Frequency-Inverse Term Frequency (TFIDF)}
-        para selecionar os atributos de maior impacto nos itens avaliados pelo
-        usuário, e então compor o perfil do usuário com tais termos
-        \cite{lops2011content}. Por fim, o \textit{Filtering component} nada mais é do que uma
-        ferramenta que recebe o perfil do usuário como entrada e usa o mesmo
-        para filtrar os melhores itens que se aproximam desse perfil da base de
-        dados possível. Sendo assim, a função preditiva desta estratégia de
-        recomendação é uma combinação do perfil de usuário juntamente com uma
-        forma de avaliar a similaridade entre dois itens.
+        criando um perfil de acordo com um modelo definido pelo sistema de
+        recomendação. Uma técnica normalmente aplicada para essa tarefa é a
+        \textit{Term Frequency-Inverse Term Frequency (TFIDF)} para selecionar
+        os atributos de maior impacto nos itens avaliados pelo usuário, e então
+        compor o perfil do usuário com tais termos \cite{lops2011content},
+        essa técnica é explicada no Apêndice \ref{ape:tfidf}.  Por fim, o
+        \textit{Filtering component} nada mais é do que uma ferramenta que recebe
+        o perfil do usuário como entrada e usa o mesmo para filtrar os melhores
+        itens que se aproximam desse perfil da base de dados possível. Sendo assim,
+        a função preditiva desta estratégia de recomendação é uma combinação do
+        perfil de usuário juntamente com uma forma de avaliar a similaridade entre
+        dois itens.
 
         Dado essas características da recomendação baseada por conteúdo, pode-se
         perceber que a mesma pode sofrer o problema de superespecialização, já
