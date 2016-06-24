@@ -2,7 +2,7 @@
 
 Este capítulo visa relatar os resultados obtidos em ambos os experimentos
 realizados para verificar a validades das hipóteses propostas neste trabalho.
-Dessa forma, cada experimento será analisado em uma sessão própria.
+Dessa forma, cada experimento será analisado em uma seção própria.
 
 \subsection{Primeiro Experimento}
 
@@ -12,25 +12,25 @@ para cada pessoa foram analisadas três estratégias de recomendação, sendo el
 \begin{itemize}
     \item \textbf{cbh:} Estratégia baseada em conteúdo, onde metade do
     perfil do usuário é formado por \textit{Debtags} e a outra metade por termos
-    da descrição dos pacotes, tanto as \textit{Debtags} e os termos são definidos
-    utilizando a técnica do TFIDF;
+    da descrição dos pacotes. Tanto as \textit{Debtags} e os termos são definidos
+        utilizando a técnica do \textit{TFIDF};
     \item \textbf{cbtm:} Estratégia baseada em conteúdo utilisando o contexto
     temporal, assim como na estratégia `cbh`, o perfil do usuário é composto
     por duas metades, sendo as \textit{Debtags} e os termos da descrição dos pacotes,
     porém eles são definidos através de dois pesos, sendo o primeiro uma
     análise de quais pacotes foram recentemente utilizados, e o segundo peso
-    se trata da utilização do TFIDF;
+    se trata da utilização do \textit{TFIDF};
     \item \textbf{cbml:} Estratégia baseada em conteúdo, onde o perfil do
     usuário é formado tanto por \textit{Debtags} quanto termos, porém não é composto
     por metade de cada um, utilizando esse perfil é realizado a
-    recomendação de vários pacotes, então é utilizado o algoritmo de
+    recomendação de vários pacotes. Então é utilizado o algoritmo de
     aprendizado de máquina para identificar quais dentre esses pacotes
     devem ser recomendados.
 \end{itemize}
 
 Dentre as estratégias a `cbh` já estava implementada no AppRecommender, e as
 estratégias `cbtm` e `cbml` se tratam das estratégias implementadas afim de
-testar as hipóteses desse trabalho.
+testar as hipóteses desta pesquisa.
 
 Para cada estratégia foram selecionadas as 10 melhores recomendações
 e essas foram ordenadas em ordem alfabética e apresentadas uma a uma para
@@ -49,7 +49,7 @@ A coleta de dados apresentou os resultados apresentados na Figura
 \end{figure}
 
 Analisando os dados coletados pode-se observar que os indices de recomendações
-ruins das estratégias `cbh` e `cbml` foram maiores que os indices da estratégia
+ruins das estratégias `cbh` e `cbml` foram maiores que os índices da estratégia
 `cbtm`, e também é notável a diferença entre recomendações úteis e surpresas
 boas, pois a estratégia `cbtm` possui 45 recomendações nessas classificações
 enquanto as estratégias `cbml` e `cbh` possuem 35.
@@ -130,30 +130,30 @@ para o segundo experimento:
    \item \textbf{Implementar nova forma de representar um pacote: } Para
    verificar se outras formas de representação de um pacote podem ser mais
    eficientes, implementou-se uma nova estratégia de aprendizado de máquina, que
-   usa o modelo \textit{bag of words} juntamente com o \textit{tfidf} para
+   usa o modelo \textit{Bag Of Words} juntamente com o \textit{TFIDF} para
    representar um pacote.
 
    \item \textbf{Uso da estratégia de expansão de query: } Essa estratégia já
    implementada pelo \textit{AppRecommender} faz com que o \textit{Xapian}
    apenas receba os pacotes que deva fazer a pesquisa relacionada e o mesmo deve
-   entar ser capaz de retirar de cada pacote as informações mais importantes
+   então ser capaz de retirar de cada pacote as informações mais importantes
    para realizar a pesquisa. Dessa forma, as estratégias de aprendizado de
    máquina também foram combinadas com essa estratégia com o intuito de
    verificar se melhores resultados foram gerados.
 
    \item \textbf{Diminuir número de pacotes passados para o Xapian:} Para as
    estratégias de aprendizado de máquina, apenas os pacotes marcados como
-   \textit{Really Useful} (RU) são passados usados para criar o perfil do
+   \textit{Really Useful} (RU) são usados para criar o perfil do
    usuário. Isso se dá pelo fato de tentar reduzir o perfil do usuário e fazer
    com o mesmo seja mais focado nos gostos atuais do usuário.
 
-   \item \textbf{Uso da estratégia \textit{cb} ao invés da \textit{cbml}:} Para
+   \item \textbf{Uso da estratégia \textit{cb} ao invés da \textit{cbh}:} Para
    o primeiro experimento, a estratégia \textit{cbh} foi usada. Entretanto,
    o segundo experimento quis colocar mais foco nos termos dos pacotes e
    não de forma equilibrada como funciona o \textit{cbh}. Dessa forma,
    a estratégia do \textit{AppRecommender} usada para comparação com as
    estratégias de contexto temporal, foi a estratégia \textit{cb}, que usa
-   tanto termos do pacote como \textit{Debtags}, mas não garante que as mesmas sejam
+   tanto termos do pacote como \textit{Debtags}, mas não garante que as mesmas
    apareçam na mesma quantidade no perfil do usuário.
 
    \item \textbf{Mudança de nome da estratégia \textit{cbml} para
@@ -161,7 +161,7 @@ para o segundo experimento:
    aprendizado de máquina, resolveu-se renomear a estratégia \textit{cbml}
    para \textit{mlbva}, que significa \textit{Machine Learning Binary
    Vector Approach}. Esse padrão também é seguido para a estratégia de
-   \textit{bag of words}, \textit{mlbow}, que significa \textit{Machine
+   \textit{Bag Of Words}, \textit{mlbow}, que significa \textit{Machine
    Learning Bag Of Words}.
 
    \item \textbf{Retirar pacotes que possuem dependências de programas não
@@ -179,7 +179,7 @@ para o segundo experimento:
 
 Além desses pontos já citados, o segundo experimento também foi realizado com
 mais usuários, 24 no total, sendo que os usuários escolhidos também apresentavam
-um perfil mais geral quanto ao sistemas operacionais usados, pois para o
+um perfil mais geral quanto aos sistemas operacionais usados, pois para o
 primeiro experimento, os usuários eram majoritariamente usuários Debian.
 
 Dito, isso o resultado geral da pesquisa pode ser visto no Gráfico
@@ -192,16 +192,16 @@ Dito, isso o resultado geral da pesquisa pode ser visto no Gráfico
   \label{fig:segundo_experimento}
 \end{figure}
 
-Para o Gráfico \ref{fig:segundo_experimento}, os labels são, respectivamente:
+Para o Gráfico \ref{fig:segundo_experimento}, os \textit{labels} são, respectivamente:
 
 \begin{itemize}
-    \item \textbf{mlbow}: Aprendizado de máquina com \textit{bag of words}
+    \item \textbf{mlbow}: Aprendizado de máquina com \textit{Bag Of Words}
     \item \textbf{mlbva\_eset}: Aprendizado de máquina com vetor binário e
     expansão de query.
     \item \textbf{cb}: Estratégia com perfil de usuário sem contexto temporal.
     \item \textbf{cbtm}: Estratégia deterministica com contexto temporal.
     \item \textbf{mlbva:} Aprendizado de máquina com vetor binário.
-    \item \textbf{mlbow\_eset:} Aprendizado de máquina com \textit{bag of words}
+    \item \textbf{mlbow\_eset:} Aprendizado de máquina com \textit{Bag Of Words}
         usando expansão de query.
     \item \textbf{cb\_eset:} Estratégia usando apenas expansão de query, sem
         contexto temporal.
@@ -265,7 +265,7 @@ Vale ressaltar que mesmo com a estratégia de pré-filtragem sendo a que tenha
 proporcionado a melhora de resultados, pode-se ver que entre as estratégias de
 aprendizado de máquina, as estratégias de classificação também tiveram uma
 influência, pois todas as estratégias faziam a pré-filtragem de forma idêntica,
-mas foi a \textit{mlbow} com o uso de \textit{bag of words} e \textit{TFIDF} que
+mas foi a \textit{mlbow} com o uso de \textit{Bag Of Words} e \textit{TFIDF} que
 se mostrou com melhores resultados.
 
 À partir dessa análise, acredita-se que um dos principais motivos para a baixa acurácia dos algoritmos
