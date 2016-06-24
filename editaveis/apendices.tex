@@ -191,6 +191,51 @@ recomendação seguido de ``\_recommendation.txt''.
 O diretório onde os arquivos da coleta são armazenados é o ``app\_recommender\_log/'',
 localizado na raiz do sistema do usuário.
 
+\chapter{Bag of Words} \label{ape:bag_of_words}
+
+O modelo \textit{Bag of Words} é uma possível representação vetorial de um dado
+conjunto de texto. Este modelo ordena o texto em um conjunto de palavras de
+acordo com sua ordem alfabética, e então conta o número de vezes que uma palavra
+aparece no texto. Por examplo, dado o texto:
+
+\textbf{``The only good way to become good at programming is programming''}
+
+Ao ordenar esta frase pelo seus termos, têm-se:
+
+\textbf{``at become good good is only programming programming the to way''}
+
+Vale ressaltar que conforme o exemplo acima, uma normalização foi realizada, onde
+o texto é colocado todo em letras minúsculas.
+
+Com o texto ordenado, o vetor então é criado. Cada posição desse vetor simboliza
+uma palavra do texto ordenado. O valor de cada posição, simboliza o número de
+vezes que uma palavra aparece no texto. Dessa forma, para o exemplo já
+demonstrado, têm-se o seguinte vetor:
+
+$$BagOfWords=\left[
+\begin{array}{ccccccccc}
+1 \\
+1 \\
+2 \\
+1 \\
+1 \\
+2 \\
+1 \\
+1 \\
+1 \\
+\end{array}
+\right]$$
+
+Pode-se perceber que apenas as palavras que apareceram duas vezes são marcadas
+com valor ``2'' no vetor. Tal representação pode ser combinada com o
+\textit{TFIDF} para eliminar termos muito recorrentes em um texto e deixar a
+representação dos vetores menores.
+
+Apesar da representação simples, tal modelo não leva em consideração a ordem das
+palavras e muito menos a relação entre elas, o que dependendo do problema a
+ser resolvido, pode-se tornar uma representação muito simples de um conjunto de
+textos.
+
 
 \chapter{Bayes Ingênuo} \label{ape:bayes_ingenuo}
 
