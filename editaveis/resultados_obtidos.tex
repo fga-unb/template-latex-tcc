@@ -116,7 +116,7 @@ para o segundo experimento:
    acesso de cada arquivo relacionado a um pacote é observado e o maior tempo
    encontrado é considerado o tempo de acesso.
 
-   \item \textbf{Balancear rótulo dos pacotes: } Com o intuito de melhorar os
+   \item \textbf{Balancear rótulo dos pacotes: } Com o intuito de melhorar
    a acurácia dos algoritmos de aprendizado de máquina, resolveu-se melhor
    balancear os pacotes do usuário. Para isso, os pacotes são ordenados pelo seu
    contexto temporal e dividos em três grupos de igual tamanho, onde cada grupo
@@ -144,8 +144,8 @@ para o segundo experimento:
    \item \textbf{Diminuir número de pacotes passados para o Xapian:} Para as
    estratégias de aprendizado de máquina, apenas os pacotes marcados como
    \textit{Really Useful} (RU) são usados para criar o perfil do
-   usuário. Isso se dá pelo fato de tentar reduzir o perfil do usuário e fazer
-   com o mesmo seja mais focado nos gostos atuais do usuário.
+   usuário. Isso se dá pelo fato de tentar reduzir o perfil do usuário para
+   que o mesmo seja mais focado nos gostos atuais do usuário.
 
    \item \textbf{Uso da estratégia \textit{cb} ao invés da \textit{cbh}:} Para
    o primeiro experimento, a estratégia \textit{cbh} foi usada. Entretanto,
@@ -183,16 +183,7 @@ um perfil mais geral quanto aos sistemas operacionais usados, pois para o
 primeiro experimento, os usuários eram majoritariamente usuários Debian.
 
 Dito, isso o resultado geral da pesquisa pode ser visto no Gráfico
-\ref{fig:segundo_experimento}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento.eps}
-  \caption{Resultados do segundo experimento}
-  \label{fig:segundo_experimento}
-\end{figure}
-
-Para o Gráfico \ref{fig:segundo_experimento}, os \textit{labels} são, respectivamente:
+\ref{fig:segundo_experimento}, onde seus \textit{labels} são respectivamente:
 
 \begin{itemize}
     \item \textbf{mlbow}: Aprendizado de máquina com \textit{Bag Of Words}
@@ -207,6 +198,13 @@ Para o Gráfico \ref{fig:segundo_experimento}, os \textit{labels} são, respecti
         contexto temporal.
 \end{itemize}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento.eps}
+  \caption{Resultados do segundo experimento}
+  \label{fig:segundo_experimento}
+\end{figure}
+
 Visualmente, pode-se perceber que apenas as estratégias de aprendizado de
 máquina apresentaram um total de recomendações úteis ao usuário maior que o
 total de recomendações ruins. Além disso, percebe-se que as estratégias como um
@@ -215,7 +213,7 @@ estão gerando números próximos de pacotes redundantes.
 
 Uma melhor análise pode ser feita ao observar o Gráfico
 \ref{fig:metricas_segundo_experimento} com a relação as métricas calculadas para cada
-estratégia, conforme definidas na Seção de \ref{sec:estudo_usuario}
+estratégia, conforme definidas na Seção \ref{sec:estudo_usuario}
 
 \begin{figure}[h]
   \centering
@@ -226,20 +224,20 @@ estratégia, conforme definidas na Seção de \ref{sec:estudo_usuario}
 
 Pode-se ver pelo Gráfico \ref{fig:metricas_segundo_experimento} quanto a
 precisão, o melhor resultado foi para estratégia \textit{mlbow}. Entretanto, a
-melhora se deu em apenas 5\% em relação as estratégias baseada em conteúdo do
+melhora se deu em apenas 5\% em relação as estratégias baseadas em conteúdo do
 \textit{AppRecommender}. Vale ressaltar também que a métrica \textbf{novidade}
 mostra o que foi observado no Gráfico \ref{fig:segundo_experimento}, onde o
 número de recomendações marcadas como surpresa se manteve estável entre as
 ferramentas.
 
 Além disso, pode-se perceber que a estratégia determinística com contexto
-temporal \textit{cbtm} foi a que recomendou mais pacotes ruins considerados pelo
-usuário, ou seja, a estratégia não atende aos requisitos. Isso difere dos
+temporal \textit{cbtm} foi a que recomendou mais pacotes considerados ruins
+pelo usuário, ou seja, a estratégia não atende aos requisitos. Isso difere dos
 resultados encontrados no primeiro experimento. Percebeu-se então que a mudança
 no cálculo temporal favoreceu as estratégias de aprendizado de máquina, mas não
 a determinística.
 
-Sobre a questão de redundância, percebeu-se também um problema quanto a pacotes
+Sobre a questão de redundância, percebeu-se um problema quanto ao pacotes
 instalados por outros gerenciadores de pacote. Por exemplo, caso o usuário seja
 um programador ruby e tenha instalado pacotes ruby via \textit{apt} e
 \textit{Ruby Version Manager} (rvm), o \textit{AppRecommender} pode recomendar
@@ -250,8 +248,8 @@ relação as estratégias baseadas em conteúdo já implementadas pelo
 \textit{AppRecommender}. O Gráfico \ref{fig:segundo_experimento_cross_validation}
 mostra a média da métrica de acurácia \textit{PorcentagemAcertos}, definida na Seção
 \ref{subsec:validacao_cruzada}, para cada estratégia de aprendizado de máquina.
-Tal gráfico mostra que nenhuma estratégia teve média muito alta de acurácia, sendo
-que acredita-se que a melhora encontrada por essas estratégias foi devido a
+Tal gráfico mostra que nenhuma estratégia teve uma média muito alta de acurácia,
+sendo que acredita-se que a melhora encontrada por essas estratégias foi devido a
 pré-filtragem de pacotes e não para a pós filtragem dos mesmos.
 
 \begin{figure}[h]
@@ -262,11 +260,11 @@ pré-filtragem de pacotes e não para a pós filtragem dos mesmos.
 \end{figure}
 
 Vale ressaltar que mesmo com a estratégia de pré-filtragem sendo a que tenha
-proporcionado a melhora de resultados, pode-se ver que entre as estratégias de
-aprendizado de máquina, as estratégias de classificação também tiveram uma
-influência, pois todas as estratégias faziam a pré-filtragem de forma idêntica,
-mas foi a \textit{mlbow} com o uso de \textit{Bag Of Words} e \textit{TFIDF} que
-se mostrou com melhores resultados.
+proporcionado a melhora nos resultados, pode-se ver que entre as estratégias de
+aprendizado de máquina, as estratégias de classificação também tiveram influência
+na melhoria dos resultados, pois todas as estratégias faziam a pré-filtragem de
+forma idêntica, mas foi a \textit{mlbow} com o uso do \textit{Bag Of Words} e do
+\textit{TFIDF} que apresentou os melhores resultados.
 
 À partir dessa análise, acredita-se que um dos principais motivos para a baixa acurácia dos algoritmos
 se dá pelo número de dados usado pelo treinamento. Em média, apenas 37 pacotes
