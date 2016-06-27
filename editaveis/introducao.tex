@@ -5,7 +5,7 @@ produzem recomendações individualizadas como saída ou que guiam o usuário
 de forma personalizada para itens interessantes ou úteis em um conjunto
 grande de opções. Com essa definição em mente, muitas empresas buscam
 impulsionar tanto a venda como a visualização dos itens que possuem, e até mesmo
-melhor direcionar produtos para o usuário. Exemplo clássicos desse uso são a
+melhor direcionar produtos para o usuário. Exemplos clássicos desse uso são a
 \textit{Amazon} provendo um loja online praticamente toda personalizada
 \cite{jannach2008finding}, e a empresa \textit{Netflix} que usa sistemas de recomendação
 para prover filmes a seus usuários. Vale ressaltar que esta empresa recentemente
@@ -24,10 +24,22 @@ podem ajudar a comunidade, pois com mais usuários do pacote, pode-se entender q
 o número de \textit{bugs} registrados possa aumentar, podendo assim aumentar a qualidade
 do software sendo usado.
 
+Baseado neste contexto, um sistema de recomendação de pacotes, chamado
+\textit{AppRecommender} foi desenvolvido para sistemas Debian pela
+\textit{Debian Developer} Tássia Camões Araújo durante
+o seu mestrado na Universidade de São Paulo no ano de 2011. Este sistema visa a
+recomendação de pacotes baseado em quesitos como os pacotes já instalados pelo
+usuário ou até mesmo submissões do \textit{popularity-contest}. Dessa forma, o
+projeto abrange desde recomendações por conteúdo a até mesmo recomendações
+colaborativas.
+
 Entretanto, dado a gama de pacotes disponíveis em sistemas Debian, prover uma
-recomendação útil para o usuário pode se tornar um problema. Partindo do
+recomendação útil para o usuário pode se tornar um problema. O problema de
+utilidade das recomendações também se prova presente no \textit{AppRecommender},
+onde o resultado das recomendações por conteúdo não se mostrou tão satisfatória
+\cite{araujo2011apprecommender}. Dessa forma, partindo do
 pressuposto de que o usuário usa apenas uma parte dos seus pacotes em um dado
-momento, entender o contexto temporal  do uso de pacotes pode acarretar em recomendações reais e
+momento, entender o contexto temporal do uso de pacotes pode acarretar em recomendações reais e
 mais úteis ao usuário.
 
 Afim de colaborar com o sistema Debian esta pesquisa visa juntar informações
