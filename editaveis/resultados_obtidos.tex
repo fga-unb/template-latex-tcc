@@ -1,13 +1,13 @@
 \chapter[Resultados Obtidos]{Resultados Obtidos}
 
-Este capítulo visa relatar os resultados obtidos em ambos os experimentos
-realizados para verificar a validades das hipóteses propostas neste trabalho.
-Dessa forma, cada experimento será analisado em uma seção própria.
+Este capítulo visa relatar os resultados obtidos em ambas as coletas de opinião
+realizadas para verificar a validades das hipóteses propostas neste trabalho.
+Dessa forma, cada coleta será analisada em uma seção própria.
 
-\section{Primeiro Experimento}
+\section{Primeira coleta de opinião}
 
-A primeira coleta do primeiro experimento foi realizada com 10 pessoas, onde
-para cada pessoa foram analisadas três estratégias de recomendação, sendo elas:
+A primeira coleta de opinião foi realizada com 10 pessoas, onde para cada
+pessoa foram analisadas três estratégias de recomendação, sendo elas:
 
 \begin{itemize}
     \item \textbf{cbh:} Estratégia baseada em conteúdo, onde metade do
@@ -44,7 +44,7 @@ A coleta de dados apresentou os resultados apresentados na Figura
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/primeiro_experimento.eps}
-  \caption{Resultados do primeiro experimento}
+  \caption{Resultados da primeira coleta de opinião}
   \label{fig:primeiro_experimento}
 \end{figure}
 
@@ -67,7 +67,7 @@ precisão, novidade e ruim.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/metricas_primeiro_experimento.eps}
-  \caption{Métricas do primeiro experimento}
+  \caption{Métricas da primeira coleta de opinião}
   \label{fig:metricas_primeiro_experimento}
 \end{figure}
 
@@ -76,35 +76,35 @@ Analisando a precisão e a novidade de cada recomendação, na Figura
 apresentou melhores resultados embora por pouca diferença, foi a estratégia
 `cbtm`, fato que pode demonstrar que a estratégia determinística se saiu melhor
 que a estratégia de aprendizado de máquina, para esses usuários que
-participaram do experimento.
+participaram da primeira coleta.
 
 Através dos dados coletados foi analisado a métrica \textit{PorcentagemAcertos}
 para a estratégia `cbml` através da validação cruzada, onde o resultado dessa
 métrica é de apenas 22,87\%, resultado obtido pela média do valor apresentado
 por essa métrica para cada usuário, esse valor de 22,87\% indica que os
 resultados das recomendações não são exatamente o que se espera pela técnica
-do cross validation, o que demonstra que até o proximo experimento deve ser
+do cross validation, o que demonstra que até a próxima coleta de opinião deve ser
 realizado melhorias quanto ao tratamento dos dados, como a definição do perfil
 do usuário, que pode ser melhorado afim de que os resultados dessa métrica
 possam ser melhorados.
 
-Os resultados desse primeiro experimento não foram o que os pesquisadores desse
+Os resultados dessa primeira coleta não foram o que os pesquisadores desse
 projeto esperavam, pois esperava-se que os resultados obtidos tivessem um
-resultado mais satisfatório quanto a qualidade das recomendações, porém, esse
-primeiro experimento foi executado com o objetivo de coletar dados afim de
+resultado mais satisfatório quanto a qualidade das recomendações, porém, essa
+primeira coleta de opinião foi executada com o objetivo de coletar dados afim de
 compreender mais sobre o perfil dos usuários e o que estava sendo recomendado,
 e então utilizar isso para melhorar o sistema de recomendação e posteriormente
-realizar um segundo experimento onde de fato o objetivo é comparar qual
+realizar uma segunda coleta de opinião, onde de fato o objetivo é comparar qual
 estratégia se saiu melhor.
 
-\section{Segundo experimento}
+\section{Segunda coleta de opinião}
 
-Dado os resultados do primeiro experimento, as seguinte medidas foram tomadas
-para o segundo experimento:
+Dado os resultados da primeira coleta de opinião, as seguinte medidas foram tomadas
+para a segunda coleta de opinião:
 
 \begin{itemize}
    \item \textbf{Mudar cálculo do contexto temporal de um pacote: } Visto que
-   pelo primeiro experimento, o contexto temporal do pacote não estava
+   pela primeira coleta, o contexto temporal do pacote não estava
    refletindo bem os usos do usuário. Isso percebido por analisar as informações
    temporais do \textit{popularity-contest} junto com os arquivos usados pela
    abordagens desta pesquisa para realizar o cálculo do contexto temporal.
@@ -148,8 +148,8 @@ para o segundo experimento:
    que o mesmo seja mais focado nos gostos atuais do usuário.
 
    \item \textbf{Uso da estratégia \textit{cb} ao invés da \textit{cbh}:} Para
-   o primeiro experimento, a estratégia \textit{cbh} foi usada. Entretanto,
-   o segundo experimento quis colocar mais foco nos termos dos pacotes e
+   a primeira coleta de opinião, a estratégia \textit{cbh} foi usada. Entretanto,
+   a segunda coleta quis colocar mais foco nos termos dos pacotes e
    não de forma equilibrada como funciona o \textit{cbh}. Dessa forma,
    a estratégia do \textit{AppRecommender} usada para comparação com as
    estratégias de contexto temporal, foi a estratégia \textit{cb}, que usa
@@ -165,7 +165,7 @@ para o segundo experimento:
    Learning Bag Of Words}.
 
    \item \textbf{Retirar pacotes que possuem dependências de programas não
-   instalados no sistema do usuário:} Durante o primeiro experimento, foi
+   instalados no sistema do usuário:} Durante a primeira coleta de opinião, foi
    observado a recomendação de alguns pacotes relacionados a pacotes que não
    estavam presentes no sistema do usuário, como o pacote
    \textit{auto-complete-el}, que é um pacote que adiciona a funcionalida
@@ -177,10 +177,10 @@ para o segundo experimento:
 
 \end{itemize}
 
-Além desses pontos já citados, o segundo experimento também foi realizado com
+Além desses pontos já citados, a segunda coleta de opinião também foi realizada com
 mais usuários, 24 no total, sendo que os usuários escolhidos também apresentavam
-um perfil mais geral quanto aos sistemas operacionais usados, pois para o
-primeiro experimento, os usuários eram majoritariamente usuários Debian.
+um perfil mais geral quanto aos sistemas operacionais usados, pois para a
+primeira coleta os usuários eram majoritariamente usuários Debian.
 
 Dito, isso o resultado geral da pesquisa pode ser visto no Gráfico
 \ref{fig:segundo_experimento}, onde seus \textit{labels} são respectivamente:
@@ -201,7 +201,7 @@ Dito, isso o resultado geral da pesquisa pode ser visto no Gráfico
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento.eps}
-  \caption{Resultados do segundo experimento}
+  \caption{Resultados da segunda coleta de opinião}
   \label{fig:segundo_experimento}
 \end{figure}
 
@@ -218,7 +218,7 @@ estratégia, conforme definidas na Seção \ref{sec:estudo_usuario}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/metricas_segundo_experimento.eps}
-  \caption{Métricas do segundo experimento}
+  \caption{Métricas da segunda coleta de opinião}
   \label{fig:metricas_segundo_experimento}
 \end{figure}
 
@@ -233,7 +233,7 @@ ferramentas.
 Além disso, pode-se perceber que a estratégia determinística com contexto
 temporal \textit{cbtm} foi a que recomendou mais pacotes considerados ruins
 pelo usuário, ou seja, a estratégia não atende aos requisitos. Isso difere dos
-resultados encontrados no primeiro experimento. Percebeu-se então que a mudança
+resultados encontrados na primeira coleta de opinião. Percebeu-se então que a mudança
 no cálculo temporal favoreceu as estratégias de aprendizado de máquina, mas não
 a determinística.
 
