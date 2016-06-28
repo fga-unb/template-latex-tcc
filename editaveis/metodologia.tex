@@ -73,7 +73,7 @@
   consistente do usuário, gerando assim recomendações mais efetivas.\item
   \textit{\textbf{h2: O perfil de usuário gerado por aprendizado de máquina aplicado a uma
   estratégia de recomendação irá prover melhor resultados que uma abordagem
-  determinística para criação do perfil}}
+  determinística para criação do perfil.}}
   Considerando os dados presentes em pacotes Debian que podem ser
   usados para prover a recomendação, pode-se entender que o uso de uma abordagem
   por aprendizado de máquina irá prover melhores resultados, devido à possível
@@ -154,39 +154,39 @@
 
   \begin{table}[h]
   \centering
-  \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
+  \caption{Dados necessários para execução do AppRecommender}
+  \label{tab:dados_apprecommender}
+  \begin{tabularx}{\textwidth}{|X|X|X|}
   \hline
   \rowcolor[HTML]{EFEFEF}
   {\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
   Lista de nome dos pacotes válidos &
-  \parbox{10cm}{Esta lista irá ser usada na construção de um índice de busca
-  usado para buscar os pacotes que podem ser recomendados} &
+  Esta lista irá ser usada na construção de um índice de busca
+  usado para buscar os pacotes que podem ser recomendados &
   Coleta automatizada via script \\
   \hline
   Índice de busca para os pacotes do usuário &
-  \parbox{10cm}{Usado tanto para estratégias de recomendação por conteúdo,
-   colaborativas e híbridas}&
+  Usado tanto para estratégias de recomendação por conteúdo,
+  colaborativas e híbridas &
   Criação automatizada via script\\
   \hline
-  Debtags válidas&
-  \parbox{10cm}{Usado para filtrar os pacote que serão usados na
-  recomendação}&
+  Debtags válidas &
+  Usado para filtrar os pacote que serão usados na
+  recomendação &
   Coleta automatizada via script\\
   \hline
-  Submissões do popularity contest&
-  \parbox{10cm}{Usada para criar um índice de busca contendo as submissões do
-  popularity-contest de todos os usuários que possuem uma submissão}&
-  \parbox{10cm}{Dados precisam ser manualmente coletados}\\
+  Submissões do popularity contest &
+  Usada para criar um índice de busca contendo as submissões do
+  popularity-contest de todos os usuários que possuem uma submissão &
+  Dados precisam ser manualmente coletados \\
   \hline
   Indíce de busca para submissões do popularity contest &
-  \parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
-  híbridas, assim como para a execução dos experimentos usados
-  para avaliar as soluções desenvolvidas.} &
-  \parbox{10cm}{Criação automatizada via script}\\
+  Usado tanto para a realização de recomendações colaborativas e
+  híbridas, assim como para a execução das coletas de opinião usados
+  para avaliar as soluções desenvolvidas. &
+  Criação automatizada via script \\
   \hline
-  \end{tabular}}
-  \caption{Dados necessários para execução do AppRecommender}
-  \label{tab:dados_apprecommender}
+  \end{tabularx}
   \end{table}
 
   Conforme pode ser observado na Tabela \ref{tab:dados_apprecommender}, muito dos dados
@@ -241,8 +241,8 @@ atualmente fora do ar, e, por isso, não é considerado na execução da pesquis
 \subsection{Usuários} \label{sec:coleta_dados_usuario}
 
 De forma a melhor avaliar como o contexto temporal está sendo usado pelas novas
-estratégias, decidiu-se junto com o experimento de usuário, coletar as seguintes
-informações:
+estratégias, decidiu-se junto com a coleta de opinião dos usuários, coletar
+as seguintes informações:
 
 \begin{itemize}
     \item \textit{\textbf{Pacotes instalados:}} Necessário para se ter conhecimento dos pacotes que o usuário utiliza;
@@ -430,7 +430,7 @@ principais indicadores de uso de um pacote. Entretanto, o sistema de arquivos
 usado pode apresentar uma
 restrição neste campo. Isso acontece devido a como o sistema de arquivos é
 configurado, pois algumas flags especiais podem ser usadas para alterar como
-esse campo é preenchido \cite{2_wiki.debian.org}:
+esse campo é preenchido \footnote{https://wiki.debian.org/fstab}:
 
 \begin{itemize}
     \item \textbf{noatime:} O sistema de arquivos não irá computar o tempo de
@@ -701,22 +701,22 @@ selecionado. Vale ressaltar que a comparação de resultados visa principalmente
 responder as hipóteses levantadas na pesquisa.
 
 Com isso em consideração, esta pesquisa escolheu seguir o modelo proposto na
-implementação do \textit{AppRecommender}, entretanto com o foco nos experimentos
-com os usuários. Isso se dá pelo aspecto mais subjetivo das hipóteses da
-pesquisa.
+implementação do \textit{AppRecommender}, entretanto com o foco nas
+coletas de opinião com usuários. Isso se dá pelo aspecto mais subjetivo das
+hipóteses da pesquisa.
 
-Além disso, essa pesquisa tem como foco realizar dois experimentos com usuários,
-sendo o primeiro experimento podendo ser considerado um teste piloto, onde um
-grupo de usuários irá realizar o experimento, sendo ao final problemas e
-observações levantadas para melhorar as soluções propostas. O segundo
-experimento terá foco então em propor alternativas para as questões levantadas
-no primeiro experimento, visando assim tentar melhorar seus resultados.
+Além disso, essa pesquisa tem como foco realizar duas coletas de opinião com usuários,
+sendo a primeira coleta podendo ser considerada um teste piloto, onde essa
+coleta será realizada com um grupo de usuários, afim de encontrar problemas e
+observações para melhorar as soluções propostas. A segunda coleta de opinião
+terá foco então em propor alternativas para as questões levantadas
+primeira coleta, visando assim tentar melhorar seus resultados.
 
 \subsection{Estudo com usuários}\label{sec:estudo_usuario}
 
 Devido a subjetividade inerente sobre o que um usuário considera uma boa
 recomendação, esta pesquisa irá focar em estudos de usuários para
-avaliar as soluções implementadas. Para esta estratégia, será seguido um modelo
+avaliar as soluções implementadas. Para essa estratégia, será seguido um modelo
 similar ao usado nos testes de usuário do próprio \textit{AppRecommender}. Entrentato
 algumas modificações serão realizadas no processo.
 
