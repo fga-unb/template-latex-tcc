@@ -4,7 +4,7 @@ Este capítulo visa relatar os resultados obtidos em ambos os experimentos
 realizados para verificar a validades das hipóteses propostas neste trabalho.
 Dessa forma, cada experimento será analisado em uma seção própria.
 
-\subsection{Primeiro Experimento}
+\section{Primeiro Experimento}
 
 A primeira coleta do primeiro experimento foi realizada com 10 pessoas, onde
 para cada pessoa foram analisadas três estratégias de recomendação, sendo elas:
@@ -243,21 +243,22 @@ um programador ruby e tenha instalado pacotes ruby via \textit{apt} e
 \textit{Ruby Version Manager} (rvm), o \textit{AppRecommender} pode recomendar
 pacote instalados pelo \textit{rvm}, o que causa a redundância.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento_cross_validation.eps}
+    \caption{Métrica \textit{PorcentagemAcertos} obtida via cross validation para
+    cada estratégia de aprendizado de máquina}
+  \label{fig:segundo_experimento_cross_validation}
+\end{figure}
+
 Por fim, é necessário entender por que a melhoria encontrada foi de 3\%-5\% em
 relação as estratégias baseadas em conteúdo já implementadas pelo
-\textit{AppRecommender}. O Gráfico \ref{fig:segundo_experimento_cross_validation}
+\textit{AppRecommender}. O gráfico da Figura \ref{fig:segundo_experimento_cross_validation}
 mostra a média da métrica de acurácia \textit{PorcentagemAcertos}, definida na Seção
 \ref{subsec:validacao_cruzada}, para cada estratégia de aprendizado de máquina.
 Tal gráfico mostra que nenhuma estratégia teve uma média muito alta de acurácia,
 sendo que acredita-se que a melhora encontrada por essas estratégias foi devido a
 pré-filtragem de pacotes e não para a pós filtragem dos mesmos.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento_cross_validation.eps}
-    \caption{Métrica \textit{PorcentagemAcertos} obtida via cross validation para cada estratégia de aprendizado de máquina}
-  \label{fig:segundo_experimento_cross_validation}
-\end{figure}
 
 Vale ressaltar que mesmo com a estratégia de pré-filtragem sendo a que tenha
 proporcionado a melhora nos resultados, pode-se ver que entre as estratégias de
