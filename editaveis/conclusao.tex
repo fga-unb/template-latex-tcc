@@ -1,0 +1,110 @@
+\chapter[Conclusão]{Conclusão}
+
+Com os resultados obtidos, pode-se perceber que ambas as hipóteses, \textit{h1}
+e \textit{h2} não podem ser negadas. Para hipótese
+\textit{h1}, que se trata da recomendação ser mais apropriada ao aumentar o
+peso dos pacotes recentemente usados no sistema, percebeu-se um aumento em todas
+as estratégias de contexto temporal quanto a precisão das recomendações,
+entretanto, a estratégia determinística também teve um aumento de recomendações
+negativas ao usuário, o que leva-se a entender que o contexto temporal sozinho
+não foi responsável pelas melhorias. Para a hipótese \textit{h2}, que dita que
+a estratégia de aprendizado de máquina obtém melhores resultados que a estratégia
+determinística, percebeu-se que sim, as estratégias de aprendizado de máquina se
+comportaram melhor que a determinística. Acredita-se que esse foi
+o caso devido a combinação de pré-filtragem dos pacotes juntamente com o contexto
+temporal que acontecia nas estratégias de aprendizado de máquina.
+
+Com a melhoria encontrada nos resultados obtidos, pode-se entender também a
+importância de uma melhor filtragem do perfil de usuário antes da recomendação
+em si. Sendo assim, foi entendido que o contexto temporal proposto não precisa
+estar associado apenas a estratégia de recomendação em si, mas também a todas as
+etapas da recomendação. Isso se mostrou pertinente neste trabalho, pois o
+contexto temporal foi aplicado tanto na pós-filtragem dos pacotes, quanto na
+composiçãod dos pacotes no perfil do usuário.
+
+Com esta análise dos resultados, entendeu-se também que o foco da
+recomendação não deve estar apenas em qual estratégia utilizar para fazer a
+recomendação, e sim na seleção de quais pacotes devem alimentar o recomendador e
+depois usar uma estratégia para representar e selecionar os pacotes para uma
+recomendação.
+
+Além disso, a pesquisa também permitiu entender que algumas
+contribuições podem ser feitas ao próprio sistema Debian para melhorar ainda
+mais os resultados de uma recomendação. A principal delas seria a criação de um log para o uso de
+pacotes, similar ao que acontece com o \textit{relatime}, onde diariamente, seria registrado
+quais pacotes tiveram seu \textit{atime} alterado. Esse arquivo iria conter a frequência
+de uso dos pacotes pelo usuário, provendo essa frequência de uso dos pacotes ao
+contexto temporal, permitindo uma análise ainda mais próxima do perfil do usuário.
+
+Ainda se tratando dos resultados encontrados, verificando a média de acurácia do
+\textit{cross validation} e o número de dados médio para o treinamento dos
+algoritmos, pode-se entender que uma abordagem de aprendizado de máquina que
+consiga resultados mais expressivos de acurácia e que se comporte melhor para
+menores conjuntos de dados, pode melhorar ainda mais os resultados encontrados.
+
+Por fim, vale ressaltar que este
+trabalho possibilitou que ambos os pesquisadores envolvidos trabalhassem no
+programa \textit{Google Summer of Code}, onde a instituição \textit{Google}
+financia estudantes para trabalharem com software livre durante o verão. Os
+pesquisadores deste trabalho estão trabalhando também com o
+\textit{AppRecommender}, porém em outras áreas não relacionadas a esta pesquisa.
+Dessa forma, pode-se dizer que além dos resultados obtidos, esta pesquisa foi
+capaz de reviver o \textit{AppRecommender} dentro do projeto \textit{Debian},
+e também pretende atrair mais pesquisadores para dar continuidade ao projeto.
+
+\section{Limitações do trabalho}
+
+Uma das principais limitações deste trabalho se encontra no aspecto subjetivo de
+uma avaliação de uma recomendação e no grupo de usuários que realizaram a coleta
+de opinião. Considerando que apenas graduados e graduandos do curso de Engenharia
+de Software da Universidade de Brasília foram consultados, pode existir talvez
+um perfil comum entre os participantes no que tange os resultados encontrados.
+
+De forma a melhor verificar os resultados encontrados nesta pesquisa, decidiu-se
+por levantar a hipótese de realizar uma coleta de opinião em outros dois eventos
+de software livre, a \textit{DebConf}, conferência anual do projeto Debian, e o
+Fórum Internacional De Software Livre (FISL), evento anual de encontro de
+comunidades de software livre. Com as consultas realizadas nesses dois eventos,
+pretende-se então construir um perfil de usuário mais heterogêneo, permitindo
+assim uma melhor análise das estratégias desenvolvidas.
+
+\section{Trabalhos futuros}
+
+Dado as questões levantadas pela pesquisa, foi possível levantar alguns
+possíveis trabalhos futuros:
+
+\begin{itemize}
+  \item \textbf{Uso do arquivo history do usuário para complementar contexto
+  temporal:} Apesar do arquivo \textit{bash\_history} do usuário apenas conter um
+  histórico de comandos usados pelo usuário, tal arquivo pode conter informações
+  importantes sobre a frequência de uso de algumas aplicações pelo usuário,
+  podendo complementar a análise temporal feita.
+  \item \textbf{Melhorar estratégias de aprendizado de máquina:} Dado os
+  problemas já citados pelas estratégias de aprendizado de máquina, pode-se
+  investigar novas metodologias para lidar com os problemas citados, como poucos
+  dados de treinamento e complexidade de uso dos mesmos.
+  \item \textbf{\textit{Cluster} de interesse do usuário:} Essa nova estratégia seria
+  para criar \textit{clusters} de gostos do usuário com base em seus pacotes e
+  buscar pacotes baseado na identidade desse \textit{cluster} e não nos pacotes
+  em si.
+  \item \textbf{Melhorar contexto temporal:} As estratégias de contexto
+  temporal ainda apresentam problemas para pacotes recentemente atualizados.
+  Isso se dá pelo fato que ainda não é possível saber se um pacote foi
+  recentemente utilizado e atualizado pelo sistema, pois a operação de
+  atualização opera tanto sobre o \textit{ctime} quanto \textit{atime}. Dessa
+  forma, pode-se buscar maneira de resolver tal problema.
+  \item \textbf{Evitar redundância de recomendação de pacotes:} Pacotes
+  instalados pelo usuário por outros gerenciadores de pacotes, como
+  \textit{rvm} do ruby ou o \textit{pip} do python, não devem ser
+  recomendados. Dessa forma, deve-se entender um mecanismo de verificar a
+  existência desses pacotes e retirá-los da recomendação. Além disso, deve-se
+  verificar também redundância entre pacotes dentro de uma recomendação,
+  pois dois pacotes similares não devem estar presentes na mesma
+  recomendação.
+  \item \textbf{Uso de experimentos offline:} Experimentos offline eram
+  implementados no \textit{AppRecommender} com o intuito de comparar as
+  estratégias de forma mais rápida e prática, pois não era necessário
+  sempre fazer testes com usuários. Para o contexto temporal usado, tais
+  experimentos deveriam ser modificados e melhor explorados para se
+  adequar a finalidade da pesquisa.
+\end{itemize}
