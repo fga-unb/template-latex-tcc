@@ -140,7 +140,7 @@ Apesar da simplicidade desse algoritmo, alguns cuidados devem ser observados.
 Um dos principais cuidados é analisar as variáveis, pois quando estas possuem uma grande
 dependência entre elas, pode levar o modelo a acarretar problemas.
 
-A algebra linear utilizada para implementar o algoritmo do classificador
+O processo utilizado para implementar o algoritmo do classificador
 bayesiano é explicado no Apêndice \ref{ape:bayes_ingenuo}.
 
 \section{Engenharia de atributos}
@@ -168,21 +168,9 @@ um especialista na área na qual o aprendizado de máquina será utilizado. Isso
 dá pela capacidade de um profissional da área em informar que atributos são
 relevantes para a classicação de um determindado objeto.
 
-O segundo método se dá pelo uso de técnicas computacionais para reduzir a
-dimensão de uma variável. Um exemplo dessa técnica é o \textit{Principal
-Component Analysis (PCA) } que ordena os atributos que maior contribuem para a
-variância dos dados em relação ao método de mínimos quadrados
-\cite{amatriain2011data}. Normalmente, tal método ignora atributos após a
-variância acumulada passar de 90\%.
-
-Apesar da aplicação de ambas as formas em conjunto serem possíveis, vale lembrar
-que ambas possuem limitações. Para a seleção manual de atributos, pode-se ter
+Para a seleção manual de atributos, pode-se ter
 casos onde a classificação dos dados nunca foi feita ou até mesmo a dificuldade
-em se encontrar um especialista na área para ajudar na seleção. Enquanto isso,
-para algoritmos de redução, algumas limitações também existem. Para o caso do
-PCA, o mesmo parte do pressuposto que os dados apresentados seguem uma
-distribuição Gaussiana. Quando isso não acorre, nada pode-se garantir quanto a
-seleção dos atributos mais significativos \cite{amatriain2011data}. Mesmo com
+em se encontrar um especialista na área para ajudar na seleção. Mesmo com
 essas dificuldades, essa etapa é crucial para um bom funcionamento do algoritmo
 de aprendizado de máquina, principalmente quanto a escalabilidade do mesmo.
 

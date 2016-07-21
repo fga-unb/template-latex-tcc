@@ -95,7 +95,15 @@
   cuja principal característica é recomendar aplicações,
   onde “dada a lista de programas instalados em determinado sistema, o recomendador retorna uma lista de aplicativos
   sugeridos, que supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
-  \cite{araujo2011apprecommender}.
+  \cite{araujo2011apprecommender}. A Figura \ref{fig:apprecommender_execucao}
+  mostra o funcionamento do \textit{AppRecommender} no terminal de um usuário.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/apprecommender_execucao.eps}
+    \caption{Exemplo de execução da aplicação \textit{AppRecommender}}
+    \label{fig:apprecommender_execucao}
+  \end{figure}
 
   O \textit{AppRecommender} possui três categorias para estratégias de recomendação, onde cada
   estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
@@ -764,19 +772,29 @@ possui quatro itens que são definidos a seguir:
 \end{itemize}
 
 Para as métricas usadas considera-se que as avaliações Ruim e Redundante são
-falso negativos e Útil e Surpresa boa são verdadeiro positivos. Além disso,
+verdadeiro negativos e Útil e Surpresa boa são verdadeiro positivos. Além disso,
 quando se avalia na linha de comando, as mesmas serão numeradas de 1 até 4.
 
 Considerando isso, as métricas usadas para comparar as estratégias são as
 seguintes:
 
 \begin{itemize}
-    \item \textbf{Precisão: } $\frac{VerdadeirosPositivos}{VerdadeirosPositivos
-        + FalsoNegativos}$
-    \item \textbf{Novidade: } $\frac{NumSurpresaBoa}{VerdadeirosPositivos +
-        FalsoNegativos}$
-    \item \textbf{Ruim: } $\frac{NumRuim}{VerdadeirosPositivos +
-        FalsoNegativos}$
+    \item \textbf{Precisão: } $\frac{NumUtil + NumSurpresaBoa}{NumRecomendacoes}$
+    \item \textbf{Novidade: } $\frac{NumSurpresaBoa}{NumRecomendacoes}$
+    \item \textbf{Ruim: } $\frac{NumRuim}{NumRecomendacoes}$
+\end{itemize}
+
+Onde:
+
+\begin{itemize}
+    \item \textbf{NumUtil:} Número de recomendações marcadas como \textit{Útil}
+        pelo usuário.
+    \item \textbf{NumSurpresaBoa:} Número de recomendações marcadas como
+        \textit{Surpresa boa} pelo usuário.
+    \item \textbf{NumRecomendacoes:} Total de recomendações geradas para o
+        usuário.
+    \item \textbf{NumRuim:} Número de recomendações marcadas como \textit{Ruim}
+        pelo usuário.
 \end{itemize}
 
 Sendo assim, cada recomendação usada será avaliada por essas três métricas no

@@ -81,7 +81,21 @@ Analisando a precisão e a novidade de cada recomendação, na Figura
 apresentou melhores resultados embora por pouca diferença, foi a estratégia
 `cbtm`, fato que pode demonstrar que a estratégia determinística se saiu melhor
 que a estratégia de aprendizado de máquina, para esses usuários que
-participaram da primeira coleta.
+participaram da primeira coleta. A Tabela \ref{tab:resultado_p1} resume os
+resultados das métricas encontradas:
+
+\begin{table}[]
+    \centering
+    \label{tab:resultado_p1}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    & \textbf{Precisão} & \textbf{Novidade} & \textbf{Ruim} \\ \hline
+    \textbf{cbh}  & 0.35     & 0.08     & 0.55 \\ \hline
+    \textbf{cbtm} & 0.35     & 0.03     & 0.59 \\ \hline
+    \textbf{cbml} & 0.45     & 0.09     & 0.44 \\ \hline
+    \end{tabular}
+    \caption{Resultados das métricas da primeira coleta de opnião}
+\end{table}
 
 Através dos dados coletados foi analisado a métrica \textit{PorcentagemAcertos}
 para a estratégia `cbml` através da validação cruzada, onde o resultado dessa
@@ -263,7 +277,26 @@ mostra a média da métrica de acurácia \textit{PorcentagemAcertos}, definida n
 \ref{subsec:validacao_cruzada}, para cada estratégia de aprendizado de máquina.
 Tal gráfico mostra que nenhuma estratégia teve uma média muito alta de acurácia,
 sendo que acredita-se que a melhora encontrada por essas estratégias foi devido a
-pré-filtragem de pacotes e não para a pós filtragem dos mesmos.
+pré-filtragem de pacotes e não para a pós filtragem dos mesmos. Além disso, a
+Tabela \ref{tab:resultados_p2} resume os resultados encontrados no segundo
+experimento.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        & \textbf{Precisão} & \textbf{Novidade} & \textbf{Ruim} \\ \hline
+        \textbf{mlbow}       & 0.54     & 0.11     & 0.32 \\ \hline
+        \textbf{mlbva\_eset} & 0.50     & 0.14     & 0.30 \\ \hline
+        \textbf{cb}          & 0.49     & 0.15     & 0.30 \\ \hline
+        \textbf{cbtm}        & 0.52     & 0.12     & 0.43 \\ \hline
+        \textbf{mlbva}       & 0.51     & 0.14     & 0.32 \\ \hline
+        \textbf{mlbow\_eset} & 0.50     & 0.11     & 0.32 \\ \hline
+        \textbf{cb\_eset}    & 0.43     & 0.12     & 0.38 \\ \hline
+    \end{tabular}
+    \caption{Resultados das métricas da segunda coleta de opnião}
+    \label{tab:resultado_p2}
+\end{table}
 
 Vale ressaltar que mesmo com a estratégia de pré-filtragem sendo a que tenha
 proporcionado a melhora nos resultados, pode-se ver que entre as estratégias de

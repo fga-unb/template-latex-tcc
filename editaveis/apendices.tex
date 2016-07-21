@@ -38,59 +38,7 @@ Para calcular tal fator, duas etapas distintas são necessárias:
     \end{itemize}
 \end{itemize}
 
-Com os fatore \textbf{TF} e \textbf{IDF} calculados, basta multiplicar tais
-valores para encontar o valor da importância de um termo dado uma base de
-documentos. Sendo assim, pode-se entender que o valor do \textit{TFIDF} será
-alto para um termo ``t'' se o mesmo é encontrado muitas vezes em um dado
-documento e poucas vezes na coleção de documentos.
-
-Existem também outras formas de calcular os valores \textit{TF} e \textit{IDF}.
-Essas formas tendem a priorizar certos aspectos em relação ao texto. Uma dessas
-abordagens é chamada de \textit{TFIDF-sublinear}. Essa técnica é usada para
-atenuar o valor do \textit{TF} para quando um termo é bastante presente em um
-documento, mas não é muito presente na base de documentos. A atenuação do valor
-do \textit{TF} pode se justificar em casos quando um termo que aparece mais de
-uma vez no documento não deva ter um peso substancialmente maior que um termo
-que aparece uma única vez. Para calcular o \textit{TF} para este caso, pode-se
-usar a seguinte fórmula:
-
-TF-sublinear(t) = 1 + log(TF(t))
-
-Vale ressaltar que outras abordagens também podem ser usadas, como normalização
-usando o tamanho médio dos documentos presentes na base de todos os documentos e
-\textit{TF} médio entre todos os \textit{TF}s \cite{araujo2011apprecommender}.
-
-Para calcular tal fator, duas etapas distintas são necessárias:
-
-\begin{itemize}
-    \item \textbf{\textit{TF: Term Frequency: }} Calcula quantas vezes um termo
-    aparece em um dado documento. Dessa forma, seu cálculo pode realizado pela
-    seguinte fórmula:
-
-    TF(t) = N(t,d)/T(d)
-
-    Onde:
-    \begin{itemize}
-        \item \textbf{N(t, d): } Número de vezes que o termo ``t'' aparece no
-        documento ``d''.
-        \item \textbf{T(D): } Número de termos presentes no documento ``d''.
-    \end{itemize}
-
-    \item \textbf{\textit{IDF: Inverse Document Frequency: }} Usada para diminuir o
-    peso de termos muito frequentes em documentos, como os termos ``para'' ou
-    ``é''. Para fazer isso, a seguinte fórmula pode ser usada:
-
-    IDF(t) = log(NumDocumentos/D(t))
-
-    Onde:
-    \begin{itemize}
-        \item \textbf{NumDocumentos: } Quantidade de documentos presentes na
-        base.
-        \item \textbf{D(T): } Número de documentos que contém o termo ``t''.
-    \end{itemize}
-\end{itemize}
-
-Com os fatore \textbf{TF} e \textbf{IDF} calculados, basta multiplicar tais
+Com os fatores \textbf{TF} e \textbf{IDF} calculados, basta multiplicar tais
 valores para encontar o valor da importância de um termo dado uma base de
 documentos. Sendo assim, pode-se entender que o valor do \textit{TFIDF} será
 alto para um termo ``t'' se o mesmo é encontrado muitas vezes em um dado

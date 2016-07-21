@@ -169,73 +169,15 @@ personalizado, três abordagens distintas são propostas por
 
 \section{Avaliação de recomendadores}
 
-Para avaliar um sistema de recomendação, duas abordagens distintas podem ser
-usadas \cite{herlocker2004evaluating}:
+Sistemas de recomendação podem ser avaliados de duas maneiras, que vão desde
+experimentos de comparação offline, que usam uma base de dados previamente
+coletada para serem executados, a até mesmo experimentos com usuários, que visam
+averiguar questões mais subjetivas do recomendador.
 
-\begin{itemize}
-    \item \textbf{Experimentos offline: } Experimentos que usam uma base de
-        dados previamente coletada para serem executados.
-    \item \textbf{Coletas de opinião com usuário: } Experimentos onde o usuário
-        interage com o sistema de recomendação com algum propósito específico.
-\end{itemize}
-
-Vale ressaltar que cada um dos experimentos tem papéis bem definidos, sendo
-assim, necessário compreeender o porquê do seu uso para avaliar sistemas de
-recomendação.
-
-\subsection{Experimentos offline} \label{sec:rec_experimentos_offline}
-
-Experimentos offline tem normalmente a intenção de avaliar aspectos como a
-acurácia e cobertura de um sistema de recomendação. Normalmente, os itens
-avaliados pelo usuário são divididos em dois grupos: aprendizado e teste. Os
-itens marcados como aprendizado são usados para popular o sistema de
-recomendação. Já os itens marcados como teste são usados para avaliar se o
-sistema de recomendação conseguiu recomendar algum deles. Sendo assim, os itens
-podem cair em quatro categorias distintas:
-
-\begin{itemize}
-    \item \textbf{Verdadeiro positivos: } Item recomendado pelo sistema e
-        presente nos dados de teste.
-    \item \textbf{Falso positivos: } Item não recomendado, mas presente no dados
-        de teste.
-    \item \textbf{Verdadeiros negativos: } Item recomendado e não presente
-        nos dados de teste.
-    \item \textbf{Falso negativos: } Item não recomendado e não presente nos
-        dados de teste.
-\end{itemize}
-
-Uma estratégia normalmente usada para comparar possíveis estratégias de
-recomendação são as curvas ROC. Tais curvas analisam a taxa de valores
-verdadeiros positivos \textit{(TPR)} sobre a taxa de valores falso
-positivos \textit{(FPR)}. A Figura
-\ref{fig:curva_roc} mostra o comportamento típico de uma curva ROC.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/curva_roc.eps}
-  \caption{}
-  \label{fig:curva_roc}
-\end{figure}
-
-Conforme pode ser visto na Figura \ref{fig:curva_roc}, a taxa de verdadeiros
-positivos se encontra no eixo das ordenadas e o de falso positivo, nas
-abcissas. Pode-se ver também alguns pontos informativos. O primeiro desses
-pontos é o (0, 0), que representa uma recomendação sem resultados positivos nem
-negativos. O segundo ponto, (0, 1) representa uma recomendação perfeita, sem
-resultados negativos, o que seria o contrário do ponto (1, 0). Por fim, o ponto
-(1,1) representa recomendações que marcaram todas os itens como positivos. Além
-disso, pode-se ver que um recomendador com comportamento aleatório, se
-encontraria em na diagonal ascendente de (0, 0) até (0, 1). Dessa forma, um
-recomendador perfeito deve subir até o eixo das abcissas ao ponto (0, 1) e
-seguir horizontalmente até o ponto (1, 1) \cite{araujo2011apprecommender}.
-
-Consideranto que vários exemplos são produzidos para gerar uma curva ROC, uma
-boa forma de comparar modelos é usando a métrica AUC \textit{(Area Under
-Curve)}. Segundo \citeonline{herlocker2004evaluating}, se duas recomendações forem
-aleatoriamente escolhidas, sendo uma positiva e outra considerada negativa, o
-AUC irá ser numericamente igual a probabilidade do sistema positivo ser melhor
-pontuado que a recomendação negativa, o que se encaixa perfeitamente na
-comparação entre diferentes estratégias de recomendação.
+Visto a subjetividade intrínseca de um sistema de recomendação, pode-se entender
+que experimentos de usuários podem prover respostas bastante significativas para
+algumas questões, entretanto a sua preparação e execução deve ser analisada mais
+profundamente.
 
 \subsection{Experimentos com usuário}
 
