@@ -4,8 +4,7 @@
 
 O estilo de redação deve atentar a boa prática da linguagem técnica. Para a 
 terminologia metrological usar o Vocabulário Internacional de Termos 
-Fundamentais e Gerais de Metrologia\cite{inmetro2003}  (Instituto Nacional de Metrologia, 
-2003).
+Fundamentais e Gerais de Metrologia \cite{inmetro2003}.
 
 Grandezas dimensionais devem ser apresentadas em unidades consistentes com 
 o Sistema Internacional de Unidades  (SI). Outras unidades podem ser usadas 
@@ -19,7 +18,9 @@ com sua respectiva incerteza de medição.
 
 \section{Títulos de capítulos e seções}
 
-Recomendações de formatação de seções 
+Recomendações de formatação de seções (texto informativo: o \LaTeX\
+\textbf{já formata as seções automaticamente, se utilizado o comando
+\texttt{\textbackslash section\{Nome da Seção\}}}):
 
 \begin{description}
 
@@ -42,18 +43,19 @@ Recomendações de formatação de seções
 
 Notas eventualmente necessárias devem ser numeradas de forma seqüencial ao 
 longo do texto no formato 1, 2, 3... sendo posicionadas no rodapé de cada 
-página na qual a nota é utilizada.\footnote{Como, por exemplo, esta nota}
+página na qual a nota é utilizada.\footnote{Como, por exemplo, esta nota. O \LaTeX\ tomará conta da numeração automaticamente.}
 
 \section{Equações}
 
 Equações matemáticas devem ser numeradas seqüencialmente e alinhadas a 
 esquerda com recuo de 0,6 cm. Usar numerais arábicos entre parênteses, 
 alinhado a direita, no formato Times New Roman de 9 pts. para numerara as 
-equações como mostrado na Eq. (\ref{eqn01}).
+equações como mostrado na Eq. \ref{eqn01} (novamente, o \LaTeX\ formata as
+equações automaticamente).
 
 Referências a equações no corpo do texto devem ser feitas como \lq\lq Eq. 
-(\ref{eqn01})\rq\rq\ quando no meio de uma frase ou como \lq\lq Equação 
-(\ref{eqn01})\rq\rq\ quando no inicio de uma sentença. Um espaçamento de 11 
+\ref{eqn01}\rq\rq\ quando no meio de uma frase ou como \lq\lq Equação 
+\ref{eqn01}\rq\rq\ quando no inicio de uma sentença. Um espaçamento de 11 
 pontos deve ser deixado acima, abaixo e entre equações subseqüentes. Para uma 
 apresentação compacta das equações deve-se usar os símbolos e expressões 
 matemáticos mais adequados e parênteses para evitar ambigüidades em 
@@ -70,6 +72,13 @@ na lista de símbolos no inicio do trabalho, embora, em certas circunstancias o
 autor possa para maior clareza descrever o significado de certos símbolos no 
 corpo do texto, logo após a equação.
 
+Se uma equação aparecer no meio do parágrafo, como esta
+\begin{equation}
+x^n + y^n = z^n,
+\end{equation}
+onde $x, y, z, n \in \mathbf{N}$, o texto subsequente faz parte do parágrafo e 
+não deve ser identado.
+
 \section{Figuras e Gráficos}
 
 As figuras devem ser centradas entre margens e identificadas por uma legenda 
@@ -77,7 +86,8 @@ alinhada a esquerda com recuo especial de deslocamento de 1,8 cm, com mostrado
 na Fig. (\ref{fig01}). O tamanho das fontes empregadas nos rótulos e anotações 
 usadas nas figuras deve ser compatível com o usado no corpo do texto. Rótulos e 
 anotações devem estar em português, com todas as grandezas mostradas em 
-unidades do SI (Sistema Internacional de unidades).
+unidades do SI (Sistema Internacional de unidades) (mais uma vez, o \LaTeX\
+cuidará dos aspectos de formatação e fonte das figuras).
 
 Todas as figuras, gráficos e fotografias devem ser numeradas e referidas no 
 corpo do texto adotando uma numeração seqüencial de identificação. As figuras e 
@@ -89,18 +99,18 @@ respectivos títulos em português seguida da unidade no SI que caracteriza a
 grandes entre colchetes. 
 
 A referência explícita no texto à uma figura deve ser feita como 
-\lq\lq Fig. (\ref{fig01})\rq\rq\ quando no meio de uma frase ou como 
-\lq\lq Figura (\ref{fig01})\rq\rq\ quando no início da mesma. Referencias 
+\lq\lq Fig. \ref{fig01}\rq\rq\ quando no meio de uma frase ou como 
+\lq\lq Figura \ref{fig01}\rq\rq\ quando no início da mesma. Referencias 
 implícitas a uma dada figura devem ser feitas entre parênteses como 
 (Fig. \ref{fig01}). Para referências a mais de uma figura as mesmas regras 
 devem ser aplicadas usando-se o plural adequadamente. Exemplos:
 
 \begin{itemize}
 	\item \lq\lq Após os ensaios experimentais, foram obtidos os resultados 
-	mostrados na Fig. (\ref{fig01}), que ...\rq\rq
-	\item \lq\lq A Figura (\ref{fig01}) apresenta os resultados obtidos, onde 
+	mostrados na Fig. \ref{fig01}, que ...\rq\rq
+	\item \lq\lq A Figura \ref{fig01} apresenta os resultados obtidos, onde 
 	pode-se observar que ...\rq\rq
-	\item \lq\lq As Figuras (1) a (3) apresentam os resultados obtidos, 
+	\item \lq\lq As Figuras 1 a 3 apresentam os resultados obtidos, 
 	...\rq\rq
 	\item \lq\lq Verificou-se uma forte dependência entre as variáveis citadas 
 	(Fig. \ref{fig01}), comprovando ...\rq\rq
@@ -108,41 +118,42 @@ devem ser aplicadas usando-se o plural adequadamente. Exemplos:
 
 Cada figura deve ser posicionada o mais próxima possível da primeira citação 
 feita à mesma no texto, imediatamente após o parágrafo no qual é feita tal 
-citação, se possível, na mesma página.
+citação, se possível, na mesma página. Em \LaTeX\, o comando \texttt{\textbackslash label} deve suceder o comando \texttt{\textbackslash caption} para que as referências às figuras fiquem com a numeração correta.
 \begin{figure}[h]
 	\centering
-	\label{fig01}
-		\includegraphics[keepaspectratio=true,scale=0.3]{figuras/fig01.eps}
+	\includegraphics[keepaspectratio=true,scale=0.3]{figuras/fig01.eps}
 	\caption{Wavelets correlation coefficients}
+	\label{fig01}
 \end{figure}
 
 \section{Tabela}
 
 As tabelas devem estar centradas entre margens e identificadas por uma legenda 
 alinhada a esquerda, com recuo especial de deslocamento de 1,8 cm, posicionada 
-acima da tabela com mostrado nas Tabs. (\ref{tab01}) e (2), a título de 
+acima da tabela com mostrado na Tab. \ref{tab01}, a título de 
 exemplo. O tamanho das fontes empregadas nos rótulos e anotações usadas nas 
 tabelas deve ser compatível com o usado no corpo do texto. Rótulos e anotações 
 devem estar em português. Um espaçamento de 11 pts deve ser deixado entre a 
-legenda e a tabela, bem como após a tabela. 
+legenda e a tabela, bem como após a tabela. A numeração, a fonte e a formatação
+são automáticas quando se usa o \LaTeX.
 
 As grandezas dimensionais mostradas em cada tabela devem apresentar unidades 
 consistentes com o SI. As unidades de cada variável devem ser mostradas apenas 
 na primeira linha e/ou coluna da tabela, entre colchetes 
 
 A referência explícita no texto à uma dada tabela deve ser feita como 
-\lq\lq Tab. (\ref{tab01})\rq\rq\ quando no meio de uma frase ou como 
-\lq\lq Tabela (\ref{tab01})\rq\rq\ quando no início da mesma. Referências 
+\lq\lq Tab. \ref{tab01}\rq\rq\ quando no meio de uma frase ou como 
+\lq\lq Tabela \ref{tab01}\rq\rq\ quando no início da mesma. Referências 
 implícitas a uma dada tabela devem ser feitas entre parênteses como 
-\lq\lq (Tab. \ref{tab01}). Para referências a mais de uma tabela as mesmas 
+(Tab. \ref{tab01}). Para referências a mais de uma tabela as mesmas 
 regras devem ser aplicadas usando-se o plural adequadamente. Exemplos:
 \begin{itemize}
 	\item \lq\lq Após os ensaios experimentais, foram obtidos os resultados 
-	mostrados na Tab. (\ref{tab01}), que ...\rq\rq
-	\item \lq\lq A Tabela (\ref{tab01}) apresenta os resultados obtidos, onde 
+	mostrados na Tab. \ref{tab01}, que ...\rq\rq
+	\item \lq\lq A Tabela \ref{tab01} apresenta os resultados obtidos, onde 
 	pode-se observar que ...\rq\rq
-	\item As Tabelas (1) a (3) apresentam os resultados obtidos, ...\rq\rq
-	\item Verificou-se uma forte dependência entre as variáveis citadas 
+	\item \lq\lq As Tabelas 1 a 3 apresentam os resultados obtidos, ...\rq\rq
+	\item \lq\lq Verificou-se uma forte dependência entre as variáveis citadas 
 	(Tab. \ref{tab01}), comprovando ...\rq\rq
 \end{itemize}
 
@@ -152,6 +163,7 @@ citação, se possível, na mesma página.
 
 \begin{table}[h]
 	\centering
+	\caption{Propriedades obtidades após processamento}
 	\label{tab01}
 	
 	\begin{tabular}{ccc}
@@ -165,8 +177,6 @@ citação, se possível, na mesma página.
 		Process 4 & 45.3 & 28.5 \\
 		\bottomrule
 	\end{tabular}
-
-	\caption{Propriedades obtidades após processamento}
 \end{table}
 
 \section{Citação de Referências}
@@ -175,13 +185,13 @@ Referencias a outros trabalhos tais como artigos, teses, relatórios, etc. devem
 ser feitas no corpo do texto devem estar de acordo com a norma corrente ABNT 
 NBR 6023:2002 (ABNT, 2000), esta ultima baseada nas normas ISO 690:1987:
 \begin{itemize}
-	\item \lq\lq \cite{bordalo1989}, mostraram que...\rq\rq
+	\item \lq\lq \citeonline{bordalo1989}, mostraram que...\rq\rq
 
 	\item \lq\lq Resultados disponíveis em \cite{coimbra1978}, \cite{clark1986} 
 	e \cite{sparrow1980}, mostram que...\rq\rq
 \end{itemize}
 
 Para referências a trabalhos com até dois autores, deve-se citar o nome de 
-ambos os autores, por exemplo: \lq\lq \cite{soviero1997}, mostraram 
+ambos os autores, por exemplo: \lq\lq \citeonline{soviero1997}, mostraram 
 que...\rq\rq
 
