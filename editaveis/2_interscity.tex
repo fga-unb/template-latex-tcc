@@ -1,1 +1,30 @@
-\chapter[InterSCity]{InterSCity}
+\chapter[INTERSCITY]{INTERSCITY}
+
+Com o objetivo de prover uma solução para os problemas presentes no ecossistema
+de cidades inteligentes, surge o InterSCity, uma plataforma que foca em
+aspectos como interoperabilidade, escalabilidade, extensibilidade, e qualidade,
+licenciado sob
+MPLv2 \footnote{\url{https://www.mozilla.org/en-US/MPL/2.0/}}, e construído
+utilizando a arquitetura de microserviços -
+MSA \footnote{\url{http://microservices.io/}}.
+
+Baseando-se no desenvolvimento colaborativo e na utilização de projetos software
+livre existentes \cite{delesposte2017}, o InterSCity conta atualmente com a
+ajuda de diversos colaboradores, e, utilizando metodologias ageis
+\cite{delesposte2017}, mantém uma constante evolução ao longo do tempo.
+
+Desenvolvido principalmente em
+Ruby on Rails\footnote{\url{http://rubyonrails.org/}},
+a plataforma segue padrões que garantem boa extensibilidade e qualidade, e
+conta com uma arquitetura madura e bem planejada.
+
+\section{ARQUITETURA}
+
+O InterSCity apresenta uma arquitetura de microserviços distribuida, e pode
+ser dividido em quatro componentes principais: o Resource Adaptor, o Resource
+Viewer, o Resource Cataloguer e o Data Collector.
+
+Estes quatro componentes são desacoplados entre si, e cada um tem
+responsabilidades específicas e bem definidas. A comunicação entre eles é
+feita via protocolo AMQP\footnote{\url{https://www.amqp.org/}}, e gerenciada
+com a ajuda do projeto RabbitMQ\footnote{\url{https://www.rabbitmq.com/}}. 
