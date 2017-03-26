@@ -8,9 +8,9 @@ MPLv2 \footnote{\url{https://www.mozilla.org/en-US/MPL/2.0/}}, e construído
 utilizando a arquitetura de microserviços -
 MSA \footnote{\url{http://microservices.io/}}.
 
-Baseando-se no desenvolvimento colaborativo e na utilização de projetos software
-livre existentes \cite{delesposte2017}, o InterSCity conta atualmente com a
-ajuda de diversos colaboradores, e, utilizando metodologias ageis
+Baseando-se no desenvolvimento colaborativo e na utilização de tecnologias
+software livre de ponta \cite{delesposte2017}, o InterSCity conta atualmente
+com a ajuda de diversos colaboradores, e, utilizando metodologias ageis
 \cite{delesposte2017}, mantém uma constante evolução ao longo do tempo.
 
 Desenvolvido principalmente em
@@ -22,9 +22,71 @@ conta com uma arquitetura madura e bem planejada.
 
 O InterSCity apresenta uma arquitetura de microserviços distribuida, e pode
 ser dividido em quatro componentes principais: o Resource Adaptor, o Resource
-Viewer, o Resource Cataloguer e o Data Collector.
+Viewer, o Resource Catalog e o Data Collector.
 
 Estes quatro componentes são desacoplados entre si, e cada um tem
 responsabilidades específicas e bem definidas. A comunicação entre eles é
-feita via protocolo AMQP\footnote{\url{https://www.amqp.org/}}, e gerenciada
-com a ajuda do projeto RabbitMQ\footnote{\url{https://www.rabbitmq.com/}}. 
+feita via RabbitMQ\footnote{\url{https://www.rabbitmq.com/}}, que utiliza o
+protocolo AMQP\footnote{\url{https://www.amqp.org/}}.
+
+\subsection{Comunicação via passagem de mensagem}
+
+Utilizado principalmente em contextos de concorrência, onde o isolamento é
+importante \cite{armstrong2003}, o modelo de comunicação via passagem de
+mensagem compõe a ligação entre os diferentes módulos do InterSCity, e é
+apresentado por meio do projeto RabbitMQ, que utiliza o protocolo AMQP.
+
+\subsubsection{Termos}
+\begin{itemize}
+\item \textbf{Consumidor.} Aplicação que recebe mensagens.
+\item \textbf{Produtor.} Aplicação que envia mensagens.
+\item \textbf{Conexão.} Compõe o passo inicial da comunicação via passagem
+de mensagem, e é iniciada entre uma aplicação e o servidor do
+RabbitMQ \cite{amqp2008}. A conexão se mantém aberta durante a execução do
+protocolo, e, ao fim da comunicação, esta é fechada.
+\item \textbf{Canal.} Meio que permite e isola as passagens de mensagem, e é
+atrelado a uma conexão. As mensagens são passadas via canais, de modo que
+o consumidor e o fornecedor devem estar ligados ao mesmo canal.
+\item \textbf{Fila.} Uma fila de mensagens, atrelada a um canal. A ordem de
+chegada e consumo das mensagens é a mesma ordem pela qual as mensagens foram
+enviadas \cite{amqp2008}.
+\end{itemize}
+
+\subsubsection{AMQP}
+
+O AMQP é um protocolo com: funcionalidades modernas, assíncrono, seguro,
+portável, e eficiente \cite{amqp2008}. Teve sua criação orientada nos seguintes
+requisitos:
+%TODO - mexer nos requisitos
+(i) ser compacto;
+(ii) lidar com mensagens de qualquer tamanho e sem limites;
+(iii) permitir em uma mesma conexão diversos canais;
+(iv) ter longa vida;
+(v) permitir concatenação de comandos de maneira assíncrona;
+(vi) ser facilmente modificável para abranger novas necessidades;
+(vii) ser retro-compatível;
+(viii) ser reparável;
+(ix) ser neutro, em relação a linguagens de programação;
+(x) ser encarado como um processo.
+
+\subsection{Resource Adaptor}
+
+O microserviço Resource Adaptor é o grande responsável pela comunicação entre
+os dispositivos IoT e o InterSCity. Funcionando como um recepcionista durante
+as requisições, este módulo gerencia o registro e atualização dos dispositivos
+IoT, e redireciona informações importantes dos recursos registrados para os
+destinos esperados \cite{delesposte2017}.
+
+Num ciclo de vida típico de um dispositivo, este primeiramente inicia um
+pedido de registro como Resource Adaptor, que, gerenciando a conversa com o
+módulo Resource Catalog, informa ao recurso seu UUID que será utilizado
+internamente na plataforma.
+
+\subsection{Data Collector}
+
+O microserviço Data Collector tem como papel o armazenamento e disponibilização
+de dados coletados pelos recursos da plataforma\cite{delesposte2017}.
+
+Os recursos armazenados são então expostos via API, podendo ser acessados
+inclusive dados históricos.
+
