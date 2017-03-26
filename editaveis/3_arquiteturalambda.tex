@@ -1,1 +1,30 @@
-\chapter[Arquitetura Lambda]{Arquitetura Lambda}
+\chapter[ARQUITETURA LAMBDA]{ARQUITETURA LAMBDA}
+
+A Arquitetura Lambda é uma abordagem para processar dados em uma plataforma
+que lida com uma grande massa de dados, e surge como um caminho alternativo
+a outras arquiteturas mais antigas, como a incremental com \textit{sharding}
+\cite{marz2015}.
+
+De maneira geral, a Arquitetura Lambda é composta de três camadas: a camada
+\textit{batch}, que constantemente processa uma grande quantidade de dados e
+demora razoávelmente em seu processamento, a camada \textit{serving},
+responsável por disponibilizar os resultados do processamento, e a camada
+\textit{speed}, responsável por atuar enquanto a camada \textit{batch} está
+ocupada processando \cite{marz2015}. Cada uma destas camadas é implementada
+utilizando algoritmos e ferramentas específicas, de modo que certas ferramentas
+são mais apropriadas em certos contextos.
+
+\section{BATCH LAYER}
+
+Responsável pelo processamento de uma grande massa de dados, a camada
+\textit{batch} cria novos \textit{Master datasets} a cada ciclo de
+processamento. Os dados a serem processados na camada \textit{batch} são
+considerados imutáveis, de modo que, caso uma mudança seja necessária, o dado
+que carece alteração não sofre transformações, permanecendo inalterado, e um
+novo dado com as alterações é inserido no lote.
+
+\subsection{Tecnologias}
+
+\section{SERVING LAYER}
+
+\section{SPEED LAYER}
