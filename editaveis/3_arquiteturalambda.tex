@@ -16,15 +16,80 @@ são mais apropriadas em certos contextos.
 
 \section{BATCH LAYER}
 
-Responsável pelo processamento de uma grande massa de dados, a camada
-\textit{batch} cria novos \textit{Master datasets} a cada ciclo de
-processamento. Os dados a serem processados na camada \textit{batch} são
-considerados imutáveis, de modo que, caso uma mudança seja necessária, o dado
-que carece alteração não sofre transformações, permanecendo inalterado, e um
-novo dado com as alterações é inserido no lote.
+Responsável pelo processamento de uma grande massa de dados com alta latência,
+a camada \textit{batch} é responsável por gerenciar e criar os
+\textit{Master datasets}, que podem ser entendidos como lotes de informações
+preprocessadas e prontas para responderem \textit{queries}. Os dados a serem
+processados na camada \textit{batch} são considerados imutáveis, de modo que,
+caso uma mudança seja necessária, o dado que carece alteração não sofre
+transformações, permanecendo inalterado, e um novo dado com as alterações é
+inserido no lote \cite{marz2015}.
+
+\subsection{Criação do Schema}
+
+Uma solução comum para formato de escrita de dados é o JSON, por ser simples e
+bem difundido. Contudo, esse tipo de abordagem não utiliza um \textit{schema}
+para descrever os dados, o que pode ser perigoso em contextos de alta
+concorrência e na utilização de tecnologias Big Data. A utilização do
+\textit{schema} é mais segura com relação a chance de corrupção dos dados,
+graças a maior descrição do contexto dos dados \cite{marz2015}.
+
+Sendo assim, para utilização, processamento e armazenamento de dados na
+camada \textit{batch}, é interessante a utilização de um \textit{framework}
+de serialização; com eles, são gerados dados que depois podem ser lidos
+e escritos na tecnologia que o projeto desejar, desde que estejam de acordo
+com o \textit{schema} estabelecido.
+
+O processo de serialização de dados, contudo, implica em algumas restrições.
+Os dados serializados são imutáveis, sendo então restrito suas alterações ou
+deleções diretamente. Quando alguma mudança precisar ser feita, novos dados
+deverão ser inseridos, e essas novas adições contemplarão as alterações 
+e deleções.
+\cite{marz2015}.
+
+\subsection{Armazenamento do Master Dataset}
+
+\subsection{Processando Dados}
 
 \subsection{Tecnologias}
 
-\section{SERVING LAYER}
+\begin{itemize}
+  \item Hadoop HDFS
+  \item Apache Spark
+  \item Apache Thrift
+\end{itemize}
 
 \section{SPEED LAYER}
+
+Durante o processamento da camada \textit{batch}, novos dados podem ser
+inseridos. Caso somente a \textit{batch} processasse, esses novos dados não
+seriam levados em conta em novas \textit{queries}; este problema é resolvido
+na Arquitetura Lambda através da camada \textit{speed}, que é capaz de
+processar dados em baixa latência \cite{marz2015}.
+
+\subsection{Tecnologias}
+
+\begin{itemize}
+  \item Spark
+  \item Apache Cassandra
+  \item Apache Storm
+  \item Kestrel
+  \item Apache Kafka
+\end{itemize}
+
+\section{SERVING LAYER}
+
+Após os \textit{master datasets} serem criados pela camada \textit{batch}, o
+projeto precisa estar pronto para responder as \textit{queries} em baixa
+latêcia. Esse papel é da camada \textit{serving}, que indexa e provê interface
+para os dados precomputados \cite{marz2015}.
+
+É importante notar que os dados retornados pela camada \textit{serving} estarão
+quase sempre desatualizados, pois novos dados chegarão enquanto o
+\textit{master dataset} for criado.
+
+\subsection{Tecnologias}
+
+\begin{itemize}
+    \item ElephantDB
+\end{itemize}
