@@ -4,103 +4,77 @@ Com o objetivo de prover uma solução para os problemas presentes no ecossistem
 de cidades inteligentes, surge o InterSCity, uma plataforma que foca em
 aspectos como interoperabilidade, escalabilidade, extensibilidade, e qualidade,
 licenciado sob
-MPLv2 \footnote{\url{https://www.mozilla.org/en-US/MPL/2.0/}}, e construído
+MPLv2 \footnote{\url{www.mozilla.org/en-US/MPL/2.0/}}, e construído
 utilizando a arquitetura de microserviços -
-MSA \footnote{\url{http://microservices.io/}}.
+MSA \footnote{\url{microservices.io/}} \cite{delesposte2017}.
 
 Baseando-se no desenvolvimento colaborativo e na utilização de tecnologias
-software livre de ponta \cite{delesposte2017}, o InterSCity conta atualmente
-com a ajuda de diversos colaboradores, e, utilizando metodologias ageis
-\cite{delesposte2017}, mantém uma constante evolução ao longo do tempo.
+software livre de ponta, o InterSCity conta atualmente com a ajuda de diversos
+colaboradores, e, utilizando metodologias ageis, mantém sua evolução ao longo
+do tempo \cite{delesposte2017}.
 
 Desenvolvido principalmente em
-Ruby on Rails\footnote{\url{http://rubyonrails.org/}},
+Ruby on Rails\footnote{\url{rubyonrails.org/}},
 a plataforma segue padrões que garantem extensibilidade e qualidade, e
-conta com uma arquitetura madura e bem planejada.
+apresenta uma arquitetura madura e bem planejada. O InterSCity se encontra
+hospedado no Gitlab \footnote{\url{gitlab.com/smart-city-software-platform}},
+onde cada um de seus módulos têm seu repositório.
 
 \section{ARQUITETURA}
 
 O InterSCity apresenta uma arquitetura de microserviços distribuida, e pode
-ser dividido em quatro componentes principais: o Resource Adaptor, o Resource
-Viewer, o Resource Catalog e o Data Collector.
+ser dividido em quatro componentes principais: Resource Adaptor, Resource
+Viewer, Resource Catalog, e o Data Collector.
 
 Estes quatro componentes são desacoplados entre si, e cada um tem
 responsabilidades específicas e bem definidas. A comunicação entre eles é
-feita via RabbitMQ\footnote{\url{https://www.rabbitmq.com/}}, que utiliza o
-protocolo AMQP\footnote{\url{https://www.amqp.org/}}.
-
-% desnecessário?
-\subsection{Comunicação via passagem de mensagem}
-
-Utilizado principalmente em contextos de concorrência, onde o isolamento é
+feita via RabbitMQ\footnote{\url{www.rabbitmq.com/}}, utilizando
+o padrão de projeto PubSub \footnote{\url{xmpp.org/extensions/xep-0060.html}},
+ocorrendo então a constante troca de mensagens entre os módulos. Utilizado
+principalmente em contextos de concorrência, onde o isolamento é
 importante \cite{armstrong2003}, o modelo de comunicação via passagem de
-mensagem compõe a ligação entre os diferentes módulos do InterSCity, e é
-apresentado por meio do projeto RabbitMQ, que utiliza o protocolo AMQP.
+mensagem é chave na ligação entre os diferentes módulos do InterSCity.
 
-\subsubsection{Termos}
-Antes de ver detalhadamente o funcionamento do RabbitMQ no InterSCity, é
-interessante o levantamento dos seguintes termos, que serão utilizados
-frequentemente:
+Num ciclo de vida típico de um dispositivo, este: (i) inicia um pedido de
+registro com o Resource Adaptor, que, (ii) gerenciando a conversa com o
+módulo Resource Catalog, (iii) informa ao recurso seu UUID, que deverá
+ser utilizado internamente deste passo em diante. Após, a comunicação entre o
+Resource Adaptor e o dispositivo IoT ainda continuará, mas, (iv) os dados terão
+como destino o módulo Data Collector, que armazenará as informações. Por fim,
+(vi) as informações contidas no Data Collector serão enviadas para o
+Resource Viewer, apresentando então os dados do recurso para o usuário final.
+% adicionar imagem?
+% preciso referenciar?
 
+\subsection{Microserviços}
 \begin{itemize}
-\item \textbf{Consumidor.} Aplicação que recebe mensagens.
-\item \textbf{Produtor.} Aplicação que envia mensagens.
-\item \textbf{Conexão.} Compõe o passo inicial da comunicação via passagem
-de mensagem, e é iniciada entre uma aplicação e o servidor do
-RabbitMQ \cite{amqp2008}. A conexão se mantém aberta durante a execução do
-protocolo, e, ao fim da comunicação, esta é fechada.
-\item \textbf{Canal.} Meio que permite e isola as passagens de mensagem, e é
-atrelado a uma conexão. As mensagens são passadas via canais, de modo que
-o consumidor e o fornecedor devem estar ligados ao mesmo canal.
-\item \textbf{Fila.} Uma fila de mensagens, atrelada a um canal. A ordem de
-chegada e consumo das mensagens é a mesma ordem pela qual as mensagens foram
-enviadas \cite{amqp2008}.
+    \item \textbf{Resource Adaptor}: é o grande responsável pela comunicação
+entre os dispositivos IoT e o InterSCity, e funciona como um recepcionista
+durante as requisições, gerenciando o registro e atualização dos
+dispositivos IoT, e redirecionando informações importantes dos recursos
+registrados para os destinos desejados \cite{delesposte2017}. É escrito em
+Ruby on Rails, e, embora converse com os recursos IoT diretamente, comunica-se
+com a maior parte dos outros microserviços da plataforma via RabbitMQ.
+
+    \item \textbf{Data Collector}: tem como papel o armazenamento e
+disponibilização de dados coletados pelos recursos registrados na plataforma
+\cite{delesposte2017}. Também escrito em Ruby on Rails, este microserviço fará
+contínua comunicação com a camada de processamento que será desenvolvida.
+Constantemente publica dados em tópicos do RabbitMQ, que serão consumidos por
+outros microserviços, contudo, a comunicação com o Resource Viewer é feita
+diretamente, e não por passagem de mensagem. Os recursos armazenados são
+expostos via API, disponibilizando também dados históricos.
+
+    \item \textbf{Resource Viewer}: o unico microserviço da plataforma escrito em
+EmberJS\footnote{\url{www.emberjs.com/}}, o Resource Viewer tem o papel de
+apresentar os dados armazenados no Data Collector e no Resource Catalog para o
+usuário final \cite{delesposte2017}.
+
+    \item \textbf{Resource Catalog}: gerencia o registro de recursos IoT
+na plataforma. Este microserviço, que utiliza Ruby on Rails, fornece
+identificadores únicos (UUID) para cada recurso que se registra na plataforma
+\cite{delesposte2017}.
+Esse identificador é utilizado exaustivamente nas futuras comunicações que
+ocorrerão com o RabbitMQ.
+
 \end{itemize}
-
-% desnecessário?
-\subsubsection{AMQP}
-
-O AMQP é um protocolo com: funcionalidades modernas, assíncrono, seguro,
-portável, e eficiente \cite{amqp2008}. Teve sua criação orientada nos seguintes
-requisitos:
-%TODO - mexer nos requisitos
-(i) ser compacto;
-(ii) lidar com mensagens de qualquer tamanho e sem limites;
-(iii) permitir em uma mesma conexão diversos canais;
-(iv) ter longa vida;
-(v) permitir concatenação de comandos de maneira assíncrona;
-(vi) ser facilmente modificável para abranger novas necessidades;
-(vii) ser retro-compatível;
-(viii) ser reparável;
-(ix) ser neutro, em relação a linguagens de programação;
-(x) ser encarado como um processo.
-
-No InterSCity, o protocolo é utilizado via RabbitMQ, e todos os servidores do
-InterSCity funcionam como ambos, consumidor e produtor. 
-
-\subsection{Resource Adaptor}
-
-O microserviço Resource Adaptor é o grande responsável pela comunicação entre
-os dispositivos IoT e o InterSCity. Funcionando como um recepcionista durante
-as requisições, este módulo gerencia o registro e atualização dos dispositivos
-IoT, e redireciona informações importantes dos recursos registrados para os
-destinos esperados \cite{delesposte2017}.
-
-Num ciclo de vida típico de um dispositivo, este primeiramente inicia um
-pedido de registro como Resource Adaptor, que, gerenciando a conversa com o
-módulo Resource Catalog, informa ao recurso seu UUID que será utilizado
-internamente na plataforma.
-
-\subsection{Data Collector}
-
-O microserviço Data Collector tem como papel o armazenamento e disponibilização
-de dados coletados pelos recursos da plataforma\cite{delesposte2017}.
-
-Os recursos armazenados são então expostos via API, disponibilizando
-inclusive dados históricos.
-
-\subsection{Resource Viewer}
-Falar sobre o Resource Viewer.
-
-\subsection{Resource Catalog}
-Falar sobre o Resource Catalog.
