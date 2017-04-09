@@ -40,10 +40,51 @@ dado com as alterações é inserido no lote \cite{marz2015}. Por fim, a camada
 \subsection{Tecnologias}
 
 \begin{itemize}
-  \item Hadoop HDFS
-  \item Apache Spark
-  \item Apache Thrift
+    \item \textbf{Apache Hadoop MapReduce}: \textit{framework} para processamento
+de dados distribuido, que utiliza abstrações simples. O Hadoop conta com sistema
+de gerenciamento de arquivo nativo através do Hadoop HDFS. Em cenários onde a
+latência não precisa ser tão baixa, o MapReduce é uma opção bem sólida, e
+utilizado pelos mais altos escalões da
+industria \footnote{\url{https://wiki.apache.org/hadoop/PoweredBy}}.
+
+    \item \textbf{Apache Spark}: utilizando principalmente o módulo Spark SQL
+\footnote{\url{http://spark.apache.org/sql/}}, o Spark trás uma nova abordagem
+para a camada \textit{batch}, pois utiliza menos o disco e mais a memória,
+através de uma abordagem chamada de \textit{micro-batch} \cite{arsalan2014}.
+O Spark não conta com um sistema de gerenciamento de arquivo nativo, e pode
+ser utilizado em conjunto com o Hadoop HDFS. Em um contexto onde menor latência
+é preferida o Spark é a solução ideal.
+
 \end{itemize}
+
+\begin{table}[]
+    \centering
+    \caption[Resultados da Sort Benchmark 2014, categoria GraySort]{Resultados da Sort Benchmark 2014, categoria GraySort. Fonte: Databricks \footnotemark\\.}
+    \label{tab:graysort2014results}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+             & \textbf{Hadoop MRRecord}      & \textbf{SparkRecord}             & \textbf{Spark1 PB}               \\ \hline
+             Data Size                    & 102.5 TB                      & 100 TB                           & 1000 TB                          \\ \hline
+             Elapsed Time                 & 72 mins                       & 23 mins                          & 234 mins                         \\ \hline
+             \# Nodes                     & 2100                          & 206                              & 190                              \\ \hline
+             \# Cores                     & 50400 physical                & 6592 virtualized                 & 6080 virtualized                 \\ \hline
+             Cluster disk throughput      & 3150 GB/s(est.)               & 618 GB/s                         & 570 GB/s                         \\ \hline
+             Sort Benchmark Daytona Rules & Yes                           & Yes                              & No                               \\ \hline
+             Network                      & dedicated data center, 10Gbps & virtualized (EC2) 10Gbps network & virtualized (EC2) 10Gbps network \\ \hline
+             \textbf{Sort rate}           & \textbf{1.42 TB/min}          & \textbf{4.27 TB/min}             & \textbf{4.27 TB/min}             \\ \hline
+             \textbf{Sort rate/node}      & \textbf{0.67 GB/min}          & \textbf{20.7 GB/min}             & \textbf{22.5 GB/min}             \\ \hline
+        \end{tabular}
+    }
+\end{table}
+
+\footnotetext{\url{https://databricks.com/blog/2014/11/05/spark-officially-sets-a-new-record-in-large-scale-sorting.html}}
+
+Em uma competição chamada Sort
+Benchmark \footnote{\url{http://sortbenchmark.org/}}, na categoria GraySort,
+que tem como objetivo mensurar quão rápido uma tecnologia ordena 100 TB de
+dados, o Spark apresentou uma performance três vezes maior que o Hadoop
+MapReduce, utilizando dez vezes menos recursos \ref{tab:graysort2014results}.
 
 \section{SPEED LAYER}
 
