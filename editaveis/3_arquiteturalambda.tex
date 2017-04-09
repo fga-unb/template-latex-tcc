@@ -59,7 +59,7 @@ ser utilizado em conjunto com o Hadoop HDFS. Em um contexto onde menor latência
 
 \begin{table}[]
     \centering
-    \caption[Resultados da Sort Benchmark 2014, categoria GraySort]{Resultados da Sort Benchmark 2014, categoria GraySort. Fonte: Databricks \footnotemark\\.}
+    \caption[Resultados da Sort Benchmark 2014, categoria GraySort]{Resultados da Sort Benchmark 2014, categoria GraySort. Fonte: Databricks\footnotemark\\.}
     \label{tab:graysort2014results}
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|l|l|}
@@ -84,39 +84,86 @@ Em uma competição chamada Sort
 Benchmark \footnote{\url{http://sortbenchmark.org/}}, na categoria GraySort,
 que tem como objetivo mensurar quão rápido uma tecnologia ordena 100 TB de
 dados, o Spark apresentou uma performance três vezes maior que o Hadoop
-MapReduce, utilizando dez vezes menos recursos \ref{tab:graysort2014results}.
+MapReduce, utilizando dez vezes menos recursos. Os resultados podem ser
+conferidos na tabela \ref{tab:graysort2014results}.
 
 \section{SPEED LAYER}
 
 Durante o processamento da camada \textit{batch}, novos dados podem ser
 inseridos. Caso somente a \textit{batch} processasse, esses novos dados não
-seriam levados em conta em novas \textit{queries}; este problema é resolvido
+seriam levados em conta em novas consultas; este problema é resolvido
 na Arquitetura Lambda através da camada \textit{speed}, que é capaz de
 processar dados em baixa latência \cite{marz2015}.
+
+O diferencial entre a camada \textit{speed} e a camada \textit{batch} com
+relação a performance e latência, se deve ao fato da \textit{speed} só
+considerar a massa de dados que foi inserida após a camada \textit{batch}
+ter começado a processar. Como a massa de dados é então muito menor, a
+latência das operações também é mais baixa. A abordagem para processamento
+também é diferente: a camada \textit{batch} analisa um lote de dados de uma
+vez, enquanto a camada \textit{speed} processa dados conforme eles chegam.
+Essa abordagem utilizada pela camada \textit{speed} é chamada de transmissão,
+e funciona bem com mecanismos de passagem de mensagem \cite{marz2015}.
+O fato da camada \textit{speed} utilizar transmissão, faz com que o uso de
+banco de dados que suportem escrita aleatória seja necessário \cite{marz2015},
+diferentemente da camada \textit{batch}.
+
+%tradução de streaming pra transmissão fica ok?
+
 
 \subsection{Tecnologias}
 
 \begin{itemize}
-  \item Spark
-  \item Apache Cassandra
-  \item Apache Storm
-  \item Kestrel
-  \item Apache Kafka
+    \item \textbf{Apache Spark}: através do módulo Spark Streaming
+\footnote{\url{http://spark.apache.org/streaming/}}, é capaz de fornecer a
+camada \textit{speed} na Arquitetura Lambda. Uma das vantagens de se utilizar
+o Spark é então a complexidade reduzida, por usar uma unica tecnologia e
+código base nas duas camadas da Arquitetura Lambda. O Spark Streaming ainda
+loteia eventos antes de processá-los, o que aumenta o tempo de processamento
+em relação a outras soluções, contudo, essa abordagem faz com que a massa de
+dados que ele possa processar seja maior
+\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
+
+    \item \textbf{Apache Storm}: solução distribuída com foco em processamento
+em tempo real. Tem a vantagem de poder ser utilizado com qualquer linguagem de
+programação, e, por processar eventos no momento em que estes chegam
+\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
+
+    \item \textbf{Apache Flume}:
+
 \end{itemize}
 
 \section{SERVING LAYER}
 
-Após os \textit{master datasets} serem criados pela camada \textit{batch}, o
-projeto precisa estar pronto para responder as \textit{queries} em baixa
-latêcia. Esse papel é da camada \textit{serving}, que indexa e provê interface
-para os dados precomputados \cite{marz2015}.
+Após os \textit{master datasets} da camada \textit{batch} serem criados ou
+extendidos, \textit{batch views} são disponibilizados para a camada
+\textit{serving}. A camada \textit{serving} torna possível a possibilidade de
+fazer consultas a massa de dados processada, e de fazer leituras aleatórias
+\cite{marz2015}. Conforme novos lotes são processados, a camada \textit{serving}
+automaticamente troca os lotes antigos pelos novos, garantindo atualização dos
+resultados.
 
-É importante notar que os dados retornados pela camada \textit{serving} estarão
-quase sempre desatualizados, pois novos dados chegarão enquanto o
-\textit{master dataset} for criado.
+Uma característica interessante desta camada é que, embora ela precise ser
+capaz de fazer leitura aleatória, substituição de \textit{batch views}, e
+responder consultas rapidamente (pois os dados já terão sido processados),
+esta camada não precisa ser capaz de fazer escrita aleatória \cite{marz2015}.
+Esse fato reduz substancialmente a complexidade necessária para as tecnologias
+desta camada, de modo que só precisem se preocupar com os outros requisitos
+citados.
 
 \subsection{Tecnologias}
 
 \begin{itemize}
     \item ElephantDB
+    \item Apache Cassandra
 \end{itemize}
+
+\section{BROKER}
+
+O \textit{broker}
+\begin{itemize}
+    \item \textbf{Apache Kafka}:
+    \item \textbf{RabbitMQ}:
+\end{itemize}
+
+
