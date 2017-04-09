@@ -18,19 +18,24 @@ Ruby on Rails\footnote{\url{rubyonrails.org/}},
 a plataforma segue padrões que garantem extensibilidade e qualidade, e
 apresenta uma arquitetura madura e bem planejada. O InterSCity se encontra
 hospedado no Gitlab \footnote{\url{gitlab.com/smart-city-software-platform}},
-onde cada um de seus módulos têm seu repositório.
+onde cada um de seus microserviços têm um repositório. Outros recursos
+importantes como: documentação da arquitetura, um cliente exemplo para
+confecção de novos dispositivo IoT para serem usados na plataforma, dentre
+outros itens, também podem ser encontrados no repositório.
+
+Ao decorrer do texto, os microserviços serão chamados intermitantemente de
+\textit{módulos, camadas e componentes}. % precisa falar isso?
 
 \section{ARQUITETURA}
 
-O InterSCity apresenta uma arquitetura de microserviços distribuida, e pode
-ser dividido em quatro componentes principais: Resource Adaptor, Resource
-Viewer, Resource Catalog, e o Data Collector.
-
-Estes quatro componentes são desacoplados entre si, e cada um tem
+O InterSCity apresenta uma arquitetura de microserviços distribuida, e conta
+atualmente com os microserviços Resource Adaptor, Resource Viewer,
+Resource Catalog, Data Collector, Resource Discovery, e Actuator Controller.
+Estes componentes são desacoplados entre si, e cada um tem
 responsabilidades específicas e bem definidas. A comunicação entre eles é
-feita via RabbitMQ\footnote{\url{www.rabbitmq.com/}}, utilizando
-o padrão de projeto PubSub \footnote{\url{xmpp.org/extensions/xep-0060.html}},
-ocorrendo então a constante troca de mensagens entre os módulos. Utilizado
+feita via RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através
+do padrão de projeto PubSub \footnote{\url{xmpp.org/extensions/xep-0060.html}},
+ocorrendo então a constante troca de mensagens entre os componentes. Utilizado
 principalmente em contextos de concorrência, onde o isolamento é
 importante \cite{armstrong2003}, o modelo de comunicação via passagem de
 mensagem é chave na ligação entre os diferentes módulos do InterSCity.
@@ -46,7 +51,8 @@ Resource Viewer, apresentando então os dados do recurso para o usuário final.
 % adicionar imagem?
 % preciso referenciar?
 
-\subsection{Microserviços}
+\section{MICROSERVIÇOS}
+
 \begin{itemize}
     \item \textbf{Resource Adaptor}: é o grande responsável pela comunicação
 entre os dispositivos IoT e o InterSCity, e funciona como um recepcionista
@@ -77,4 +83,22 @@ identificadores únicos (UUID) para cada recurso que se registra na plataforma
 Esse identificador é utilizado exaustivamente nas futuras comunicações que
 ocorrerão com o RabbitMQ.
 
+    \item \textbf{Resource Discovery}: responsável por prover uma API para a
+descoberta dos recursos IoT disponíveis \cite{delesposte2017}. Escrito em Ruby
+on Rails, este microserviço permite a utilização de filtros na busca por
+recursos \cite{delesposte2017}.
+
+    \item \textbf{Actuator Controller}: provê serviços para requisições nos
+recursos IoT atuadores registrados na plataforma\cite{delesposte2017}. Estas
+requisições são armazenadas, e podem ser recuperadas no futuro para fins
+de auditoria \cite{delesposte2017}.
+
 \end{itemize}
+
+\section{PERFORMANCE}
+
+% falar sobre a performacne do InterSCity
+
+\section{GERÊNCIA DE CONFIGURAÇÃO}
+
+% falar sobre o GCS no InterSCity, e como subi-lo.
