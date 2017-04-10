@@ -14,16 +14,40 @@ ocupada processando \cite{marz2015}. Cada uma destas camadas é implementada
 utilizando algoritmos e ferramentas específicas, de modo que certas ferramentas
 são mais apropriadas em certos contextos.
 
-Um ciclo de vida típico na Arquitetura Lambda têm seu início com a (i) chegada
+\begin{figure}
+  \centering
+    \includegraphics[width=\textwidth]{figuras/lambda-lifecycle.eps}
+  \caption{Ciclo de vida na Arquitetura Lambda.}
+  \label{fig:lambda-lifecycle}
+\end{figure}
+
+Um ciclo de vida típico da Arquitetura Lambda pode ser acompanhado na figura
+\ref{fig:lambda-lifecycle}, e têm seu início com a (i) chegada
 de novos dados, que serão então (ii) transmitidos tanto para a camada
 \textit{batch} quanto para a camada \textit{speed}. A camada \textit{batch}
-então (iii) anexa os novos dados, e os processa, (iv) gerando assim
+(iii) anexa os novos dados, e os processa, (iv) gerando assim
 \textit{batch views}, que são enviados para a camada \textit{serving}. O mesmo
-dado que foi enviado para a camada \textit{batch} no passo (i), também foi
+dado que foi enviado para a camada \textit{batch}, no passo (i), também foi
 enviado para a camada \textit{speed}, (v) onde será processado com menor latência,
-por só levar em conta dados recentes. O dado se encontra então processado, e
-será levado em conta caso novas consultas sejam feitas, ocorrendo uma (vi) soma
-entre os resultados do passo (v) e os \textit{batch views} \cite{marz2015}.
+por só levar em conta dados recentes, e gerando \textit{real-time views}. 
+Caso uma consulta seja feita, ocorre então uma (vi) soma entre os resultados
+dos \textit{batch views} e \textit{real-time views} \cite{marz2015}.
+
+A Arquitetura Lambda garante sua resiliência através da \textit{isolação de
+complexidade}, que é obtida graças a sua separação entre camadas \textit{batch}
+e \textit{speed}. A resiliência ocorre pois uma vez que os resultados são
+processados na camada \textit{batch}, os resultados da camada \textit{speed}
+podem ser descartados. Essa técnica é importante pois a transmissão pode
+criar inconsistências, pois um dado que não vai ser levado em conta no
+processamento pode ser necessário; contudo, essa inconsistência será corrigida
+num lote futuro que será processado pela camada \textit{batch}, e os resultados
+da camada \textit{speed} (que está incoerente) serão descartados
+\cite{marz2015}.
+
+Neste capítulo serão apresentados detalhes importantes da Arquitetura Lambda, e
+possibilidades de tecnologias a serem utilizadas. Todas as tecnologias
+levantadas são código livre, de boa qualidade, e utilizadas por gigantes da
+industria.
 
 \section{BATCH LAYER}
 
@@ -106,7 +130,10 @@ Essa abordagem utilizada pela camada \textit{speed} é chamada de transmissão,
 e funciona bem com mecanismos de passagem de mensagem \cite{marz2015}.
 O fato da camada \textit{speed} utilizar transmissão, faz com que o uso de
 banco de dados que suportem escrita aleatória seja necessário \cite{marz2015},
-diferentemente da camada \textit{batch}.
+diferentemente da camada \textit{batch}. Por fim, a camada \textit{speed}
+condensa o processamento feito em \textit{real-time views}, que são analogas
+as \textit{batch views}, mas feitas somente com os dados processados via
+transmissão.
 
 %tradução de streaming pra transmissão fica ok?
 
