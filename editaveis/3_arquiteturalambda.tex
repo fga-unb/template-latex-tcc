@@ -7,7 +7,7 @@ a outras arquiteturas mais antigas, como a incremental com \textit{sharding}
 
 De maneira geral, a Arquitetura Lambda é composta de três camadas: a camada
 \textit{batch}, que constantemente processa uma grande quantidade de dados e
-demora razoávelmente em seu processamento; a camada \textit{serving},
+demora razoavelmente em seu processamento; a camada \textit{serving},
 responsável por disponibilizar os resultados do processamento; e a camada
 \textit{speed}, responsável por atuar enquanto a camada \textit{batch} está
 ocupada processando \cite{marz2015}. Cada uma destas camadas é implementada
@@ -65,7 +65,7 @@ dado com as alterações é inserido no lote \cite{marz2015}. Por fim, a camada
 
 \begin{itemize}
     \item \textbf{Apache Hadoop MapReduce}: \textit{framework} para processamento
-de dados distribuido, que utiliza abstrações simples. O Hadoop conta com sistema
+de dados distribuído, que utiliza abstrações simples. O Hadoop conta com sistema
 de gerenciamento de arquivo nativo através do Hadoop HDFS. Em cenários onde a
 latência não precisa ser tão baixa, o MapReduce é uma opção bem sólida, e
 utilizado pelos mais altos escalões da
@@ -131,7 +131,7 @@ e funciona bem com mecanismos de passagem de mensagem \cite{marz2015}.
 O fato da camada \textit{speed} utilizar transmissão, faz com que o uso de
 banco de dados que suportem escrita aleatória seja necessário \cite{marz2015},
 diferentemente da camada \textit{batch}. Por fim, a camada \textit{speed}
-condensa o processamento feito em \textit{real-time views}, que são analogas
+condensa o processamento feito em \textit{real-time views}, que são análogas
 as \textit{batch views}, mas feitas somente com os dados processados via
 transmissão.
 
@@ -144,7 +144,7 @@ transmissão.
     \item \textbf{Apache Spark}: através do módulo Spark Streaming
 \footnote{\url{http://spark.apache.org/streaming/}}, é capaz de fornecer a
 camada \textit{speed} na Arquitetura Lambda. Uma das vantagens de se utilizar
-o Spark é então a complexidade reduzida, por usar uma unica tecnologia e
+o Spark é então a complexidade reduzida, por usar uma única tecnologia e
 código base nas duas camadas da Arquitetura Lambda. O Spark Streaming ainda
 loteia eventos antes de processá-los, o que aumenta o tempo de processamento
 em relação a outras soluções, contudo, essa abordagem faz com que a massa de
@@ -155,8 +155,6 @@ dados que ele possa processar seja maior
 em tempo real. Tem a vantagem de poder ser utilizado com qualquer linguagem de
 programação, e, por processar eventos no momento em que estes chegam
 \footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
-
-    \item \textbf{Apache Flume}:
 
 \end{itemize}
 
@@ -187,10 +185,33 @@ citados.
 
 \section{BROKER}
 
-O \textit{broker}
+Existem várias abordagens para prover a comunicação entre diferentes módulos e
+tecnologias, e, um desses modos é através da passagem de mensagem. O
+\textit{broker} é uma peça chave na Arquitetura Lambda, pois ele será o
+responsável por trocar informações via transmissão com a camada
+\textit{speed}, e, em outros casos, também servir de meio para a comunicação
+entre outros módulos \cite{marz2015}.
+
+Uma abstração que facilita a compreensão dessa abordagem, e do papel do
+\textit{broker}, se baseia em pensá-lo como um sistema de correios. Os
+microserviços como abstração de pessoas, decidem qual canal utilizarão,
+através das \textbf{conexões} e das \textbf{filas}. Caso um serviço queira
+enviar e receber mensagens sobre um determinado assunto, ele deve se registrar
+em um \textbf{tópico} no \textit{broker}. Por fim, quando uma mensagem for
+receptada pelo \textit{broker}, ele o entregará a todos os serviços registrados
+naquele tópico, como um carteiro.
+
+\subsection{Tecnologias}
+
 \begin{itemize}
+    \item \textbf{RabbitMQ}: usado por empresas como a Cisco, Instagram,
+New York Times, dentre outros \footnote{\url{https://www.rabbitmq.com/}}, e
+com suporte para diversas linguagens \cite{zaitsev2014}, apresenta como
+principal característica o fato de ser feito em Erlang, e, assim, utilizar
+o poder da BEAM, possuindo alto desempenho, tolerância a falhas e processamento
+distribuído>
+
     \item \textbf{Apache Kafka}:
-    \item \textbf{RabbitMQ}:
 \end{itemize}
 
 
