@@ -173,8 +173,8 @@ concorrentes, as requisições passaram a ter latência de 1 segundo
 
 \begin{figure}
   \centering
-    \includegraphics[scale=0.5]{figuras/benchmark2.png}
-    \caption{Número de requisições por segundo comaumento de recursos. Fonte: ESPOSTE, 2017.}
+    \includegraphics[scale=0.2]{figuras/benchmark2.png}
+    \caption{Número de requisições por segundo com aumento de recursos. Fonte: ESPOSTE, 2017.}
   \label{fig:benchmark2}
 \end{figure}
 
@@ -194,4 +194,67 @@ caso tenha disponível pouco recurso computacional \cite{delesposte2017}.
 
 \section{GERÊNCIA DE CONFIGURAÇÃO}
 
-% falar sobre o GCS no InterSCity, e como subi-lo.
+Outro aspecto que recebe atenção no desenvolvimento do InterSCity é a gerência
+de configuração, que, atualmente, utiliza tecnologias de ponta, que reduzem
+trabalho desnecessário, ao passo em que promovem isolamento entre a plataforma
+e o ambiente hospedeiro. A gerência de configuração do InterSCity é guiada por
+\textit{containers} do Docker\footnote{\url{https://www.docker.com/}}, e cada
+microserviço e serviço externo (como o RabbitMQ) é executado em
+\textit{containers} separados; e pelo uso do
+Git\footnote{\url{https://git-scm.com/}}. Assim, a configuração de um ambiente
+para execução do InterSCity tem como pré-requisitos a instalação do Docker, do
+Docker Compose e do Git.
+
+Um repositório principal, chamado
+\textit{dev-env}\footnote{\url{https://gitlab.com/smart-city-software-platform/dev-env}},
+funciona como \textit{projeto mestre}, e os microserviços da plataforma são
+submódulos pertencentes a este. Desta forma, os estados do projeto mestre são
+ligados aos estados dos microserviços, garantindo compatibilidade. Por exemplo:
+o cenário de um microserviço precisar utilizar uma versão recente de outro
+microserviço, mas este estar numa versão mais antiga, não acontece sem que seja
+desejado.
+
+Os passos para configuração do InterSCity são os seguintes:
+
+% configura o lstlisting:
+\lstset{
+    tabsize=4,
+    rulecolor=,
+    language=bash,
+    basicstyle=\scriptsize,
+    columns=fixed,
+    showstringspaces=false,
+    breaklines=true
+}
+\begin{enumerate}
+    \item Clonar o repositório principal, iniciar submódulos e atualizar submódulos:
+        \begin{lstlisting}[basicstyle=\tiny,]
+        $ git clone https://gitlab.com/smart-city-software-platform/dev-env.git
+        $ git submodule init
+        $ git submodule update
+        \end{lstlisting}
+
+    \item Executar o \textit{setup} do arquivo de configuração do projeto:
+        \begin{lstlisting}
+        $ ./project setup
+        \end{lstlisting}
+
+    \item Executar a rotina \textit{start} no arquivo de configuração:
+        \begin{lstlisting}
+        $ ./project start
+        \end{lstlisting}
+\end{enumerate}
+
+Os módulos do InterSCity passarão então a rodar nas diferentes portas
+desejadas. Os estados dos serviços podem ser conferidos através do comando
+\begin{lstlisting}
+$ docker ps
+\end{lstlisting}
+
+% necessário? abaixo
+A partir dos pontos levantados, é possível analisar o nível de maturidade do
+InterSCity. Mesmo sendo distribuído (pela arquitetura), escalável (provado
+pelos experimentos), e bem configurado (pela gerência de configuração), o
+projeto ainda não faz uso de tecnologias Big Data. No próximo capítulo serão
+apresentadas duas arquiteturas Big Data bem difundidas, e, em seguida, será
+levantada a proposta de arquitetura para a camada de processamento de dados.
