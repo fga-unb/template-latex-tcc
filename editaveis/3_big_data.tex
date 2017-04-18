@@ -5,18 +5,18 @@ para cidades inteligentes \cite{kon2016}, Big Data apresenta um largo
 ecossistema, que conta com várias ferramentas e abordagens de implementação.
 Neste capítulo serão detalhadas duas arquiteturas, Lambda e Kappa, tornando
 possível a definição de qual será utilizada para o desenvolvimento da camada
-de processamento dados do InterSCity.
+de processamento de dados do InterSCity.
 
 \section{ARQUITETURA LAMBDA}
 
-A Arquitetura Lambda é uma abordagem para processar dados em uma plataforma
-que lida com uma grande massa de dados utilizando tecnologias Big Data, e
-surge como um caminho alternativo a outras arquiteturas mais antigas, como a
-incremental com \textit{sharding} \cite{marz2015}.
+A Arquitetura Lambda é um padrão arquitetural para plataformas de processamento
+de dados que utilizam tecnologias Big Data, e surge como um caminho alternativo a
+outras arquiteturas mais antigas, como a incremental com \textit{sharding}
+\cite{marz2015}.
 
 Esta arquitetura é composta de três camadas: a camada
 \textit{batch}\footnote{No decorrer do texto, as camadas da arquitetura Lambda e alguns
-termos referentes a algumas ferramentas e práticas não serão traduzidos}, que
+termos referentes a algumas ferramentas e práticas não serão traduzidos.}, que
 constantemente processa uma grande quantidade de dados e demora razoavelmente
 em seu processamento; a camada \textit{serving}, responsável por disponibilizar
 os resultados do processamento; e a camada \textit{speed}, responsável por
@@ -60,7 +60,7 @@ da camada \textit{speed} (que está incoerente) serão descartados \cite{marz201
 % levantadas são código livre, de boa qualidade, e utilizadas por gigantes da
 % industria.
 
-\subsection{BATCH LAYER}
+\subsection{Batch Layer}
 
 Responsável pelo processamento de uma grande massa de dados, e tendo como ponto
 fraco a alta latência, a camada \textit{batch} é responsável por gerenciar e
@@ -72,7 +72,7 @@ dado com as alterações é inserido no lote \cite{marz2015}. Por fim, a camada
 \textit{batch} fará o pré-processamento dos dados presentes no
 \textit{master dataset}, disponibilizando-os em \textit{batch views}.
 
-\subsection{SPEED LAYER}
+\subsection{Speed Layer}
 
 Durante o processamento da camada \textit{batch}, novos dados podem ser
 inseridos. Caso somente a \textit{batch} processasse, esses novos dados não
@@ -91,18 +91,19 @@ Essa abordagem utilizada pela camada \textit{speed} é chamada de transmissão,
 e funciona bem com mecanismos de passagem de mensagem \cite{marz2015}.
 O fato da camada \textit{speed} utilizar transmissão, faz com que o uso de
 banco de dados que suportem escrita aleatória seja necessário \cite{marz2015},
-diferentemente da camada \textit{batch}. Por fim, a camada \textit{speed}
-condensa o processamento feito em \textit{real-time views}, que são análogas
-as \textit{batch views}, mas feitas somente com os dados processados via
-transmissão.
+diferentemente da camada \textit{batch}, o que aumenta substancialmente
+a complexidade da camada \textit{speed} \cite{marz2015}. Por fim, a camada
+\textit{speed} condensa o processamento feito em \textit{real-time views}, que
+são análogas as \textit{batch views}, mas feitas somente com os dados
+processados via transmissão.
 
-\subsection{SERVING LAYER}
+\subsection{Serving Layer}
 
 Após os \textit{master datasets} da camada \textit{batch} serem criados ou
 estendidos, \textit{batch views} são disponibilizados para a camada
-\textit{serving}. A camada \textit{serving} torna possível a possibilidade de
-fazer consultas a massa de dados processada, e de fazer leituras aleatórias
-\cite{marz2015}. Conforme novos lotes são processados, a camada \textit{serving}
+\textit{serving}. A camada \textit{serving} cria a possibilidade de consultas a
+massa de dados processada, e de fazer leituras aleatórias \cite{marz2015}.
+Conforme novos lotes são processados, a camada \textit{serving}
 automaticamente troca os lotes antigos pelos novos, garantindo atualização dos
 resultados.
 
@@ -114,7 +115,7 @@ Esse fato reduz substancialmente a complexidade necessária para as tecnologias
 desta camada, de modo que só precisem se preocupar com os outros requisitos
 citados.
 
-\section{BROKER}
+\subsection{Broker}
 
 Existem várias abordagens para prover a comunicação entre diferentes módulos da
 Arquitetura Lambda, e, um desses modos é através da passagem de mensagem. O
@@ -129,6 +130,27 @@ queira enviar e receber mensagens sobre um determinado assunto, ele deve se
 registrar em um \textbf{tópico} no \textit{broker}. Por fim, quando uma
 mensagem for receptada pelo \textit{broker}, ele o entregará a todos os
 serviços registrados naquele tópico, como um carteiro.
+
+\section{ARQUITETURA KAPPA}
+
+Assim como a Arquitetura Lambda, a Arquitetura Kappa é um padrão arquitetural
+de \textit{software}, e surge como uma alternativa mais simples e objetiva
+\cite{kreps2014}. Enquanto um \textit{batch} tem início e fim bem definidos,
+um \textit{stream} é infinito - logo, um \textit{batch} é um subconjunto de
+um \textit{stream} \cite{seyvet2016}. Esse fato sustenta a Arquitetura Kappa,
+que se baseia no uso único da camada \textit{speed} para processamento,
+descartando assim a camada \textit{batch} \cite{kreps2014}.
+
+A Arquitetura Kappa utiliza quatro princípios principais: (i) Tudo é um
+\textit{stream}; (ii) Dados imutáveis; (iii) Somente um \textit{framework};
+(iv) Reprodução histórica \cite{seyvet2016}. Além disso, é importante que
+a tecnologia de \textit{stream} utilizada garanta a ordem dos itens, para
+que a reprodução dos mesmos dados gere o mesmo resultado \cite{seyvet2016}.
+Assim, a Arquitetura Kappa funciona da seguinte forma:
+
+\begin{enumerate}
+    \item Novos dados chegam a plataforma
+\end{enumerate}
 
 \section{TECNOLOGIAS}
 
