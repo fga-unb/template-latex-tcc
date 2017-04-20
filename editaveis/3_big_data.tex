@@ -60,7 +60,7 @@ da camada \textit{speed} (que está incoerente) serão descartados \cite{marz201
 % levantadas são código livre, de boa qualidade, e utilizadas por gigantes da
 % industria.
 
-\subsection{Batch Layer}
+\subsection{Camada Batch}
 
 Responsável pelo processamento de uma grande massa de dados, e tendo como ponto
 fraco a alta latência, a camada \textit{batch} é responsável por gerenciar e
@@ -72,7 +72,7 @@ dado com as alterações é inserido no lote \cite{marz2015}. Por fim, a camada
 \textit{batch} fará o pré-processamento dos dados presentes no
 \textit{master dataset}, disponibilizando-os em \textit{batch views}.
 
-\subsection{Speed Layer}
+\subsection{Camada Speed}
 
 Durante o processamento da camada \textit{batch}, novos dados podem ser
 inseridos. Caso somente a \textit{batch} processasse, esses novos dados não
@@ -97,7 +97,7 @@ a complexidade da camada \textit{speed} \cite{marz2015}. Por fim, a camada
 são análogas as \textit{batch views}, mas feitas somente com os dados
 processados via transmissão.
 
-\subsection{Serving Layer}
+\subsection{Camada Serving}
 
 Após os \textit{master datasets} da camada \textit{batch} serem criados ou
 estendidos, \textit{batch views} são disponibilizados para a camada
@@ -137,20 +137,45 @@ Assim como a Arquitetura Lambda, a Arquitetura Kappa é um padrão arquitetural
 de \textit{software}, e surge como uma alternativa mais simples e objetiva
 \cite{kreps2014}. Enquanto um \textit{batch} tem início e fim bem definidos,
 um \textit{stream} é infinito - logo, um \textit{batch} é um subconjunto de
-um \textit{stream} \cite{seyvet2016}. Esse fato sustenta a Arquitetura Kappa,
-que se baseia no uso único da camada \textit{speed} para processamento,
-descartando assim a camada \textit{batch} \cite{kreps2014}.
+um \textit{stream} \cite{seyvet2016}. Este é um dos fundamentos da Arquitetura
+Kappa, que em seu processamento usa somente a camada \textit{speed}, se
+sustentando no uso de um fluxo contínuo de dados \cite{kreps2014}.
 
-A Arquitetura Kappa utiliza quatro princípios principais: (i) Tudo é um
-\textit{stream}; (ii) Dados imutáveis; (iii) Somente um \textit{framework};
-(iv) Reprodução histórica \cite{seyvet2016}. Além disso, é importante que
+A arquitetura é guiada por quatro princípios: (i) tudo é um \textit{stream};
+(ii) dados imutáveis; (iii) somente um \textit{framework};
+(iv) e reprodução histórica \cite{seyvet2016}. Além disso, é importante que
 a tecnologia de \textit{stream} utilizada garanta a ordem dos itens, para
-que a reprodução dos mesmos dados gere o mesmo resultado \cite{seyvet2016}.
-Assim, a Arquitetura Kappa funciona da seguinte forma:
+que a reprodução dos mesmos dados gere os mesmos resultados \cite{seyvet2016}.
+Assim, a arquitetura funciona da seguinte forma:
 
 \begin{enumerate}
-    \item Novos dados chegam a plataforma
+    \item Novos dados chegam a plataforma;
+    \item Os dados são inseridos no banco de dados, e a situação das operações
+        é anexado ao \textit{log}, ou os dados são simplesmente transmitidos;
+    \item Um \textit{job} começa o processamento dos dados atuais, e o
+        resultado do processamento é armazenado;
+    \item Caso um novo processamento seja desejado, um novo \textit{job}
+        é iniciado - contudo, seu resultado é armazenado em uma nova tabela,
+        e não na usada pelo \textit{job} do passo anterior;
+    \item Os resultados do novo \textit{job} passam a ser usados no lugar
+        dos resultados antigos.
 \end{enumerate}
+
+\subsection{Camada Speed}
+
+A camada \textit{stream} na Arquitetura Kappa funciona de maneira parecida ao
+que ocorre na Arquitetura Lambda. Um dos poucos diferenciais é que, enquanto
+na Arquitetura Lambda os resultados da camada \textit{speed} são descartados
+quando a camada \textit{batch} começa um novo processamento, na Arquitetura
+Kappa um novo \textit{job} é inicializado quando alguma mudança significativa
+ocorre \cite{forgeat2015}.
+
+\subsection{Camada Serving}
+
+A camada \textit{serving} na Arquitetura Kappa funciona da maneira similar ao
+que ocorre na Arquitetura Lambda. Os resultados da camada \textit{speed}
+ficam disponíveis para serem usados, e as tecnologias da camada \textit{serving}
+passam a respoder consultas em baixa latência \cite{forgeat2015}.
 
 \section{TECNOLOGIAS}
 
@@ -223,27 +248,70 @@ em tempo real. Tem a vantagem de poder ser utilizado com qualquer linguagem de
 programação, e, por processar eventos no momento em que estes chegam
 \footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
 
+    \item \textbf{Apache Samza}:
+
 \end{itemize}
 
-\subsection{Bancos de Dados Distribuídos}
+\subsection{Bancos de Dados NoSQL}
 
 \begin{itemize}
-    \item Apache Cassandra
-    \item MongoDB
+    \item \textbf{Apache Cassandra}: em sua implementação utiliza o conceito
+        de ``sem pontos de articulação'', fazendo com que a falha em um único
+        item não afete o banco como um todo - obtido através do uso da
+        redundância dos nós e dos dados \cite{estrada2016}. É focado em grandes
+        quantidades de dado, escalabilidade, performance, e tolerância a falhas,
+        e é utilizado em empresas como a Netflix, Reddit, Instagram, entre
+        outros\footnote{\url{http://cassandra.apache.org/}}.
+
+    \item \textbf{MongoDB}: banco de dados orientado a documentos que foca no
+        formado JSON ao invés do formato baseado em tabelas típico dos bancos
+        SQL\footnote{\url{https://www.mongodb.com/blog/post/mongodb-vs-sql-day-1-2}}.
+        É utilizado na Cisco, Ebay, EA Games, Nokia, dentre
+        outros\footnote{\url{https://www.mongodb.com/who-uses-mongodb}}.
 \end{itemize}
 
+Em relaçao a performance, ambos se mostram boas opções, mas o Cassandra
+apresenta escalabilidade superior, quase
+linear\footnote{\url{http://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-Hbase}};
+em relação a restrições de tecnologia, ambos aceitam um grande conjunto de
+linguagens de programação.
 
 \subsection{Broker}
 
 \begin{itemize}
-    \item \textbf{RabbitMQ}: usado por empresas como a Cisco, Instagram,
-New York Times, dentre outros \footnote{\url{https://www.rabbitmq.com/}}, e
-com suporte para diversas linguagens \cite{zaitsev2014}, apresenta como
-principal característica o fato de ser feito em Erlang, e, assim, utilizar
-o poder da BEAM, possuindo alto desempenho, tolerância a falhas e processamento
-distribuído.
 
-    \item \textbf{Apache Kafka}:
+    \item \textbf{RabbitMQ}: usado por empresas como a Cisco, Instagram,
+        New York Times, dentre outros \footnote{\url{https://www.rabbitmq.com/}},
+        e com suporte para diversas linguagens \cite{zaitsev2014}, apresenta
+        como principal característica o fato de ser feito em Erlang, e, assim,
+        utilizar o poder da
+        BEAM\footnote{\url{http://erlang.org/faq/implementations.html}},
+        possuindo alto desempenho, tolerância a falhas e processamento
+        distribuído.
+
+    \item \textbf{Apache Kafka}: também atendendo ao padrão PubSub, o Apache
+        foi desenvolvido pela LinkedIn, e hoje é mantido pela Apache
+        \cite{koshy2016}. Tem seu foco centrado em performance e escalabilidade
+        em larga escala, atualmente sendo capaz de lidar com mais de 1.4
+        trilhões de mensagens por dia, distribuídos sobre 1400
+        \textit{brokers} \cite{koshy2016}. Um dos diferenciais dele em relação
+        à outras tecnologias de \textit{brokers}, é o armazenamento e
+        utilização do \textit{log} de transações do banco de dados - isso
+        permite a reprodução dos resultados
+        obtidos\footnote{\url{http://kafka.apache.org/intro}}, o que é util no
+        contexto de Big Data. O Kafka ainda conta com sistema de tolerância
+        a falhas e suporte a várias
+        linguagens\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Clients}}.
+
 \end{itemize}
 
+Ambas as soluções são sólidas e usadas em contextos extremos, e com grande
+abragência de tecnologias e linguagens possíveis para uso. O diferencial é que
+o Kafka apresenta performance e escalabilidade
+superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
+e utilização do \textit{log} de transações que é útil para a Arquitetura Kappa,
+enquanto o RabbitMQ apresenta cenários de filas mais complexos e a
+possibilidade de uso de
+\textit{plugins}\footnote{\url{https://www.rabbitmq.com/plugins.html}},
+como para federação\footnote{\url{https://www.rabbitmq.com/federation.html}}.
 
