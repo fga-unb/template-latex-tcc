@@ -115,22 +115,6 @@ Esse fato reduz substancialmente a complexidade necessária para as tecnologias
 desta camada, de modo que só precisem se preocupar com os outros requisitos
 citados.
 
-\subsection{Broker}
-
-Existem várias abordagens para prover a comunicação entre diferentes módulos da
-Arquitetura Lambda, e, um desses modos é através da passagem de mensagem. O
-\textit{broker} é uma peça chave, pois será o responsável por trocar informações
-via transmissão com a camada \textit{speed}, e, em outros casos, também servir
-de meio para a comunicação entre outros módulos \cite{marz2015}.
-
-Uma abstração que facilita sua compreensão, é pensá-lo como um sistema de
-correios. Os microserviços como abstração de pessoas, decidem qual canal
-utilizarão, através das \textbf{conexões} e das \textbf{filas}. Caso um serviço
-queira enviar e receber mensagens sobre um determinado assunto, ele deve se
-registrar em um \textbf{tópico} no \textit{broker}. Por fim, quando uma
-mensagem for receptada pelo \textit{broker}, ele o entregará a todos os
-serviços registrados naquele tópico, como um carteiro.
-
 \section{ARQUITETURA KAPPA}
 
 Assim como a Arquitetura Lambda, a Arquitetura Kappa é um padrão arquitetural
@@ -175,7 +159,29 @@ ocorre \cite{forgeat2015}.
 A camada \textit{serving} na Arquitetura Kappa funciona da maneira similar ao
 que ocorre na Arquitetura Lambda. Os resultados da camada \textit{speed}
 ficam disponíveis para serem usados, e as tecnologias da camada \textit{serving}
-passam a respoder consultas em baixa latência \cite{forgeat2015}.
+passam a responder consultas em baixa latência \cite{forgeat2015}.
+
+\section{BROKER}
+
+Existem várias abordagens para prover a comunicação entre diferentes módulos em
+plataformas de processamento de dados, e, um desses modos é através da passagem
+de mensagem. O \textit{broker} é uma peça chave, pois será o responsável por
+trocar informações via transmissão com as camadas de processamento, e, em outros
+casos, também serve de meio para a comunicação entre outros
+microserviços\cite{marz2015}.
+
+Uma abstração que facilita sua compreensão, é pensá-lo como um sistema de
+correios. Os microserviços, agindo como pessoas, decidem qual canal
+utilizarão, através das \textbf{conexões} e das \textbf{filas}. Caso um serviço
+queira enviar e receber mensagens sobre um determinado assunto, ele deve se
+registrar em um \textbf{tópico} no \textit{broker}. Por fim, quando uma
+mensagem for receptada pelo \textit{broker}, ele o entregará a todos os
+serviços registrados naquele tópico, como um carteiro.
+
+Os \textit{brokers} diferenciam entre si em funcionalidades adicionais, como
+uso e gerenciamento de \textit{log} de transações, filas e esquemas mais
+complexos, maior performance, tolerância a falha, \textit{plugins}, federação
+com outros sistemas, entre outras características.
 
 \section{TECNOLOGIAS}
 
@@ -270,7 +276,7 @@ programação, e, por processar eventos no momento em que estes chegam
         outros\footnote{\url{https://www.mongodb.com/who-uses-mongodb}}.
 \end{itemize}
 
-Em relaçao a performance, ambos se mostram boas opções, mas o Cassandra
+Em relação a performance, ambos se mostram boas opções, mas o Cassandra
 apresenta escalabilidade superior, quase
 linear\footnote{\url{http://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-Hbase}};
 em relação a restrições de tecnologia, ambos aceitam um grande conjunto de
@@ -298,7 +304,7 @@ linguagens de programação.
         à outras tecnologias de \textit{brokers}, é o armazenamento e
         utilização do \textit{log} de transações do banco de dados - isso
         permite a reprodução dos resultados
-        obtidos\footnote{\url{http://kafka.apache.org/intro}}, o que é util no
+        obtidos\footnote{\url{http://kafka.apache.org/intro}}, o que é útil no
         contexto de Big Data. O Kafka ainda conta com sistema de tolerância
         a falhas e suporte a várias
         linguagens\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Clients}}.
@@ -306,11 +312,11 @@ linguagens de programação.
 \end{itemize}
 
 Ambas as soluções são sólidas e usadas em contextos extremos, e com grande
-abragência de tecnologias e linguagens possíveis para uso. O diferencial é que
+abrangência de tecnologias e linguagens possíveis para uso. O diferencial é que
 o Kafka apresenta performance e escalabilidade
 superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
 e utilização do \textit{log} de transações que é útil para a Arquitetura Kappa,
-enquanto o RabbitMQ apresenta cenários de filas mais complexos e a
+enquanto o RabbitMQ apresenta cenários possíveis de filas mais complexas e a
 possibilidade de uso de
 \textit{plugins}\footnote{\url{https://www.rabbitmq.com/plugins.html}},
 como para federação\footnote{\url{https://www.rabbitmq.com/federation.html}}.

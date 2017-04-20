@@ -1,1 +1,70 @@
-\chapter[Proposta]{Proposta}
+\chapter[PROPOSTA]{PROPOSTA}
+
+Como dito, o InterSCity já está maduro, mas falta a parte de processamento.
+Neste capítulo eu vou definir as ferramentas e justificar as escolhas. E, ao fim,
+levantarei o que será implementado de fato neste trabalho.
+
+\section{ARQUITETURA}
+
+A arquitetura definida para a camada de processamento de dados do InterSCity é a
+Arquitetura Kappa. A Arquitetura Lambda embora já seja difundida em projetos
+de excelência, é muito complexa para o contexto em questão - manter duas bases
+de código, grandes e complexas, desvia de um dos focos do InterSCity, que é a
+manutenibilidade. Dessa forma, a escolha pela Arquitetura Kappa parece ser a mais
+adequada no contexto do InterSCity.
+
+\section{TECNOLOGIAS}
+
+As tecnologias definidas para a proposta foram feitas levando em conta as
+seguintes prioridades:
+
+\begin{enumerate}
+    \item \textit{Software} livre;
+    \item Tecnologias já usadas no InterSCity;
+    \item Interoperabilidade com as tecnologias já usadas terão prioridade;
+    \item Melhor manutenibilidade;
+    \item Melhor escalabilidade e performance.
+\end{enumerate}
+
+Tecnologias de \textit{software} livre tiveram prioridade máxima pelo
+ecossistema de Big Data ser composto de ferramentas livres de excelência, e por
+ser uma das características do InterSCity. Tecnologias já usadas pelo
+InterSCity também tiveram grande peso por não forçarem grandes mudanças ao
+ecossistema já estabelecido, e por ter-se confiança nas escolhas feitas pelo
+time do InterSCity. Os outros fatores de prioridade já são focos do InterSCity,
+mas foi dada prioridade a manutenibilidade a performance, pelo contexto atual
+do InterSCity não sofrer problemas de performance.
+
+\subsection{Broker}
+
+O \textit{broker} que será utilizado para transmissão dos dados é o
+\textbf{RabbitMQ}. O principal critério utilizado foi o fato dele já ser usado
+em larga escala pelo InterSCity, de modo que a troca de tecnologias não fosse
+interessante, e o fato dele não comprometer nenhum critério. Contudo, têm-se
+noção que o Kafka seria uma solução tão boa quanto, tendo ainda performance
+superior ao RabbitMQ, e disponibilizando a funcionalidade de \textit{log} de
+transações, que seria de grande utilidade na Arquitetura Kappa.
+
+\subsection{Streaming}
+
+A tecnologia de \textit{streaming} decidida é o \textbf{Apache Spark}. O Apache
+Spark, como já levantado, tem alta performance, atende bem os requisitos, e tem
+suporte para várias tecnologias, como Python, R, Scala e Java. Mas seu grande
+diferencial é o fato de ter integrado multiplas formas de processamento
+(\textit{batch} e \textit{streaming}), biblioteca para
+\textit{machine learning} e \textit{clusterização}, entre outras utilidades,
+como biblioteca de grafos. Por ser tão abrangente, o Spark seria a única tecnologia
+necessária quanto ao processamento de dados, seguindo assim o princípio de
+\textit{framework} único da Arquitetura Kappa. Além disso, uma transição para a
+Arquitetura Lambda seria fácil caso fosse de interesse do InterSCity, pelo
+Spark já abrangir as duas camadas de processamento.
+
+\subsection{Banco de dados NoSQL}
+
+A tecnologia de banco de dados NoSQL definida é o \textbf{MongoDB}. O principal
+motivo é o fato dele já ser usado pelo InterSCity, e o fato dele não
+comprometer nenhum critério. Contudo, têm-se noção que o Apache Cassandra
+também seria uma ótima solução no contexto do InterSCity, pois já tem
+\textit{handlers} para o Spark e para o RabbitMQ.
+
+\section{IMPLEMENTAÇÃO}
