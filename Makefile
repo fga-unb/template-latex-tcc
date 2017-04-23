@@ -17,7 +17,7 @@ FIXOS_FILES = $(addprefix $(FIXOS_DIR)/, $(FIXOS_SOURCES))
 EDITAVEIS_DIR = editaveis
 EDITAVEIS_SOURCES = pretexto/informacoes.tex pretexto/errata.tex \
 					pretexto/dedicatoria.tex pretexto/agradecimentos.tex \
-					pretexto/epigrafe.tex pretexto/resumo.tex pretexto/abstract.tex \
+					pretexto/epigrafe.tex 0_resumo.tex 0_abstract.tex \
 					pretexto/abreviaturas.tex pretexto/simbolos.tex 1_introducao.tex  \
 					postexto/apendices.tex postexto/anexos.tex
 
