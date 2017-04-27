@@ -3,7 +3,7 @@
 O InterSCity se encontra atualmente em um estado estável e relativamente maduro,
 mas carece robustez quanto ao processamento de seus dados. Neste capítulo serão
 apresentadas definições e ferramentas escolhidas para compor o processamento
-de dados do InterSCity, bem como as justificativas que levarão as decisões. Ao
+de dados do InterSCity, bem como as justificativas que levaram às decisões. Ao
 fim, será levantado o escopo do que deve ser desenvolvido neste trabalho.
 
 \section{ARQUITETURA}
@@ -64,7 +64,7 @@ O Apache Spark, como já levantado, tem alta performance, atende bem os
 requisitos, e tem suporte para várias tecnologias, como Python, R, Scala e
 Java. O fator mais importante na escolha foi o diferencial de conter integrado
 multiplas formas de processamento (\textit{batch} e \textit{streaming}) e
-biblioteca de \textit{machine learning} que poderá ser útil para o projeto.
+biblioteca de \textit{machine learning} que pode vir a ser útil.
 Por ser tão abrangente, o Spark seria a única tecnologia necessária quanto ao
 processamento de dados, seguindo assim o princípio de \textit{framework} único
 da Arquitetura Kappa. Além disso, uma transição para a Arquitetura Lambda seria
@@ -82,8 +82,11 @@ RabbitMQ.
 
 \section{IMPLEMENTAÇÃO}
 
-% * Implementação inicial: levantar o spark, passar dados pelo rabbitmq e
-% processa-los no spark
-% * Qual case?
-% * Usar a api da USP dos onibus, ver se algum onibus saiu fora da rota, ver
-% se tá ocorrendo engarrafamento
+A implementação e contribuição deste trabalho será então uma camada de
+processamentos funcional e pronta para ser utilizada, utilizando as
+ferramentas citadas anteriormente. Ás mesmas abordagens utilizadas pelo
+InterSCity serão seguidas (como uso do Docker), de modo que possa ser
+aderido pela comunidade da plataforma sem maiores problemas. Além disso, será
+desenvolvido um pequeno exemplo que utiliza a plataforma e a camada de
+processamento, de modo que ilustre o uso do módulo desenvolvido, contudo, se
+trata de algo ilustrativo e não um caso real de uso.
