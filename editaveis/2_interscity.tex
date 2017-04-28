@@ -2,86 +2,39 @@
 \label{chapter:interscity}
 
 Com o objetivo de prover uma solução para os problemas presentes no ecossistema
-de cidades inteligentes, surge o InterSCity, uma plataforma que foca em
-aspectos como interoperabilidade, escalabilidade, extensibilidade, e qualidade,
-licenciado sob
-MPLv2 \footnote{\url{www.mozilla.org/en-US/MPL/2.0/}}, e construído
-utilizando a arquitetura de microserviços -
-MSA \footnote{\url{microservices.io/}} \cite{delesposte2017}.
+de cidades inteligentes, foi desenvolvido o InterSCity, uma plataforma que foca
+em aspectos como interoperabilidade, escalabilidade, extensibilidade, e
+qualidade, licenciado sob MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}},
+e construído utilizando arquitetura de microserviços -
+MSA\footnote{\url{microservices.io/}} \cite{delesposte2017}. Baseando-se no
+desenvolvimento colaborativo e na utilização de tecnologias software livre de
+ponta, o time de desenvolvedores do InterSCity conta atualmente com a ajuda de
+diversos colaboradores, que, utilizando metodologias ágeis, mantém a evolução e
+manutenção da plataforma ao longo do tempo \cite{delesposte2017}.
 
-Baseando-se no desenvolvimento colaborativo e na utilização de tecnologias
-software livre de ponta, o InterSCity conta atualmente com a ajuda de diversos
-colaboradores, e, utilizando metodologias ágeis, mantém sua evolução ao longo
-do tempo \cite{delesposte2017}.
-
-Escrito majoritariamente em Ruby on Rails\footnote{\url{rubyonrails.org/}},
-a plataforma segue padrões que priorizam extensibilidade e qualidade, e
-apresenta uma arquitetura madura e bem planejada. O InterSCity se encontra
-hospedado no Gitlab \footnote{\url{gitlab.com/smart-city-software-platform}},
-onde cada um de seus microserviços têm um repositório. Outros recursos
-importantes como: documentação da arquitetura, um cliente exemplo para
-confecção de novos dispositivo IoT para serem usados na plataforma, dentre
-outros itens, também podem ser encontrados no repositório.
-
-Durante o detalhamento do InterSCity, os microserviços serão chamados
-intermitentemente de \textit{módulos} e \textit{componentes}. % precisa falar isso?
-
-\section{PRINCÍPIOS}
-
-O InterSCity foi desenvolvido utilizando princípios de \textit{design}, e,
-assim, busca atender critérios estabelecidos. Os princípios são:
-
-\begin{itemize}
-    \item \textbf{Modularidade através de serviços}: O InterSCity se torna mais
-modular através da criação de mais microserviços, que buscam ter
-responsabilidades atômicas e bem definidas \cite{delesposte2017}.
-
-    \item \textbf{Modelos e Dados Distribuídos}: O InterSCity melhora sua
-escalabilidade através da distribuição dos dados e dos modelos. Com essa
-prática, cada microserviço pode evoluir separadamente, por contar com seu
-próprio banco de dados \cite{delesposte2017}. Contudo, esse princípio apresenta
-o ponto negativo de aumentar a complexidade.
-
-    \item \textbf{Evolução Descentralizada}: Por conta do não-acoplamento, é
-possível que módulos do InterSCity evoluam e sofram manutenção
-independentemente, sem afetar outros microserviços da plataforma
-\cite{delesposte2017}.
-
-    \item \textbf{Reuso de Projetos de Código Aberto}: O InterSCity preferencia % uso software livre ou codigo aberto?
-projetos robustos já desenvolvidos, ao invés de desenvolver soluções do zero
-\cite{delesposte2017}. Contudo, esta escolha é feita com cuidado, e somente
-projetos com colaboradores e mantenedores ativos, e com documentação
-apropriada, são utilizadas na plataforma \cite{delesposte2017}.
-
-    \item \textbf{Adoção de Padrões Abertos}: O InterSCity adota padrões já
-difundidos, para que seja provida maior interoperabilidade entre a plataforma
-e outros projetos \cite{delesposte2017}.
-
-    \item \textbf{Assíncrono contra Síncrono}: O InterSCity busca prover
-serviços e atividades assíncronas sempre que possível, com a finalidade de
-evitar que eventos blocantes ocorram. Isto é atingido principalmente através
-do padrão PubSub, e de estratégias baseadas em eventos \cite{delesposte2017}.
-
-    \item \textbf{Serviços sem Estado}: Os microserviços do InterSCity evitam,
-sempre que possível, ter um estado específico \cite{delesposte2017}. Com isso,
-os microserviços podem responder a qualquer requisição a qualquer momento, ao
-contrário do que ocorreria caso tivessem estados específicos, pois só
-conseguiriam caso certas transições ocorressem.
-\end{itemize}
+A maior parte dos microserviços\footnote{Os termos microserviços, módulos, e
+componentes, serão utilizados intermitentemente, mas apresentando o mesmo
+significado.} foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}},
+seguindo padrões que priorizam extensibilidade e qualidade, e levando em conta
+princípios\footnote{Os princípios seguidos pelo InterSCity são apresentados no
+Apêndice \ref{appendix:principles}} que levaram a uma arquitetura madura, robusta, e extensível. O
+projeto se encontra hospedado no
+Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}}, onde é
+possível ter acesso ao código fonte dos microserviços, documentação da
+plataforma, e um cliente IoT (\textit{Internet of Things}) exemplo.
 
 \section{ARQUITETURA}
 
-O InterSCity apresenta uma arquitetura de microserviços distribuída, e conta
-atualmente com os microserviços Resource Adaptor, Resource Viewer,
-Resource Catalog, Data Collector, Resource Discovery, e Actuator Controller.
-Estes componentes são desacoplados entre si, e cada um tem
+O InterSCity apresenta uma arquitetura de microserviços distribuída, composta
+pelos microserviços Resource Adaptor, Resource Viewer,
+Resource Catalog, Data Collector, Resource Discovery, Data Processor, e
+Actuator Controller. Estes componentes são desacoplados entre si, e cada um tem
 responsabilidades específicas e bem definidas. A comunicação entre eles é
-feita via RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através
-do padrão de projeto PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}},
-ou via requisições REST. O modelo de comunicação via passagem de mensagem é
-importante em contextos de concorrência pelo isolamento provido
-\cite{armstrong2003}, e é chave na ligação entre os diferentes módulos do
-InterSCity.
+feita via requisições REST e passagem de mensagem. O modelo de comunicação via
+passagem de mensagem é importante em contextos de concorrência pelo isolamento
+provido \cite{armstrong2003}, e é feito utilizando o
+RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do padrão de projeto
+PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 
 \begin{figure}
   \centering
