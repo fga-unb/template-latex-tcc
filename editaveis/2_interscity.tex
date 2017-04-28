@@ -1,4 +1,5 @@
 \chapter[INTERSCITY]{INTERSCITY}
+\label{chapter:interscity}
 
 Com o objetivo de prover uma solução para os problemas presentes no ecossistema
 de cidades inteligentes, surge o InterSCity, uma plataforma que foca em
@@ -89,7 +90,7 @@ InterSCity.
   \label{fig:interscity-lifecycle}
 \end{figure}
 
-A figura \ref{fig:interscity-lifecycle} ilustra um ciclo de vida típico de um
+A Figura \ref{fig:interscity-lifecycle} ilustra um ciclo de vida típico de um
 recurso IoT na plataforma. Inicialmente, o recurso (i) começa um pedido de
 registro na plataforma com o Resource Adaptor, que, (ii) gerenciando a conversa
 com o módulo Resource Catalog, (iii) informa ao recurso seu UUID, que será
@@ -162,7 +163,7 @@ com o aumento dos recursos computacionais \cite{delesposte2017}.
 No primeiro experimento, clientes ficaram em um laço de repetição enviando
 dados por requisições síncronas durante 4 minutos. O experimento foi feito
 utilizando 11 diferentes configurações, variando o número de clientes
-concorrentes. Com os resultados, que estão apresentados na figura
+concorrentes. Com os resultados, que estão apresentados na Figura
 \ref{fig:benchmark1}, pôde ser percebido que: (i) o microserviço
 Resource Adaptor manteve o maior uso dos recursos, sendo considerado o
 maior gargalo da plataforma, juntamente com o Data Collector, que também
@@ -184,7 +185,7 @@ durante 6 ciclos de 4 minutos, e com diferentes configurações de
 balanceamento de carga igualitário (\textit{round-robin}) nos serviços
 que foram identificados como os gargalos da plataforma - isto foi possível
 graças aos princípios seguidos, mencionados anteriormente. Os resultados,
-que estão apresentados na figura \ref{fig:benchmark2}, permitem concluir que:
+que estão apresentados na Figura \ref{fig:benchmark2}, permitem concluir que:
 (i) só é necessário a melhora de alguns microserviços para melhor desempenho
 da plataforma, até certo ponto; (ii) a plataforma consegue escalar linearmente
 com a adição de recursos, o que mostra o quão escalável é o InterSCity. Além

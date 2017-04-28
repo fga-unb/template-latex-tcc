@@ -1,48 +1,45 @@
 \chapter[INTRODUÇÃO]{INTRODUÇÃO}
+\label{chapter:intro}
 
 O termo \textbf{cidades inteligentes} recebe cada vez mais atenção, e trata-se
 da utilização de tecnologias da informação e comunicação (TIC) para melhorar
-setores como segurança, transporte, e saúde \cite{batty2012smart}.
-
-As cidades inteligentes ganham força por abrirem soluções e mitigações
-concretas para problemas graves e recorrentes das cidades atuais. Mau uso de
-recursos, a burocracia, transporte de má qualidade, e falta de segurança,
-podem ser resolvidos ou mitigados com soluções que utilizem
-TIC \cite{batty2012smart}.
+setores como segurança, transporte, e saúde, aumentando a qualidade de vida
+da população \cite{batty2012smart}. As cidades inteligentes ganham força por
+atingirem soluções e mitigações concretas para problemas graves e recorrentes
+das cidades atuais, como o mau uso de recursos, a burocracia, transporte de má
+qualidade, e falta de segurança \cite{batty2012smart}.
 
 Diversas iniciativas de cidades inteligentes ocorrem atualmente. Em Santander,
-na Espanha, uma plataforma inteligente foi
+na Espanha, uma plataforma foi
 desenvolvida\footnote{\url{www.smartsantander.eu/}}, e, utilizando-a,
 diversos aplicativos foram criados, como para apresentar aos usuários lugares
-livres para estacionar\footnote{\url{www.smartsantander.eu/wiki/index.php/Mitos/Mitos}}, ou visualização
-da poluição do ar da cidade \cite{santana2016software}. Em Amsterdã, na Holanda,
-um projeto permite que os habitantes acompanhem em tempo real o consumo de
-energia de suas casas \cite{kon2016}.
+livres para estacionar\footnote{\url{www.smartsantander.eu/wiki/index.php/Mitos/Mitos}},
+ou visualização da poluição do ar da cidade \cite{santana2016software}. Em
+Amsterdã, na Holanda, um projeto permite que os habitantes acompanhem em tempo
+real o consumo de energia de suas casas \cite{kon2016}. Contudo, as plataformas
+e soluções atuais, no geral, apresentam problemas. A abordagem utilizada nestas
+soluções costuma ser muito específica e não padronizada, não se preocupando com
+a interoperabilidade dentre os diversos projetos, e não promovendo
+reaproveitamento das soluções existentes \cite{delesposte2017}.
 
-Contudo, as plataformas e soluções atuais apresentam problemas. A abordagem
-utilizada nestas soluções costuma ser muito específica e não padronizada, não
-se preocupando com a interoperabilidade dentre os diversos projetos, e não
-promovendo reaproveitamento das soluções existentes \cite{delesposte2017}.
+Com a finalidade de ser uma plataforma que, em sua origem, se atente aos
+problemas citados, surge o InterSCity, que busca promover interoperabilidade,
+padronização, escalabilidade, e extensibilidade \cite{delesposte2017}. O
+InterSCity está em desenvolvimento, e, embora já tenha uma arquitetura bem
+definida, e esteja completamente funcional, ainda não conta com sua camada de
+processamento de dados adequada para contextos de larga escala. Este trabalho
+tem então como principal contribuição o planejamento, desenho, e implementação,
+de uma camada de processamento de dados que forneça ao InterSCity o que é
+necessário para que seja possível performar operações com grande massa de dados.
+Isto será possível graças ao uso de tecnologias Big Data, que são tecnologias
+chave para cidades inteligentes\cite{batty2012smart}.
 
-Com a finalidade de ser uma plataforma sem os defeitos citados, surge o
-InterSCity, que busca promover interoperabilidade, padronização,
-escalabilidade, e extensibilidade \cite{delesposte2017}. O InterSCity está em
-desenvolvimento, e, embora já tenha uma arquitetura bem definida, ainda não
-conta com sua camada de processamento de dados.
-
-Este trabalho tem então, como principal contribuição, o planejamento, desenho,
-e implementação da camada de processamento de dados da plataforma InterSCity,
-utilizando tecnologias Big Data. A arquitetura e as principais características
-da plataforma serão levantadas no capítulo 2.
-
-Big Data é uma tecnologia chave no contexto de cidades inteligentes, pois a
-massa de dados em projetos deste contexto pode crescer de maneira absurda, e as
-soluções tradicionais não são suficientes nesses casos \cite{batty2012smart}.
-Atualmente existem diversas ferramentas com foco em Big Data, e, uma maneira de
-planejar a implantação e utilização dessas ferramentas é utilizando e definindo
-uma arquitetura já disseminada e testada. No capítulo 3, as arquiteturas
-Lambda\footnote{\url{http://lambda-architecture.net/}} e
-Kappa\footnote{\url{http://milinda.pathirage.org/kappa-architecture.com/}}
-serão analisadas e detalhadas, e, ao final, no capítulo 4, será feita uma
-decisão a respeito de qual arquitetura e quais tecnologias serão escolhidas
-para compor a camada de processamento de dados no InterSCity.
+Maiores detalhes sobre as características e o estado atual do InterSCity serão
+apresentados no Capítulo \ref{chapter:interscity}, trazendo ainda a abordagem que será
+seguida para definições a cerca da camada de processamento, e o que deverá ser
+desenvolvido. O Capítulo \ref{chapter:data} trará um estudo sobre o estado da arte
+em arquiteturas e tecnologias Big Data, apresentando uma análise a cerca das
+ferramentas mais adequadas para o contexto da plataforma. O Capítulo
+\ref{chapter:architecture} levantará as decisões e justificativas para compor
+arquitetura, e, por fim, o Capítulo \ref{chapter:5} finaliza o trabalho,
+trazendo as considerações iniciais e os próximos passos a serem tomados.

@@ -1,4 +1,5 @@
 \chapter[PROCESSAMENTO DE DADOS]{PROCESSAMENTO DE DADOS}
+\label{chapter:data}
 
 A camada de processamento de dados que será proposta para o InterSCity terá
 como base a utilização de Big Data, considerada uma das três principais
@@ -32,7 +33,7 @@ certos contextos.
   \label{fig:lambda-lifecycle}
 \end{figure}
 
-Um ciclo de vida típico da Arquitetura Lambda pode ser acompanhado na figura
+Um ciclo de vida típico da Arquitetura Lambda pode ser acompanhado na Figura
 \ref{fig:lambda-lifecycle}, e têm seu início com a (i) chegada
 de novos dados, que serão então (ii) transmitidos tanto para a camada
 \textit{batch} quanto para a camada \textit{speed}. A camada \textit{batch}
@@ -233,7 +234,7 @@ Benchmark\footnote{\url{http://sortbenchmark.org/}}, na categoria GraySort,
 que tem como objetivo mensurar quão rápido uma tecnologia ordena 100 TB de
 dados, o Spark apresentou uma performance três vezes maior que o Hadoop
 MapReduce, utilizando dez vezes menos recursos. Os resultados podem ser
-conferidos na tabela \ref{tab:graysort2014results}.
+conferidos na Tabela \ref{tab:graysort2014results}.
 %tradução de streaming pra transmissão fica ok?
 
 \subsection{Processamento Streaming}
@@ -282,7 +283,7 @@ programação, e, por processar eventos no momento em que estes chegam
 \end{figure}
 
 Em relação a performance, ambas tecnologias se mostram boas opções, mas o
-Cassandra apresenta grande vantagem, como pode ser visto na figura
+Cassandra apresenta grande vantagem, como pode ser visto na Figura
 \ref{fig:cassandrabenchmark}. Ainda sobre a performance, é importante
 ressaltar que o Cassandra apresenta escalabilidade quase
 linear\footnote{\url{http://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-Hbase}}.
