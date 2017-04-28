@@ -46,8 +46,53 @@ contrário do que ocorreria caso tivessem estados específicos, pois só
 conseguiriam caso certas transições ocorressem.
 \end{itemize}
 
-% \chapter{Segundo Apêndice}
-%
-% Texto do segundo apêndice.
-%
+    \chapter{PERFORMANCE DO INTERSCITY}
+    \label{appendix:performance}
+Para mensurar a performance do InterSCity, dois experimentos foram feitos:
+um, para avaliar a degradação da performance conforme o número de clientes
+enviando dados concorrentemente aumenta; e outra análise, com mudanças na % posso usar ponto e virgula?
+infraestrutura, com o objetivo de mensurar o quanto a performance melhorou
+com o aumento dos recursos computacionais \cite{delesposte2017}.
+
+\begin{figure}
+  \centering
+    \includegraphics[scale=0.7]{figuras/benchmark1.png}
+    \caption{Degradação no tempo de resposta. Fonte: ESPOSTE, 2017.}
+  \label{fig:benchmark1}
+\end{figure}
+
+No primeiro experimento, clientes ficaram em um laço de repetição enviando
+dados por requisições síncronas durante 4 minutos. O experimento foi feito
+utilizando 11 diferentes configurações, variando o número de clientes
+concorrentes. Com os resultados, que estão apresentados na Figura
+\ref{fig:benchmark1}, pôde ser percebido que: (i) o microserviço
+Resource Adaptor manteve o maior uso dos recursos, sendo considerado o
+maior gargalo da plataforma, juntamente com o Data Collector, que também
+apresentou uso intensivo da CPU; (ii) para 50 clientes concorrentes, o
+tempo de resposta médio foi de 60 milissegundos; (iii) acima de 250 clientes
+concorrentes, as requisições passaram a ter latência de 1 segundo
+\cite{delesposte2017}.
+
+\begin{figure}
+  \centering
+    \includegraphics[scale=0.4]{figuras/benchmark2.png}
+    \caption{Número de requisições por segundo com aumento de recursos. Fonte: ESPOSTE, 2017.}
+  \label{fig:benchmark2}
+\end{figure}
+
+No segundo experimento, um cenário de 500 clientes concorrentes foi utilizado, 
+durante 6 ciclos de 4 minutos, e com diferentes configurações de
+\textit{hardware}, melhorando os recursos computacionais. Foi utilizado
+balanceamento de carga igualitário (\textit{round-robin}) nos serviços
+que foram identificados como os gargalos da plataforma - isto foi possível
+graças aos princípios seguidos, mencionados anteriormente. Os resultados,
+que estão apresentados na Figura \ref{fig:benchmark2}, permitem concluir que:
+(i) só é necessário a melhora de alguns microserviços para melhor desempenho
+da plataforma, até certo ponto; (ii) a plataforma consegue escalar linearmente
+com a adição de recursos, o que mostra o quão escalável é o InterSCity. Além
+disso, foi observado que, por conta do alto número de clientes, o RabbitMQ
+passou a consumir grandes recursos, o que o trás como outro possível gargalo,
+caso tenha disponível pouco recurso computacional \cite{delesposte2017}.
+
 \end{apendicesenv}
+

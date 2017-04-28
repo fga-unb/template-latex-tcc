@@ -1,40 +1,38 @@
 \chapter[INTERSCITY]{INTERSCITY}
 \label{chapter:interscity}
 
-Com o objetivo de prover uma solução para os problemas presentes no ecossistema
-de cidades inteligentes, foi desenvolvido o InterSCity, uma plataforma que foca
-em aspectos como interoperabilidade, escalabilidade, extensibilidade, e
-qualidade, licenciado sob MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}},
-e construído utilizando arquitetura de microserviços -
-MSA\footnote{\url{microservices.io/}} \cite{delesposte2017}. Baseando-se no
-desenvolvimento colaborativo e na utilização de tecnologias software livre de
-ponta, o time de desenvolvedores do InterSCity conta atualmente com a ajuda de
-diversos colaboradores, que, utilizando metodologias ágeis, mantém a evolução e
-manutenção da plataforma ao longo do tempo \cite{delesposte2017}.
+O InterSCity está licenciado sob MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}},
+e foi construído com a utilização da arquitetura de microserviços -
+MSA\footnote{\url{microservices.io/}}
+\cite{delesposte2017}. Baseando-se no desenvolvimento colaborativo e na
+utilização de tecnologias software livre de ponta, o projeto é desenvolvido
+com a ajuda de diversos colaboradores, que, utilizando metodologias ágeis,
+possibilitam a manutenção e evolução da plataforma ao longo do tempo \cite{delesposte2017}.
 
 A maior parte dos microserviços\footnote{Os termos microserviços, módulos, e
 componentes, serão utilizados intermitentemente, mas apresentando o mesmo
-significado.} foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}},
+significado.} da plataforma foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}},
 seguindo padrões que priorizam extensibilidade e qualidade, e levando em conta
 princípios\footnote{Os princípios seguidos pelo InterSCity são apresentados no
-Apêndice \ref{appendix:principles}} que levaram a uma arquitetura madura, robusta, e extensível. O
-projeto se encontra hospedado no
-Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}}, onde é
-possível ter acesso ao código fonte dos microserviços, documentação da
-plataforma, e um cliente IoT (\textit{Internet of Things}) exemplo.
+Apêndice \ref{appendix:principles}} que levaram a uma arquitetura madura,
+robusta, e extensível. A partir de experimentos feitos\footnote{Informações
+importantes sobre o experimento estão disponíveis do Apêndice \ref{appendix:performance}
+}, é possível conferir quão promissor é o InterSCity. O projeto encontra-se
+hospedado no Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}},
+onde é possível ter acesso ao código fonte, documentação, e um exemplo de
+cliente que ilustra o uso da plataforma.
 
 \section{ARQUITETURA}
 
 O InterSCity apresenta uma arquitetura de microserviços distribuída, composta
-pelos microserviços Resource Adaptor, Resource Viewer,
-Resource Catalog, Data Collector, Resource Discovery, Data Processor, e
-Actuator Controller. Estes componentes são desacoplados entre si, e cada um tem
-responsabilidades específicas e bem definidas. A comunicação entre eles é
-feita via requisições REST e passagem de mensagem. O modelo de comunicação via
-passagem de mensagem é importante em contextos de concorrência pelo isolamento
-provido \cite{armstrong2003}, e é feito utilizando o
-RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do padrão de projeto
-PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
+pelos microserviços Resource Adaptor, Resource Viewer, Resource Catalog,
+Data Collector, Resource Discovery, e Actuator Controller. Estes componentes
+são desacoplados entre si, e cada um tem responsabilidades específicas e bem
+definidas. A comunicação entre eles é feita via requisições REST e passagem de
+mensagem. O modelo de comunicação via passagem de mensagem é importante em
+contextos de concorrência pelo isolamento provido \cite{armstrong2003}, e é
+feito utilizando o RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do
+padrão de projeto PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 
 \begin{figure}
   \centering
@@ -43,172 +41,59 @@ PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
   \label{fig:interscity-lifecycle}
 \end{figure}
 
-A Figura \ref{fig:interscity-lifecycle} ilustra um ciclo de vida típico de um
-recurso IoT na plataforma. Inicialmente, o recurso (i) começa um pedido de
-registro na plataforma com o Resource Adaptor, que, (ii) gerenciando a conversa
-com o módulo Resource Catalog, (iii) informa ao recurso seu UUID, que será
-utilizado internamente deste passo em diante. Após, a comunicação entre o
-Resource Adaptor e o dispositivo IoT ainda continuará, mas, (iv) os dados terão
-como destino o módulo Data Collector, que armazenará as informações. Por fim,
-(vi) as informações contidas no Data Collector serão enviadas para o
-Resource Viewer, apresentando então os dados do recurso para o usuário final.
-% adicionar imagem?
-% preciso referenciar?
+A Figura \ref{fig:interscity-lifecycle} ilustra o ciclo de vida típico de um
+recurso IoT na plataforma. Inicialmente, o recurso (i) faz um pedido de
+registro na plataforma ao Resource Adaptor, que, (ii) cadastra o módulo no
+microserviço Resource Catalog, (iii) e informa então ao recurso seu UUID
+(identificador único), que será utilizado internamente deste passo em diante.
+Após, a comunicação entre o Resource Adaptor e o dispositivo IoT terá
+continuidade, mas, (iv) os dados terão como destino o módulo Data Collector,
+que armazenará as informações. Por fim, (v) as informações contidas no
+Data Collector serão enviadas para o Resource Viewer, apresentando então os
+dados do recurso para o usuário final.
 
-\section{MICROSERVIÇOS}
+Como dito, os microserviços do InterSCity têm responsabilidades atômicas e bem
+definidas, princípio chave para que a plataforma atinja o que propõe-se. O
+microserviço \textbf{Resource Adaptor} é o grande responsável pela comunicação
+entre os dispositivos IoT e a plataforma, funcionando como um mediador
+durante as requisições \cite{delesposte2017}.
 
-\begin{itemize}
-    \item \textbf{Resource Adaptor}: é o grande responsável pela comunicação
-entre os dispositivos IoT e o InterSCity, e funciona como um recepcionista
-durante as requisições, gerenciando o registro e atualização dos
-dispositivos IoT, e redirecionando informações importantes dos recursos
-registrados para os destinos desejados \cite{delesposte2017}. É escrito em
-Ruby on Rails, e, embora converse com os recursos IoT diretamente, comunica-se
-com alguns dos microserviços da plataforma via RabbitMQ.
+O \textbf{Data Collector} e o \textbf{Resource Catalog} tem papeis parecidos,
+mas enquanto o primeiro gerencia e armazena dados históricos de medições dos
+dispositivos, o segundo tem o papel de gerenciar e armazenar o registro dos
+dispositivos na plataforma \cite{delesposte2017}.
 
-    \item \textbf{Data Collector}: tem como papel o armazenamento e
-disponibilização de dados coletados pelos recursos registrados na plataforma
-\cite{delesposte2017}. Também escrito em Ruby on Rails, este microserviço fará
-contínua comunicação com a camada de processamento que será desenvolvida.
-Constantemente publica dados em tópicos do RabbitMQ, que serão consumidos por
-outros microserviços, contudo, a comunicação com o Resource Viewer é feita
-diretamente, e não por passagem de mensagem. Os recursos armazenados são
-expostos via API, disponibilizando também dados históricos.
-
-    \item \textbf{Resource Viewer}: o único microserviço da plataforma escrito em
-EmberJS\footnote{\url{www.emberjs.com/}}, e tem o papel de apresentar os dados
-armazenados no Data Collector e no Resource Catalog para o usuário final
-\cite{delesposte2017}. Após a adição do módulo de processamento, é esperado que
-o Resource Viewer passe a apresentar também os dados processados.
-
-    \item \textbf{Resource Catalog}: gerencia o registro e o estado de recursos
-IoT na plataforma. Este microserviço, escrito em Ruby on Rails, fornece
-identificadores únicos (UUID) para cada recurso que se registra na plataforma
-\cite{delesposte2017}. O identificador único será utilizado então nas futuras
-comunicações que ocorrerão, tanto via RabbitMQ quanto via requisição REST.
-
-    \item \textbf{Resource Discovery}: responsável por prover uma API para a
-descoberta dos recursos IoT disponíveis, com possibilidade de uso de filtros
-diversos \cite{delesposte2017}.
-
-    \item \textbf{Actuator Controller}: provê serviços para requisições nos
-recursos IoT atuadores registrados na plataforma\cite{delesposte2017}. Estas
-requisições são armazenadas, e podem ser recuperadas no futuro para fins
-de auditoria \cite{delesposte2017}.
-
-\end{itemize}
-
-\section{PERFORMANCE}
-
-Para mensurar a performance do InterSCity, dois experimentos foram feitos:
-um, para avaliar a degradação da performance conforme o número de clientes
-enviando dados concorrentemente aumenta; e outra análise, com mudanças na % posso usar ponto e virgula?
-infraestrutura, com o objetivo de mensurar o quanto a performance melhorou
-com o aumento dos recursos computacionais \cite{delesposte2017}.
-
-\begin{figure}
-  \centering
-    \includegraphics[scale=0.7]{figuras/benchmark1.png}
-    \caption{Degradação no tempo de resposta. Fonte: ESPOSTE, 2017.}
-  \label{fig:benchmark1}
-\end{figure}
-
-No primeiro experimento, clientes ficaram em um laço de repetição enviando
-dados por requisições síncronas durante 4 minutos. O experimento foi feito
-utilizando 11 diferentes configurações, variando o número de clientes
-concorrentes. Com os resultados, que estão apresentados na Figura
-\ref{fig:benchmark1}, pôde ser percebido que: (i) o microserviço
-Resource Adaptor manteve o maior uso dos recursos, sendo considerado o
-maior gargalo da plataforma, juntamente com o Data Collector, que também
-apresentou uso intensivo da CPU; (ii) para 50 clientes concorrentes, o
-tempo de resposta médio foi de 60 milissegundos; (iii) acima de 250 clientes
-concorrentes, as requisições passaram a ter latência de 1 segundo
+O \textbf{Resource Viewer} e o \textbf{Resource Discovery}, por outro lado,
+são similares por manipularem e utilizarem o Data Collector e o Resource
+Catalog em sua execução. O Resource Viewer tem como objetivo apresentar ao
+usuário final os dados dos recursos, enquanto o Resource Discovery provê formas
+de busca por dispositivos disponíveis, possibilitando o uso de filtros
+\cite{delesposte2017}. Por fim, o \textbf{Actuator Controller} provê serviços
+para requisições nos recursos IoT atuadores registrados na plataforma
+, armazenando os dados, possibilitando auditoria
 \cite{delesposte2017}.
 
-\begin{figure}
-  \centering
-    \includegraphics[scale=0.4]{figuras/benchmark2.png}
-    \caption{Número de requisições por segundo com aumento de recursos. Fonte: ESPOSTE, 2017.}
-  \label{fig:benchmark2}
-\end{figure}
-
-No segundo experimento, um cenário de 500 clientes concorrentes foi utilizado, 
-durante 6 ciclos de 4 minutos, e com diferentes configurações de
-\textit{hardware}, melhorando os recursos computacionais. Foi utilizado
-balanceamento de carga igualitário (\textit{round-robin}) nos serviços
-que foram identificados como os gargalos da plataforma - isto foi possível
-graças aos princípios seguidos, mencionados anteriormente. Os resultados,
-que estão apresentados na Figura \ref{fig:benchmark2}, permitem concluir que:
-(i) só é necessário a melhora de alguns microserviços para melhor desempenho
-da plataforma, até certo ponto; (ii) a plataforma consegue escalar linearmente
-com a adição de recursos, o que mostra o quão escalável é o InterSCity. Além
-disso, foi observado que, por conta do alto número de clientes, o RabbitMQ
-passou a consumir grandes recursos, o que o trás como outro possível gargalo,
-caso tenha disponível pouco recurso computacional \cite{delesposte2017}.
-
-\section{GERÊNCIA DE CONFIGURAÇÃO}
+\section{GERÊNCIA DE CONFIGURAÇÃO E DEPENDÊNCIAS}
 
 Outro aspecto que recebe atenção no desenvolvimento do InterSCity é a gerência
-de configuração, que, atualmente, utiliza tecnologias de ponta, que reduzem
-trabalho desnecessário, ao passo em que promovem isolamento entre a plataforma
-e o ambiente hospedeiro. A gerência de configuração do InterSCity é guiada por
-\textit{containers} do Docker\footnote{\url{https://www.docker.com/}}, e cada
-microserviço e serviço externo (como o RabbitMQ) é executado em
-\textit{containers} separados; e pelo uso do
-Git\footnote{\url{https://git-scm.com/}}. Assim, a configuração de um ambiente
-para execução do InterSCity tem como pré-requisitos a instalação do Docker, do
-Docker Compose e do Git.
+de configuração, que, atualmente, utiliza tecnologias que reduzem o esforço
+desnecessário, promovem o isolamento entre a plataforma e o ambiente hospedeiro,
+e aumentam a segurança no desenvolvimento. A gerência de configuração do
+InterSCity é guiada por \textit{containers} do
+Docker\footnote{\url{https://www.docker.com/}}, e cada microserviço e
+dependência externa (como o RabbitMQ) são executados em
+\textit{containers} separados. O desenvolvimento da plataforma também é
+orientado pelo uso do Git\footnote{\url{https://git-scm.com/}}, de modo que a
+configuração de um ambiente para execução do InterSCity tenha como
+pré-requisitos somente estes dois projetos: Docker, e Git.
 
-Um repositório principal, chamado
+O InterSCity usa um esquema não tão comum quanto ao uso dos repositórios de
+seus microserviços. Um repositório principal, chamado
 \textit{dev-env}\footnote{\url{https://gitlab.com/smart-city-software-platform/dev-env}},
-funciona como \textit{projeto mestre}, e os microserviços da plataforma são
+funciona como \textit{repositório mestre}, e os microserviços da plataforma são
 submódulos pertencentes a este. Desta forma, os estados do projeto mestre são
-ligados aos estados dos microserviços, garantindo compatibilidade. Por exemplo:
-o cenário de um microserviço precisar utilizar uma versão recente de outro
-microserviço, mas este estar numa versão mais antiga, não acontece sem que seja
-desejado.
+ligados aos estados dos microserviços, garantindo compatibilidade entre estes.
+Com essa abordagem, versões do repositório mestre garantem compatibilidade
+entre os microserviços, dificultando cenários de incompatibilidade de API.
 
-Os passos para configuração do InterSCity são os seguintes:
-
-% configura o lstlisting:
-\lstset{
-    tabsize=4,
-    rulecolor=,
-    language=bash,
-    basicstyle=\scriptsize,
-    columns=fixed,
-    showstringspaces=false,
-    breaklines=true
-}
-\begin{enumerate}
-    \item Clonar o repositório principal, iniciar submódulos e atualizar submódulos:
-        \begin{lstlisting}[basicstyle=\tiny,]
-        $ git clone https://gitlab.com/smart-city-software-platform/dev-env.git
-        $ git submodule init
-        $ git submodule update
-        \end{lstlisting}
-
-    \item Executar o \textit{setup} do arquivo de configuração do projeto:
-        \begin{lstlisting}
-        $ ./project setup
-        \end{lstlisting}
-
-    \item Executar a rotina \textit{start} no arquivo de configuração:
-        \begin{lstlisting}
-        $ ./project start
-        \end{lstlisting}
-\end{enumerate}
-
-Os módulos do InterSCity passarão então a rodar nas diferentes portas
-desejadas. Os estados dos serviços podem ser conferidos através do comando
-\begin{lstlisting}
-$ docker ps
-\end{lstlisting}
-
-% necessário? abaixo
-A partir dos pontos levantados, é possível analisar o nível de maturidade do
-InterSCity. Mesmo sendo distribuído (pela arquitetura), escalável (provado
-pelos experimentos), e bem configurado (pela gerência de configuração), o
-projeto ainda não faz uso de tecnologias Big Data. No próximo capítulo serão
-apresentadas duas arquiteturas Big Data bem difundidas, e, em seguida, será
-levantada a proposta de arquitetura para a camada de processamento de dados.
+\section{PROPOSTA E METODOLOGIA}
