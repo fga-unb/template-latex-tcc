@@ -6,25 +6,57 @@ como base a utilização de Big Data, considerada uma das três principais
 tecnologias na criação de infraestrutura para cidades inteligentes
 \cite{kon2016}. Neste capítulo serão detalhadas duas arquiteturas, Lambda e
 Kappa, e o levantamento de possíveis tecnologias a serem usadas nestas
-arquiteturas.
+arquiteturas. A Arquitetura Lambda foi decidida como dandidata por ser bem
+estabelecida e considerada adequada para o contexto de cidades inteligentes
+\cite{kiran2015}, enquanto a Arquitetura Kappa foi decidida como candidata por
+ser utilizada por grandes empresas, como a
+LinkedIn\footnote{\url{https://www.oreilly.com/ideas/questioning-the-lambda-architecture}}.
+É importante ressaltar também que adaptações das arquiteturas serão feitas em
+relação a literatura, de modo que fiquem mais adequadas ao contexto de cidades
+inteligentes, e mais plausíveis para o estado atual do InterSCity.
 
 \section{ARQUITETURA LAMBDA}
 
-A Arquitetura Lambda é um padrão arquitetural para plataformas de processamento
-de dados que utilizam tecnologias Big Data, e surge como um caminho alternativo a
-outras arquiteturas mais antigas, como a incremental com \textit{sharding}
-\cite{marz2015}.
+A Arquitetura Lambda é um padrão de projeto para plataformas de processamento
+de dados que utilizam tecnologias Big Data \cite{kiran2015}, e surge como um
+caminho alternativo a outras arquiteturas mais antigas, como a incremental com
+\textit{sharding} \cite{marz2015}. É composta de três camadas: a camada
+\textit{batch}\footnote{No decorrer do texto, as camadas da arquitetura Lambda
+e outros termos associados não serão traduzidos.}, a camada \textit{serving}; e
+a camada \textit{speed} \cite{kiran2015}. Cada uma destas camadas é
+implementada utilizando algoritmos e ferramentas específicas, de modo
+que certas ferramentas são mais apropriadas em certos contextos.
 
-Esta arquitetura é composta de três camadas: a camada
-\textit{batch}\footnote{No decorrer do texto, as camadas da arquitetura Lambda e alguns
-termos referentes a algumas ferramentas e práticas não serão traduzidos.}, que
-constantemente processa uma grande quantidade de dados e demora razoavelmente
-em seu processamento; a camada \textit{serving}, responsável por disponibilizar
-os resultados do processamento; e a camada \textit{speed}, responsável por
-atuar enquanto a camada \textit{batch} está ocupada processando
-\cite{marz2015}. Cada uma destas camadas é implementada utilizando algoritmos e
-ferramentas específicas, de modo que certas ferramentas são mais apropriadas em
-certos contextos.
+A \textbf{camada \textit{batch}} é responsável pelo processamento de uma grande
+massa de dados, e tem como ponto fraco a alta latência. Em sua execução, ela
+cria e gerencia um \textit{master dataset}\footnote{O \textit{master dataset} é um lote
+histórico de informação, que, por ser imutável, só possibilita \textbf{anexação}
+de informações.}, que, após processados, são disponibilizados em
+\textit{batch views}, utilizados pela \textbf{camada \textit{serving}}.
+A camada \textit{batch} é então, em sua essência, imutável, de modo que, caso
+uma mudança seja necessária, uma abordagem diferente deve ser seguida: o dado
+que carece alteração não sofre transformações, permanecendo inalterado, mas um
+novo dado com as alterações é inserido no lote \cite{marz2015}.
+
+\newpage
+A \textbf{camada \textit{speed}} tem como diferencial o processamento com baixa
+latência, que é obtido pelo uso de uma parcela menor da massa de dados\footnote{
+A camada \textit{speed} só leva em conta dados que surgiram após a camada
+\textit{batch} ter começado seu processamento.}. Outra característica importante
+é que esta camada faz uso do processamento \textit{streaming}, que ocorre
+quando os dados são processados conforme estão disponíveis. Este tipo de
+processamento funciona bem com mecanismos de passagem de mensagem
+\cite{marz2015}, e permitem que as consultas feitas levem em conta dados
+recentes, ignorados pela camada \textit{batch}. Essa abordagem utilizada
+pela camada \textit{speed}, incremental, costuma aceitar também alteração de
+dados já utilizados, tornando esta camada mutável, o que força o uso de um
+banco de dados que suporte escrita aleatória \cite{marz2015}, aumentando
+substancialmente a complexidade desta camada \cite{marz2015}. Por fim, a
+camada \textit{speed} condensa seu processamento feito em
+\textit{real-time views}, que serão fundidos com os resultados das
+\textit{batch views}. Os resultados da camada \textit{speed} são então
+dispensados sempre que um \textit{batch} terminar seu processamento
+\cite{marz2015}.
 
 \begin{figure}
   \centering
@@ -47,120 +79,71 @@ dos \textit{batch views} e \textit{real-time views}, que é então a resposta
 a consulta \cite{marz2015}.
 
 A Arquitetura Lambda garante sua resiliência através da \textit{isolação de
-complexidade}, que é obtida graças a sua separação entre camadas \textit{batch}
-e \textit{speed} \cite{marz2015}. A resiliência ocorre pois uma vez que os
+complexidade}, que é obtida graças a separação entre camadas \textit{batch}
+e \textit{speed} \cite{marz2015}. A resiliência ocorre pois, uma vez que os
 resultados são processados na camada \textit{batch}, os resultados da camada
 \textit{speed} podem ser descartados. Essa técnica é importante pois o
-processamento em tempo-real pode criar inconsistências, agravados em cenários
-de alta concorrência; contudo, essa inconsistência será corrigida num lote
-futuro que será processado pela camada \textit{batch}, e os resultados
-da camada \textit{speed} (que está incoerente) serão descartados \cite{marz2015}.
+processamento em tempo-real pode criar inconsistências, por conta da baixa
+precisão que é ocasionada por usar somente dados recentes; contudo, essa
+inconsistência é corrigida no próximo \textit{batch} a ser processado,
+possibilitando que os resultados incoerentes da camada \textit{speed} sejam
+descartados \cite{marz2015}.
 
-% Nesta seção serão apresentados detalhes importantes da Arquitetura Lambda, e
-% possibilidades de tecnologias a serem utilizadas. Todas as tecnologias
-% levantadas são código livre, de boa qualidade, e utilizadas por gigantes da
-% industria.
-
-\subsection{Camada Batch}
-
-Responsável pelo processamento de uma grande massa de dados, e tendo como ponto
-fraco a alta latência, a camada \textit{batch} é responsável por gerenciar e
-criar um \textit{master dataset} (um lote de informação, imutável, e que só
-pode \textbf{receber} anexos) \cite{marz2015}. Os dados na camada \textit{batch}
-são então imutáveis, de modo que, caso uma mudança seja necessária, o dado que
-carece alteração não sofre transformações, permanecendo inalterado, mas um novo
-dado com as alterações é inserido no lote \cite{marz2015}. Por fim, a camada
-\textit{batch} fará o pré-processamento dos dados presentes no
-\textit{master dataset}, disponibilizando-os em \textit{batch views}.
-
-\subsection{Camada Speed}
-
-Durante o processamento da camada \textit{batch}, novos dados podem ser
-inseridos. Caso somente a \textit{batch} processasse, esses novos dados não
-seriam levados em conta em novas consultas; este problema é resolvido
-na Arquitetura Lambda através da camada \textit{speed}, que é capaz de
-processar dados em baixa latência \cite{marz2015}.
-
-O diferencial entre a camada \textit{speed} e a camada \textit{batch} com
-relação a performance e latência, se deve ao fato da \textit{speed} só
-considerar a massa de dados que foi inserida após a camada \textit{batch}
-ter começado a processar. Como a massa de dados é então muito menor, a
-latência das operações também é mais baixa. A abordagem para processamento
-também é diferente: a camada \textit{batch} analisa um lote de dados de uma
-vez, enquanto a camada \textit{speed} processa dados conforme eles chegam.
-Essa abordagem utilizada pela camada \textit{speed} é chamada de transmissão,
-e funciona bem com mecanismos de passagem de mensagem \cite{marz2015}.
-O fato da camada \textit{speed} utilizar transmissão, faz com que o uso de
-banco de dados que suportem escrita aleatória seja necessário \cite{marz2015},
-diferentemente da camada \textit{batch}, o que aumenta substancialmente
-a complexidade da camada \textit{speed} \cite{marz2015}. Por fim, a camada
-\textit{speed} condensa o processamento feito em \textit{real-time views}, que
-são análogas as \textit{batch views}, mas feitas somente com os dados
-processados via transmissão.
-
-\subsection{Camada Serving}
-
-Após os \textit{master datasets} da camada \textit{batch} serem criados ou
-estendidos, \textit{batch views} são disponibilizados para a camada
-\textit{serving}. A camada \textit{serving} cria a possibilidade de consultas a
-massa de dados processada, e de fazer leituras aleatórias \cite{marz2015}.
-Conforme novos lotes são processados, a camada \textit{serving}
-automaticamente troca os lotes antigos pelos novos, garantindo atualização dos
-resultados.
-
-Uma característica interessante desta camada é que, embora ela precise ser
-capaz de fazer leitura aleatória, substituição de \textit{batch views}, e
-responder consultas rapidamente (pois os dados já terão sido processados),
-esta camada não precisa ser capaz de fazer escrita aleatória \cite{marz2015}.
-Esse fato reduz substancialmente a complexidade necessária para as tecnologias
-desta camada, de modo que só precisem se preocupar com os outros requisitos
-citados.
+Quanto à sua implementação no InterSCity, a Arquitetura Lambda pode precisar de
+adaptações. Na literatura, a camada \textit{serving} é a responsável pela
+junção entre o resultado do processamento feito pelas camadas \textit{speed} e
+\textit{batch}, e a separação entre as camadas \textit{batch} e \textit{serving}
+é bem definidas \cite{marz2015}, contudo, isso depende das ferramentas que
+serão definidas para uso. 
 
 \section{ARQUITETURA KAPPA}
 
-Assim como a Arquitetura Lambda, a Arquitetura Kappa é um padrão arquitetural
-de \textit{software}, e surge como uma alternativa mais simples e objetiva
-\cite{kreps2014}. Enquanto um \textit{batch} tem início e fim bem definidos,
-um \textit{stream} é infinito - logo, um \textit{batch} é um subconjunto de
-um \textit{stream} \cite{seyvet2016}. Este é um dos fundamentos da Arquitetura
-Kappa, que em seu processamento usa somente a camada \textit{speed}, se
-sustentando no uso de um fluxo contínuo de dados \cite{kreps2014}.
+A Arquitetura Kappa é um padrão de projeto de \textit{software}, e surgiu após
+questionamentos\footnote{\url{https://www.oreilly.com/ideas/questioning-the-lambda-architecture}}
+quanto a complexidade da Arquitetura Lambda. É uma arquitetura recente (2014),
+simples, e se baseia somente no uso da \textbf{camada \textit{speed}}
+\cite{seyvet2016}. É guiada por quatro princípios:
+(i) tudo é um \textit{stream}; (ii) os dados devem ser imutáveis; (iii)
+somente um \textit{framework} para processamento deve ser utilizado; (iv) a
+reprodução histórica deve ser disponível \cite{seyvet2016}.
 
-A arquitetura é guiada por quatro princípios: (i) tudo é um \textit{stream};
-(ii) dados imutáveis; (iii) somente um \textit{framework};
-(iv) e reprodução histórica \cite{seyvet2016}. Além disso, é importante que
-a tecnologia de \textit{stream} utilizada garanta a ordem dos itens, para
-que a reprodução dos mesmos dados gere os mesmos resultados \cite{seyvet2016}.
-Assim, a arquitetura funciona da seguinte forma:
+Fazendo uso da observação de que o \textit{log} é um conjunto de informações
+imutáveis e com ordenação bem definida, a Arquitetura Kappa o utiliza, e,
+assim, atinge os quatro princípios citados anteriormente \cite{kreps2014}. O
+\textit{log} é processado em tempo real, permitindo consultas em baixa
+latência, e com a possibilidade de acesso de dados atuais e históricos
+\cite{forgeat2015}. Caso o processamento seja iniciado após o fluxo de dados já
+ter começado, duas opções são possíveis: processar o \textit{log} do início,
+tornando disponível os dados históricos, ou processar o \textit{log} do final,
+não tendo acesso aos dados históricos, mas tendo latência mínima
+\cite{kreps2014}.
 
-\begin{enumerate}
-    \item Novos dados chegam a plataforma;
-    \item Os dados são inseridos no banco de dados, e a situação das operações
-        é anexado ao \textit{log}, ou os dados são simplesmente transmitidos;
-    \item Um \textit{job} começa o processamento dos dados atuais, e o
-        resultado do processamento é armazenado;
-    \item Caso um novo processamento seja desejado, um novo \textit{job}
-        é iniciado - contudo, seu resultado é armazenado em uma nova tabela,
-        e não na usada pelo \textit{job} do passo anterior;
-    \item Os resultados do novo \textit{job} passam a ser usados no lugar
-        dos resultados antigos.
-\end{enumerate}
+\newpage
 
-\subsection{Camada Speed}
+\begin{figure}
+  \centering
+    \includegraphics[scale=0.5]{figuras/kappa_architecture.png}
+  \caption{Funcionamento da Arquitetura Kappa.}
+  \label{fig:kappa-lifecycle}
+\end{figure}
 
-A camada \textit{stream} na Arquitetura Kappa funciona de maneira parecida ao
-que ocorre na Arquitetura Lambda. Um dos poucos diferenciais é que, enquanto
-na Arquitetura Lambda os resultados da camada \textit{speed} são descartados
-quando a camada \textit{batch} começa um novo processamento, na Arquitetura
-Kappa um novo \textit{job} é inicializado quando alguma mudança significativa
-ocorre \cite{forgeat2015}.
+O funcionamento da Arquitetura Kappa está apresentado na figura
+\ref{fig:kappa-lifecycle}. Inicialmente, novos dados chegam à plataforma e são
+(i) persistidos no banco de dados, que (ii) gera um \textit{log} com os
+resultados das transações. As mudanças no \textit{log} são observadas e
+(iii) processadas pelo processamento \textit{streaming}, que, por fim, permite
+a (iv) consulta do processamento feito.
 
-\subsection{Camada Serving}
-
-A camada \textit{serving} na Arquitetura Kappa funciona da maneira similar ao
-que ocorre na Arquitetura Lambda. Os resultados da camada \textit{speed}
-ficam disponíveis para serem usados, e as tecnologias da camada \textit{serving}
-passam a responder consultas em baixa latência \cite{forgeat2015}.
+Assim como levantado a respeito da Arquitetura Lambda, a implementação da
+Arquitetura Kappa também precisaria de adaptações para ser implantada no
+InterSCity, principalmente pelo uso do \textit{log}, que, dependendo das
+tecnologias utilizadas, pode ser acessado de maneira mais ou menos conveniente.
+Um casamento entre as tecnologias escolhidas deve ocorrer para que a
+arquitetura seja implementada como sugerido na literatura, o que pode não ser
+possível dadas as restrições da plataforma. O InterSCity no momento não
+disponibiliza seus \textit{logs} de uma forma facilmente digeridas por
+ferramentas usáveis na Arquitetura Kappa, forçando a busca por mais ferramentas,
+ferramentas, ou até mesmo substituição da abordagem que utiliza \textit{log}.
 
 \section{BROKER}
 
