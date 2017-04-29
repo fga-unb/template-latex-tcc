@@ -97,3 +97,32 @@ Com essa abordagem, versões do repositório mestre garantem compatibilidade
 entre os microserviços, dificultando cenários de incompatibilidade de API.
 
 \section{PROPOSTA E METODOLOGIA}
+
+O estado atual do InterSCity é estável, e, embora não conte com uma camada de
+processamento de dados ideal, certo esforço culminou em uma camada de
+processamento provisória, e que será utilizada como base para o desenvolvimento
+da nova arquitetura. Houve ainda a troca de tecnologia de banco de dados, que
+passou do Postgres (tecnologia SQL) para o MongoDB (tecnologia NoSQL). Essa
+troca foi um passo importante na busca por uma maior elasticidade no volume de
+dados, e facilitará o desenvolvimento da nova arquitetura. A equipe do
+InterSCity nomeou a camada provisória de \textbf{Data Processor}, que,
+atualmente, conta com uma configuração pronta para uso do Apache Spark, bem
+como \textit{scripts} que ilustram situações de uso desta tecnologia, como
+para consumir e processar dados de um dos exemplos disponíveis no
+repositório.
+
+A proposta de camada de processamento de dados, ao contrário da camada
+provisória, deverá seguir um padrão de projeto para compor sua arquitetura, que
+deve ser adequado para o contexto de cidades inteligentes, e compatível com a
+arquitetura atual do InterSCity. Um levantamento das arquiteturas Big Data
+candidatas será então feito, bem como um estudo a respeito das ferramentas que
+as compõem. Este levantamento terá algumas restrições, como: somente projetos
+software livre deverão ser levados em conta, e ferramentas que necessitem
+grandes mudanças no ecossistema do InterSCity terão pouca prioridade.
+
+É esperado então que seja desenvolvida uma nova arquitetura de processamento
+de dados que atenda requisitos típicos de cidades inteligentes, e que possibilite
+extensibilidade para trabalhos futuros. A nova arquitetura deve permitir,
+por exemplo, que um \textit{pipeline} de dados possa ser executado pela camada,
+com um fluxo de grande massa de dados. Por fim, será fornecido um exemplo de
+aplicação que utilize a arquitetura desenvolvida, como prova de conceito.
