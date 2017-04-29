@@ -148,50 +148,84 @@ ferramentas, ou até mesmo substituição da abordagem que utiliza \textit{log}.
 \section{BROKER}
 
 Existem várias abordagens para prover a comunicação entre diferentes módulos em
-plataformas de processamento de dados, e, um desses modos é através da passagem
-de mensagem. O \textit{broker} é uma peça chave, pois será o responsável por
-trocar informações via transmissão com as camadas de processamento, e, em outros
-casos, também serve de meio para a comunicação entre outros
-microserviços\cite{marz2015}.
+plataformas de processamento de dados, e, um desses modos, é através da passagem
+de mensagem via PubSub, já utilizado pelo InterSCity \cite{delesposte2017}.
+O \textbf{broker} é o mediador responsável por orquestrar as diferentes
+mensagens que são transmitidas via PubSub \cite{marz2015}, e é primordial no
+funcionamento das duas arquiteturas Big Data mencionadas anteriormente.
 
-Uma abstração que facilita sua compreensão, é pensá-lo como um sistema de
-correios. Os microserviços, agindo como pessoas, decidem qual canal
-utilizarão, através das \textbf{conexões} e das \textbf{filas}. Caso um serviço
-queira enviar e receber mensagens sobre um determinado assunto, ele deve se
-registrar em um \textbf{tópico} no \textit{broker}. Por fim, quando uma
-mensagem for receptada pelo \textit{broker}, ele o entregará a todos os
-serviços registrados naquele tópico, como um carteiro.
+Uma abstração que facilita a compreensão do \textit{broker}, é pensá-lo como o
+mediador em um sistema de notícias. Uma entidade, agindo como alguém que publicar
+uma notícia, enviar a notícia (que seria a \textbf{mensagem}) em um
+\textbf{tópico} referente ao tema. Outras entidades, que desejam ser notificadas
+sobre aquele tema, se inscrevem, e serão notificadas quanto uma notícia for
+publicada. O \textit{broker} é então o gerenciador de todo esse processo, e tem
+a tarefa de transferir as mensagens de um emissor para receptores, podendo ter
+ainda, a depender da tecnologia, tolerância à falha, e mecanismos mais
+complexos.
 
-Os \textit{brokers} diferenciam entre si em funcionalidades adicionais, como
-uso e gerenciamento de \textit{log} de transações, filas e esquemas mais
-complexos, maior performance, tolerância a falha, \textit{plugins}, federação
-com outros sistemas, entre outras características.
+Na Arquitetura Kappa, o \textit{broker} será o responsável por recuperar
+novas informações no \textit{log} e as disponibilizar para a ferramenta de
+processamento, podendo também ser o responsável por disponibilizar os
+resultados do processamento, publicando-os em tópicos. Na Arquitetura Lambda
+ele pode atuar de maneira parecida, contudo, ao invés de receber mensagens após
+modificações no \textit{log} ocorrerem, ele deve receber mensagens por
+publicações explícitas em tópicos.
 
 \section{COMPARATIVO ENTRE TECNOLOGIAS}
 
-\subsection{Processamento Batch}
+Nesta seção serão levantadas e comparadas alternativas para compor a
+arquitetura da nova camada de processamentos do InterSCity. As ferramentas
+foram separadas nas categorias \textit{processamento batch},
+\textit{processamento streaming}, e \textit{broker}. Ferramentas NoSQL não
+foram analisadas neste estudo, pois a equipe do InterSCity havia definido o
+uso pelo MongoDB, de modo que a troca por outra ferramenta não fosse
+interessante. Um \textit{broker} diferente do já usado pelo InterSCity foi
+analisado pois ele deve atuar somente com outros módulos da camada de
+processamento, não afetando ou forçando mudanças a arquitetura do InterSCity.
 
-\begin{itemize}
-    \item \textbf{Apache Hadoop MapReduce}: \textit{framework} para processamento
-de dados distribuído, que utiliza abstrações simples. O Hadoop conta com sistema
-de gerenciamento de arquivo nativo através do Hadoop HDFS. Em cenários onde a
-latência não precisa ser tão baixa, o MapReduce é uma opção bem sólida, e
-utilizado pelos mais altos escalões da
-industria \footnote{\url{https://wiki.apache.org/hadoop/PoweredBy}}.
+\subsection{Ferramentas de Processamento Batch}
 
-    \item \textbf{Apache Spark}: utilizando principalmente o módulo Spark SQL
-\footnote{\url{http://spark.apache.org/sql/}}, o Spark trás uma nova abordagem
-para a camada \textit{batch}, pois utiliza menos o disco e mais a memória,
-através de uma abordagem chamada de \textit{micro-batch} \cite{arsalan2014}.
-O Spark não conta com um sistema de gerenciamento de arquivo nativo, e pode
-ser utilizado em conjunto com o Hadoop HDFS. Em um contexto onde menor latência
-é preferida, o Spark é ótima solução.
+Duas ferramentas de processamento \textit{batch} foram analisadas: o
+\textbf{Apache Hadoop MapReduce}, precursor no ecossistema Big Data, e o
+\textbf{Apache Spark}, ferramenta mais recente. O MapReduce é uma das
+ferramentas que compõe o ecossistema do Hadoop, e já foi utilizado em contextos
+extremos \cite{zaharia2008}\footnote{Lista das empresas que utilizam ou já
+utilizaram o Hadoop: \url{https://wiki.apache.org/hadoop/PoweredBy}}, atuando
+com excelência em cenários de grande massa de dados \cite{zaharia2008}. Por
+estes motivos, o MapReduce acaba sendo uma escolha segura para compor a camada
+\textit{batch} da Arquitetura Lambda, mas só dispõe de API nativa para
+linguagem Java, de modo que a implementação do MapReduce no InterSCity deva
+utilizar o uso da saída e entrada padrão do sistema operacional, permitindo o
+uso da linguagem Ruby, e melhorando assim a adaptação da ferramenta pelo time
+do InterSCity.
 
-\end{itemize}
+Um dos questionamentos feitos ao MapReduce é em relação ao constante acesso e
+uso do disco, que deve ser feito sempre que um \textit{job} é finalizado. Por
+conta desta característica, seu uso não é facilmente justificado em cenários em
+que a massa de dados não é grande o suficiente, e, como resposta, surgiu o
+Apache Spark, que evita o uso do disco através de \textit{micro-batches}
+\cite{arsalan2014}. Estes \textit{micro-batches} têm seu tempo de processamento
+definidos em código, de modo que, é possível definir tempos de
+\textit{micro-batches} pequenos o suficiente para que seja considerado
+tempo-real.
 
-\begin{table}[]
+Outras características importantes do Spark para o contexto do
+InterSCity são: API nativa em Python, Scala, Java, e R; biblioteca de
+\textit{streaming}, permitindo que o Spark seja utilizado também na camada
+\textit{speed} da Arquitetura Lambda; e biblioteca de clusterização e
+aprendizagem de máquina, que pode ser útil para compor um futuro \textit{pipeline
+de dados} do InterSCity. A tabela \ref{tab:graysort2014results} apresenta
+um comparativo entre performance do MapReduce e do Spark baseado em uma
+competição que ocorreu em 2014, chamada
+SortBenchmark\footnote{\url{http://sortbenchmark.org/}}. Na competição, o Spark
+apresentou uma performance três vezes maior que o Hadoop MapReduce, utilizando
+dez vezes menos recursos.
+
+
+\begin{table}[!htbp]
     \centering
-    \caption[Resultados da Sort Benchmark 2014, categoria GraySort]{Resultados da Sort Benchmark 2014, categoria GraySort. Fonte: Databricks\footnotemark\\.}
+    \caption[Resultados da Sort Benchmark 2014, categoria GraySort]{Resultados da Sort Benchmark 2014, categoria GraySort. Fonte: Databricks, 2014\footnotemark.}
     \label{tab:graysort2014results}
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|l|l|}
@@ -212,103 +246,72 @@ ser utilizado em conjunto com o Hadoop HDFS. Em um contexto onde menor latência
 
 \footnotetext{\url{https://databricks.com/blog/2014/11/05/spark-officially-sets-a-new-record-in-large-scale-sorting.html}}
 
-Em uma competição chamada Sort
-Benchmark\footnote{\url{http://sortbenchmark.org/}}, na categoria GraySort,
-que tem como objetivo mensurar quão rápido uma tecnologia ordena 100 TB de
-dados, o Spark apresentou uma performance três vezes maior que o Hadoop
-MapReduce, utilizando dez vezes menos recursos. Os resultados podem ser
-conferidos na Tabela \ref{tab:graysort2014results}.
-%tradução de streaming pra transmissão fica ok?
+\subsection{Ferramentas de Processamento Streaming}
 
-\subsection{Processamento Streaming}
+Duas ferramentas de processamento \textit{streaming} foram analisadas: O
+\textbf{Apache Storm}, que foi escrito por Nathan Marz, criador da Arquitetura
+Lambda, e o \textbf{Apache Spark}, analisado anteriormente como ferramenta de
+processamento \textit{batch}. O Apache Storm permite o uso de qualquer
+linguagem de programação que interaja com a saída e entrada padrão do sistema
+operacional, e, sendo sugerido por Nathan Marz em seu livro sobre a Arquitetura
+Lambda \cite{marz2015}, se faz uma opção segura para compor a camada
+\textit{speed} da Arquitetura Lambda.
 
-\begin{itemize}
-    \item \textbf{Apache Spark}: através do módulo Spark Streaming
-\footnote{\url{http://spark.apache.org/streaming/}}, é capaz de fornecer a
-camada \textit{speed} na Arquitetura Lambda. Uma das vantagens de se utilizar
-o Spark é então a complexidade reduzida, por usar uma única tecnologia e
-código base nas duas camadas da Arquitetura Lambda. O Spark Streaming ainda
-loteia eventos antes de processá-los, o que aumenta o tempo de processamento
-em relação a outras soluções, contudo, essa abordagem faz com que a massa de
-dados que ele possa processar seja maior
-\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
+O Spark é utilizado como ferramenta de \textit{streaming} graças ao seu módulo
+Spark Streaming, que tem nativamente integração com várias ferramentas, como
+o Kinesis, Kafka, HDFS, dentre outras. O grande diferencial entre o Spark e o
+Storm é que o Spark faz processamento \textit{streaming} via
+\textit{micro-batches}, ou seja, processa em intervalo de tempos
+pré-definidos, enquanto o Storm processa em tempo-real, conforme chegam novos
+dados. Essa diferença resulta em um tempo de latência notável entre os dois,
+onde o Spark apresenta tempo de latência com pouca variância conforme o volume
+de dados aumenta, enquanto o Storm apresenta latência mínima com baixo volume
+de dados, mas que vai aumentando conforme o volume aumenta. Uma pesquisa
+feita levantou a diferença de performance entre as duas
+ferramentas\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}},
+contudo, foi feita com uma massa de dados pequena, sendo um cenário mais ideal
+para o Storm que para o Spark.
 
-    \item \textbf{Apache Storm}: solução distribuída com foco em processamento
-em tempo real. Tem a vantagem de poder ser utilizado com qualquer linguagem de
-programação, e, por processar eventos no momento em que estes chegam
-\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}}.
-
-\end{itemize}
-
-\subsection{Bancos de Dados NoSQL}
-
-\begin{itemize}
-    \item \textbf{Apache Cassandra}: em sua implementação utiliza o conceito
-        de ``sem pontos de articulação'', fazendo com que a falha em um único
-        item não afete o banco como um todo, característica obtida através do
-        uso da redundância dos nós e dos dados \cite{estrada2016}. É focado em
-        grandes quantidades de dado, escalabilidade, performance, e tolerância
-        a falhas, e é utilizado em empresas como a Netflix, Reddit, Instagram,
-        entre outros\footnote{\url{http://cassandra.apache.org/}}.
-
-    \item \textbf{MongoDB}: banco de dados orientado a documentos que foca no
-        formado JSON ao invés do formato baseado em tabelas típico dos bancos
-        SQL\footnote{\url{https://www.mongodb.com/blog/post/mongodb-vs-sql-day-1-2}}.
-        É utilizado na Cisco, Ebay, EA Games, Nokia, dentre
-        outros\footnote{\url{https://www.mongodb.com/who-uses-mongodb}}.
-\end{itemize}
-
-\begin{figure}
-  \centering
-    \includegraphics[scale=0.6]{figuras/Operations-Per-Second-Per-Node-Cluster-v2.png}
-    \caption{\textit{Benchmark} de performance entre várias tecnologias de banco NoSQL. Fonte: DATASTAX, 2014.}
-  \label{fig:cassandrabenchmark}
-\end{figure}
-
-Em relação a performance, ambas tecnologias se mostram boas opções, mas o
-Cassandra apresenta grande vantagem, como pode ser visto na Figura
-\ref{fig:cassandrabenchmark}. Ainda sobre a performance, é importante
-ressaltar que o Cassandra apresenta escalabilidade quase
-linear\footnote{\url{http://www.datastax.com/nosql-databases/benchmarks-cassandra-vs-mongodb-vs-Hbase}}.
-Quanto a restrições de tecnologia, ambas aceitam um grande conjunto de
-linguagens de programação.
+O Storm então apresenta como vantagem em relação ao Spark a performance
+superior e a flexibilidade de uso da linguagem Ruby, já utilizada pelo time
+do InterSCity, porém, os mesmos pontos positivos para o Spark valem para o
+Spark Streaming: a possibilidade de processamento \textit{batch} utilizando
+a mesma tecnologia e o acesso a ferramentas de clusterização e aprendizagem de
+máquina por padrão são importantes para o InterSCity, e equilibram o
+\textit{trade-off} entre as duas ferramentas.
 
 \subsection{Broker}
 
-\begin{itemize}
-
-    \item \textbf{RabbitMQ}: usado por empresas como a Cisco, Instagram,
-        New York Times, dentre outros \footnote{\url{https://www.rabbitmq.com/}},
-        e com suporte para diversas linguagens \cite{zaitsev2014}, apresenta
-        como principal característica o fato de ser feito em Erlang, e, assim,
-        utilizar o poder da
-        BEAM\footnote{\url{http://erlang.org/faq/implementations.html}},
-        possuindo alto desempenho, tolerância a falhas e processamento
-        distribuído.
-
-    \item \textbf{Apache Kafka}: também atendendo ao padrão PubSub, o Apache
-        foi desenvolvido pela LinkedIn, e hoje é mantido pela Apache
-        \cite{koshy2016}. Tem seu foco centrado em performance e escalabilidade
-        em larga escala, atualmente sendo capaz de lidar com mais de 1.4
-        trilhões de mensagens por dia, distribuídos sobre 1400
-        \textit{brokers} \cite{koshy2016}. Um dos diferenciais dele em relação
-        à outras tecnologias de \textit{brokers}, é o armazenamento e
-        utilização do \textit{log} de transações do banco de dados - isso
-        permite a reprodução dos resultados
-        obtidos\footnote{\url{http://kafka.apache.org/intro}}, o que é útil no
-        contexto de Big Data. O Kafka ainda conta com sistema de tolerância
-        a falhas e suporte a várias
-        linguagens\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Clients}}.
-
-\end{itemize}
-
-Ambas as soluções são sólidas e usadas em contextos extremos, e com grande
-abrangência de tecnologias e linguagens possíveis para uso. O diferencial é que
-o Kafka apresenta performance e escalabilidade
-superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
-e utilização do \textit{log} de transações que é útil para a Arquitetura Kappa,
-enquanto o RabbitMQ apresenta cenários possíveis de filas mais complexas e a
-possibilidade de uso de
+Dois \textit{brokers} foram analisados: o \textbf{RabbitMQ}, que já é utilizado
+em grande escala pelo InterSCity, e o \textbf{Apache Kafka}, sempre
+referenciado para implantação da Arquitetura Kappa. O RabbitMQ é um
+\textit{broker} bem difundido, utilizado por empresas como a Cisco, Instagram,
+New York Times, dentre outros \footnote{\url{https://www.rabbitmq.com/}},
+e apresenta suporte para diversas linguagens \cite{zaitsev2014}, o que
+facilitou sua adoção pelo time do InterSCity. Entre seus diferencias em relação
+a outros \textit{brokers} podem ser destacados: tolerância a falhas,
+processamento distribuído, alto desempenho, filas (e tópicos) com composições
+mais complexas, e a possibilidade de uso de
 \textit{plugins}\footnote{\url{https://www.rabbitmq.com/plugins.html}},
 como para federação\footnote{\url{https://www.rabbitmq.com/federation.html}}.
+
+O Apache Kafka é uma ferramenta mais nova que o RabbitMQ, contudo, também já é
+utilizado em contextos extremos por várias empresas \footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Powered+By}}.
+O diferencial entre o Kafka e os outros \textit{brokers} é o foco na
+performance, recentemente tendo sido capaz de lidar com mais de 1.4 trilhões de
+mensagens por dia, distribuídos sobre 1400 nós \cite{koshy2016}. Um outro
+diferencial relevante entre o Kafka e os outros concorrentes é o suporte padrão
+à integração entre \textit{logs} e tópicos, vital na implementação da
+Arquitetura Kappa. Ainda, o Kappa conta com sistema de tolerância a falhas e
+suporte a várias linguagens de
+programação\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Clients}}.
+
+Ambas as opções são então sólidas, e adequadas para o uso do InterSCity. A
+performance entre os dois já foi comparada, e, embora o Kafka tenha tido
+performance
+superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
+a performance do RabbitMQ não compromete o uso do InterSCity. Assim, os pontos
+cruciais na escolha de tecnologia são: o Kafka tendo suporte a \textit{log} e
+\textit{handler} para o Spark, e o RabbitMQ já sendo utilizado pelo InterSCity
+e possibilitando o uso de \textit{plugins}, como de \textit{web-socket}.
 
