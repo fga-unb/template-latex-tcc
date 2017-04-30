@@ -178,11 +178,11 @@ Nesta seção serão levantadas e comparadas alternativas para compor a
 arquitetura da nova camada de processamentos do InterSCity. As ferramentas
 foram separadas nas categorias \textit{processamento batch},
 \textit{processamento streaming}, e \textit{broker}. Ferramentas NoSQL não
-foram analisadas neste estudo, pois a equipe do InterSCity havia definido o
-uso pelo MongoDB, de modo que a troca por outra ferramenta não fosse
-interessante. Um \textit{broker} diferente do já usado pelo InterSCity foi
-analisado pois ele deve atuar somente com outros módulos da camada de
-processamento, não afetando ou forçando mudanças a arquitetura do InterSCity.
+foram analisadas, pois a equipe do InterSCity já utiliza o MongoDB, de modo
+que a troca por outra ferramenta não é interessante. Um \textit{broker}
+diferente do utilizado pelo InterSCity foi analisado considerando sua atuação
+somente com outros módulos da camada de processamento, e não com os
+microserviços da plataforma, não forçando mudanças na arquitetura do InterSCity.
 
 \subsection{Ferramentas de Processamento Batch}
 
