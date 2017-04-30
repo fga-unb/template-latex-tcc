@@ -94,5 +94,98 @@ disso, foi observado que, por conta do alto número de clientes, o RabbitMQ
 passou a consumir grandes recursos, o que o trás como outro possível gargalo,
 caso tenha disponível pouco recurso computacional \cite{delesposte2017}.
 
+\chapter{PSEUDO-IMPLEMENTAÇÃO - ARQUITETURA LAMBDA}
+\label{appendix:impl}
+
+\section{CÓDIGO DA CAMADA BATCH}
+\begin{python}
+class BatchLayer(threading.Thread):
+    daemon = True
+    ...
+    def run(self):
+        heappush(hooks.actions, (10, Handler1.AcquireData))
+        heappush(hooks.actions, (12, Handler2.AdjustDataModels))
+        heappush(hooks.actions, (20, Handler3.ProcessData))
+        heappush(hooks.actions, (21, Handler4.FindAnomalies))
+        # extensible, new hooks can be added
+
+        self.batch_view = sc.emptyRDD()
+
+        while (True):
+            # continuously processing
+            rdd = spark.sql("SELECT * FROM sensor_data").cache()
+                for op in hooks.actions:
+                rdd = op(rdd).cache()
+            self.batch_view = rdd # updates batch view
+            rdd.unpersist()
+            self.finished_batch = True # notifies speed layer
+\end{python}
+
+\section{CÓDIGO DA CAMADA SPEED}
+\begin{python}
+class SpeedLayer(threading.Thread):
+    daemon = True
+    ...
+    def run(self):
+        self.reset_realtime_view = False
+        self.new_realtime_view = False
+
+        def reset_realtime_view(stream):
+            # checks if the batch layer finished its processing
+            if (batch_view.finished_batch):
+                batch_view.finished_batch = False
+                stream.foreachRDD(lambda rdd: rdd.unpersist())
+                self.reset_realtime_views = True
+                return stream.filter(lambda a: false)
+            else:
+                return stream
+
+        def notify_serving(stream):
+            self.new_realtime_view = True
+
+        # connects to Kafka
+        kvs = KafkaUtils.createDirectStream(ssc, [topic], \\
+            {"metadata.broker.list": brokers})
+
+        heappush(hooks.actions, (10, Handler1.AcquireData))
+        heappush(hooks.actions, (12, Handler2.AdjustDataModels))
+        heappush(hooks.actions, (20, Handler3.ProcessData))
+        heappush(hooks.actions, (21, Handler4.FindAnomalies))
+        heappush(hooks.actions, (0xfffff, notify_serving))
+        heappush(hook.actions, (0xffffff, lambda realtime_view: \
+            reset_realtime_view(realtime_view)))
+
+        self.realtime_view = kvs
+        for op in hook.actions:
+              # register hooks to be executed by the stream
+              self.realtime_view = op(self.realtime_view)
+
+        ssc.start() # start the stream
+        ssc.awaitTermination()
+
+\end{python}
+
+\section{CÓDIGO DA CAMADA SPEED}
+\begin{python}
+class ServingLayer:
+    ...
+    def start(self):
+        merged_data = sc.emptyRDD()
+        speed_layer = SpeedLayer()
+        batch_layer = BatchLayer()
+        while (True):
+            if (speed_layer.new_realtime_view):
+                # updates results with available realtime views
+                speed_layer.new_realtime_view = False
+                merged_data = merged_data.union(\
+                    speed_layer.realtime_view)
+            if (speed_layer.reset_realtime_view):
+                # reset realtime views when batches finishes
+                merged_data = batch_layer.batch_view
+                speed_layer.reset_realtime_view = False
+            if (query):
+                query(merged_data)
+\end{python}
+
 \end{apendicesenv}
 

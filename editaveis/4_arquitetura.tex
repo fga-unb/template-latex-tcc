@@ -47,7 +47,9 @@ possibilitando a criação de um \textit{pipeline de dados}. A implementação
 trouxe para o InterSCity um novo Data Processor, e um componente chamado
 \textbf{Shock}, responsável por abstrair as comunicações entre as diferentes
 ferramentas, e por trazer a extensibilidade mencionada na terceira etapa da
-implementação.
+implementação. Pseudo-algorítmos presentes no apêndice \ref{appendix:impl}
+ilustram o uso das ferramentas escolhidas na implementação da Arquitetura
+Lambda.
 
 A configuração do ambiente, assim como seguido pelo time do InterSCity, foi
 guiada pelo uso de containêres do Docker. Uma configuração do Spark
@@ -60,7 +62,9 @@ A ligação entre os projetos teve início com uma adaptação no microserviço
 Resource Adaptor, que, com a mudança, passa a publicar no tópico
 \textit{new\_data}, no Kafka, a atualização de novos dados. Esta
 adaptação não trouxe mudanças significativas no InterSCity, não afetando o
-fluxo usual da plataforma. Foi desenvolvido então o Shock, responsável por
+fluxo usual da plataforma. Foi desenvolvido então o Shock\footnote{O Shock e o
+novo Data Processor estão no mesmo repositório: \url{https://gitlab.com/DGuedes/data-processor}
+}, responsável por
 receber mensagens em tópicos específicos do Kafka, e passá-los ao Spark
 Streaming. O Shock roda \textit{micro-batches} do Spark em intervalos de tempos
 definidos previamente, e em cada um destes processamentos, \textit{hooks}
