@@ -3,15 +3,14 @@
 
 A \textbf{Arquitetura Kappa} é o padrão de projeto escolhido para servir de
 base para a camada de processamento de dados do InterSCity. A Arquitetura
-Lambda não justifica a maior complexidade no contexto atual do InterSCity, de
+Lambda não justifica a maior complexidade no contexto atual da plataforma, de
 modo que essa escolha facilita a manutenibilidade e adoção da arquitetura pelo
-time do InterSCity, só devem aprender uma tecnologia de processamento
-\textit{streaming}. A Arquitetura Kappa permitirá a análise em tempo-real sem
-que ocorra perda de informações relevantes, o que é importante no contexto de
+time atual do InterSCity. A Arquitetura Kappa permitirá a análise em tempo-real
+sem que ocorra perda de informações relevantes, o que é importante no contexto de
 cidades inteligentes, ao passo em que permite a análise de dados históricos,
-desde que estes tenham sido pré-processados. Esta decisão então força a escolha
-de uma tecnologia de processamento \textit{streaming}, e um \textit{broker}
-adequado.
+desde que estes tenham sido pré-processados. Esta decisão então trás a
+necessidade de escolha de uma tecnologia de processamento \textit{streaming},
+e de um \textit{broker} adequado.
 
 O \textbf{Apache Spark} é a tecnologia de \textit{streaming} escolhida,
 principalmente por dispor nativamente de biblioteca de clusterização e
@@ -20,13 +19,12 @@ troca para a Arquitetura Lambda, por dispor de processamento \textit{batch}.
 O \textbf{Apache Kafka} é o \textit{broker} escolhido, sendo esta uma escolha
 menos óbvia que a anterior. Embora o RabbitMQ já seja utilizado pelo
 InterSCity, e tenha vantagens em certos aspectos em relação ao Kafka, não
-dispor de uma interface nativa que o conecte ao Spark ocasionou nessa decisão.
-Outro fator importante é o gerenciamento nativo de \textit{log} por parte do
-Kafka, que ajuda na implantação da Arquitetura Kappa. É importante também
-ressaltar que esta mudança de \textit{broker} ocorrerá somente na arquitetura
-de processamentos, não trazendo mudanças aos microserviços do InterSCity.
-A Figura \ref{fig:stack} ilustra a pilha de tecnologias que deve compor a
-Arquitetura Kappa no InterSCity.
+dispor de uma interface nativa que o conecte ao Spark resultou nessa decisão.
+Outro fator é o gerenciamento nativo de \textit{log} por parte do
+Kafka, que ajuda na implantação da Arquitetura Kappa. O Kafka, contudo, só
+será utilizado na camada de processamentos, não forçando mudanças no
+ecossistema de microserviços do InterSCity. A Figura \ref{fig:stack} ilustra
+a pilha de tecnologias que deve compor a Arquitetura Kappa no InterSCity.
 
 \begin{figure}
   \centering

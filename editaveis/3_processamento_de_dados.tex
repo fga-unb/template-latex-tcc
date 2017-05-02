@@ -5,16 +5,17 @@ A camada de processamento de dados que será proposta para o InterSCity terá
 como base a utilização de Big Data, considerada uma das três principais
 tecnologias na criação de infraestrutura para cidades inteligentes
 \cite{kon2016}. Neste capítulo serão detalhadas duas arquiteturas, Lambda e
-Kappa, e o levantamento de possíveis tecnologias a serem usadas. A
-Arquitetura Lambda foi decidida como dandidata por ser bem
-estabelecida e considerada adequada para o contexto de cidades inteligentes
-\cite{kiran2015}, enquanto a Arquitetura Kappa foi tida como candidata por
-já ser utilizada por grandes empresas, como a
+Kappa, e levantadas possíveis tecnologias a serem usadas. A Arquitetura Lambda
+foi decidida como dandidata por ser bem estabelecida e considerada adequada
+para o contexto de cidades inteligentes \cite{kiran2015}, enquanto a
+Arquitetura Kappa foi tida como candidata por já ser utilizada por grandes
+empresas, como o
 LinkedIn\footnote{\url{https://www.oreilly.com/ideas/questioning-the-lambda-architecture}},
-servindo de alternativa a Arquitetura Lambda.
+servindo como alternativa a Arquitetura Lambda.
 É importante ressaltar que adaptações nas arquiteturas serão feitas em
-relação à literatura, de modo que fiquem mais adequadas ao contexto de cidades
-inteligentes, e mais plausíveis para o estado atual do InterSCity.
+relação à apresentada na literatura, com o propósit de ficarem  mais adequadas
+ao contexto de cidades inteligentes, e mais plausíveis para o estado atual do
+InterSCity.
 
 \section{ARQUITETURA LAMBDA}
 
@@ -48,16 +49,16 @@ A camada \textit{speed} só leva em conta dados que surgiram após a camada
 quando os dados são processados conforme estão disponíveis. Este tipo de
 processamento funciona bem com mecanismos de passagem de mensagem
 \cite{marz2015}, e permitem que as consultas feitas levem em conta dados
-recentes, ignorados pela camada \textit{batch}. Essa abordagem utilizada
-pela camada \textit{speed}, incremental, costuma aceitar também alteração de
-dados já utilizados, tornando esta camada mutável, o que força o uso de um
-banco de dados que suporte escrita aleatória, aumentando
-substancialmente a complexidade desta camada \cite{marz2015}. Por fim, a
-camada \textit{speed} condensa os resultados de seu processamento em
+recentes, ignorados pela camada \textit{batch}. Essa característica da
+camada \textit{speed} também é conhecida como incremental, e costuma aceitar
+também alteração de dados já utilizados e processados, tornando esta camada
+mutável, o que força o uso de um banco de dados que suporte escrita aleatória,
+aumentando substancialmente a complexidade desta camada \cite{marz2015}. Por
+fim, a camada \textit{speed} condensa os resultados de seu processamento em
 \textit{real-time views}, que serão fundidos com os resultados das
-\textit{batch views}. Os resultados da camada \textit{speed} são então
-dispensados sempre que um \textit{batch} terminar seu processamento
-\cite{marz2015}.
+\textit{batch views} para que seja apresentado o resultado final. Os resultados
+da camada \textit{speed} são então dispensados sempre que um \textit{batch}
+terminar seu processamento \cite{marz2015}.
 
 \begin{figure}
   \centering
