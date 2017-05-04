@@ -2,37 +2,37 @@
 \label{chapter:interscity}
 
 O InterSCity está licenciado sob MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}},
-e foi construído com a utilização da arquitetura de microserviços -
+e foi construído com a utilização da arquitetura de microsserviços -
 MSA\footnote{\url{microservices.io/}}
 \cite{delesposte2017}. Baseando-se no desenvolvimento colaborativo e na
-utilização de tecnologias software livre de ponta, o projeto é desenvolvido
-com a ajuda de diversos colaboradores, que, utilizando metodologias ágeis,
+utilização de tecnologias software livre, o projeto é desenvolvido
+com a ajuda de diversos colaboradores, que, utilizando práticas ágeis,
 possibilitam a manutenção e evolução da plataforma ao longo do tempo \cite{delesposte2017}.
 
-A maior parte dos microserviços\footnote{Os termos microserviços, módulos, e
+A maior parte dos microsserviços\footnote{Os termos microsserviços, módulos, e
 componentes, serão utilizados intermitentemente, mas apresentando o mesmo
 significado.} da plataforma foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}},
 seguindo padrões que priorizam extensibilidade e qualidade, e levando em conta
 princípios\footnote{Os princípios seguidos pelo InterSCity são apresentados no
 Apêndice \ref{appendix:principles}} que levaram a uma arquitetura madura,
-robusta, e extensível. A partir de experimentos feitos\footnote{Informações
-importantes sobre o experimento estão disponíveis do Apêndice \ref{appendix:performance}
-}, é possível conferir quão promissor é o InterSCity. O projeto encontra-se
-hospedado no Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}},
+robusta, e extensível. A partir de experimentos feitos foi possível conferir
+o quão promissor é a performance e a escalabilidade do InterSCity, provando-se
+capaz de lidar com cenários reais de cidades inteligentes \cite{delesposte2017}.
+O projeto encontra-se hospedado no
+Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}},
 onde é possível ter acesso ao código fonte, documentação, e um exemplo de
 cliente que ilustra o uso da plataforma.
 
 \section{ARQUITETURA}
 
-O InterSCity apresenta uma arquitetura de microserviços distribuída, composta
-pelos microserviços Resource Adaptor, Resource Viewer, Resource Catalog,
-Data Collector, Resource Discovery, e Actuator Controller. Estes componentes
-são desacoplados entre si, e cada um tem responsabilidades específicas e bem
-definidas. A comunicação entre eles é feita via requisições REST e passagem de
-mensagem, modelo importante em contextos de concorrência, por conta do
-isolamento provido \cite{armstrong2003}. No InterSCity, a troca de mensagem
-é feita com auxílio do projeto RabbitMQ\footnote{\url{www.rabbitmq.com/}},
-através do padrão de projeto
+O InterSCity é composto por uma arquitetura de microsserviços distribuída,
+que possibilita armazenamento, análise, processamento, composição, e
+integração de dados de recursos de cidades inteligentes. Estes microsserviços
+são desacoplados entre si, e se comunicam através de requisições REST e
+passagem de mensagem, modelo importante em contextos de concorrência, por conta
+do isolamento provido \cite{armstrong2003}. No InterSCity a troca de mensagem
+é feita com auxílio do \textit{broker} de mensagens
+RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do padrão de projeto
 PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 
 \begin{figure}
@@ -45,24 +45,32 @@ PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 A Figura \ref{fig:interscity-lifecycle} ilustra o ciclo de vida típico de um
 recurso IoT na plataforma. Inicialmente, um recurso IoT (i) faz um pedido de
 registro na plataforma ao Resource Adaptor, que, (ii) cadastra o recurso no
-microserviço Resource Catalog, (iii) e informa o UUID
+microsserviço Resource Catalog, (iii) e informa o UUID
 (identificador único) que será utilizado internamente deste passo em diante.
 Após, a comunicação entre o Resource Adaptor e o dispositivo IoT terá
 continuidade, mas (iv) os dados terão como destino o módulo Data Collector,
 que armazenará as informações. Por fim, (v) as informações contidas no
-Data Collector serão enviadas para o Resource Viewer, que apresenta os
-dados do recurso para o usuário final.
+Data Collector são disponibilizadas, podendo ser apresentadas para um usuário
+final via Resource Viewer, ou consumidas por uma aplicação cliente.
 
-Como dito, os microserviços do InterSCity têm responsabilidades atômicas e bem
-definidas, princípio chave para que a plataforma atinja o que propõe-se. O
-microserviço \textbf{Resource Adaptor} é o grande responsável pela comunicação
-entre os dispositivos IoT e a plataforma, funcionando como um mediador
-durante as requisições \cite{delesposte2017}.
+Os microsserviços do InterSCity têm responsabilidades atômicas e bem
+definidas, princípio chave para que a plataforma contemple requisitos funcionais
+e não-funcinais. O microsserviço \textbf{Resource Adaptor} é o grande
+responsável pela comunicação entre os dispositivos IoT e a plataforma,
+funcionando como um mediador durante as requisições \cite{delesposte2017}.
 
-O \textbf{Data Collector} e o \textbf{Resource Catalog} tem papeis parecidos,
+O \textbf{Data Collector} e o \textbf{Resource Catalog} tem papéis parecidos,
 mas enquanto o primeiro gerencia e armazena dados históricos de medições dos
 dispositivos, o segundo tem o papel de gerenciar e armazenar o registro dos
 dispositivos na plataforma \cite{delesposte2017}.
+
+\begin{figure}
+  \centering
+    \includegraphics[scale=0.5]{figuras/interscity_architecture.png}
+    \caption{Arquitetura completa do InterSCity. Fonte: \citeonline{delesposte2017}.}
+  \label{fig:interscity-architecture}
+\end{figure}
+
 
 O \textbf{Resource Viewer} e o \textbf{Resource Discovery}, por outro lado,
 são similares por manipularem e utilizarem o Data Collector e o Resource
@@ -70,9 +78,10 @@ Catalog em sua execução. O Resource Viewer tem como objetivo apresentar ao
 usuário final os dados dos recursos, enquanto o Resource Discovery provê formas
 de busca por dispositivos disponíveis, possibilitando o uso de filtros
 \cite{delesposte2017}. Por fim, o \textbf{Actuator Controller} provê serviços
-para requisições nos recursos IoT atuadores registrados na plataforma
-, armazenando os dados, possibilitando auditoria
-\cite{delesposte2017}.
+para requisições nos recursos IoT atuadores registrados na plataforma,
+armazenando os dados, possibilitando auditoria \cite{delesposte2017}. A Figura
+\ref{fig:interscity-architecture} trás uma visão geral da arquitetura, com todos
+os microsserviços reunidos.
 
 \section{GERÊNCIA DE CONFIGURAÇÃO E DEPENDÊNCIAS}
 
@@ -80,38 +89,39 @@ Outro aspecto que recebe atenção no desenvolvimento do InterSCity é a gerênc
 de configuração, que, atualmente, utiliza tecnologias que reduzem o esforço
 desnecessário, promovem o isolamento entre a plataforma e o ambiente hospedeiro,
 e aumentam a segurança no desenvolvimento. A gerência de configuração do
-InterSCity é guiada por containêres do
-Docker\footnote{\url{https://www.docker.com/}}, e cada microserviço e
+InterSCity é guiada por conteinêres do
+Docker\footnote{\url{https://www.docker.com/}}, e cada microsserviço e
 dependência externa (como o RabbitMQ) são executados em
-containêres separados. O desenvolvimento da plataforma também faz extenso
+conteinêres separados. O desenvolvimento da plataforma também faz extenso
 uso do Git\footnote{\url{https://git-scm.com/}}, de modo que a
 configuração de um ambiente para execução do InterSCity tenha como
-pré-requisitos somente estes dois projetos: Docker, e Git.
+pré-requisitos somente estes dois projetos: Docker e Git.
 
 A plataforma usa um esquema não tão comum quanto ao uso dos repositórios de
-seus microserviços. Um repositório principal, chamado
+seus microsserviços. Um repositório principal, chamado
 \textit{dev-env}\footnote{\url{https://gitlab.com/smart-city-software-platform/dev-env}},
-funciona como \textit{repositório mestre}, e os microserviços da plataforma são
+funciona como \textit{repositório mestre}, e os microsserviços da plataforma são
 submódulos pertencentes a este. Desta forma, os estados do projeto mestre são
-ligados aos estados dos microserviços, garantindo compatibilidade entre estes.
+ligados aos estados dos microsserviços, garantindo compatibilidade entre estes.
 Com essa abordagem, versões do repositório mestre garantem compatibilidade
-entre os microserviços, dificultando cenários de incompatibilidade de API.
+entre os microsserviços, dificultando cenários de incompatibilidade de API.
 
 \section{PROPOSTA E METODOLOGIA}
 
-O estado atual do InterSCity é estável, e, embora não conte com uma camada de
-processamento de dados ideal, certo esforço culminou em uma camada de
-processamento provisória, e que será utilizada como base para o desenvolvimento
-da nova arquitetura. Houve ainda a troca de tecnologia de banco de dados, que
-passou do Postgres (tecnologia SQL) para o MongoDB (tecnologia NoSQL), troca
-importante na busca por uma maior elasticidade no volume de dados. A equipe do
-InterSCity nomeou a camada provisória de \textbf{Data Processor}, que,
-atualmente, conta com uma configuração pronta para uso do Apache Spark, e
-\textit{scripts} que ilustram situações de uso desta tecnologia, como
-para consumir e processar dados de um dos exemplos disponíveis no repositório.
+Atualmente, O InterSCity está em constante desenvolvimento, e, embora não conte
+com uma camada de processamento de dados ideal, certo esforço culminou em um
+serviço de processamento provisório, e que será utilizado como base para o
+desenvolvimento da nova arquitetura. Houve ainda a troca de tecnologia de banco
+de dados no microsserviço Data Collector, que passou do Postgres (tecnologia
+SQL) para o MongoDB (tecnologia NoSQL), troca importante na busca por uma maior
+elasticidade no volume de dados. A equipe do InterSCity nomeou a camada
+provisória de \textbf{Data Processor}, que, atualmente, conta com uma
+configuração pronta para uso do Apache Spark, e \textit{scripts} que ilustram
+situações de uso desta tecnologia, como para consumir e processar dados de um
+dos exemplos disponíveis no repositório.
 
 A proposta de nova camada de processamento de dados, ao contrário da camada
-provisória, deverá seguir um padrão de projeto Big Data em sua arquitetura,
+provisória, deverá seguir um padrão de projeto de Big Data em sua arquitetura,
 adequada para o contexto de cidades inteligentes, e compatível com a
 arquitetura atual do InterSCity. Um levantamento das arquiteturas Big Data
 candidatas deve ser feito, assim como um estudo a respeito de possíveis

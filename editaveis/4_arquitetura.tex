@@ -50,23 +50,22 @@ ilustram o uso das ferramentas escolhidas na implementação da Arquitetura
 Lambda.
 
 A configuração do ambiente, assim como seguido pelo time do InterSCity, foi
-guiada pelo uso de containêres do Docker. Uma configuração do Spark
+guiada pelo uso de conteinêres do Docker. Uma configuração do Spark
 que já havia sido desenvolvida pelo time do InterSCity foi reutilizada,
-precisando de poucas mudanças. Um containêr com o Kafka foi então configurado e
-ligado aos containêres do Spark e do microserviço Resource Adaptor, finalizando
+precisando de poucas mudanças. Um conteinêr com o Kafka foi então configurado e
+ligado aos conteinêres do Spark e do microsserviço Resource Adaptor, finalizando
 assim esta etapa da implementação.
 
-A ligação entre os projetos teve início com uma adaptação no microserviço
+A ligação entre os projetos teve início com uma adaptação no microsserviço
 Resource Adaptor, que, com a mudança, passa a publicar no tópico
 \textit{new\_data}, no Kafka, a atualização de novos dados. Esta
 adaptação não trouxe mudanças significativas no InterSCity, não afetando o
 fluxo usual da plataforma. Foi desenvolvido então o Shock\footnote{O Shock e o
 novo Data Processor estão no mesmo repositório: \url{https://gitlab.com/DGuedes/data-processor}
-}, responsável por
-receber mensagens em tópicos específicos do Kafka, e passá-los ao Spark
-Streaming. O Shock roda \textit{micro-batches} do Spark em intervalos de tempos
-definidos previamente, e em cada um destes processamentos, \textit{hooks}
-extensíveis são executados. Caso queira-se anexar mais uma tarefa no
-\textit{pipeline de dados}, basta então registrá-la no Shock e fornecer uma
-prioridade, que define se uma tarefa deve ser executada antes ou depois no
-Shock.
+}, responsável por receber mensagens em tópicos específicos do Kafka, e
+passá-los ao Spark Streaming. O Shock roda \textit{micro-batches} do Spark em
+intervalos de tempos definidos previamente, e em cada um destes processamentos,
+\textit{hooks} extensíveis são executados. Caso queira-se anexar mais uma
+tarefa no \textit{pipeline de dados}, basta então registrá-la no Shock e
+fornecer uma prioridade, que define se uma tarefa deve ser executada antes ou
+depois no Shock.
