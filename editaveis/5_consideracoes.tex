@@ -1,4 +1,30 @@
 \chapter{CONSIDERAÇÕES INICIAIS}
 \label{chapter:final}
 
+As contribuições deste trabalho propiciaram ao InterSCity a possibilidade de
+atuação em cenários mais extremos e abrangentes, por meio de um novo serviço
+para processamento de seus dados. Este novo serviço deu origem a uma aplicação
+que abstrai as ferramentas de Big Data utilizadas pelo projeto, e que fornece
+meios para que outras aplicações de cidades inteligentes requisitem tarefas para
+serem processadas pela plataforma. Para ilustrar o uso do novo serviço, foi
+desenvolvido uma aplicação teste que utiliza um dos exemplos desenvolvidos
+pelo time do InterSCity, e que registra no Shock operações para serem feitas,
+apresentando ao final os resultados do processamento.
 
+O Shock, contudo, não se encontra em um estado ideal, e dívidas técnicas
+encontram-se presentes. O núcleo da aplicação encontra-se acoplado ao Kafka e
+ao Spark, dificultando o desenvolvimento dos testes, não presentes neste
+momento. A documentação do Shock é frágil e quase inexistente, o que atrapalha
+a evolução do Shock por outros membros do InterSCity. O Shock em seu
+desenvolvimento utiliza somente RDD's como estrutura de dados, ignorando outras
+estruturas importantes e mais rebuscadas, como os Data Frames. Outro aspecto
+que não houve grande cuidado foi a decisão a respeito das janelas de execução
+dos \textit{micro-batches}, que utilizam o mesmo valor, mas que podem ser
+customizadas pelo Spark, e que fornece também o uso de \textit{check-points}
+para serem utilizados caso erros graves ocorram, também não utilizados  pelo
+Shock. Por fim, o Shock neste momento não recupera informações do MongoDB,
+não possibilitando assim a análise de dados históricos.
+
+É esperado que na continuidade do projeto sejam sanadas as dívidas técnicas
+relatadas, e, ao final, que o Shock seja analisado pelo time do InterSCity,
+sendo adotado pela plataforma, compondo assim o núcleo do projeto.
