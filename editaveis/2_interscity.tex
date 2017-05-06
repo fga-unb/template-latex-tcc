@@ -30,6 +30,7 @@ onde é possível ter acesso ao código fonte, documentação, e um exemplo de
 cliente que ilustra o uso da plataforma.
 
 \section{ARQUITETURA}
+\label{sec:architecture}
 
 O InterSCity é composto por uma arquitetura de microsserviços distribuída,
 que possibilita armazenamento, análise, processamento, composição, e
@@ -49,19 +50,19 @@ PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 \end{figure}
 
 A Figura \ref{fig:interscity-lifecycle} ilustra o ciclo de vida típico de um
-recurso IoT na plataforma. Inicialmente, um recurso IoT (i) faz um pedido de
-registro na plataforma ao Resource Adaptor, que, (ii) cadastra o recurso no
-microsserviço Resource Catalog, (iii) e informa o UUID
+recurso IoT na plataforma. Inicialmente, um recurso IoT (1) faz um pedido de
+registro na plataforma ao Resource Adaptor, que, (2) cadastra o recurso no
+microsserviço Resource Catalog, (3) e informa o UUID
 (identificador único) que será utilizado internamente deste passo em diante.
 Após, a comunicação entre o Resource Adaptor e o dispositivo IoT terá
-continuidade, mas (iv) os dados terão como destino o módulo Data Collector,
-que armazenará as informações. Por fim, (v) as informações contidas no
+continuidade, mas (4) os dados terão como destino o módulo Data Collector,
+que armazenará as informações. Por fim, (5) as informações contidas no
 Data Collector são disponibilizadas, podendo ser apresentadas para um usuário
 final via Resource Viewer, ou consumidas por uma aplicação cliente.
 
 Os microsserviços do InterSCity têm responsabilidades atômicas e bem
 definidas, princípio chave para que a plataforma contemple requisitos funcionais
-e não-funcinais. O microsserviço \textbf{Resource Adaptor} é o grande
+e não-funcionais. O microsserviço \textbf{Resource Adaptor} é o grande
 responsável pela comunicação entre os dispositivos IoT e a plataforma,
 funcionando como um mediador durante as requisições \cite{delesposte2017}.
 
