@@ -1,21 +1,26 @@
 \chapter[PROCESSAMENTO DE DADOS]{PROCESSAMENTO DE DADOS}
 \label{chapter:data}
 
-A camada de processamento de dados que será proposta para o InterSCity terá
-como base a utilização de Big Data, considerada uma das três principais
-tecnologias na criação de infraestrutura para cidades inteligentes
-\cite{kon2016}. Neste capítulo serão detalhadas duas arquiteturas, Lambda e
-Kappa, e levantadas possíveis tecnologias a serem usadas. A Arquitetura Lambda
-foi decidida como dandidata por ser bem estabelecida e considerada adequada
-para o contexto de cidades inteligentes \cite{kiran2015}, enquanto a
-Arquitetura Kappa foi tida como candidata por já ser utilizada por grandes
-empresas, como o
-LinkedIn\footnote{\url{https://www.oreilly.com/ideas/questioning-the-lambda-architecture}},
-servindo como alternativa a Arquitetura Lambda.
-É importante ressaltar que adaptações nas arquiteturas serão feitas em
-relação à apresentada na literatura, com o propósito de ficarem  mais adequadas
-ao contexto de cidades inteligentes, e mais plausíveis para o estado atual do
-InterSCity.
+A grande quantidade de geradores e consumidores de dados relacionados a cidades
+inteligentes trazem a necessidade de três características para as aplicações:
+\textit{volume}, \textit{velocidade}, e \textit{varidade} \cite{alnuaimi2015}.
+Uma forma de atingir estes pontos é através do uso de tecnologias de Big Data,
+responsáveis por armazenar, processar e analisar os dados das aplicações de
+cidades inteligentes \cite{alnuaimi2015}. Como relatado, o InterSCity carece de
+um serviço de processamento de dados mais adequado, e, a partir dos estudos
+feitos neste capítulo, decisões a respeito do novo serviço de processamento
+serão tomadas.
+
+Serão detalhadas duas arquiteturas, Lambda e Kappa, e levantadas tecnologias
+a serem usadas que abrangem duas formas de processamento: \textit{batch} e
+\textit{streaming}. No processamento \textit{batch}, os dados são utilizados
+em conjunto, e armazenados de uma forma específica antes de serem escalonados
+para serem processados \cite{zheng2015real}. No processamento
+\textit{streaming}, por outro lado, os dados são processados conforme estão
+disponíveis \cite{zheng2015real} permitindo consulta a informações com menor
+latência. Adaptações nas arquiteturas serão feitas em relação ao apresentado na
+literatura, com o propósito de ficarem mais adequadas ao contexto de cidades
+inteligentes, e mais plausíveis para o estado atual do InterSCity.
 
 \section{ARQUITETURA LAMBDA}
 
@@ -40,7 +45,6 @@ uma mudança seja necessária, uma abordagem diferente deve ser seguida: o dado
 que carece alteração não sofre transformações, permanecendo inalterado, mas um
 novo dado com as alterações é inserido no lote \cite{marz2015}.
 
-\newpage
 A \textbf{camada \textit{speed}} tem como diferencial o processamento com baixa
 latência, que é obtido pelo uso de uma parcela menor da massa de dados\footnote{
 A camada \textit{speed} só leva em conta dados que surgiram após a camada
@@ -68,15 +72,15 @@ terminar seu processamento \cite{marz2015}.
 \end{figure}
 
 Um ciclo de vida típico da Arquitetura Lambda pode ser acompanhado na Figura
-\ref{fig:lambda-lifecycle}, e tem seu início com a (i) chegada
-de novos dados, que serão então (ii) transmitidos tanto para a camada
+\ref{fig:lambda-lifecycle}, e tem seu início com a (1) chegada
+de novos dados, que serão então (2) transmitidos tanto para a camada
 \textit{batch} quanto para a camada \textit{speed}. A camada \textit{batch}
-(iii) anexa os novos dados, e os processa, (iv) gerando assim
+(3) anexa os novos dados, e os processa, (4) gerando assim
 \textit{batch views}, que são enviados para a camada \textit{serving}. O mesmo
-dado que foi enviado para a camada \textit{batch}, no passo (i), também foi
-enviado para a camada \textit{speed}, onde (v) será processado com menor latência,
+dado que foi enviado para a camada \textit{batch}, no passo (1), também foi
+enviado para a camada \textit{speed}, onde (5) será processado com menor latência,
 por só levar em conta dados recentes, gerando assim \textit{real-time views}. 
-Caso uma consulta seja feita, ocorrerá então uma (vi) soma entre os resultados
+Caso uma consulta seja feita, ocorrerá então uma (6) soma entre os resultados
 dos \textit{batch views} e \textit{real-time views}, que é então a resposta
 a consulta \cite{marz2015}.
 
@@ -120,8 +124,6 @@ tornando disponível os dados históricos, ou processar a partir do final,
 não tendo acesso aos dados históricos, mas tendo latência mínima
 \cite{kreps2014}.
 
-\newpage
-
 \begin{figure}
   \centering
     \includegraphics[scale=0.5]{figuras/kappa_architecture.png}
@@ -129,7 +131,7 @@ não tendo acesso aos dados históricos, mas tendo latência mínima
   \label{fig:kappa-lifecycle}
 \end{figure}
 
-O funcionamento da Arquitetura Kappa está apresentado na figura
+O funcionamento da Arquitetura Kappa está apresentado na Figura
 \ref{fig:kappa-lifecycle}. Inicialmente, novos dados chegam à plataforma, e são
 (i) persistidos no banco de dados, que (ii) anexa os resultados das transações
 no \textit{log}. As mudanças no \textit{log} são observadas e
@@ -186,14 +188,13 @@ disponibilizar para as ferramenta de processamento.
 \section{COMPARATIVO ENTRE TECNOLOGIAS}
 
 Nesta seção serão levantadas e comparadas alternativas para compor a
-arquitetura da nova camada de processamentos do InterSCity. As ferramentas
+arquitetura do novo serviço de processamentos do InterSCity. As ferramentas
 foram separadas nas categorias \textit{processamento batch},
-\textit{processamento streaming}, e \textit{broker}. Ferramentas NoSQL não
-foram analisadas, pois a equipe do InterSCity já utiliza o MongoDB, de modo
-que a troca por outra ferramenta não seja interessante. Um \textit{broker}
-diferente do utilizado pelo InterSCity foi analisado considerando sua atuação
-somente com a camada de processamento, não alterando os microsserviços
-da plataforma.
+\textit{processamento streaming}, e \textit{broker}. Ferramentas de banco de
+dados não foram analisadas, pois uma troca seria prejudicial e não interessante
+para a equipe do InterSCity. Um \textit{broker} diferente do utilizado pelo
+InterSCity foi analisado considerando sua atuação somente com o serviço de
+processamento, não alterando os microsserviços da plataforma.
 
 \subsection{Ferramentas de Processamento Batch}
 
@@ -226,7 +227,7 @@ InterSCity são: API nativa em Python, Scala, Java, e R; biblioteca de
 \textit{streaming}, permitindo que o Spark seja utilizado também na camada
 \textit{speed} da Arquitetura Lambda; e biblioteca de clusterização e
 aprendizagem de máquina, que pode ser útil para compor um futuro \textit{pipeline
-de dados} do InterSCity. A tabela \ref{tab:graysort2014results} apresenta
+de dados} do InterSCity. A Tabela \ref{tab:graysort2014results} apresenta
 um comparativo entre performance do MapReduce e do Spark baseado em uma
 competição que ocorreu em 2014, chamada
 SortBenchmark\footnote{\url{http://sortbenchmark.org/}}. Na competição, o Spark
