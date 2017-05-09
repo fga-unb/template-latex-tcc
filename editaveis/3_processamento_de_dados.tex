@@ -3,24 +3,24 @@
 
 A grande quantidade de geradores e consumidores de dados em cenários de cidades
 inteligentes trazem a necessidade dos \textit{três V's} para as aplicações:
-\textit{volume}, \textit{velocidade}, e \textit{variedade} \cite{alnuaimi2015}.
+\textit{volume}, \textit{velocidade} e \textit{variedade} \cite{alnuaimi2015}.
 Uma forma de sanar estes pontos é através do uso de tecnologias de Big Data,
 que podem ser utilizadas para armazenar, processar e analisar os dados das
 aplicações de cidades inteligentes \cite{alnuaimi2015}. Como relatado, o
-InterSCity carece de um serviço de processamento de dados mais adequado, e,
+InterSCity carece de um serviço de processamento de dados mais adequado, e
 a partir dos estudos feitos neste capítulo, decisões a respeito do novo
 serviço de processamento foram tomadas.
 
 Serão detalhadas duas arquiteturas, Lambda e Kappa, e levantadas tecnologias
 a serem usadas que abrangem duas formas de processamento: \textit{batch} e
-\textit{streaming}. No processamento \textit{batch}, os dados são utilizados
+\textit{streaming}. No processamento \textit{batch} os dados são utilizados
 em conjunto, e armazenados de uma forma específica antes de serem escalonados
-para serem processados \cite{zheng2015real}. No processamento
+para o processamento \cite{zheng2015real}. No processamento
 \textit{streaming}, por outro lado, os dados são processados conforme estão
 disponíveis \cite{zheng2015real}, permitindo consulta a informações com menor
-latência. Adaptações nas arquiteturas serão feitas em relação ao apresentado na
-literatura, com o propósito de ficarem mais adequadas ao contexto de cidades
-inteligentes, e compatíveis com os princípios e estruturas da arquitetura de
+latência. Adaptações nas arquiteturas serão descritas em relação ao apresentado
+na literatura, com o propósito de maior adequação ao contexto de cidades
+inteligentes, e compatíveis com os princípios e arquitetura de
 microsserviços do InterSCity.
 
 \section{ARQUITETURA LAMBDA}
@@ -30,7 +30,7 @@ de dados que utilizam tecnologias de Big Data \cite{kiran2015}, e surge como um
 caminho alternativo a outras arquiteturas mais antigas, como a incremental com
 \textit{sharding} \cite{marz2015}. É composta de três camadas: a camada
 \textit{batch}\footnote{No decorrer do texto, as camadas da arquitetura Lambda
-e outros termos associados não serão traduzidos.}, a camada \textit{serving}; e
+e outros termos associados não serão traduzidos.}, a camada \textit{serving} e
 a camada \textit{speed} \cite{kiran2015}. Cada uma destas camadas é
 implementada utilizando algoritmos e ferramentas específicas, de modo
 que certas ferramentas são mais apropriadas em certos contextos.
@@ -41,7 +41,7 @@ cria e gerencia um \textit{master dataset}\footnote{O \textit{master dataset} é
 histórico de informação, que, por ser imutável, só possibilita \textbf{anexação}
 de informações.}, que, após processado, têm seus resultados condensados em
 \textit{batch views}, utilizados pela \textbf{camada \textit{serving}}.
-A camada \textit{batch} é então, em sua essência, imutável, de modo que, caso
+A camada \textit{batch} é então, em sua essência, imutável, de modo que caso
 uma mudança seja necessária, uma abordagem diferente deve ser seguida: o dado
 que carece alteração não sofre transformações, permanecendo inalterado, mas um
 novo dado com as alterações é inserido no lote \cite{marz2015}.
@@ -56,9 +56,8 @@ processamento funciona bem com mecanismos de passagem de mensagem
 \cite{marz2015}, e permite que as consultas feitas levem em conta dados
 recentes, ignorados temporariamente pela camada \textit{batch}. Por estes
 motivos, a camada \textit{speed} também é conhecida como a camada que faz
-\textit{processamento incremental} \cite{marz2015}, e costuma aceitar também
-alteração de dados já utilizados e processados, tornando esta camada mutável,
-o que força o uso de um banco de dados que suporte escrita aleatória,
+\textit{processamento incremental} \cite{marz2015}, e que por aceitar a mutação
+de dados, força o uso de um banco de dados que suporte escrita aleatória,
 aumentando substancialmente a complexidade desta camada \cite{marz2015}. Por
 fim, a camada \textit{speed} condensa os resultados de seu processamento em
 \textit{real-time views}, que serão fundidos com os resultados das
@@ -124,25 +123,22 @@ latência, com a possibilidade de acesso de dados atuais e históricos
 ter começado, duas opções são possíveis: processar o \textit{log} do início,
 tornando disponível os dados históricos, ou processar a partir do final,
 não tendo acesso aos dados históricos, mas tendo latência mínima
-\cite{kreps2014}. A outra abordagem possível é utilizando um produtor
-explícito, que alimentará o processamento de dados ao produzir mensagens em
-tópicos no \textit{broker}. Para uso dos dados históricos nessa segunda
-abordagem, o acesso ao banco de dados deve ser feito como etapa inicial, com
-o propósito de alimentação do \textit{stream}.
+\cite{kreps2014}.
 
 \begin{figure}
   \centering
     \includegraphics[scale=0.5]{figuras/kappa_architecture.png}
-  \caption{Funcionamento da Arquitetura Kappa.}
+    \caption{Funcionamento da Arquitetura Kappa. Baseado em: \citeonline{seyvet2016}.}
   \label{fig:kappa-lifecycle}
 \end{figure}
 
-O funcionamento da Arquitetura Kappa com \textit{log} está apresentado na Figura
-\ref{fig:kappa-lifecycle}. O funcionamento começa com a chegada de novos dados,
-que são (1) persistidos no banco de dados, (2) que anexa os resultados das
-transações no \textit{log}. As mudanças no \textit{log} são observadas e
-(3) processadas em \textit{streaming} por uma ferramenta, que, por fim, permite
-a (4) consulta dos resultados.
+O funcionamento da Arquitetura Kappa está apresentado na Figura
+\ref{fig:kappa-lifecycle}, e começa a chegada de novos dados,
+que são (1) publicados em tópicos do \textit{broker}. O \textit{broker} anexa
+(2) os novos dados em um \textit{log} distribuído e (3) os transfere para
+ferramentas de processamento \textit{streaming} que estejam inscritas no tópico
+relacionado. Por fim, (4) os resultados do processamento são disponibilizados
+para serem consumidos.
 
 Assim como levantado a respeito da Arquitetura Lambda, a implementação da
 Arquitetura Kappa também precisaria de adaptações para ser implantada no
@@ -150,10 +146,7 @@ InterSCity, principalmente pelo uso do \textit{log}, que, dependendo das
 tecnologias utilizadas pode ser acessado de maneira mais ou menos conveniente.
 Um casamento entre as tecnologias escolhidas deve ocorrer para que a
 arquitetura seja implementada como sugerido na literatura, o que pode não ser
-possível dadas as restrições da plataforma. O InterSCity no momento não
-disponibiliza seus \textit{logs} de uma forma facilmente digeridas por
-ferramentas usáveis na Arquitetura Kappa, forçando a busca por mais ferramentas,
-ou até mesmo substituição quanto ao uso do \textit{log}.
+possível dadas as restrições da plataforma.
 
 \section{BROKER}
 
@@ -162,16 +155,16 @@ pode ocorrer de diversas formas, e uma destas é através da passagem
 de mensagem via PubSub, já utilizado pelo InterSCity \cite{delesposte2017}.
 O \textbf{broker} é o mediador responsável por orquestrar as diferentes
 mensagens que são transmitidas via PubSub \cite{marz2015}, sendo primordial no
-funcionamento das duas arquiteturas Big Data mencionadas anteriormente.
+funcionamento das duas arquiteturas de Big Data mencionadas anteriormente.
 
 Uma abstração que facilita a compreensão do \textit{broker} é pensá-lo como o
 mediador de um sistema de notícias. Uma entidade, desejando transmitir
 uma notícia, a publica em um \textbf{tópico}, agindo como o produtor do
 conteúdo. Outras entidades que desejam ser notificadas sobre aquele tema
 inscrevem-se no tópico associado, e serão notificadas quando uma notícia referente
-for publicada, agindo como consumidores. O \textit{broker} então
-gerencia esse processo, e tem a tarefa de transferir as mensagens de um
-emissor para receptores.
+for publicada, agindo como consumidores. O \textit{broker} gerencia esse
+processo, e tem a tarefa de transferir as mensagens de um emissor para
+receptores.
 
 \begin{figure}
   \centering
@@ -214,7 +207,7 @@ com excelência em cenários de grande massa de dados \cite{zaharia2008}, sendo
 uma escolha segura para compor a camada \textit{batch} da Arquitetura
 Lambda. Só dispõe de API nativa para linguagem Java, de modo que a
 implementação do MapReduce no InterSCity deva utilizar o uso da saída e entrada
-padrão do sistema operacional, para que seja possível o uso da linguagem Ruby,
+padrão do sistema operacional para que seja possível o uso da linguagem Ruby,
 linguagem de maior domínio pelo time do InterSCity.
 
 Um dos questionamentos feitos ao MapReduce é em relação ao constante acesso e
@@ -229,7 +222,7 @@ tempo-real\footnote{O tempo-real mencionado durante este trabalho se refere ao
 \textit{soft real-time}.}.
 
 Outras características importantes do Spark para o contexto do
-InterSCity são: API nativa em Python, Scala, Java, e R; biblioteca de
+InterSCity são: API nativa em Python, Scala, Java e R; biblioteca de
 \textit{streaming}, permitindo que o Spark seja utilizado também na camada
 \textit{speed} da Arquitetura Lambda; e biblioteca de clusterização e
 aprendizagem de máquina, que pode ser útil para compor um futuro \textit{pipeline
@@ -271,9 +264,9 @@ Duas ferramentas de processamento \textit{streaming} foram analisadas: O
 Lambda, e o \textbf{Apache Spark}, analisado anteriormente como ferramenta de
 processamento \textit{batch}. O Apache Storm permite o uso de qualquer
 linguagem de programação que interaja com a saída e entrada padrão do sistema
-operacional, e, sendo sugerido por Nathan Marz em seu livro sobre a Arquitetura
+operacional, e sendo sugerido por Nathan Marz em seu livro sobre a Arquitetura
 Lambda \cite{marz2015}, se faz uma opção segura para compor a camada
-\textit{speed} da Arquitetura Lambda.
+\textit{speed}.
 
 O Spark é utilizado como ferramenta de \textit{streaming} graças ao seu módulo
 Spark Streaming, que tem nativamente integração com várias ferramentas que
@@ -287,10 +280,10 @@ conforme o volume de dados aumenta, enquanto o Storm apresenta latência mínima
 com baixo volume de dados, mas que vai aumentando conforme o volume aumenta.
 Um estudo feito relatou a diferença de performance entre as duas
 ferramentas\footnote{\url{http://xinhstechblog.blogspot.com.br/2014/06/storm-vs-spark-streaming-side-by-side.html}},
-contudo, foi feita com uma massa de dados pequena, sendo um cenário favorável
-para o Storm.
+contudo, o cenário aplicado utilizava pequena massa de dados, favorável ao
+Storm.
 
-O Storm então apresenta como vantagem em relação ao Spark a performance
+O Storm apresenta como vantagem em relação ao Spark a performance
 superior e a flexibilidade de uso da linguagem Ruby, já utilizada pelo time
 do InterSCity, porém o Spark conta com a possibilidade de processamento
 \textit{batch}, integração nativa com ferramentas produtoras, e o acesso a
@@ -309,7 +302,7 @@ e apresenta suporte para diversas linguagens \cite{zaitsev2014}, o que
 facilitou sua adoção pelo time do InterSCity. Podem ser destacados como
 diferenciais em relação a outros \textit{brokers}: tolerância a falhas,
 processamento distribuído, alto desempenho, filas (e tópicos) com composições
-mais complexas, e a possibilidade de uso de
+mais complexas e a possibilidade de uso de
 \textit{plugins}\footnote{\url{https://www.rabbitmq.com/plugins.html}},
 que suportam, por exemplo,
 federação\footnote{\url{https://www.rabbitmq.com/federation.html}}.
@@ -326,8 +319,8 @@ entre o Kafka e os outros concorrentes é o suporte padrão à integração entr
 o Kafka conta com sistema de tolerância a falhas e suporte a várias linguagens de
 programação\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Clients}}.
 
-Ambas as opções são então sólidas e adequadas para o uso do InterSCity. A
-performance entre os dois já foi comparada, e, embora o Kafka tenha tido
+Ambas as opções são sólidas e adequadas para o uso do InterSCity. A
+performance entre os dois já foi comparada, e embora o Kafka tenha tido
 performance
 superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
 a performance do RabbitMQ não compromete o uso no InterSCity. Assim, os pontos
