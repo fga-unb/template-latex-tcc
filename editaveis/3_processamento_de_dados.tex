@@ -69,7 +69,7 @@ terminar seu processamento \cite{marz2015}.
 \begin{figure}
   \centering
     \includegraphics[width=\textwidth]{figuras/lambda-lifecycle.eps}
-  \caption{Ciclo de vida na Arquitetura Lambda.}
+    \caption{Ciclo de vida na Arquitetura Lambda. Baseado em: \citeonline{marz2015}.}
   \label{fig:lambda-lifecycle}
 \end{figure}
 
@@ -108,7 +108,7 @@ serão definidas para uso.
 
 A Arquitetura Kappa é um padrão de projeto de \textit{software}, e surgiu após
 questionamentos\footnote{\url{https://www.oreilly.com/ideas/questioning-the-lambda-architecture}}
-quanto a complexidade da Arquitetura Lambda. É uma arquitetura recente (2014),
+quanto a complexidade da Arquitetura Lambda. Kappa é uma arquitetura recente (2014),
 simples, e se baseia somente no uso da \textbf{camada \textit{speed}}
 \cite{seyvet2016}. É guiada por quatro princípios:
 (i) tudo é um \textit{stream}; (ii) os dados devem ser imutáveis; (iii)
@@ -161,7 +161,7 @@ A comunicação entre diferentes módulos em plataformas de processamento de dad
 pode ocorrer de diversas formas, e uma destas é através da passagem
 de mensagem via PubSub, já utilizado pelo InterSCity \cite{delesposte2017}.
 O \textbf{broker} é o mediador responsável por orquestrar as diferentes
-mensagens que são transmitidas via PubSub \cite{marz2015}, e é primordial no
+mensagens que são transmitidas via PubSub \cite{marz2015}, sendo primordial no
 funcionamento das duas arquiteturas Big Data mencionadas anteriormente.
 
 Uma abstração que facilita a compreensão do \textit{broker} é pensá-lo como o
@@ -196,11 +196,11 @@ disponibilizar para as ferramentas de processamento.
 Nesta seção serão levantadas e comparadas alternativas para compor a
 arquitetura do novo serviço de processamentos do InterSCity. As ferramentas
 foram separadas nas categorias \textit{processamento batch},
-\textit{processamento streaming}, e \textit{broker}. Ferramentas de banco de
+\textit{processamento streaming} e \textit{broker}. Ferramentas de banco de
 dados não foram analisadas, pois uma troca seria prejudicial e não interessante
 para a equipe do InterSCity. Um \textit{broker} diferente do utilizado pelo
 InterSCity foi analisado considerando sua atuação somente com o serviço de
-processamento, não alterando os microsserviços da plataforma.
+processamento, não alterando os microsserviços existentes da plataforma.
 
 \subsection{Ferramentas de Processamento Batch}
 

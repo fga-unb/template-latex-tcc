@@ -45,7 +45,8 @@ PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 \begin{figure}
   \centering
     \includegraphics[scale=0.5]{figuras/interscity_flow.png}
-  \caption{Ciclo de vida de um recurso IoT no InterSCity.}
+  \caption{Ciclo de vida de um recurso IoT no InterSCity. Baseado em: \citeonline{delesposte2017}.}
+
   \label{fig:interscity-lifecycle}
 \end{figure}
 
@@ -82,13 +83,14 @@ dispositivos na plataforma \cite{delesposte2017}.
 O \textbf{Resource Viewer} e o \textbf{Resource Discovery}, por outro lado,
 são similares por manipularem e utilizarem o Data Collector e o Resource
 Catalog em sua execução. O Resource Viewer tem como objetivo apresentar ao
-usuário final os dados dos recursos, enquanto o Resource Discovery provê formas
-de busca por dispositivos disponíveis, possibilitando o uso de filtros
+usuário final os dados dos recursos, enquanto o Resource Discovery provê uma API
+ de busca por dispositivos disponíveis, possibilitando o uso de filtros
 \cite{delesposte2017}. Por fim, o \textbf{Actuator Controller} provê serviços
 para requisições nos recursos IoT atuadores registrados na plataforma,
 armazenando os dados e possibilitando auditoria \cite{delesposte2017}. A Figura
 \ref{fig:interscity-architecture} trás uma visão geral da arquitetura, com todos
-os microsserviços reunidos.
+os microsserviços reunidos, apresentando as fronteiras entre a plataforma,
+aplicações clientes e dispositivos.
 
 \section{GERÊNCIA DE CONFIGURAÇÃO E DEPENDÊNCIAS}
 
@@ -104,14 +106,12 @@ uso do Git\footnote{\url{https://git-scm.com/}}, de modo que a
 configuração de um ambiente para execução do InterSCity tenha como
 pré-requisitos somente estes dois projetos: Docker e Git.
 
-A plataforma usa um esquema não tão comum quanto ao uso dos repositórios de
-seus microsserviços. Um repositório principal, chamado
+Cada microsserviço da plataforma tem seu próprio repositório, permitindo que
+evoluam de maneira distribuída. Com o propósito de ajudar no desenvolvimento,
+o InterSCity apresenta um repositório principal chamado
 \textit{dev-env}\footnote{\url{https://gitlab.com/smart-city-software-platform/dev-env}},
-funciona como \textit{repositório mestre}, e os microsserviços da plataforma são
-submódulos pertencentes a este. Desta forma, os estados do projeto mestre são
-ligados aos estados dos microsserviços, garantindo compatibilidade entre estes.
-Com essa abordagem, versões do repositório mestre garantem compatibilidade
-entre os microsserviços, dificultando cenários de incompatibilidade de API.
+que funciona como \textit{repositório mestre}, e os repositórios dos
+microsserviços da plataforma são submódulos pertencentes a este.
 
 \section{PROPOSTA E METODOLOGIA}
 
