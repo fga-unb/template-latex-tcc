@@ -6,50 +6,110 @@ atuação em cenários mais extremos e abrangentes, por meio de um novo serviço
 para processamento de seus dados. Esse novo serviço deu origem a uma aplicação
 que abstrai as ferramentas de Big Data utilizadas pelo projeto, e que fornece
 meios para que outras aplicações de cidades inteligentes requisitem tarefas para
-serem processadas pela plataforma.
+serem processadas pela plataforma. Com a incorporação do novo serviço de
+processamento o InterSCity passa então: a poder atuar em operações com grande
+massa de dados; a fornecer processamento de dados para terceiros através da
+plataforma; e a possibilitar o uso de algorítmos mais complexos, como de
+aprendizado de máquina.
 
-Esta primeira etapa do trabalho envolveu a revisão bibliográfica e técnica
-sobre arquiteturas e tecnologias de Big Data, assim como a concepção do serviço
-de processamento de dados para o InterSCity. Portanto, ainda existem várias
-melhorias a serem feitas na implementação inicial do Shock, como a resolução de
-dívidas técnicas e apuração de maior referencial científico. As pendências
+Esta primeira etapa do trabalho começou em março, e envolveu a revisão
+bibliográfica e técnica sobre arquiteturas e tecnologias de Big Data, assim
+como a concepção do serviço de processamento de dados para o InterSCity.
+Portanto, ainda existem várias melhorias a serem feitas na implementação
+inicial do Shock, como a resolução de dívidas técnicas e apuração de maior
+referencial científico. A continuação do projeto focará então nas seguintes
+atividades:
+
+\begin{itemize}
+    \item \textbf{Revisão mais profunda na bibliografia}: a revisão feita não
+        foi profunda o suficiente, e foi difícil pelo fato das tecnologias e
+        técnicas utilizadas serem recentes. Uma maior revisão bibliográfica
+        trará mais insumos para justificativas e adaptações a serem
+        implantadas no InterSCity;
+
+    \item \textbf{Desacoplar o Kafka do núcleo do Shock}: o Kafka neste
+        momento está acoplado ao Shock em diversos aspectos, de modo que a
+        escrita de testes seja difícil, e impossibilitando o uso de outros
+        \textit{streams} no Spark, como o de MQTT;
+
+    \item \textbf{Testar o núcleo do Shock}: por conta do pouco tempo e do
+        acoplamento entre o Kafka e o Shock, os testes não puderam ser feitos;
+
+    \item \textbf{Documentar a API de serviços}: por conta da alta volatilidade
+        da arquitetura e da API do Shock, uma melhor documentação não pôde ser
+        produzida. Uma melhor documentação ajudará o time do InterSCity a
+        prosseguir com o serviço desenvolvido;
+
+    \item \textbf{Utilizar outras estruturas de dados}: atualmente o Shock só
+        conta com RDD's, que são estruturas elementares do Spark. A troca por
+        outras estruturas, como os Data Frames, pode melhorar a performance e a
+        manutenibilidade do serviço;
+
+    \item \textbf{Customização de janelas de \textit{micro-batches}}: neste
+        momento o Shock sempre utiliza o mesmo tempo de janela de
+        \textit{micro-batch}. Uma customização ajudaria na adaptação do Shock
+        em um maior número de contextos, sendo útil inclusive no
+        desenvolvimento de testes;
+
+    \item \textbf{Múltiplos \textit{streams}}: o Shock só utiliza os
+        \textit{streams} do Kafka, e sempre um \textit{stream} único. Com
+        múltiplos \textit{streams} seria possível ter múltiplos \textit{
+        pipeline de dados}, interessante para as aplicações que utilizam
+        a plataforma;
+
+    \item \textbf{Controle de \textit{check-point}}: o controle de
+        \textit{check-points} adicionará maior tolerância ao Shock em caso
+        de falhas graves, diminuindo os pontos de ruptura;
+
+    \item \textbf{Utilizar \textit{log} do Kafka}: a utilização do \textit{log}
+        do Kafka possibilitará a recuperação de dados históricos;
+
+    \item \textbf{Introduzir o Shock ao \textit{core} do InterSCity}: o Shock
+        não está em um estado estável o suficiente para fazer parte do
+        InterSCity. Quando o Shock estiver nesse nível de estabilidade, ele
+        poderá finalmente fazer parte do núcleo da plataforma.
+\end{itemize}
+
+As pendências
 presentes no novo serviço de processamento estão planejadas para serem
 resolvidas conforme o cronograma apresentado na Tabela \ref{tab:cronograma}.
 
 \begin{table}[h]
   \begin{center}
-    \begin{tabular}{|l| p{12cm}|}
-        \hline \textbf{Mês} & \textbf{Atividade} \\
+  \caption{Cronograma com o planejamento das dívidas técnicas.}
+    \begin{tabular}{|l| p{12cm}|c|}
+        \hline \textbf{Mês} & \textbf{Atividade}  & \textbf{Esforço} \\
 
         \hline Maio & Revisão mais profunda na bibliografia a respeito das
-        tecnologias e arquiteturas no contexto de cidades inteligentes.\\
+        tecnologias e arquiteturas no contexto de cidades inteligentes. &
+        Alto \\
 
-        \hline Maio & Desacoplar o Kafka do \textit{core} do Shock. \\
+        \hline Maio & Desacoplar o Kafka do núcleo do Shock. & Médio \\
 
-        \hline Maio & Testar o \textit{core} do Shock. \\
+        \hline Maio e Junho & Testar o núcleo do Shock. & Alto \\
 
-        \hline Junho & Documentar a API de serviços. \\
+        \hline Maio e Junho & Documentar a API de serviços. & Baixo \\
 
         \hline Junho & Utilizar Data Frames e outras estruturas de dados do
-        Spark, e não só RDD's. \\
+        Spark, e não só RDD's. & Médio \\
 
-        \hline Junho & Disponibilizar customização de janelas de
-        \textit{micro-batch}. \\
+        \hline Junho & Disponibilizar customização de janelas de \textit{micro-batch}. & Baixo \\
 
         \hline Julho & Permitir múltiplos \textit{streams} através da mesma
-        API (possibilitando o uso do Kinesis, HDFS, Sockets, entre outros). \\
+        API (possibilitando o uso do Kinesis, HDFS, Sockets, entre outros).
+          & Alto \\
 
-        \hline Julho & Adicionar o controle de \textit{check-points}. \\
+        \hline Julho & Adicionar o controle de \textit{check-points}. 
+            & Médio \\
 
         \hline Julho & Utilizar recuperação de dados históricos através dos
-        \textit{logs} do Kafka. \\
+        \textit{logs} do Kafka. & Médio \\
 
         \hline Agosto & Agregar o novo serviço de processamento e as mudanças
-        necessárias para o núcleo do InterSCity. \\
+        necessárias para o núcleo do InterSCity. & Médio \\
 
       \hline
     \end{tabular}
   \end{center}
-  \caption{Cronograma com o planejamento das dívidas técnicas.}
   \label{tab:cronograma}
 \end{table}
