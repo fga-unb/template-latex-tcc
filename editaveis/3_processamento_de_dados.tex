@@ -4,21 +4,21 @@
 A grande quantidade de geradores e consumidores de dados em cenários de cidades
 inteligentes trazem a necessidade dos \textit{três V's} para as aplicações:
 \textit{volume}, \textit{velocidade} e \textit{variedade} \cite{alnuaimi2015}.
-Uma forma de sanar estes pontos é através do uso de tecnologias de Big Data,
-que podem ser utilizadas para armazenar, processar e analisar os dados das
-aplicações de cidades inteligentes \cite{alnuaimi2015}. Como relatado, o
-InterSCity carece de um serviço de processamento de dados mais adequado, e
-a partir dos estudos feitos neste capítulo, decisões a respeito do novo
-serviço de processamento foram tomadas.
+Uma forma de sanar estes pontos é através do uso de tecnologias de
+\textit{Big Data}, que podem ser utilizadas para armazenar, processar e analisar
+os dados das aplicações de cidades inteligentes \cite{alnuaimi2015}. Como
+relatado, o InterSCity carece de um serviço de processamento de dados mais
+adequado, e a partir dos estudos feitos neste capítulo, tomamos decisões a
+respeito do novo serviço de processamento.
 
-Serão detalhadas duas arquiteturas, Lambda e Kappa, e levantadas tecnologias
-a serem usadas que abrangem duas formas de processamento: \textit{batch} e
+Levantamos duas arquiteturas, Lambda e Kappa, e tecnologias a serem usadas
+que abrangem duas formas de processamento: \textit{batch} e
 \textit{streaming}. No processamento \textit{batch} os dados são utilizados
 em conjunto, e armazenados de uma forma específica antes de serem escalonados
 para o processamento \cite{zheng2015real}. No processamento
 \textit{streaming}, por outro lado, os dados são processados conforme estão
 disponíveis \cite{zheng2015real}, permitindo consulta a informações com menor
-latência. Adaptações nas arquiteturas serão descritas em relação ao apresentado
+latência. Descreveremos adaptações nas arquiteturas em relação ao apresentado
 na literatura, com o propósito de maior adequação ao contexto de cidades
 inteligentes, e compatíveis com os princípios e arquitetura de
 microsserviços do InterSCity.
@@ -26,13 +26,13 @@ microsserviços do InterSCity.
 \section{ARQUITETURA LAMBDA}
 
 A Arquitetura Lambda é um padrão de projeto para plataformas de processamento
-de dados que utilizam tecnologias de Big Data \cite{kiran2015}, e surge como um
-caminho alternativo a outras arquiteturas mais antigas, como a incremental com
-\textit{sharding} \cite{marz2015}. É composta de três camadas: a camada
-\textit{batch}\footnote{No decorrer do texto, as camadas da arquitetura Lambda
-e outros termos associados não serão traduzidos.}, a camada \textit{serving} e
-a camada \textit{speed} \cite{kiran2015}. Cada uma destas camadas é
-implementada utilizando algoritmos e ferramentas específicas, de modo
+de dados que utilizam tecnologias de \textit{Big Data} \cite{kiran2015}, e
+surge como um caminho alternativo a outras arquiteturas mais antigas, como a
+incremental com \textit{sharding} \cite{marz2015}. É composta de três camadas:
+a camada \textit{batch}\footnote{No decorrer do texto, as camadas da
+Arquitetura Lambda e outros termos associados não serão traduzidos.}, a camada
+\textit{serving} e a camada \textit{speed} \cite{kiran2015}. Cada uma destas
+camadas é implementada utilizando algoritmos e ferramentas específicas, de modo
 que certas ferramentas são mais apropriadas em certos contextos.
 
 A \textbf{camada \textit{batch}} é responsável pelo processamento de uma grande
@@ -153,9 +153,9 @@ possível dadas as restrições da plataforma.
 A comunicação entre diferentes módulos em plataformas de processamento de dados
 pode ocorrer de diversas formas, e uma destas é através da passagem
 de mensagem via PubSub, já utilizado pelo InterSCity \cite{delesposte2017}.
-O \textbf{broker} é o mediador responsável por orquestrar as diferentes
+O \textbf{\textit{broker}} é o mediador responsável por orquestrar as diferentes
 mensagens que são transmitidas via PubSub \cite{marz2015}, sendo primordial no
-funcionamento das duas arquiteturas de Big Data mencionadas anteriormente.
+funcionamento das duas arquiteturas de \textit{Big Data} mencionadas anteriormente.
 
 Uma abstração que facilita a compreensão do \textit{broker} é pensá-lo como o
 mediador de um sistema de notícias. Uma entidade, desejando transmitir
@@ -186,20 +186,20 @@ disponibilizar para as ferramentas de processamento.
 
 \section{COMPARATIVO ENTRE TECNOLOGIAS}
 
-Nesta seção serão levantadas e comparadas alternativas para compor a
-arquitetura do novo serviço de processamentos do InterSCity. As ferramentas
-foram separadas nas categorias \textit{processamento batch},
-\textit{processamento streaming} e \textit{broker}. Ferramentas de banco de
-dados não foram analisadas, pois uma troca seria prejudicial e não interessante
-para a equipe do InterSCity. Um \textit{broker} diferente do utilizado pelo
-InterSCity foi analisado considerando sua atuação somente com o serviço de
-processamento, não alterando os microsserviços existentes da plataforma.
+Nesta seção apresentamos diferentes alternativas para compor a arquitetura do
+novo serviço de processamentos do InterSCity. As ferramentas foram separadas
+nas categorias \textit{processamento batch}, \textit{processamento streaming}
+e \textit{broker}. Ferramentas de banco de dados não foram analisadas, pois
+uma troca seria prejudicial e não interessante para a equipe do InterSCity.
+Um \textit{broker} diferente do utilizado pelo InterSCity foi analisado
+considerando sua atuação somente com o serviço de processamento, não alterando
+os microsserviços existentes da plataforma.
 
 \subsection{Ferramentas de Processamento Batch}
 
-Duas ferramentas de processamento \textit{batch} foram analisadas: o
-\textbf{Apache Hadoop MapReduce}, precursor no ecossistema Big Data, e o
-\textbf{Apache Spark}, ferramenta mais recente. O MapReduce é uma das
+Analisamos duas ferramentas de processamento \textit{batch}: o
+\textbf{Apache Hadoop MapReduce}, precursor no ecossistema \textit{Big Data},
+e o \textbf{Apache Spark}, ferramenta mais recente. O MapReduce é uma das
 ferramentas que compõe o ecossistema do Hadoop, e já foi utilizado em contextos
 extremos\footnote{Lista das empresas que utilizam ou já
 utilizaram o Hadoop: \url{https://wiki.apache.org/hadoop/PoweredBy}}, atuando
@@ -215,7 +215,7 @@ uso do disco, que deve ser feito sempre que um \textit{job} é finalizado. Por
 conta desta característica, seu uso não é facilmente justificável em cenários em
 que a massa de dados não é grande o suficiente, e uma opção válida nestes casos
 acaba sendo o Apache Spark, que evita o uso do disco através de
-\textit{micro-batches} \cite{arsalan2014}. Estes \textit{micro-batches} têm seu
+\textit{micro-batches} \cite{arsalan2014}. Esses \textit{micro-batches} têm seu
 tempo de processamento definidos em código, de modo que seja possível definir
 tempos de \textit{micro-batches} pequenos o suficiente para que seja considerado
 tempo-real\footnote{O tempo-real mencionado durante este trabalho se refere ao
@@ -259,7 +259,7 @@ dez vezes menos recursos.
 
 \subsection{Ferramentas de Processamento Streaming}
 
-Duas ferramentas de processamento \textit{streaming} foram analisadas: O
+Analisamos duas ferramentas de processamento \textit{streaming}: O
 \textbf{Apache Storm}, escrito por Nathan Marz, criador da Arquitetura
 Lambda, e o \textbf{Apache Spark}, analisado anteriormente como ferramenta de
 processamento \textit{batch}. O Apache Storm permite o uso de qualquer
@@ -293,7 +293,7 @@ duas ferramentas.
 
 \subsection{Broker}
 
-Dois \textit{brokers} foram analisados: o \textbf{RabbitMQ},  utilizado
+Analisamos dois \textit{brokers}: o \textbf{RabbitMQ}, utilizado
 extensivamente pelo InterSCity, e o \textbf{Apache Kafka}, constantemente
 referenciado para implantação da Arquitetura Kappa. O RabbitMQ é um
 \textit{broker} bem difundido, utilizado por empresas como a Cisco, Instagram,

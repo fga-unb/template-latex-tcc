@@ -13,36 +13,36 @@ plataformas que oferecem diversos requisitos funcionais e não-funcionais,
 facilitando assim o desenvolvimento de novas soluções \cite{kon2016}.
 
 Diversas iniciativas de cidades inteligentes ocorrem atualmente. Em Santander,
-na Espanha, uma plataforma foi
-desenvolvida\footnote{\url{www.smartsantander.eu/}}, e utilizando-a,
+na Espanha, foi desenvolvida a plataforma
+SmartSantander\footnote{\url{www.smartsantander.eu/}}, e utilizando-a,
 diversos aplicativos foram criados, como para apresentar informações diversas
-da cidade (sobre tráfego, temperatura, transporte público)
-\cite{gutierrez2013}, ou para informar lugares livres para
-estacionar\footnote{\url{www.smartsantander.eu/wiki/index.php/Mitos/Mitos}}.
-Em Amsterdã, na Holanda, a plataforma Amsterdam Smart
+da cidade (sobre tráfego, temperatura, transporte público), ou para informar
+lugares livres para
+estacionar\footnote{\url{www.smartsantander.eu/wiki/index.php/Mitos/Mitos}}
+\cite{gutierrez2013}.  Em Amsterdã, na Holanda, a plataforma Amsterdam Smart
 City\footnote{\url{https://amsterdamsmartcity.com}} disponibiliza serviços para
 aplicações de cidades inteligentes. Apesar de existirem soluções
 e propostas, vários desafios técnicos em plataformas de cidades inteligentes
 ainda persistem. As soluções atuais costumam ser específicas, não promovendo
-interoperabilidade entre as ferramentas e não promovendo reuso dos projetos já
-desenvolvidos \cite{delesposte2017}.
+interoperabilidade entre as ferramentas ou reuso dos projetos já
+desenvolvidos em outros contextos \cite{delesposte2017}.
 
 Com a finalidade de ser uma plataforma que em sua origem se atente aos
 problemas de interoperabilidade citados, surge o InterSCity, que visa
 suportar o desenvolvimento de novas aplicações, projetos e serviços em cidades
 inteligentes. A arquitetura da plataforma é baseada em microsserviços, e
-tem como foco interoperabilidade, padronização, escalabilidade e
-extensibilidade. O InterSCity está em desenvolvimento, e embora já tenha uma
+tem como foco a interoperabilidade, a padronização, a escalabilidade e
+a extensibilidade. O InterSCity está em desenvolvimento, e embora já tenha uma
 arquitetura bem definida e conte com diversas funcionalidades, ainda não dispõe
 de um serviço de processamento de dados adequado para contextos de larga
 escala, comum em cenários de cidades inteligentes \cite{alnuaimi2015}.
 
-Este trabalho tem então como principal contribuição o planejamento, desenho e
+Este trabalho tem como principal contribuição o planejamento, desenho e
 implementação de um novo serviço de processamento de dados para o InterSCity,
 permitindo assim seu uso em cenários de grande massa de dados, e possibilitando
 a criação de um \textit{pipeline de dados} sofisticado e customizável. O novo
 serviço será construído utilizando a Arquitetura Kappa, e fará uso de
-Big Data, tecnologia chave para cidades inteligentes
+\textit{Big Data}, tecnologia chave para cidades inteligentes
 \cite{batty2012smart}. É esperado também que o estudo desenvolvido a cerca do
 tema e as implementações feitas sejam úteis para futuras plataformas de cidades
 inteligentes.
@@ -51,7 +51,7 @@ Maiores detalhes sobre as características e o estado atual do InterSCity serão
 apresentados no Capítulo \ref{chapter:interscity}, trazendo ainda a abordagem que será
 seguida para definições a cerca do novo serviço de processamento. O Capítulo
 \ref{chapter:data} trará um estudo sobre o estado da arte em arquiteturas e
-tecnologias de Big Data, apresentando uma análise de diferentes ferramentas
+tecnologias de \textit{Big Data}, apresentando uma análise de diferentes ferramentas
 adequadas para o contexto da plataforma. O Capítulo \ref{chapter:architecture}
 levantará as decisões, justificativas e resultados atingidos quanto ao novo
 serviço, e por fim, o Capítulo \ref{chapter:final} finaliza o trabalho

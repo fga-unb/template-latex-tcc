@@ -2,12 +2,13 @@
 \label{chapter:interscity}
 
 O InterSCity é uma plataforma de cidades inteligentes nascida a partir de
-estudos científicos que buscavam endereçar os principais desafios encontrados
+estudos científicos que buscam abordar os principais desafios encontrados
 no desenvolvimento de infraestruturas de cidades inteligentes \cite{nof2016}.
 Está licenciado sob
-MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}}, foi construído com a
-utilização da arquitetura de microsserviços -
-MSA\footnote{\url{microservices.io/}}, e tem como principal objetivo prover os
+MPLv2\footnote{\url{www.mozilla.org/en-US/MPL/2.0/}} (Mozilla Public License
+Version 2.0), foi construído com a
+utilização da arquitetura MSA\footnote{\url{microservices.io/}} (Microservices
+Architecture), e tem como principal objetivo prover os
 serviços e integrações necessárias para a construção de aplicações de cidades
 inteligentes complexas \cite{delesposte2017}. Baseando-se no desenvolvimento
 colaborativo e na utilização de tecnologias software livre, o projeto é
@@ -26,21 +27,21 @@ o quão promissor é a performance e a escalabilidade do InterSCity, provando-se
 capaz de lidar com cenários reais de cidades inteligentes \cite{delesposte2017}.
 O projeto encontra-se hospedado no
 Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}},
-onde é possível ter acesso ao código fonte, documentação, e um exemplo de
+onde é possível ter acesso ao código fonte e documentação, bem como um exemplo de
 cliente que ilustra o uso da plataforma.
 
 \section{ARQUITETURA}
 \label{sec:architecture}
 
-O InterSCity é composto por uma arquitetura de microsserviços distribuída,
+O InterSCity é composto por uma arquitetura de microsserviços distribuída
 que possibilita armazenamento, análise, processamento, composição e
-integração de dados de recursos de cidades inteligentes. Estes microsserviços
-são desacoplados entre si, e se comunicam através de requisições REST e
-passagem de mensagem, modelo importante em contextos de concorrência por conta
-do isolamento provido \cite{armstrong2003}. No InterSCity a troca de mensagem
-é feita com auxílio do \textit{broker} de mensagens
-RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do padrão de projeto
-PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
+integração de dados de recursos de cidades inteligentes. Esses microsserviços
+são desacoplados entre si, e se comunicam através de requisições REST
+(Representational State Transfer) e passagem de mensagem, modelo importante em
+contextos de concorrência por conta do isolamento provido \cite{armstrong2003}.
+No InterSCity a troca de mensagem é feita com auxílio do \textit{broker} de
+mensagens RabbitMQ\footnote{\url{www.rabbitmq.com/}}, através do padrão de
+projeto PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 
 \begin{figure}
   \centering
@@ -51,7 +52,7 @@ PubSub\footnote{\url{xmpp.org/extensions/xep-0060.html}}.
 \end{figure}
 
 A Figura \ref{fig:interscity-lifecycle} ilustra o ciclo de vida típico de um
-recurso IoT na plataforma. Inicialmente um recurso IoT (1) faz um pedido de
+recurso IoT (\textit{Internet of Things}) na plataforma. Inicialmente um recurso IoT (1) faz um pedido de
 registro na plataforma via Resource Adaptor, que (2) cadastra o recurso no
 microsserviço Resource Catalog (3) e informa o UUID
 (identificador único) que será utilizado internamente desse passo em diante.
@@ -95,8 +96,8 @@ aplicações clientes e dispositivos.
 \section{GERÊNCIA DE CONFIGURAÇÃO E DEPENDÊNCIAS}
 
 Outro aspecto que recebe atenção no desenvolvimento do InterSCity é a gerência
-de configuração, que atualmente utiliza tecnologias que reduzem o esforço
-desnecessário, promovem o isolamento entre a plataforma e o ambiente hospedeiro
+de configuração, que atualmente utiliza tecnologias que reduzem o esforço,
+promovem o isolamento entre a plataforma e o ambiente hospedeiro
 e aumentam a segurança no desenvolvimento. A gerência de configuração do
 InterSCity é guiada por conteinêres do
 Docker\footnote{\url{https://www.docker.com/}}, e cada microsserviço e
@@ -113,12 +114,12 @@ o InterSCity apresenta um repositório principal chamado
 que funciona como \textit{repositório mestre}, sendo os repositórios dos
 microsserviços da plataforma submódulos pertencentes ao \textit{dev-env}.
 
-\section{PROPOSTA E METODOLOGIA}
+\section{PROPOSTA E METODOLOGIA PARA IMPLEMENTAÇÃO DO SERVIÇO DE PROCESSAMENTO DE DADOS}
 
-Atualmente o InterSCity está em constante desenvolvimento, e embora não conte
+Atualmente o InterSCity está em desenvolvimento, e embora não conte
 com uma camada de processamento de dados ideal, certo esforço culminou em um
 serviço de processamento provisório, que será utilizado como base para o
-desenvolvimento da nova arquitetura. Houve ainda a troca de tecnologia de banco
+desenvolvimento da proposta neste trabalho. Houve ainda a troca de tecnologia de banco
 de dados no microsserviço Data Collector, que passou do Postgres (tecnologia
 SQL) para o MongoDB (tecnologia NoSQL), troca importante na busca por uma maior
 elasticidade no volume de dados. A equipe do InterSCity nomeou a camada
@@ -130,21 +131,23 @@ não podendo ser reaproveitado por outras aplicações na plataforma.
 Este trabalho deve então produzir um novo serviço de processamento de dados que
 permita às aplicações de cidades inteligentes que utilizam o InterSCity
 processar e analisar seus dados de maneira eficaz. Através do novo serviço,
-grande volume de dados poderá ser processados pela plataforma, possibilitando
+grande volume de dados poderá ser processado pela plataforma, possibilitando
 ainda que algoritmos e operações complexas sejam aplicadas. O novo serviço fará
-uso de um padrão de projeto de Big Data adequado para o contexto de cidades
-inteligentes, e compatível com a arquitetura atual do InterSCity. Um
-levantamento das arquiteturas de Big Data candidatas deve ser feito, assim
-como um estudo a respeito de possíveis ferramentas a serem utilizadas. Este
+uso de um padrão de projeto de \textit{Big Data} adequado para o contexto de cidades
+inteligentes e compatível com a arquitetura atual do InterSCity. Um
+levantamento das arquiteturas de \textit{Big Data} candidatas deve ser feito, assim
+como um estudo a respeito de possíveis ferramentas a serem utilizadas. Esse
 levantamento terá algumas restrições, como: somente projetos software livre
 deverão ser levados em conta, e ferramentas que necessitem grandes mudanças no
 ecossistema do InterSCity terão pouca prioridade.
 
-É esperado então uma nova arquitetura de processamento de dados que atenda
+É esperado uma nova arquitetura de processamento de dados que atenda
 requisitos típicos de cidades inteligentes, e que possibilite extensibilidade
 para trabalhos futuros. A nova arquitetura deve permitir, por exemplo, que um
 \textit{pipeline de dados} possa ser utilizado, mesmo que faça uso de uma
 grande massa de dados, ou que uma aplicação processe seus dados através de
-operações específicas e customizadas, por chamadas diversas. Por fim, será
-fornecido um exemplo de aplicação que utilize a arquitetura desenvolvida, como
-prova de conceito.
+operações específicas e customizadas, por chamadas diversas. O projeto e o
+andamento da implementação serão discutidos no Capítulo \ref{chapter:architecture},
+bem como o funcionamento do serviço que desenvolvemos.
+Por fim, deverá ser fornecido um exemplo de aplicação que utilize a arquitetura
+desenvolvida, como prova de conceito.
