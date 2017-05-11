@@ -8,8 +8,8 @@ Uma forma de sanar estes pontos é através do uso de tecnologias de
 \textit{Big Data}, que podem ser utilizadas para armazenar, processar e analisar
 os dados das aplicações de cidades inteligentes \cite{alnuaimi2015}. Como
 relatado, o InterSCity carece de um serviço de processamento de dados mais
-adequado, e a partir dos estudos feitos neste capítulo, tomamos decisões a
-respeito do novo serviço de processamento.
+adequado, e a partir dos estudos que apresentamos neste capítulo, tomamos
+decisões a respeito do novo serviço de processamento.
 
 Levantamos duas arquiteturas, Lambda e Kappa, e tecnologias a serem usadas
 que abrangem duas formas de processamento: \textit{batch} e
@@ -18,9 +18,9 @@ em conjunto, e armazenados de uma forma específica antes de serem escalonados
 para o processamento \cite{zheng2015real}. No processamento
 \textit{streaming}, por outro lado, os dados são processados conforme estão
 disponíveis \cite{zheng2015real}, permitindo consulta a informações com menor
-latência. Descreveremos adaptações nas arquiteturas em relação ao apresentado
+latência. Descrevemos adaptações nas arquiteturas em relação ao apresentado
 na literatura, com o propósito de maior adequação ao contexto de cidades
-inteligentes, e compatíveis com os princípios e arquitetura de
+inteligentes, e maior compatibilidade com os princípios e arquitetura de
 microsserviços do InterSCity.
 
 \section{ARQUITETURA LAMBDA}
@@ -100,8 +100,8 @@ Quanto à sua implementação no InterSCity, a Arquitetura Lambda pode precisar 
 adaptações. Na literatura, a camada \textit{serving} é a responsável pela
 junção entre o resultado do processamento feito pelas camadas \textit{speed} e
 \textit{batch}, e a separação entre as camadas \textit{batch} e \textit{serving}
-é bem definida \cite{marz2015}, contudo, isso depende das ferramentas que
-serão definidas para uso. 
+é bem definida \cite{marz2015}, contudo, isso depende das ferramentas
+definidas para uso. 
 
 \section{ARQUITETURA KAPPA}
 
@@ -141,10 +141,8 @@ relacionado. Por fim, (4) os resultados do processamento são disponibilizados
 para serem consumidos.
 
 Assim como levantado a respeito da Arquitetura Lambda, a implementação da
-Arquitetura Kappa também precisaria de adaptações para ser implantada no
-InterSCity, principalmente pelo uso do \textit{log}, que, dependendo das
-tecnologias utilizadas pode ser acessado de maneira mais ou menos conveniente.
-Um casamento entre as tecnologias escolhidas deve ocorrer para que a
+Arquitetura Kappa também pode precisar de adaptações para ser implantada no
+InterSCity. Um casamento entre as tecnologias escolhidas deve ocorrer para que a
 arquitetura seja implementada como sugerido na literatura, o que pode não ser
 possível dadas as restrições da plataforma.
 
@@ -179,7 +177,7 @@ apresentado um cenário típico de atuação. No exemplo mostrado, a mensagem A
 Produtor2 no Tópico2. O Consumidor1 e o Consumidor2 recebem a mensagem A, por
 estarem inscritos no Tópico1, e os consumidores Consumidor2 e Consumidor3
 recebem a mensagem B, por estarem registrados no Tópico2. Este funcionamento
-pode receber variações, a depender das tecnologias utilizadas, e será útil
+pode receber variações, a depender das tecnologias utilizadas, e é útil
 na implementação das arquiteturas Kappa e Lambda, sendo o
 \textit{broker} o responsável por recuperar novas informações e as
 disponibilizar para as ferramentas de processamento.
@@ -187,11 +185,11 @@ disponibilizar para as ferramentas de processamento.
 \section{COMPARATIVO ENTRE TECNOLOGIAS}
 
 Nesta seção apresentamos diferentes alternativas para compor a arquitetura do
-novo serviço de processamentos do InterSCity. As ferramentas foram separadas
+novo serviço de processamentos do InterSCity. Separamos as ferramentas
 nas categorias \textit{processamento batch}, \textit{processamento streaming}
-e \textit{broker}. Ferramentas de banco de dados não foram analisadas, pois
+e \textit{broker}. Não analisamos ferramentas de banco de dados pois
 uma troca seria prejudicial e não interessante para a equipe do InterSCity.
-Um \textit{broker} diferente do utilizado pelo InterSCity foi analisado
+Analisamos um \textit{broker} diferente do utilizado pelo InterSCity
 considerando sua atuação somente com o serviço de processamento, não alterando
 os microsserviços existentes da plataforma.
 
@@ -300,18 +298,18 @@ referenciado para implantação da Arquitetura Kappa. O RabbitMQ é um
 New York Times, dentre outros\footnote{\url{https://www.rabbitmq.com/}},
 e apresenta suporte para diversas linguagens \cite{zaitsev2014}, o que
 facilitou sua adoção pelo time do InterSCity. Podem ser destacados como
-diferenciais em relação a outros \textit{brokers}: tolerância a falhas,
-processamento distribuído, alto desempenho, filas (e tópicos) com composições
-mais complexas e a possibilidade de uso de
+diferenciais do RabbitMQ em relação a outros \textit{brokers}: tolerância a
+falhas, processamento distribuído, alto desempenho, filas (e tópicos) com
+composições mais complexas e a possibilidade de uso de
 \textit{plugins}\footnote{\url{https://www.rabbitmq.com/plugins.html}},
 que suportam, por exemplo,
 federação\footnote{\url{https://www.rabbitmq.com/federation.html}}.
 
-O Apache Kafka, embora seja uma ferramenta mais nova\footnote{O RabbitMQ teve
-sua primeira \textit{release} em 2007, e o Apache Kafka em 2011.}, também é
+O Apache Kafka é uma ferramenta mais nova\footnote{O RabbitMQ teve
+sua primeira \textit{release} em 2007, e o Apache Kafka em 2011.}, e também é
 utilizado em contextos extremos por várias
 empresas\footnote{\url{https://cwiki.apache.org/confluence/display/KAFKA/Powered+By}}.
-Tendo como um dos principais diferenciais a performance e escalabilidade,
+Tendo como um dos principais diferenciais a performance e a escalabilidade,
 recentemente foi capaz de lidar com mais de 1.4 trilhões de mensagens diárias,
 distribuídas sobre 1400 nós \cite{koshy2016}. Um outro diferencial relevante
 entre o Kafka e os outros concorrentes é o suporte padrão à integração entre
@@ -324,7 +322,7 @@ performance entre os dois já foi comparada, e embora o Kafka tenha tido
 performance
 superior\footnote{\url{http://www.cloudhack.in/2016/02/29/apache-kafka-vs-rabbitmq/}},
 a performance do RabbitMQ não compromete o uso no InterSCity. Assim, os pontos
-cruciais na escolha de tecnologia devem ser: o fato do Kafka ter suporte a
-\textit{log} e \textit{handler} nativo para o Spark, e o RabbitMQ já ser
-utilizado pelo InterSCity e ter o uso extendido via \textit{plugins}.
+cruciais que levaremos em conta na escolha de tecnologia são: o fato do Kafka
+ter suporte a \textit{log} e \textit{handler} nativo para o Spark, e o RabbitMQ
+já ser utilizado pelo InterSCity e ter o uso estendido via \textit{plugins}.
 

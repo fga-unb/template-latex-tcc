@@ -35,7 +35,8 @@ cliente que ilustra o uso da plataforma.
 
 O InterSCity é composto por uma arquitetura de microsserviços distribuída
 que possibilita armazenamento, análise, processamento, composição e
-integração de dados de recursos de cidades inteligentes. Esses microsserviços
+integração de dados de recursos de cidades inteligentes \cite{delesposte2017}.
+Esses microsserviços
 são desacoplados entre si, e se comunicam através de requisições REST
 (Representational State Transfer) e passagem de mensagem, modelo importante em
 contextos de concorrência por conta do isolamento provido \cite{armstrong2003}.
@@ -99,10 +100,10 @@ Outro aspecto que recebe atenção no desenvolvimento do InterSCity é a gerênc
 de configuração, que atualmente utiliza tecnologias que reduzem o esforço,
 promovem o isolamento entre a plataforma e o ambiente hospedeiro
 e aumentam a segurança no desenvolvimento. A gerência de configuração do
-InterSCity é guiada por conteinêres do
+InterSCity é guiada por contêineres do
 Docker\footnote{\url{https://www.docker.com/}}, e cada microsserviço e
 dependência externa (como o RabbitMQ) são executados em
-conteinêres separados. O desenvolvimento da plataforma também faz extenso
+contêineres separados. O desenvolvimento da plataforma também faz extenso
 uso do Git\footnote{\url{https://git-scm.com/}}, de modo que a
 configuração de um ambiente para execução do InterSCity tenha como
 pré-requisitos somente estes dois projetos: Docker e Git.
@@ -116,17 +117,18 @@ microsserviços da plataforma submódulos pertencentes ao \textit{dev-env}.
 
 \section{PROPOSTA E METODOLOGIA PARA IMPLEMENTAÇÃO DO SERVIÇO DE PROCESSAMENTO DE DADOS}
 
-Atualmente o InterSCity está em desenvolvimento, e embora não conte
-com uma camada de processamento de dados ideal, certo esforço culminou em um
-serviço de processamento provisório, que será utilizado como base para o
-desenvolvimento da proposta neste trabalho. Houve ainda a troca de tecnologia de banco
-de dados no microsserviço Data Collector, que passou do Postgres (tecnologia
-SQL) para o MongoDB (tecnologia NoSQL), troca importante na busca por uma maior
-elasticidade no volume de dados. A equipe do InterSCity nomeou a camada
-provisória de \textbf{Data Processor}, que conta com uma configuração pronta
-para uso do Apache Spark e \textit{scripts} que ilustram situações de uso desta
-tecnologia. O Data Processor, contudo, apresenta uma solução bem específica,
-não podendo ser reaproveitado por outras aplicações na plataforma.
+Atualmente a plataforma está em desenvolvimento, e embora não conte
+com uma camada de processamento de dados ideal, certo esforço pelo time do
+InterSCity culminou em um serviço de processamento provisório, que pode servir
+de base para o desenvolvimento da proposta deste trabalho. Houve ainda a
+troca de tecnologia de banco de dados no microsserviço Data Collector, que
+passou do Postgres (tecnologia SQL) para o MongoDB (tecnologia NoSQL), troca
+importante na busca por uma maior elasticidade no volume de dados. A equipe
+do InterSCity nomeou a camada provisória de \textbf{Data Processor}, que
+conta com uma configuração pronta para uso do Apache Spark e
+\textit{scripts} que ilustram situações de uso desta tecnologia. O Data
+Processor, contudo, apresenta uma solução bem específica, não podendo ser
+reaproveitado por outras aplicações na plataforma.
 
 Este trabalho deve então produzir um novo serviço de processamento de dados que
 permita às aplicações de cidades inteligentes que utilizam o InterSCity
@@ -146,8 +148,6 @@ requisitos típicos de cidades inteligentes, e que possibilite extensibilidade
 para trabalhos futuros. A nova arquitetura deve permitir, por exemplo, que um
 \textit{pipeline de dados} possa ser utilizado, mesmo que faça uso de uma
 grande massa de dados, ou que uma aplicação processe seus dados através de
-operações específicas e customizadas, por chamadas diversas. O projeto e o
-andamento da implementação serão discutidos no Capítulo \ref{chapter:architecture},
-bem como o funcionamento do serviço que desenvolvemos.
+operações específicas e customizadas, por chamadas diversas. 
 Por fim, deverá ser fornecido um exemplo de aplicação que utilize a arquitetura
 desenvolvida, como prova de conceito.
