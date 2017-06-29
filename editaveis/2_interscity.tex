@@ -16,16 +16,15 @@ desenvolvido com a ajuda de diversos colaboradores, que utilizando práticas
 ágeis, atuam na manutenção e evolução da plataforma ao longo do tempo
 \cite{delesposte2017}.
 
-A maior parte dos microsserviços\footnote{Os termos microsserviços, módulos, e
-componentes, serão utilizados intermitentemente, mas apresentando o mesmo
-significado.} da plataforma foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}},
+A maior parte dos microsserviços\footnote{Os termos microsserviços, módulos e
+componentes serão utilizados intermitentemente, mas apresentando o mesmo
+significado.} da plataforma foram escritos em Ruby on Rails\footnote{\url{rubyonrails.org/}}
 seguindo padrões que priorizam extensibilidade e qualidade, e levando em conta
 princípios\footnote{Os princípios seguidos pelo InterSCity são apresentados no
-Apêndice \ref{appendix:principles}} que levaram a uma arquitetura madura,
+Apêndice \ref{appendix:principles}} importantes na busca por uma arquitetura madura,
 robusta e extensível. A partir de experimentos feitos foi possível conferir
-o quão promissor é a performance e a escalabilidade do InterSCity, provando-se
-capaz de lidar com cenários reais de cidades inteligentes \cite{delesposte2017}.
-O projeto encontra-se hospedado no
+o estado atual da performance e da escalabilidade do InterSCity, que se mostrou
+promissor \cite{delesposte2017}. O projeto encontra-se hospedado no
 Gitlab\footnote{\url{gitlab.com/smart-city-software-platform}},
 onde é possível ter acesso ao código fonte e documentação, bem como um exemplo de
 cliente que ilustra o uso da plataforma.
@@ -36,8 +35,7 @@ cliente que ilustra o uso da plataforma.
 O InterSCity é composto por uma arquitetura de microsserviços distribuída
 que possibilita armazenamento, análise, processamento, composição e
 integração de dados de recursos de cidades inteligentes \cite{delesposte2017}.
-Esses microsserviços
-são desacoplados entre si, e se comunicam através de requisições REST
+Esses microsserviços são desacoplados entre si e se comunicam através de requisições REST
 (Representational State Transfer) e passagem de mensagem, modelo importante em
 contextos de concorrência por conta do isolamento provido \cite{armstrong2003}.
 No InterSCity a troca de mensagem é feita com auxílio do \textit{broker} de
