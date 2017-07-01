@@ -1,0 +1,60 @@
+\chapter[INTRODUÇÃO]{INTRODUÇÃO}
+\label{chapter:intro}
+
+O termo \textbf{cidades inteligentes} recebe cada vez mais atenção e trata-se
+da utilização de tecnologias da informação e comunicação (TIC) para melhorar
+setores como segurança, transporte e saúde, aumentando a qualidade de vida
+da população \cite{batty2012smart}. As cidades inteligentes ganham força por
+atingirem soluções e mitigações concretas para problemas graves e recorrentes
+das cidades atuais, como o mau uso de recursos, a burocracia, o transporte de má
+qualidade e a falta de segurança \cite{batty2012smart}. Para ajudar no
+desenvolvimento de aplicações de cidades inteligentes são desenvolvidas
+plataformas que oferecem diversos requisitos funcionais e não-funcionais,
+facilitando assim o desenvolvimento de novas soluções \cite{kon2016}.
+
+Diversas iniciativas de cidades inteligentes ocorrem atualmente. Em Santander,
+na Espanha, foi desenvolvida a plataforma
+SmartSantander\footnote{\url{www.smartsantander.eu/}}, e utilizando-a,
+diversos aplicativos foram criados, como para apresentar informações diversas
+da cidade (sobre tráfego, temperatura e transporte público), ou para informar
+lugares livres para
+estacionar\footnote{\url{www.smartsantander.eu/wiki/index.php/Mitos/Mitos}}
+\cite{gutierrez2013}. Em Amsterdã, na Holanda, a plataforma Amsterdam Smart
+City\footnote{\url{https://amsterdamsmartcity.com}} disponibiliza serviços para
+aplicações de cidades inteligentes. Apesar de existirem soluções
+e propostas, vários desafios técnicos em plataformas de cidades inteligentes
+ainda persistem. As soluções atuais costumam ser específicas, não promovendo
+interoperabilidade entre as ferramentas e não promovendo reuso dos projetos já
+desenvolvidos em outros contextos \cite{delesposte2017}.
+
+Com a finalidade de ser uma plataforma que em sua origem se atente aos
+problemas de interoperabilidade citados, surge o InterSCity, que visa
+suportar o desenvolvimento de novas aplicações, projetos e serviços em cidades
+inteligentes. A arquitetura da plataforma é baseada em microsserviços e
+tem como foco a interoperabilidade, a padronização, a escalabilidade e
+a extensibilidade. O InterSCity está em desenvolvimento, e embora já tenha uma
+arquitetura definida e disponibilize funcionalidades, ainda não dispõe
+de um serviço de processamento de dados adequado para contextos de larga
+escala, comum em cenários de cidades inteligentes \cite{alnuaimi2015}.
+
+Este trabalho tem como principal objetivo o planejamento, desenho e
+implementação de um novo serviço de processamento de dados para o InterSCity,
+permitindo o uso da plataforma em cenários de maior massa de dados, e
+possibilitando a criação de um \textit{pipeline de dados} customizável. Para
+isso desenvolvemos o Shock, uma aplicação que abstrai o uso de tecnologias
+de \textit{Big Data} e que foi construído utilizando a Arquitetura Kappa.
+Também esperamos que o estudo que desenvolvemos e as implementações feitas
+sejam úteis para o ecossistema de cidades inteligentes.
+
+Apresentamos no Capítulo \ref{chapter:interscity} maiores detalhes sobre as
+características e o estado atual do InterSCity, trazendo também a abordagem que
+utilizamos para definir o novo serviço de processamento. No Capítulo
+\ref{chapter:data} apresentamos um estudo sobre o estado da arte em arquiteturas
+e tecnologias de \textit{Big Data}, bem como uma análise de diferentes
+ferramentas adequadas para o contexto da plataforma. No Capítulo
+\ref{chapter:architecture} levantamos as decisões, justificativas e resultados
+atingidos quanto ao novo serviço de processamento. No Capítulo
+\ref{chapter:example} apresentamos um exemplo de uso do serviço de aplicação
+desenvolvido, explicando formas de interação com o Shock, e por fim, no Capítulo
+\ref{chapter:final}, finalizamos o trabalho trazendo as considerações
+finais, as contribuições feitas e os trabalhos futuros.

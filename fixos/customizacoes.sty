@@ -11,17 +11,46 @@
 %%
 %% This work has the LPPL maintenance status `maintained'.
 %% 
-%% The Current Maintainer of this work is SEU_NOME, SEU_EMAIL
+%% The Current Maintainer of this work is Dylan Guedes, djmgguedes@gmail.com
 %%
 %% Further information about abnTeX2 are available on https://github.com/abntex/abntex2
 %%
+
+% ---
+% CONFIGURAÇÕES PYTHON HIGHLIGHT
+% ---
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+\newcommand\pythonstyle{\lstset{
+    language=Python,
+    basicstyle=\ttm,
+    otherkeywords={self},             % Add keywords here
+    keywordstyle=\ttb\color{deepblue},
+    emph={MyClass,__init__},          % Custom highlighting
+    emphstyle=\ttb\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    frame=tb,                         % Any extra options here
+    showstringspaces=false            % 
+}}
+\lstnewenvironment{python}[1][]
+{
+    \pythonstyle
+    \lstset{#1}
+}
+{}
+\newcommand\pythonexternal[2][]{{
+    \pythonstyle
+    \lstinputlisting[#1]{#2}}}
 
 % ---
 % INICIO DAS CUSTOMIZACOES PARA A FACULDADE UNB GAMA
 % ---
 
 \newcommand{\curso}[1]{\def\imprimircurso{#1}}
-
 \newcommand{\palavraChaveUm}[1]{\def\imprimirpalavrachaveum{#1}}
 \newcommand{\palavraChaveDois}[1]{\def\imprimirpalavrachavedois{#1}}
 
