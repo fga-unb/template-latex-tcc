@@ -86,7 +86,7 @@ https://code.google.com/p/abntex2/wiki/InstalacaoLinux
 
 Informações para instalar o abnTeX2 no Windows:
 
-https://code.google.com/p/abntex2/wiki/InstalacaoWindows
+http://www.abntex.net.br/
 
 ### Mac OS
 
