@@ -1,4 +1,4 @@
-#Template TCC FGA-UnB
+# Template TCC FGA-UnB
 
 Template para Trabalhos de Conclusão de Cursos (TCC) na Faculdade do
 Gama (FGA) em Latex.
