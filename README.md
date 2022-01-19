@@ -34,3 +34,22 @@ Para limpar os arquivos gerados pelo latex:
 ```
 docker-compose run latex bash -c 'make clean'
 ```
+### FAQ
+
+Caso você encontre algum erro na execução dos comandos acima, siga as instruções abaixo:
+
+1. Adicione o grupo `docker` ao seu usuário com o comando
+```
+sudo usermod -a -G docker $USER
+```
+
+1. Altere as permissões do arquivo `/var/run/docker.sock` com o comando:
+```
+sudo chown $USER /var/run/docker.sock
+```
+
+1. Caso o Docker não esteja rodando, inicie o serviço (e agende o início automático no _boot_) com os comandos:
+```
+sudo systemctl enable docker
+sudo systemctl start docker
+```
