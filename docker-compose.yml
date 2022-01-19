@@ -1,0 +1,9 @@
+version: '3.5'
+
+services:
+    latex:
+      build:
+        context: .
+      volumes:
+          - ./latex:/home/latex
+      command: bash -c 'make clean && make'
