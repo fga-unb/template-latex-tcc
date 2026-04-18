@@ -1,39 +1,13 @@
 \chapter[Trabalhos Relacionados]{Trabalhos Relacionados}
 
-Diversos trabalhos tem explorado o uso da tecnologia blockchain para
-melhorar a gestão de prontuários eletrônicos e a segurança dos dados
-médicos. Nesse contexto,
-\cite{BlockchainVehiclesForEfficientMedicalRecordManagement} e
-\cite{MedicalRecordSystemUsingBlockchainBigDataAndTokenization}
-discutem desafios presentes em sistemas tradicionais, como a falta de
-interoperabilidade, centralização dos dados, vulnerabilidades de
-segurança e privacidade, além da baixa eficiência no compartilhamento
-de informações médicas.
+A adoção de tecnologias baseadas em blockchain em cenários que envolvem dados sensíveis, como prontuários médicos, levanta desafios importantes relacionados à privacidade, conformidade regulatória e arquitetura de sistemas.
 
-Ambos propõem o uso da tecnologia blockchain
-como elemento central para garantir integridade, imutabilidade e
-descentralização dos dados, permitindo maior confiabilidade e
-rastreabilidade das informações.
+Nesse contexto, \cite{GDPRBlockchainTension} apresenta uma revisão sistemática da literatura que analisa a compatibilidade entre blockchains públicas e a General Data Protection Regulation (GDPR). O estudo identifica três problemas estruturais centrais: (i) a imutabilidade dos dados, que dificulta a implementação do direito ao esquecimento; (ii) a transparência e rastreabilidade, que podem expor dados pessoais sensíveis; e (iii) a descentralização, que dificulta a definição de responsabilidades legais. Esses aspectos evidenciam tensões fundamentais entre os princípios da blockchain e os requisitos regulatórios de proteção de dados.
 
-\cite{BlockGuardLGPDHyperledgerFabric} propõe uma abordagem
-estruturada para adequar soluções baseadas em Hyperledger Fabric aos
-requisitos da Lei Geral de Proteção de Dados. O artigo destaca o
-desafio de conciliar propriedades inerentes da blockchain, como
-imutabilidade, com exigências legais, como o direito ao esquecimento.
-Para isso, os autores desenvolvem o framework BlockGuard, baseado em
-um mapeamento sistemático entre os princípios da LGPD e as
-funcionalidades da plataforma. A solução é estruturada em cinco
-domínios principais, incluindo gestão do ciclo de vida dos dados,
-controle de consentimento, operacionalização dos direitos dos
-titulares, mecanismos de segurança e governança, e documentação de
-conformidade. Entre as contribuições mais relevantes, destacam-se o
-uso de arquitetura híbrida (armazenamento on-chain e off-chain) para
-tratamento adequado de dados pessoais, a implementação de smart
-contracts para gestão granular de consentimento e auditoria, e a
-definição de mecanismos para viabilizar o direito ao esquecimento por
-meio de técnicas como eliminação lógica e criptográfica. Além disso,
-o framework propõe um processo metodológico em fases que orienta a
-implementação prática e contínua da conformidade. Dessa forma, o
-trabalho demonstra que é possível adaptar redes blockchain para
-atender às exigências regulatórias brasileiras, promovendo maior
-segurança, transparência e controle sobre os dados pessoais.
+No domínio específico de sistemas de saúde, trabalhos como \cite{BlockchainVehiclesForEfficientMedicalRecordManagement} e \cite{MedicalRecordSystemUsingBlockchainBigDataAndTokenization} destacam limitações dos modelos tradicionais, incluindo a centralização dos dados, baixa interoperabilidade entre sistemas, vulnerabilidades de segurança e ineficiência no compartilhamento de informações. Como alternativa, ambos propõem o uso de blockchain para garantir integridade, rastreabilidade e descentralização dos registros médicos, aumentando a confiabilidade e a transparência no gerenciamento dos dados.
+
+Entretanto, embora a utilização de blockchain mitigue diversos problemas estruturais, ela também introduz desafios relacionados à conformidade com legislações de proteção de dados, como a Lei Geral de Proteção de Dados (LGPD). Nesse sentido, \cite{BlockGuardLGPDHyperledgerFabric} propõe uma abordagem estruturada para adequação de soluções baseadas em Hyperledger Fabric aos requisitos legais brasileiros. O trabalho apresenta um \textit{framework} baseado no mapeamento entre os princípios da LGPD e as funcionalidades da plataforma, organizado em cinco domínios principais: gestão do ciclo de vida dos dados, controle de consentimento, operacionalização dos direitos dos titulares, mecanismos de segurança e governança, e documentação de conformidade.
+
+Entre as contribuições do modelo proposto, destacam-se o uso de uma arquitetura híbrida, combinando armazenamento \textit{on-chain} e \textit{off-chain}, a implementação de \textit{smart contracts} para controle granular de consentimento e auditoria, e a definição de mecanismos para viabilizar o direito ao esquecimento por meio de técnicas como eliminação lógica e criptográfica. Além disso, o framework propõe um processo metodológico em fases que orienta a implementação contínua da conformidade regulatória.
+
+Dessa forma, os trabalhos analisados demonstram que, embora a blockchain apresente vantagens significativas em termos de integridade, transparência e descentralização, sua adoção em sistemas que manipulam dados pessoais exige adaptações arquiteturais e mecanismos adicionais para garantir conformidade com legislações de proteção de dados.
