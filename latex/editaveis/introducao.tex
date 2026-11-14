@@ -70,7 +70,7 @@ Considerando essa perspectiva definimos a seguinte questão principal de pesquis
     \fonte{Adaptado de \citeonline{basili1994}.}
 \end{figure}
 
-A partir dessa questão foram definidas dez questões secundárias (SQ1 a SQ10), que orientam a revisão estruturada da literatura e são apresentadas no Capítulo 3, juntamente com a estratégia PICO utilizada na estruturação da busca.
+A partir dessa questão foram definidas dez questões secundárias (SQ1 a SQ10), que orientam a revisão estruturada da literatura e são apresentadas no Capítulo~\ref{cap:revisao-literatura}, juntamente com a estratégia PICO utilizada na estruturação da busca.
 
 \section{Objetivos}
 
@@ -97,6 +97,7 @@ Para alcançar esse objetivo geral, foram definidos os seguintes objetivos espec
 \end{itemize}
 
 \section{Metodologia}
+\label{sec:metodologia}
 
 Esta subseção visa apresentar a metodologia adotada neste trabalho. Para descrevê-la, utiliza-se a estrutura de tomada de decisão para a escolha de um desenho de pesquisa em Engenharia de Software empírica proposta por \citeonline{wohlin2015}, apresentada na Figura~\ref{fig:exemplo2}. A estrutura parte da questão de pesquisa e organiza as decisões em três fases: a estratégica, que define o resultado, a lógica, o propósito e a abordagem da pesquisa; a tática, que define o processo e a metodologia de pesquisa; e a operacional, que define os métodos de coleta e de análise de dados e conduz aos resultados da pesquisa.
 
@@ -110,7 +111,7 @@ Esta subseção visa apresentar a metodologia adotada neste trabalho. Para descr
 
 Na fase estratégica, define-se o resultado esperado, a lógica, o propósito e a abordagem. Quanto ao resultado, trata-se de uma pesquisa aplicada, pois busca resolver um problema prático: saber se os testes automatizados de uma aplicação web detectam falhas. Quanto à lógica, a primeira etapa é indutiva, pois a solução é construída a partir das evidências reunidas pela RSL, e a segunda é dedutiva, pois a solução definida é aplicada a aplicações web de código aberto para avaliar suas suítes de testes. O propósito é exploratório e avaliativo: exploratório, porque a RSL mapeia ferramentas, operadores, métricas e limitações do teste de mutação em uma área ainda pouco estudada para aplicações web; avaliativo, porque a segunda etapa mede a eficácia das suítes de testes. A abordagem é positivista, pois a eficácia é quantificada de forma objetiva pelo \textit{mutation score} \cite{guerino2024}.
 
-Na fase tática, o processo de pesquisa é misto, com predominância quantitativa. O \textit{mutation score} e os custos de execução são dados quantitativos, enquanto a síntese dos estudos da RSL e a interpretação dos mutantes sobreviventes exigem análise qualitativa. A primeira etapa é conduzida por uma RSL, que fundamenta a escolha da ferramenta, dos operadores de mutação e da estratégia de redução de custo, seguindo o protocolo descrito no Capítulo 3, com a abordagem GQM, a estratégia PICO, critérios de inclusão e exclusão e um formulário de extração de dados. A metodologia de pesquisa da segunda etapa é a mineração de repositórios (\textit{Repository Mining}), definida nos padrões empíricos da ACM SIGSOFT como um estudo que analisa quantitativamente um conjunto de dados extraído de uma plataforma que hospeda texto estruturado ou semiestruturado, como um repositório de código-fonte \cite{acmsigsoft}. Ela é adequada porque o trabalho obtém, de repositórios públicos de aplicações web de código aberto, o código-fonte e as suítes de testes, e analisa de forma quantitativa os resultados da execução dos mutantes sobre essas suítes. A unidade de análise é a suíte de testes de cada aplicação. Conforme o padrão, o Capítulo 4, de proposta da solução, deverá justificar a fonte dos dados e os critérios de seleção dos repositórios, descrever os repositórios selecionados e o seu tamanho, detalhar a aquisição e o pré-processamento dos dados, justificar as métricas usadas e discutir as ameaças à validade externa \cite{acmsigsoft}.
+Na fase tática, o processo de pesquisa é misto, com predominância quantitativa. O \textit{mutation score} e os custos de execução são dados quantitativos, enquanto a síntese dos estudos da RSL e a interpretação dos mutantes sobreviventes exigem análise qualitativa. A primeira etapa é conduzida por uma RSL, que fundamenta a escolha da ferramenta, dos operadores de mutação e da estratégia de redução de custo, seguindo o protocolo descrito no Capítulo~\ref{cap:revisao-literatura}, com a abordagem GQM, a estratégia PICO, critérios de inclusão e exclusão e um formulário de extração de dados. A metodologia de pesquisa da segunda etapa é a mineração de repositórios (\textit{Repository Mining}), definida nos padrões empíricos da ACM SIGSOFT como um estudo que analisa quantitativamente um conjunto de dados extraído de uma plataforma que hospeda texto estruturado ou semiestruturado, como um repositório de código-fonte \cite{acmsigsoft}. Ela é adequada porque o trabalho obtém, de repositórios públicos de aplicações web de código aberto, o código-fonte e as suítes de testes, e analisa de forma quantitativa os resultados da execução dos mutantes sobre essas suítes. A unidade de análise é a suíte de testes de cada aplicação. Conforme o padrão, o Capítulo~\ref{cap:planejamento}, de proposta da solução, deverá justificar a fonte dos dados e os critérios de seleção dos repositórios, descrever os repositórios selecionados e o seu tamanho, detalhar a aquisição e o pré-processamento dos dados, justificar as métricas usadas e discutir as ameaças à validade externa \cite{acmsigsoft}.
 
 Na fase operacional, a coleta de dados usa uma fonte em cada etapa. Na primeira, trata-se de pesquisa em arquivos (\textit{archival research}): os dados dos estudos selecionados foram extraídos na ferramenta Evidentia e consolidados em planilha, formando um corpus de 37 artigos. Na segunda, os dados são adquiridos por mineração de repositórios públicos de código aberto, hospedados em plataformas como o GitHub, e produzidos pela execução automatizada dos mutantes sobre as suítes de testes das aplicações web escolhidas. A análise de dados combina a análise estatística, para descrever o \textit{mutation score} e o custo de execução, e a análise temática, para sintetizar os resultados da RSL e classificar manualmente os mutantes sobreviventes quanto à equivalência, à dificuldade de detecção e à inadequação da suíte. Essa classificação é feita por mais de um anotador, e a concordância entre eles é medida e reportada, como recomenda o padrão de mineração de repositórios \cite{acmsigsoft}.
 
@@ -118,7 +119,7 @@ Os projetos da segunda etapa são escolhidos de forma manual no GitHub, em uma a
 
 \begin{enumerate}[noitemsep, topsep=0pt]
     \item possuir suíte de testes automatizados;
-    \item ser uma aplicação web;
+    \item ser uma aplicação web;ão
     \item ser desenvolvido em Python;
     \item ter entre 100 e 100.000 linhas de código;
     \item ter atividade da comunidade nos últimos 12 meses.
@@ -133,7 +134,10 @@ A faixa de 100 a 100.000 linhas de código tem o objetivo de reunir projetos de 
 
 Cabe observar que a a Figura~\ref{fig:exemplo2} exemplifica a metodologia de pesquisa com o estudo de caso, a pesquisa-ação e o \textit{design science}; neste trabalho, a estrutura é usada como guia para organizar as decisões, e a metodologia adotada na segunda etapa é a mineração de repositórios. Dessa forma, as decisões se distribuem nas duas etapas do trabalho: a primeira concentra a RSL e a definição da solução, e a segunda concentra a aplicação e a avaliação da solução por meio da mineração de repositórios, conforme o cronograma apresentado na  Seção~\ref{sec:secao17}.
 
+
+
 \section{Organização do Trabalho}
+\label{sec:organizacao-trabalho}
 
 Esta subseção visa apresentar a estrutura do documento e o que está presente em cada capítulo desta monografia.
 
@@ -193,7 +197,7 @@ As atividades desenvolvidas durante a primeira etapa são descritas a seguir:
 
     \item \textbf{Definição da Proposta da Solução:} consolidação dos resultados obtidos a partir das questões secundárias e estruturação da abordagem proposta, incluindo a seleção da ferramenta, dos operadores de mutação e das aplicações web a serem avaliadas, bem como a definição de estratégias para redução de custos;
 
-    \item \textbf{Escrita do Trabalho:} redação da monografia seguindo a organização apresentada na Seção 1.5;
+    \item \textbf{Escrita do Trabalho:} redação da monografia seguindo a organização apresentada na Seção~\ref{sec:organizacao-trabalho};
 
     \item \textbf{Revisão da Monografia:} revisão e correção; e
 
@@ -229,7 +233,7 @@ Esta subseção apresenta as atividades previstas para a segunda etapa desta mon
 
     \item \textbf{Documentação dos Resultados:} apresentação dos procedimentos realizados e dos resultados obtidos com a mineração dos repositórios, buscando responder à questão principal de pesquisa e avaliar as contribuições e limitações da abordagem proposta;
 
-    \item \textbf{Redação e Revisão da Monografia:} continuidade da escrita do trabalho, conforme a estrutura apresentada na Seção 1.5, seguida da revisão e correção do documento em conjunto com o orientador; e
+    \item \textbf{Redação e Revisão da Monografia:} continuidade da escrita do trabalho, conforme a estrutura apresentada na Seção, seguida da revisão e correção do documento em conjunto com o orientador; e
 
     \item \textbf{Apresentação do Trabalho Finalizado:} preparação e apresentação da versão final da monografia à banca avaliadora.
 
