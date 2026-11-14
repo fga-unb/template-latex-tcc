@@ -1,0 +1,168 @@
+\chapter{Revisão Estruturada da Literatura}
+\label{cap:revisao-literatura}
+
+Esta seção apresenta o panorama do estado da arte sobre o uso de testes de mutação para avaliar a eficácia de suítes de testes automatizados, com ênfase no contexto de aplicações web. A investigação foi conduzida por meio de uma Revisão Sistemática da Literatura (RSL), estruturada para mapear as principais abordagens, métricas comparativas, ferramentas utilizadas e lacunas científicas existentes na área.
+
+\section{Planejamento e Protocolo}
+\label{sec:planejamento-protocolo}
+
+% Insira o conteúdo desta seção aqui
+
+\section{Estruturação da String de Busca}
+\label{subsec:string-busca}
+
+Para estruturar a delimitação da busca na base digital, utilizou-se o protocolo PICO, amplamente empregado na área da medicina e adaptado para investigações em Engenharia de Software \cite{kitchenham2007}. O acrônimo PICO refere-se a \textit{Population} (população), \textit{Intervention} (intervenção), \textit{Comparison} (comparação) e \textit{Outcome} (resultado), podendo ser conceitualmente representado por um diagrama de Venn, conforme ilustrado na Figura~\ref{fig:pico-venn} \cite{pai2004}. Sob essa perspectiva conceitual, os estudos mais relevantes para a pesquisa são aqueles localizados precisamente na intersecção lógica entre os conjuntos definidos pelos elementos do protocolo.
+
+Considerando o escopo investigado nesta pesquisa, a população compreende o domínio de software, servindo de base para a abrangência dos estudos mapeados. A intervenção refere-se à técnica principal avaliada, sendo contemplados os testes de mutação e a injeção sintética de falhas. O resultado representa a saída esperada e relatada nos estudos selecionados, focando em mensurar a eficácia da suíte de testes automatizados e sua capacidade de detecção de defeitos. Quanto à comparação, embora o modelo PICO original preveja a análise comparativa com tratamentos alternativos, optou-se por focar a investigação na análise da eficácia da técnica em relação às métricas de teste, dispensando a utilização desta camada específica na formulação da string, conforme flexibilizações metodológicas comuns na área.
+
+Desta forma, os termos de busca foram gerados a partir do mapeamento dos eixos do PICO e da seleção das expressões utilizadas na literatura para se referir a cada dimensão investigada. A estrutura consolidada contendo os elementos do PICO, as palavras-chave primárias e os seus respectivos sinônimos e termos relacionados é apresentada na Tabela~\ref{tab:termos-string-busca}.
+
+\begin{table}[htb]
+    \centering
+    \caption{Estrutura dos Termos da String de Busca}
+    \label{tab:termos-string-busca}
+    \begin{tabularx}{0.95\textwidth}{|l|p{3.8cm}|X|}
+        \hline
+        \textbf{Elementos} & \textbf{Palavras Chaves} & \textbf{Sinônimos e Termos Relacionados} \\ \hline
+        População & software & software systems, software applications, computer software, software products, software systems development, software engineering, web app, web system \\ \hline
+        Intervenção & testes de mutação & mutation testing, mutation analysis, mutation-based testing, mutation testing techniques, mutation operators, artificial faults, artificial changes, seeded faults, mutant generation, software mutation \\ \hline
+        Resultados & eficácia da suíte de testes automatizados & test suite effectiveness, test suite adequacy, automated test effectiveness, mutation score, mutant detection rate, fault detection, defect detection, test effectiveness, test adequacy, test coverage \\ \hline
+    \end{tabularx}
+    \fonte{Autor.}
+\end{table}
+
+Para finalizar a construção da expressão de busca, adicionou-se o operador lógico \texttt{AND} para separar cada camada do protocolo e, dentro de cada uma delas, o operador lógico \texttt{OR} para agrupar as palavras-chave e seus sinônimos. Acrescentou-se também a sintaxe de aspas duplas para o agrupamento exato de termos compostos. Isto resultou na seguinte estruturação da string finalizada:
+
+Para finalizar a construção da expressão de busca, adicionou-se o operador lógico \texttt{AND} para separar cada camada do protocolo e, dentro de cada uma delas, o operador lógico \texttt{OR} para agrupar as palavras-chave e seus sinônimos. Acrescentou-se também a sintaxe de aspas duplas para o agrupamento exato de termos compostos. Isto resultou na seguinte estruturação da string finalizada:
+
+\vspace{0.3cm}
+\noindent\textit{( "complex systems" OR "software industry" OR "software systems" OR "software applications" OR "computer software" OR "software products" OR "software systems development" OR "software engineering" OR "web app" OR "web system" ) AND ( "mutation testing" OR "mutation analysis" OR "mutation-based testing" OR "mutation testing techniques" OR "mutation operators" OR "artificial faults" OR "artificial changes" OR "seeded faults" OR "mutant generation" OR "software mutation" ) AND ( "test suite effectiveness" OR "test suite adequacy" OR "automated test effectiveness" OR "mutation score" OR "mutant detection rate" OR "fault detection" OR "defect detection" OR "test effectiveness" OR "test adequacy" OR "test coverage" OR "test quality" )}
+\vspace{0.3cm}
+
+ADD IMAGEM AQUI (Figura 4 – Representação Visual do Protocolo PICO)
+
+\section{Realização da Busca e Seleção dos Artigos}
+\label{sec:realizacao-busca}
+
+Com a string de busca devidamente estruturada, procedeu-se à execução da busca automatizada na base de dados digital Scopus no dia 17 de setembro de 2026, retornando um total de 238 artigos brutos. Em seguida, aplicou-se um filtro temporal para selecionar apenas publicações do período de 2010 até o presente momento, o que reduziu a amostragem para 179 artigos.
+
+Esses registros foram importados para a ferramenta Evidentia, ambiente utilizado para o gerenciamento do protocolo da RSL. Nessa etapa de importação, identificou-se que 4 arquivos encontravam-se corrompidos, restando um corpus inicial de 175 artigos válidos para análise.
+
+A partir desse conjunto, estabeleceram-se os critérios formais de inclusão e exclusão para balizar a triagem dos estudos, conforme sintetizado na Tabela~\ref{tab:criterios-inclusao-exclusao}.
+
+\begin{table}[htb]
+    \centering
+    \caption{Critérios de Inclusão e Exclusão}
+    \label{tab:criterios-inclusao-exclusao}
+    \begin{tabularx}{0.95\textwidth}{|p{0.46\textwidth}|p{0.46\textwidth}|}
+        \hline
+        \textbf{Critérios de Inclusão} & \textbf{Critérios de Exclusão} \\ \hline
+        1. Estudos que envolvam suítes de testes automatizados utilizados para detectar mutantes. & 1. Estudos que não abordem testes de mutação. \\ \hline
+        2. Estudos aplicados a aplicações web, sistemas web ou software desenvolvido para a web. & 2. Estudos que não apresentem resultados relacionados à detecção de mutantes, eficácia ou adequação dos testes. \\ \hline
+        3. Artigos publicados em periódicos ou conferências científicas. & 3. Trabalhos que sejam teses, dissertações, trabalhos de conclusão de curso, livros, capítulos de livros, resumos, pôsteres ou tutoriais. \\ \hline
+        4. Estudos publicados nos idiomas inglês ou português. & 4. Estudos duplicados encontrados em diferentes bases de dados. \\ \hline
+        5. Estudos cujo texto completo esteja disponível para análise. & \multicolumn{1}{c|}{--} \\ \hline
+    \end{tabularx}
+    \fonte{Autor.}
+\end{table}
+
+Em um primeiro momento, aplicaram-se os critérios de inclusão e exclusão mediante a leitura preliminar do título, resumo e palavras-chave de cada um dos 175 artigos. Os estudos que atenderam aos critérios nessa triagem inicial totalizaram 42 artigos, os quais foram selecionados para a etapa de leitura aprofundada na íntegra.
+
+Posteriormente, realizou-se a leitura completa desses 42 artigos. Durante essa análise detalhada, identificou-se que 5 estudos não apresentavam compatibilidade direta ao escopo da pesquisa após a leitura integral, sendo descartados. Dessa forma, restou um corpus final de 37 artigos aprovados.
+
+Os dados relevantes desses 37 artigos foram extraídos com o objetivo de responder às perguntas de pesquisa secundárias da investigação, apresentadas na Tabela~\ref{tab:perguntas-secundarias}.
+
+\begin{table}[htb]
+    \centering
+    \caption{Perguntas Secundárias}
+    \label{tab:perguntas-secundarias}
+    \begin{tabularx}{0.95\textwidth}{|l|X|}
+        \hline
+        \textbf{Item} & \textbf{Perguntas Secundárias} \\ \hline
+        PS1 & Quais métricas são mais utilizadas na literatura para quantificar a eficácia das suítes de testes em aplicações web? \\ \hline
+        PS2 & Quais operadores de mutação e tipos de alterações artificiais no código-fonte são mais aplicados no contexto específico de aplicações web? \\ \hline
+        PS3 & Quais ferramentas automatizadas de teste de mutação para tecnologias web são reportadas nos estudos primários e qual o seu nível de maturidade? \\ \hline
+        PS4 & Quais são as principais limitações e desafios práticos identificados na aplicação de testes de mutação em aplicações web? \\ \hline
+        PS5 & Quais estratégias são propostas na literatura para reduzir os custos e mitigar as limitações da aplicação de testes de mutação em aplicações web? \\ \hline
+        PS6 & Quais fatores são associados à sobrevivência de mutantes nas suítes de testes avaliadas? \\ \hline
+        PS7 & Qual é a distribuição, por ano, das publicações sobre testes de mutação aplicados à avaliação de suítes de testes automatizados em aplicações web? \\ \hline
+        PS8 & Em quais revistas e conferências são publicados estudos sobre o tema? \\ \hline
+        PS9 & Quais métodos de validação empírica são utilizados nos estudos? \\ \hline
+        PS10 & Quais são os principais autores e grupos de pesquisa que investigam o tema? \\ \hline
+    \end{tabularx}
+    \fonte{Autor.}
+\end{table}
+
+Para padronizar a coleta das evidências durante a análise, utilizou-se um formulário de extração de dados estruturado, cujos campos e diretrizes constam na Tabela~\ref{tab:formulario-extracao}.
+
+\begin{table}[htb]
+    \centering
+    \caption{Formulário de Extração dos Dados}
+    \label{tab:formulario-extracao}
+    \begin{tabularx}{0.95\textwidth}{|l|X|}
+        \hline
+        \textbf{Item} & \textbf{Descrição} \\ \hline
+        1 & Título \\ \hline
+        2 & Ano de Publicação \\ \hline
+        3 & Fonte de Publicação \\ \hline
+        4 & Autores \\ \hline
+        5 & Palavras-chaves \\ \hline
+        6 & Métricas utilizadas para avaliar a eficácia \\ \hline
+        7 & Operadores mutantes utilizados \\ \hline
+        8 & Ferramentas utilizadas/reportadas \\ \hline
+        9 & Limitações e desafios \\ \hline
+        10 & Estratégias para redução de limitações \\ \hline
+        11 & Fatores associados à sobrevivência de mutantes \\ \hline
+        12 & Método de validação empírica \\ \hline
+    \end{tabularx}
+    \fonte{Autor.}
+\end{table}
+
+Para facilitar a visualização e a compreensão de todo o protocolo de seleção de artigos, a Figura~\ref{fig:fluxo-selecao} ilustra de forma sequencial o fluxo de etapas explanadas, desde a busca inicial até o total consolidado na extração final.
+
+ADD IMAGEM AQUI (Figura X – Fluxo de Seleção dos Artigos)
+
+\section{Resultados}
+\label{sec:resultados}
+
+Após a conclusão da leitura dos artigos aprovados, os dados foram extraídos utilizando a ferramenta Evidentia, ambiente adotado para conduzir o protocolo da revisão. Depois de finalizada a extração dos dados, as informações coletadas foram importadas para uma \citeonline{abreu2026rsl}planilha eletrônica, permitindo consolidar os registros, garantir a rastreabilidade e facilitar o cruzamento dos dados.
+
+Com a planilha devidamente estruturada, procedeu-se à análise quantitativa e qualitativa do corpus de 37 artigos para responder às questões de pesquisa secundárias estabelecidas no planejamento desta investigação. Os principais resultados obtidos são apresentados e discutidos nas subseções a seguir.
+
+\subsection[Quais métricas são mais utilizadas na literatura?]{Quais métricas são mais utilizadas na literatura para quantificar 
+a eficácia das suítes de testes em aplicações web?}
+\label{subsec:metricas-utilizadas}
+
+O \textit{mutation score} é a métrica mais utilizada: 29 dos 36 estudos (81\%) o adotam ou usam uma variante diretamente equivalente, como o \textit{kill score}, a cobertura de mutação ou a contagem de mutantes mortos. Em seguida aparecem as contagens e taxas de mutantes mortos, vivos, equivalentes e teimosos (12 estudos, 33\%) e as métricas de cobertura de código (9 estudos, 25\%). Com menor frequência surgem métricas de qualidade da seleção de mutantes, de custo e de validade frente a falhas reais. Apenas dois estudos não usam o \textit{mutation score} nem derivados dele: o CBUA usa somente cobertura de código \cite{zhang2022} e o DeepMutation reporta apenas métricas da própria ferramenta \cite{tufano2020}.
+
+Uma ressalva importante: apenas um dos 37 estudos avalia suítes de testes de aplicações web \cite{yandrapally2021}. As frequências da Tabela X descrevem a literatura de teste de mutação em geral, majoritariamente sobre programas Java e C, e o recorte específico de aplicações web é tratado na Seção 3.4.1.4.
+
+\begin{table}[htb]
+    \centering
+    \caption{Métricas Utilizadas}
+    \label{tab:metricas-utilizadas}
+    \begin{tabularx}{0.95\textwidth}{X|c}
+        \hline
+        \textbf{Categoria de Métrica} & \textbf{Estudos} \\ \hline
+        Mutation score e variantes diretas (kill score, cobertura de mutação, contagem de mutantes mortos) & 29 \\ \hline
+        Contagens e taxas de mutantes mortos, vivos, equivalentes e teimosos & 12 \\ \hline
+        Cobertura de código (linha, instrução, ramo e método) & 9 \\ \hline
+        Qualidade da seleção ou da aproximação do mutation score & 7 \\ \hline
+        Custo e redução de mutantes (tempo de execução, número de mutantes, taxa de redução, esforço) & 6 \\ \hline
+        Tamanho da suíte de testes e cobertura relativa entre critérios & 4 \\ \hline
+        Validade frente a falhas reais (detecção de falhas reais, acoplamento) & 3 \\ \hline
+        Outras métricas isoladas (mutation brittleness, test smells, exposição a findings) & 3 \\ \hline
+    \end{tabularx}
+    \fonte{Autor.}
+\end{table}
+
+
+\subsection{Mutation score e suas variantes}
+\label{subsec:mutation-score-variantes}
+
+O \textit{mutation score} quantifica a qualidade de uma suíte como a razão entre o número de mutantes mortos e o total de mutantes não equivalentes \cite{chauhan2015, guerino2024}. Um mutante é morto quando algum teste produz resultado diferente do programa original; em suítes de testes \textit{end-to-end} de aplicações web, quando ao menos um caso de teste falha, seja por uma ação ou por uma verificação (\textit{oracle}) \cite{yandrapally2021}. Um escore baixo indica que a maior parte das falhas não é detectada pela suíte, e um escore alto indica que a maioria foi identificada \cite{chauhan2015}. A fórmula usada nos estudos é a seguinte, em que $K$ é o número de mutantes mortos, $M$ o total de mutantes gerados e $E$ o número de mutantes equivalentes \cite{assylbekov2013, ashong2025a}:
+
+\begin{equation}
+    MS = \frac{K}{M - E} \times 100
+    \label{eq:mutation-score}
+\end{equation}
