@@ -6,7 +6,7 @@ Esta seção apresenta o panorama do estado da arte sobre o uso de testes de mut
 \section{Planejamento e Protocolo}
 \label{sec:planejamento-protocolo}
 
-% Insira o conteúdo desta seção aqui
+O planejamento de uma revisão sistemática define, antes da busca, o objetivo, as questões de pesquisa, a estratégia de busca e os critérios de seleção e de extração dos dados, de modo que o processo possa ser reproduzido \cite{kitchenham2007}. Esta seção apresenta o protocolo seguido nesta revisão, cujos resultados são discutidos na Seção~\ref{sec:resultados}.
 
 \section{Estruturação da String de Busca}
 \label{subsec:string-busca}
@@ -127,18 +127,18 @@ Para padronizar a coleta das evidências durante a análise, utilizou-se um form
 
 Para facilitar a visualização e a compreensão de todo o protocolo de seleção de artigos, a Figura~\ref{fig:fluxo-selecao} ilustra de forma sequencial o fluxo de etapas explanadas, desde a busca inicial até o total consolidado na extração final.
 
-\begin{figure}[H]
+\begin{figure}[!bp]
     \centering
+    \includegraphics[width=0.8\textwidth, keepaspectratio]{figuras/selecao-artigos.png}
     \caption{Fluxo de Seleção dos Artigos}
     \label{fig:fluxo-selecao}
-    \includegraphics[width=0.8\textwidth]{figuras/selecao-artigos.png}
     \fonte{Autor (2026).}
 \end{figure}
 
 \section{Resultados}
 \label{sec:resultados}
 
-Após a conclusão da leitura dos artigos aprovados, os dados foram extraídos utilizando a ferramenta Evidentia, ambiente adotado para conduzir o protocolo da revisão. Depois de finalizada a extração dos dados, as informações coletadas foram importadas para uma \citeonline{planilha-eletronica}, permitindo consolidar os registros, garantir a rastreabilidade e facilitar o cruzamento dos dados.
+Após a conclusão da leitura dos artigos aprovados, os dados foram extraídos utilizando a ferramenta Evidentia, ambiente adotado para conduzir o protocolo da revisão. Depois de finalizada a extração dos dados, as informações coletadas foram importadas para uma planilha eletrônica \href{https://docs.google.com/spreadsheets/d/1vhQH-s1NbXxbqH6Kie3z7ZXoASvZnZw09Wph0cionCQ/edit?usp=sharing}{planilha eletrônica}, permitindo consolidar os registros, garantir a rastreabilidade e facilitar o cruzamento dos dados.
 
 Com a planilha devidamente estruturada, procedeu-se à análise quantitativa e qualitativa do corpus de 37 artigos para responder às questões de pesquisa secundárias estabelecidas no planejamento desta investigação. Os principais resultados obtidos são apresentados e discutidos nas subseções a seguir.
 
@@ -527,7 +527,7 @@ Dos 36 estudos com dados extraídos, 31 propõem ou avaliam ao menos uma estrat�
         Tratamento de mutantes equivalentes & \citeonline{nica2011}; \citeonline{guerino2024}; \citeonline{yao2014}; \citeonline{he2024} & Revisão manual, \textit{solver} de restrições, modelos de geração de testes por LLM & Não avaliada \\
         \hline
     \end{tabular}
-    \legend{Fonte: Elaborado pela autora (2026).}
+    \legend{Fonte: Autor (2026).}
 \end{table}
 
 \subsubsection{Estratégias propostas para tecnologias web}
@@ -606,7 +606,7 @@ Dos 36 estudos com dados extraídos, 18 reportam ao menos um fator associado à 
         Falhas reais não representadas pelos mutantes & Operadores fracos, ausentes ou inexistentes; falhas de algoritmo e remoção de código & 2 & 6\% & \cite{just2014, petrovic2021} \\
         \hline
     \end{tabular}
-    \legend{Fonte: Elaborado pela autora (2026).}
+    \legend{Fonte: Autor (2026).}
 \end{table}
 
 \subsubsection{Equivalência}
@@ -755,96 +755,93 @@ Em síntese, os 36 estudos se distribuem de forma estável ao longo de 17 anos, 
 \subsection{Em quais revistas e conferências são publicados estudos sobre o tema?}
 \label{subsec:revistas-conferencias}
 
-Os 36 estudos foram classificados em sete grupos, segundo o método principal de validação empírica (Tabela~\ref{tab:validacao-empirica}), e um mesmo estudo pode somar técnicas complementares, como testes estatísticos e inspeção manual (Tabela~\ref{tab:tecnicas-complementares}). Em oito estudos o campo ``Métodos de validação empírica'' estava vazio ou trazia só uma expressão, como ``Estudo de Caso'' ou ``Experimento'' \cite{just2012, kintis2010, tufano2020, ahmed2016, alenezi2016, zhang2022, ashong2025, ashong2026}, e o método foi completado a partir dos artigos quando eles estavam disponíveis. A maior parte dos estudos não é de aplicações web, e por isso a análise considera todos eles, e a Seção~\ref{subsubsec:validacao-web} trata dos três em contexto web.
+Os 36 estudos com dados extraídos estão em 22 fontes: 6 periódicos, 13 conferências e 3 \textit{workshops}. A fonte vem do campo ``Fonte de Publicação'' da planilha de extração. Em cinco estudos o campo trazia só ``IEEE'', e o nome do periódico ou do evento foi completado a partir dos artigos e de registros bibliográficos. A Tabela~\ref{tab:fontes-publicacao} reúne as fontes por tipo. Nenhuma delas é voltada à web, e por isso a análise considera todos os estudos, e a Seção~\ref{subsubsec:fontes-web} trata dos três em contexto web.
 
 \begin{table}[H]
     \centering
     \scriptsize
-    \caption{Métodos de validação empírica, por método principal}
-    \label{tab:validacao-empirica}
-    \begin{tabular}{|p{3.0cm}|p{3.8cm}|c|c|p{4.0cm}|}
+    \caption{Fontes de publicação dos estudos}
+    \label{tab:fontes-publicacao}
+    \begin{tabular}{|p{2.3cm}|p{5.5cm}|c|p{4.7cm}|}
         \hline
-        \textbf{Método} & \textbf{Descrição} & \textbf{Estudos} & \textbf{\%} & \textbf{Referências} \\
+        \textbf{Tipo} & \textbf{Fonte} & \textbf{Estudos} & \textbf{Referências} \\
         \hline
-        Experimento comparativo com \textit{benchmarks} ou programas pequenos & Técnica ou estratégia comparada com referência em programas conhecidos ou de pequeno porte & 10 & 28\% & \cite{shomali2020, arasteh2022, arasteh2023, kurtz2016, zhang2010, kuroishi2020, kintis2010, lin2018, tao2025, nica2011} \\
+        Periódico & IEEE Transactions on Software Engineering & 3 & \cite{zhang2019, zhang2022, guizzo2022} \\
         \hline
-        Estudo empírico em projetos reais de código aberto & Vários projetos ou versões, em comparação de técnicas ou em análise observacional & 9 & 25\% & \cite{zhang2019, zhang2022, ashong2025, ashong2026, ashong2026, guizzo2022, ahmed2016, ojdanic2023, alenezi2016} \\
+        Periódico & Journal of Electronic Testing & 2 & \cite{arasteh2022, arasteh2023} \\
         \hline
-        Estudo de caso ou estudo piloto & Aplicação a um ou poucos sistemas, declarada como estudo de caso ou piloto ou restrita a um sistema & 8 & 22\% & \cite{just2012, jalbert2012, belli2011, esterobotaro2010, assylbekov2013, inozemtseva2013, chauhan2015, he2024} \\
+        Periódico & ACM Transactions on Software Engineering and Methodology & 1 & \cite{khanfir2023} \\
         \hline
-        Métodos mistos com análise manual & Experimento combinado com inspeção manual, análise de relatos de \textit{bugs} ou questionário & 3 & 8\% & \cite{yao2014, yandrapally2021, guerino2024} \\
+        Periódico & Journal of Systems and Software & 1 & \cite{tao2025} \\
         \hline
-        Demonstração ou avaliação preliminar & Ferramenta, plataforma ou proposta apresentada com avaliação parcial ou planejada & 3 & 8\% & \cite{tufano2020, dimov2010, grano2019} \\
+        Periódico & IEEE Access & 1 & \cite{lin2018} \\
         \hline
-        Validação com falhas reais & Mutantes ou falhas injetadas comparados a falhas reais & 2 & 6\% & \cite{just2014, khanfir2023} \\
+        Periódico & Data Technologies and Applications & 1 & \cite{shomali2020} \\
         \hline
-        Estudo industrial longitudinal & Observação ao longo de anos em ambiente industrial, com grupo de controle & 1 & 3\% & \cite{petrovic2021} \\
+        \textbf{Subtotal} & \textbf{Periódicos} & \textbf{9 (25\%)} & -- \\
         \hline
-        \textbf{Total} & \textbf{--} & \textbf{36} & \textbf{100\%} & \textbf{--} \\
+        Conferência & ESEC/FSE (Foundations of Software Engineering) & 5 & \cite{inozemtseva2013, just2014, kurtz2016, ahmed2016, ojdanic2023} \\
         \hline
-    \end{tabular}
-    \legend{Fonte: Elaborado pela autora (2026).}
-\end{table}
-
-\subsubsection{Experimentos comparativos com \textit{benchmarks} e programas pequenos}
-\label{subsubsec:experimentos-comparativos}
-
-Dez estudos (28\%) comparam técnicas ou estratégias em \textit{benchmarks} ou programas de pequeno porte. \citeonline{shomali2020} comparam a mutação de todo o código com a de locais selecionados em cinco programas, e \citeonline{arasteh2022} e \citeonline{arasteh2023} usam cinco programas cada, com 10 execuções independentes por algoritmo e comparação com algoritmos concorrentes; no primeiro, os programas têm de 17 a 72 linhas. \citeonline{zhang2010} comparam cinco técnicas de seleção de mutantes em sete programas C, com 50 suítes por configuração, e \citeonline{kurtz2016} fazem um experimento \textit{in vitro} no \textit{benchmark} Siemens, com 512 testes e simulação de Monte Carlo. \citeonline{kuroishi2020} reutilizam programas C e suítes de estudos anteriores e comparam a seleção com a mutação completa e com a amostragem aleatória. \citeonline{kintis2010} examinam estratégias de segunda ordem e a mutação fraca em quinze programas, \citeonline{lin2018} analisam 22 programas e cerca de 96 mil mutantes gerados pelo JCMuta, e \citeonline{tao2025} combinam \textit{benchmarks} e programas descritos como industriais. \citeonline{nica2011} valida a abordagem de casos de teste distinguidores em programas Java de até 100 linhas. Esse método permite controlar as condições e repetir o experimento, mas os programas são pequenos ou de uso conhecido, o que limita a generalização.
-
-\subsubsection{Estudos em projetos reais de código aberto}
-\label{subsubsec:estudos-projetos-reais}
-
-Nove estudos (25\%) avaliam projetos reais de código aberto, em geral vários. \citeonline{zhang2019} usam nove projetos-base e 154 projetos adicionais do GitHub, de 172 a 92.176 linhas, com o modelo treinado em uma versão e avaliado na seguinte. \citeonline{zhang2022} usam 163 conjuntos de dados do PMT original e 650 do PMT estendido, todos gerados com o PIT. \citeonline{ashong2025} avaliam 15 projetos Java, de 442 a 48.115 linhas, e \citeonline{ashong2026}, 14 projetos Java, com 1.000 repetições por técnica estocástica e taxa de amostragem. \citeonline{guizzo2022} comparam estratégias em dez sistemas e quatro versões, com 30 execuções independentes por combinação. \citeonline{ahmed2016} relacionam cobertura e \textit{mutation score} às correções de \textit{bugs} posteriores em um grande número de programas Java do GitHub e do Apache, e \citeonline{ojdanic2023} fazem uma análise longitudinal do histórico de projetos de código aberto. \citeonline{alenezi2016} conduzem experimentos em seis projetos Java, e \citeonline{ashong2026} descrevem um experimento, sem mais detalhes na planilha. Esses estudos têm maior validade externa que os experimentos com programas pequenos, mas o custo da análise de mutação limita o número de projetos (Seção~\ref{subsubsec:custo-computacional}).
-
-\subsubsection{Estudos de caso, estudos piloto e demonstrações}
-\label{subsubsec:estudos-caso-piloto}
-
-Oito estudos (22\%) são estudos de caso ou estudos piloto. \citeonline{just2012} fazem um estudo de caso com quatro programas reais, de 3.000 a quase 40.000 linhas. \citeonline{jalbert2012} fazem uma avaliação preliminar, que chamam de estudo de caso, no JGAP 3.6.1, com validação cruzada de dez partições. \citeonline{belli2011} usam dois módulos de uma aplicação comercial web, \citeonline{esterobotaro2010} usam três composições WS-BPEL de 110, 202 e 633 linhas, com formalização teórica de apoio, e \citeonline{assylbekov2013} usam um programa, o Spojo, removendo os casos de teste um a um. \citeonline{inozemtseva2013} fazem um estudo piloto com um projeto real, \citeonline{chauhan2015} usam um sistema de informação de estudantes com 10 módulos, e \citeonline{he2024} comparam mutantes de três ordens em um software embarcado, com os mesmos cinco dados de teste. Três estudos (8\%) são demonstrações ou avaliações preliminares. \citeonline{tufano2020} executam o DeepMutation em quatro projetos do Defects4J, como avaliação preliminar da ferramenta. \citeonline{dimov2010} aplicam sua plataforma aos subsistemas de busca e indexação do Apache Lucene, sem consolidação experimental com repetições, intervalos de confiança ou comparação estatística. \citeonline{grano2019} tem parte do estudo realizada, a da pergunta sobre fatores de qualidade dos testes, e parte planejada, com modelos de predição e uma implementação no EvoSuite avaliada em classes do SF110.
-
-\subsubsection{Falhas reais, estudo industrial e métodos mistos}
-\label{subsubsec:falhas-reais-industrial}
-
-Poucos estudos usam falhas reais ou ambiente industrial como referência. \citeonline{just2014} respondem a três questões de pesquisa: se falhas reais são acopladas a mutantes ($\chi^2$), que tipos de falha não são acopladas (revisão manual qualitativa de cada falha) e se a detecção de mutantes se correlaciona com a de falhas reais (correlação ponto-bisserial e \textit{rank-bisserial}, Wilcoxon e tamanho de efeito $\hat{A}_{12}$). \citeonline{khanfir2023} comparam o iBiR e a mutação tradicional com amostragem aleatória em falhas reais do Defects4J, e o iBiR distinguiu estatisticamente as suítes que detectam a falha real das que não detectam em 126 falhas, contra 55 da abordagem comparada. \citeonline{petrovic2021} fazem o único estudo industrial, com desenho longitudinal e interventivo ao longo de seis anos, mais de 14 milhões de mutantes e grupos de tratamento e de controle, analisados no nível de arquivos, com correlação de Spearman e teste de Wilcoxon. \textit{Pipeline} de acoplamento partiu de 1.765 \textit{bugs} candidatos, reteve 1.502, gerou cerca de 400 mil mutantes e passou de 33 milhões de execuções, e incluiu a inspeção manual de 50 \textit{bugs} não acoplados. Três estudos combinam métodos: \citeonline{yao2014} usam 18 programas C, inspeção manual sistemática de 1.230 mutantes não mortos por suítes com 100\% de cobertura de ramos factíveis e correlação de Spearman; \citeonline{guerino2024} combinam uma comparação estática, documental e por questionário, com uma comparação dinâmica, em programas escolhidos por conveniência, com geração e ampliação de testes e análise manual de equivalentes; e \citeonline{yandrapally2021}, descritos na Seção~\ref{subsubsec:validacao-web}.
-
-\subsubsection{Técnicas complementares}
-\label{subsubsec:tecnicas-complementares}
-
-Além do método principal, 18 estudos (50\%) informam ao menos uma técnica complementar, reunidas na Tabela~\ref{tab:tecnicas-complementares}. A mais frequente é a análise estatística, em dez estudos, com correlação de Spearman em três \cite{yao2014, kurtz2016, petrovic2021}, teste de Wilcoxon em três \cite{just2014, grano2019, petrovic2021} e medidas de tamanho de efeito em dois \cite{just2014, grano2019}. \citeonline{arasteh2023} usam ANOVA, e \citeonline{ashong2026} usam a contagem de Borda e o $\tau$ de Kendall. A inspeção manual aparece em sete estudos, principalmente para classificar mutantes equivalentes, e a repetição de execuções ou de construções de suítes, em seis. Como as técnicas só foram contadas quando a planilha ou o artigo as descrevem, os números podem estar subestimados.
-
-\begin{table}[H]
-    \centering
-    \scriptsize
-    \caption{Técnicas complementares de validação (um estudo pode aparecer em mais de uma)}
-    \label{tab:tecnicas-complementares}
-    \begin{tabular}{|p{3.2cm}|c|c|p{7.5cm}|}
+        Conferência & ICSE (International Conference on Software Engineering) & 4 & \cite{zhang2010, yao2014, tufano2020, petrovic2021} \\
         \hline
-        \textbf{Técnica} & \textbf{Estudos} & \textbf{\%} & \textbf{Referências} \\
+        Conferência & ICST (International Conference on Software Testing, Verification and Validation) & 2 & \cite{nica2011, just2012} \\
         \hline
-        Análise estatística & 10 & 28\% & \cite{yao2014, petrovic2021, kurtz2016, just2014, grano2019, arasteh2023, ashong2026, guizzo2022, ahmed2016, khanfir2023} \\
+        Conferência & QRS (International Conference on Software Quality, Reliability and Security) & 2 & \cite{ashong2025a, ashong2025b} \\
         \hline
-        Inspeção manual & 7 & 19\% & \cite{yao2014, yandrapally2021, petrovic2021, just2014, guerino2024, esterobotaro2010, kuroishi2020} \\
+        Conferência & SBQS (Simpósio Brasileiro de Qualidade de Software) & 2 & \cite{kuroishi2020, guerino2024} \\
         \hline
-        Repetição de execuções ou de construções de suítes & 6 & 17\% & \cite{zhang2010, kurtz2016, arasteh2022, arasteh2023, guizzo2022, ashong2026} \\
+        Conferência & ISSTA (International Symposium on Software Testing and Analysis) & 1 & \cite{grano2019} \\
         \hline
-        Falhas reais como referência & 3 & 8\% & \cite{just2014, khanfir2023, petrovic2021} \\
+        Conferência & ICSME (International Conference on Software Maintenance and Evolution) & 1 & \cite{yandrapally2021} \\
         \hline
-        Validação cruzada ou treino e teste em versões distintas & 2 & 6\% & \cite{jalbert2012, zhang2019} \\
+        Conferência & APSEC (Asia Pacific Software Engineering Conference) & 1 & \cite{kintis2010} \\
         \hline
-        Disponibilização pública de dados ou ferramentas & 2 & 6\% & \cite{yandrapally2021, ashong2026} \\
+        Conferência & CEE-SECR (Central and Eastern European Software Engineering Conference) & 1 & \cite{dimov2010} \\
+        \hline
+        Conferência & ICACEA (International Conference on Advances in Computer Engineering and Applications) & 1 & \cite{chauhan2015} \\
+        \hline
+        Conferência & UKSim (International Conference on Computer Modelling and Simulation) & 1 & \cite{assylbekov2013} \\
+        \hline
+        Conferência & OSSCOM (International Conference on Open Source Software Computing) & 1 & \cite{alenezi2016} \\
+        \hline
+        Conferência & SDPC (International Conference on Sensing, Diagnostics, Prognostics, and Control) & 1 & \cite{he2024} \\
+        \hline
+        \textbf{Subtotal} & \textbf{Conferências} & \textbf{23 (64\%)} & -- \\
+        \hline
+        Workshop & ICSTW (ICST Workshops) & 2 & \cite{esterobotaro2010, ashong2026} \\
+        \hline
+        Workshop & COMPSAC Workshops (Computer Software and Applications Conference) & 1 & \cite{belli2011} \\
+        \hline
+        Workshop & RAISE (International Workshop on Realizing AI Synergies in Software Engineering) & 1 & \cite{jalbert2012} \\
+        \hline
+        \textbf{Subtotal} & \textbf{Workshops} & \textbf{4 (11\%)} & -- \\
+        \hline
+        \textbf{Total} & \textbf{22 fontes} & \textbf{36 (100\%)} & -- \\
         \hline
     \end{tabular}
-    \legend{Fonte: Elaborado pela autora (2026).}
+    \legend{Fonte: Autor(2026).}
 \end{table}
 
-\subsubsection{Métodos nos estudos em contexto web}
-\label{subsubsec:validacao-web}
+\subsubsection{Periódicos}
+\label{subsubsec:periodicos}
 
-Os três estudos em contexto web (Seção~\ref{subsubsec:publicacoes-web}) usam estudos de caso ou métodos mistos, com poucos objetos. \citeonline{yandrapally2021} analisam manualmente 250 relatos de \textit{bugs}, de 6.331 coletados em 10 aplicações de código aberto, para derivar as categorias de falhes e os operadores, e cerca de 44\% deles afetam a interface. Em seguida, fazem um experimento em seis aplicações (\textit{AddressBook}, \textit{Claroline}, \textit{Collabtive}, \textit{MantisBT}, \textit{MRBS} e \textit{PPMA}), cada uma com suíte JUnit e Selenium, com 50 mutantes por aplicação, 300 no total, de cerca de 586 mil candidatos. Cada mutante é analisado manualmente quanto à equivalência, à severidade e à teimosia, para responder a duas questões: a eficiência em gerar mutantes não equivalentes (93\% em média) e a utilidade dos mutantes para melhorar as suítes (\textit{mutation score} médio de 0,20). \citeonline{belli2011} fazem um estudo de caso com comparação experimental e análise estatística em dois módulos de uma aplicação comercial web, de um sistema de cerca de 53 mil linhas. \citeonline{esterobotaro2010} aplicam um procedimento a três composições WS-BPEL: geram todos os mutantes, executam contra uma suíte inicial feita à mão, inspecionam os sobreviventes, completam a suíte até torná-la adequada e a reduzem a um conjunto não redundante. Nenhum deles usa falhas reais como referência nem muitos projetos, ao contrário dos nove estudos em projetos reais de código aberto (Seção~\ref{subsubsec:estudos-projetos-reais}), e os três têm seis aplicações, dois módulos e três composições como objetos de estudo.
+Nove estudos (25\%) foram publicados em seis periódicos. O mais frequente é o \textit{IEEE Transactions on Software Engineering}, com três \cite{zhang2019, zhang2022, guizzo2022}, seguido do \textit{Journal of Electronic Testing}, com dois \cite{arasteh2022, arasteh2023}. Os demais saem no \textit{ACM Transactions on Software Engineering and Methodology} \cite{khanfir2023}, no \textit{Journal of Systems and Software} \cite{tao2025}, no \textit{IEEE Access} \cite{lin2018} e na \textit{Data Technologies and Applications} \cite{shomali2020}. Todos os periódicos são de 2018 em diante: dos 16 estudos de 2010 a 2016, nenhum saiu em periódico, e dos 20 de 2018 a 2026, 9 (45\%) saíram. O \textit{Journal of Electronic Testing} e a \textit{Data Technologies and Applications} não são periódicos de engenharia de software em geral, e os três estudos publicados neles têm Arasteh como autor.
+
+\subsubsection{Conferências e \textit{workshops}}
+\label{subsubsec:conferencias-workshops}
+
+Vinte e sete estudos (75\%) foram publicados em anais de eventos: 23 (64\%) em 13 conferências e 4 (11\%) em 3 \textit{workshops}. As conferências mais frequentes são o ESEC/FSE, com cinco estudos \cite{inozemtseva2013, just2014, kurtz2016, ahmed2016, ojdanic2023}, e o ICSE, com quatro \cite{zhang2010, yao2014, tufano2020, petrovic2021}, sendo que \citeonline{tufano2020} saiu nos anais complementares. A série ICST soma quatro estudos: dois na conferência principal \cite{nica2011, just2012} e dois no \textit{workshop} ICSTW \cite{esterobotaro2010, ashong2026}. Juntos, ESEC/FSE, ICSE e ISSTA \cite{grano2019} reúnem 10 estudos (28\%). O QRS e o SBQS têm dois estudos cada, os dois do QRS de \citeonline{ashong2025a, ashong2025b} e os dois do SBQS, simpósio brasileiro, de \citeonline{kuroishi2020} e \citeonline{guerino2024}. As outras oito conferências aparecem uma vez cada, e algumas têm escopo mais amplo ou de outra área, como modelagem e simulação \cite{assylbekov2013}, software de código aberto \cite{alenezi2016} e sensoriamento e diagnóstico \cite{he2024}. Os outros dois \textit{workshops} são o COMPSAC Workshops \cite{belli2011} e o RAISE \cite{jalbert2012}.
+
+\subsubsection{Fontes dos estudos em contexto web}
+\label{subsubsec:fontes-web}
+
+Os três estudos em contexto web (Seção~\ref{subsubsec:publicacoes-web}) foram publicados em eventos, nenhum em periódico. \citeonline{yandrapally2021}, o único sobre suítes de testes de aplicações web, estão na ICSME 2021; \citeonline{belli2011}, no COMPSAC Workshops; e \citeonline{esterobotaro2010}, no ICSTW. Os três eventos são da IEEE e nenhum deles, pelo nome, é voltado à web: são eventos de manutenção e evolução, de software e aplicações e de teste, verificação e validação de software. No conjunto de estudos, portanto, o tema aparece em fontes gerais de engenharia de software, e não em fontes especializadas em web.
 
 \subsubsection{Síntese e implicações}
-\label{subsubsec:sintese-validacao}
+\label{subsubsec:sintese-fontes}
 
-Em síntese, os métodos mais usados são o experimento comparativo com \textit{benchmarks} ou programas pequenos (28\%), o estudo em projetos reais de código aberto (25\%) e o estudo de caso ou piloto (22\%). Apenas três estudos (8\%) usam falhas reais ou ambiente industrial como referência, e metade dos estudos informa alguma técnica complementar, em geral estatística ou inspeção manual. Para a web, os três estudos têm poucos objetos. Para este trabalho, isso tem duas implicações. A primeira é que a mineração de repositórios, com seis projetos web de código aberto, se aproxima do segundo grupo, e seis projetos é um número próximo ao de \citeonline{alenezi2016} e de \citeonline{yandrapally2021} e menor que o de \citeonline{guizzo2022}, com dez, e o de \citeonline{ashong2025, ashong2026}, com 14 e 15. A segunda é que a classificação manual dos mutantes sobreviventes, prevista para a segunda etapa, tem precedentes em \citeonline{yao2014}, \citeonline{yandrapally2021} e \citeonline{guerino2024}, que usam análise manual de equivalência, e convém reportar também a concordância entre avaliadores, decisão a ser confirmada no capítulo de proposta.
+Em síntese, os 36 estudos estão em 22 fontes, com 64\% em conferências, 25\% em periódicos e 11\% em \textit{workshops}. Quatro fontes, o ESEC/FSE, o ICSE, a série ICST e o \textit{IEEE Transactions on Software Engineering}, reúnem 16 estudos (44\%), e as outras 17 têm até dois estudos cada. O uso de periódicos cresce depois de 2018, mas as conferências seguem como o principal meio. Para este trabalho, esses são os eventos e periódicos em que vale buscar estudos complementares e divulgar os resultados. Como a distribuição depende da \textit{string} de busca e dos critérios de seleção da revisão (Seção~\ref{sec:realizacao-busca}), ela não representa todas as fontes que publicam sobre o tema.
+
 
 \subsection{Quais métodos de validação empírica são utilizados nos estudos?}
 \label{subsec:metodos-validacao}
@@ -939,3 +936,94 @@ Os três estudos em contexto web (Seção~\ref{subsubsec:publicacoes-web}) usam 
 \label{subsubsec:sintese-validacao}
 
 Em síntese, os métodos mais usados são o experimento comparativo com \textit{benchmarks} ou programas pequenos (28\%), o estudo em projetos reais de código aberto (25\%) e o estudo de caso ou piloto (22\%). Apenas três estudos (8\%) usam falhas reais ou ambiente industrial como referência, e metade dos estudos informa alguma técnica complementar, em geral estatística ou inspeção manual. Para a web, os três estudos têm poucos objetos. Para este trabalho, isso tem duas implicações. A primeira é que a mineração de repositórios, com seis projetos web de código aberto, se aproxima do segundo grupo, e seis projetos é um número próximo ao de \citeonline{alenezi2016} e de \citeonline{yandrapally2021} e menor que o de \citeonline{guizzo2022}, com dez, e o de \citeonline{ashong2025, ashong2026}, com 14 e 15. A segunda é que a classificação manual dos mutantes sobreviventes, prevista para a segunda etapa, tem precedentes em \citeonline{yao2014}, \citeonline{yandrapally2021} e \citeonline{guerino2024}, que usam análise manual de equivalência, e convém reportar também a concordância entre avaliadores, decisão a ser confirmada no capítulo de proposta.
+
+\subsection{Quais são os principais autores e grupos de pesquisa que investigam o tema?}
+\label{subsec:autores-grupos}
+
+Os 36 estudos somam 147 autorias de 123 autores distintos, com média de 4,1 autores por estudo, de um a sete; dois estudos têm um único autor \cite{nica2011, grano2019}. Os autores foram contados pelos nomes do campo ``Autores'' da planilha, sem verificar homônimos, e os grupos foram definidos pela coautoria entre os estudos, com as afiliações tiradas dos próprios artigos quando eles estavam disponíveis. Dezessete autores (14\%) aparecem em mais de um estudo, e 106 (86\%), em apenas um (Tabela~\ref{tab:autores-frequentes}). Os grupos são apresentados na Tabela~\ref{tab:grupos-pesquisa}, e a Seção~\ref{subsubsec:autores-web} trata do contexto web.
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Autores com mais de um estudo}
+    \label{tab:autores-frequentes}
+    \begin{tabular}{|p{3.2cm}|c|p{7.5cm}|}
+        \hline
+        \textbf{Autor} & \textbf{Estudos} & \textbf{Referências} \\
+        \hline
+        Just, René & 3 & \cite{just2012, just2014, petrovic2021} \\
+        \hline
+        Harman, Mark & 3 & \cite{yao2014, zhang2019, ojdanic2023} \\
+        \hline
+        Papadakis, Mike & 3 & \cite{kintis2010, ojdanic2023, khanfir2023} \\
+        \hline
+        Arasteh, Bahman & 3 & \cite{shomali2020, arasteh2022, arasteh2023} \\
+        \hline
+        Ashong, Magdalene; Laurent, Thomas; Ventresque, Anthony & 3 cada & \cite{ashong2025a, ashong2025b, ashong2026} \\
+        \hline
+        Jia, Yue & 2 & \cite{yao2014, zhang2019} \\
+        \hline
+        Zhang, Lu & 2 & \cite{zhang2010, zhang2019} \\
+        \hline
+        Yao, Xiangjuan & 2 & \cite{yao2014, tao2025} \\
+        \hline
+        Fraser, Gordon & 2 & \cite{just2014, petrovic2021} \\
+        \hline
+        Inozemtseva, Laura; Holmes, Reid & 2 cada & \cite{inozemtseva2013, just2014} \\
+        \hline
+        Delamaro, Márcio Eduardo & 2 & \cite{kurtz2016, kuroishi2020} \\
+        \hline
+        Vincenzi, Auri Marcelo Rizzo; Kuroishi, Pedro Henrique & 2 cada & \cite{kuroishi2020, guerino2024} \\
+        \hline
+        Gharehchopogh, Farhad Soleimanian & 2 & \cite{arasteh2022, arasteh2023} \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Autor (2026).}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Grupos de pesquisa, definidos pela coautoria entre os estudos}
+    \label{tab:grupos-pesquisa}
+    \begin{tabular}{|p{2.5cm}|p{2.6cm}|p{3.2cm}|c|p{3.2cm}|}
+        \hline
+        \textbf{Grupo} & \textbf{Autores principais} & \textbf{Afiliações nos artigos} & \textbf{Estudos} & \textbf{Referências} \\
+        \hline
+        Harman, Papadakis e Jia & Harman, Papadakis, Jia, Yao, L. Zhang & University College London (CREST); Athens University of Economics and Business; SnT, University of Luxembourg; Peking University & 7 (19\%) & \cite{yao2014, zhang2019, ojdanic2023, kintis2010, khanfir2023, zhang2010, tao2025} \\
+        \hline
+        Just, Fraser e Holmes & Just, Fraser, Holmes, Inozemtseva, Kapfhammer & Ulm University e Allegheny College (2012); University of Washington, University of Waterloo e University of Sheffield (2014); Google, University of Passau e University of Washington (2021) & 4 (11\%) & \cite{just2012, inozemtseva2013, just2014, petrovic2021} \\
+        \hline
+        Ashong, Laurent e Ventresque & Ashong, Laurent, Ventresque & School of Computer Science and Statistics, Trinity College Dublin, e Lero Research Centre & 3 (8\%) & \cite{ashong2025a, ashong2025b, ashong2026} \\
+        \hline
+        Arasteh e Gharehchopogh & Arasteh, Gharehchopogh & Istinye University; Islamic Azad University (Urmia Branch) & 3 (8\%) & \cite{shomali2020, arasteh2022, arasteh2023} \\
+        \hline
+        Delamaro, Vincenzi e Kuroishi & Delamaro, Vincenzi, Kuroishi & Universidade de São Paulo (Delamaro, em \citeonline{kurtz2016}); demais afiliações não verificadas & 3 (8\%) & \cite{kurtz2016, kuroishi2020, guerino2024} \\
+        \hline
+        Sem coautoria com outros estudos & -- & -- & 16 (44\%) & \cite{jalbert2012, chauhan2015, nica2011, esterobotaro2010, belli2011, lin2018, zhang2022, dimov2010, grano2019, yandrapally2021, he2024, tufano2020, alenezi2016, assylbekov2013, ahmed2016, guizzo2022} \\
+        \hline
+        \textbf{Total} & \textbf{--} & \textbf{--} & \textbf{36 (100\%)} & \textbf{--} \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Autor(2026).}
+\end{table}
+
+\subsubsection{Autores mais frequentes}
+\label{subsubsec:autores-frequentes}
+
+Sete autores aparecem em três estudos: Just, Harman, Papadakis e Arasteh, e os três autores que assinam juntos os estudos de \citeonline{ashong2025a, ashong2025b, ashong2026}. Dez autores aparecem em dois. Os autores recorrentes publicam ao longo de vários anos: Papadakis aparece de 2010 a 2023 \cite{kintis2010, khanfir2023}, Just de 2012 a 2021 \cite{just2012, petrovic2021}, Harman de 2014 a 2023 \cite{yao2014, ojdanic2023} e Arasteh de 2020 a 2023 \cite{shomali2020, arasteh2023}. Harman e Papadakis assinam juntos um estudo, o de \citeonline{ojdanic2023}. Lu Zhang foi considerado o mesmo autor nos dois estudos em que aparece \cite{zhang2010, zhang2019}, pelo nome.
+
+\subsubsection{Grupos de pesquisa}
+\label{subsubsec:grupos-pesquisa}
+
+Cinco grupos reúnem 20 dos 36 estudos (56\%), e os outros 16 (44\%) são de equipes que não se repetem no conjunto. A maior rede é a de Harman, Papadakis e Jia, com sete estudos (19\%), ligados por coautoria: \citeonline{yao2014} tratam de mutantes equivalentes e teimosos, \citeonline{zhang2019} da predição do \textit{mutation score}, \citeonline{kintis2010} de alternativas ao teste de mutação, \citeonline{ojdanic2023} de conjuntos de mutantes ao longo da evolução do código, \citeonline{khanfir2023} da injeção de falhas guiada por relatos de \textit{bugs}, \citeonline{zhang2010} da seleção de mutantes e \citeonline{tao2025}, por meio de Yao, da geração de dados de teste. As afiliações nos artigos são a University College London (CREST), a Athens University of Economics and Business, o SnT da University of Luxembourg e a Peking University. O grupo de Just, Fraser e Holmes tem quatro estudos (11\%): mutantes redundantes \cite{just2012}, seleção por histórico de defeitos \cite{inozemtseva2013}, mutantes como substitutos de falhas reais \cite{just2014} e adoção no Google \cite{petrovic2021}. As afiliações mudam entre os artigos, de Ulm e Allegheny College para Washington, Waterloo e Sheffield e depois para Google e Passau, e o grupo se mantém pela coautoria, e não pela instituição. Os outros três grupos têm três estudos cada (8\%). Ashong, Laurent e Ventresque, do Trinity College Dublin e do Lero Research Centre, tratam da seleção estática de mutantes em 2025 e 2026. Arasteh e Gharehchopogh, da Istinye University e da Islamic Azad University, reduzem mutantes com algoritmos metaheurísticos \cite{shomali2020, arasteh2022, arasteh2023}. Delamaro, Vincenzi e Kuroishi têm estudos sobre mutantes dominadores, com Ammann e Offutt, da George Mason University \cite{kurtz2016}, sobre arcos primitivos \cite{kuroishi2020} e sobre ferramentas para Python \cite{guerino2024}; os dois estudos do SBQS (Seção~\ref{subsubsec:conferencias-workshops}) são deste grupo. Entre as equipes que não se repetem estão \citeonline{yandrapally2021} (University of British Columbia), \citeonline{tufano2020} (Washington and Lee University, Università della Svizzera italiana e University of Sannio), \citeonline{ahmed2016} (Oregon State University), \citeonline{grano2019} (University of Zurich), \citeonline{lin2018} (Beijing University of Posts and Telecommunications), \citeonline{esterobotaro2010} (University of Cádiz), \citeonline{nica2011} (Graz University of Technology), \citeonline{assylbekov2013} (University of Melbourne) e \citeonline{alenezi2016} (Prince Sultan University e Yarmouk University).
+
+\subsubsection{Autores e grupos nos estudos em contexto web}
+\label{subsubsec:autores-web}
+
+Os três estudos em contexto web (Seção~\ref{subsubsec:publicacoes-web}) são de equipes diferentes e nenhum deles tem autor entre os 17 que se repetem. \citeonline{yandrapally2021} são da University of British Columbia, \citeonline{esterobotaro2010} são da University of Cádiz, e as afiliações de \citeonline{belli2011} não foram verificadas. Nenhum dos cinco grupos tem estudo sobre aplicações web no conjunto, e nenhum grupo tem mais de um estudo em contexto web. Assim, o tema web aparece em estudos isolados, e não em uma linha de pesquisa continuada pelos mesmos autores no conjunto de estudos.
+
+\subsubsection{Síntese e implicações}
+\label{subsubsec:sintese-autores}
+
+Em síntese, os 36 estudos têm 123 autores, dos quais 17 (14\%) aparecem em mais de um estudo, e cinco grupos reúnem 20 estudos (56\%), com a rede de Harman, Papadakis e Jia como a maior, com sete. A concentração é moderada, pois quase metade dos estudos (44\%) é de equipes que não se repetem. Nenhum grupo se dedica à web no conjunto: os três estudos em contexto web são de autores isolados. Para este trabalho, os grupos recorrentes são referências para fundamentar e comparar os resultados e para buscar outras publicações, e a escassez de grupos na web reforça a relevância de estudar mutantes em aplicações web. Como os grupos foram definidos só pela coautoria entre os estudos da revisão, podem existir vínculos fora do conjunto, e as filiações foram verificadas apenas nos artigos disponíveis.
