@@ -366,55 +366,73 @@ No ambiente industrial, \citeonline{petrovic2021} descrevem o sistema de teste d
 
 As abordagens emergentes são \textbf{ferramentas de pesquisa}, quase todas restritas a Java. O DeepMutation, de \citeonline{tufano2020}, é a primeira ferramenta de mutação baseada em tradução neural, está disponível como código aberto e foi avaliada com projetos do Defects4J (\textit{Chart}, \textit{Lang}, \textit{Math} e \textit{Time}). Ela compilou com sucesso entre 35\% e 67\% dos projetos mutados e levou de 5 a 12 minutos para extrair, abstrair, mutar e traduzir os mutantes, sem contar a compilação. O iBiR, de \citeonline{khanfir2023}, injeta falhas guiadas por relatos de \textit{bugs}, invertendo os padrões de um sistema de reparo automático, e foi avaliado também com o Defects4J; o artigo cita o repositório público da ferramenta. O \textit{Predictive Mutation Testing}, de \citeonline{zhang2019}, prevê o resultado dos mutantes sem executá-los, é uma implementação experimental com página pública e deixa o serviço em nuvem como trabalho futuro. O Sentinel, de \citeonline{guizzo2022}, é uma hiper-heurística para gerar redutores de mutantes que utiliza o PIT 1.2.0. \citeonline{dimov2010} usam a \textit{Mutation Testing Platform} (MTP), ferramenta própria dos autores, sem informação sobre sua disponibilidade. Por fim, os geradores de testes EvoSuite, Randoop e JCrasher, usados por \citeonline{just2014}, e o EvoSuite, planejado por \citeonline{grano2019}, não são ferramentas de mutação, e dois estudos não reportam ferramentas de mutação: \citeonline{he2024}, sobre injeção de falhas, e \citeonline{yao2014}, que se baseiam em inspeção manual.
 
-\begin{table}[H]
-    \centering
-    \footnotesize
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt} % Ajusta o espaçamento interno lateral das células
+\begin{longtable}{|p{2.7cm}|p{4.3cm}|p{4.3cm}|p{2.7cm}|}
     \caption{Ferramentas de teste de mutação de propósito geral reportadas nos estudos primários}
-    \label{tab:ferramentas-proposito-geral}
-    \begin{tabular}{|p{2.7cm}|p{4.3cm}|p{4.3cm}|p{2.7cm}|}
-        \hline
-        \textbf{Ferramenta} & \textbf{Alvo e estudos} & \textbf{Evidência reportada} & \textbf{Maturidade} \\
-        \hline
-        PIT & Java, \textit{bytecode}; sete estudos \cite{assylbekov2013, inozemtseva2013, ahmed2016, zhang2019, guizzo2022, zhang2022, ojdanic2023} & Descrito como de ponta e amplamente usado; mais rápido que ferramentas de código-fonte & Consolidada \\
-        \hline
-        Major & Java, integrado ao compilador \cite{just2012, just2014, zhang2019, zhang2022, alenezi2016} & Listado entre as ferramentas Java modernas; uso confirmado em quatro estudos & Consolidada \\
-        \hline
-        MuJava & Java, código-fonte (sete estudos, de \citeonline{kintis2010} a \citeonline{tao2025}) & Bem estabelecido, mas descrito como desatualizado & Estabelecida com ressalvas \\
-        \hline
-        LittleDarwin & Java, código-fonte \cite{ashong2025} & Versão 0.10.9; 14 operadores & Ferramenta de pesquisa \\
-        \hline
-        MediumDarwin & Java, código-fonte \cite{ashong2026} & Versão 1.0.0.0; análise de subsunção & Ferramenta de pesquisa \\
-        \hline
-        Javalanche & Java, \textit{bytecode} \cite{jalbert2012, ramler2012} & \textit{Script} de \textit{build} de adaptação custosa; produziu escore inválido em um caso & Estabelecida com ressalvas \\
-        \hline
-        Jumble, MuClipse e Simple Jester (Jester) & Java \cite{ramler2012, arasteh2022} & Operadores limitados (Jumble); sem desenvolvimento ativo desde 2011 (MuClipse); tempos maiores (Simple Jester) & Estabelecida com ressalvas \\
-        \hline
-        Proteum (Proteum/IM) & C, 108 operadores \cite{zhang2010, kurtz2016, kuroishi2020} & Conjunto amplo de operadores & Consolidada \\
-        \hline
-        Mothra & Origem dos operadores E-seletivos \cite{kurtz2016} & Apenas citada & Não informada \\
-        \hline
-        JCMuta & ANSI-C, protótipo em Java, 78 classes de operadores \cite{lin2018} & Implementado pelos autores para a técnica proposta & Ferramenta de pesquisa \\
-        \hline
-        Godzilla & Fortran, geração de testes \cite{kintis2010} & Apenas citada & Não informada \\
-        \hline
-        Cosmic Ray, MutPy, MutMut e Mutatest & Python (\citeonline{guerino2024}; MutPy também em \citeonline{tao2025}) & Ausência de marcação de equivalentes e de redução de suítes & Não informada \\
-        \hline
-        Sistema do Google & Dez linguagens, incluindo JavaScript, TypeScript e Dart \cite{petrovic2021} & Mais de seis anos em produção; mais de 15 milhões de mutantes; interno & Consolidada (interna) \\
-        \hline
-        DeepMutation & Java, tradução neural \cite{tufano2020} & Código aberto; compila de 35\% a 67\% dos projetos mutados & Ferramenta de pesquisa \\
-        \hline
-        iBiR & Java, guiada por relatos de \textit{bugs} \cite{khanfir2023} & Avaliada com o Defects4J; repositório público & Ferramenta de pesquisa \\
-        \hline
-        \textit{Predictive Mutation Testing} & Java, previsão de resultados \cite{zhang2019} & Implementação experimental; serviço em nuvem como trabalho futuro & Ferramenta de pesquisa \\
-        \hline
-        Sentinel & Java, redutores de mutantes sobre o PIT 1.2.0 \cite{guizzo2022} & Hiper-heurística avaliada em sistemas de código aberto & Ferramenta de pesquisa \\
-        \hline
-        MTP & Plataforma própria para modelos de confiabilidade \cite{dimov2010} & Sem informação sobre disponibilidade & Não informada \\
-        \hline
-    \end{tabular}
-    \legend{Fonte: Autor (2026).}
-\end{table}
+    \label{tab:ferramentas-proposito-geral} \\
+    
+    % --- Cabeçalho da PRIMEIRA página ---
+    \hline
+    \textbf{Ferramenta} & \textbf{Alvo e estudos} & \textbf{Evidência reportada} & \textbf{Maturidade} \\
+    \hline
+    \endfirsthead
 
+    % --- Cabeçalho das PÁGINAS SEGUINTES ---
+    \multicolumn{4}{c}{\footnotesize\textit{Continuação da Tabela~\ref{tab:ferramentas-proposito-geral}}} \\
+    \hline
+    \textbf{Ferramenta} & \textbf{Alvo e estudos} & \textbf{Evidência reportada} & \textbf{Maturidade} \\
+    \hline
+    \endhead
+
+    % --- Rodapé intermediário ---
+    \hline
+    \endfoot
+
+    % --- Rodapé FINAL ---
+    \hline
+    \multicolumn{4}{c}{\footnotesize Fonte: Autor (2026).} \\
+    \endlastfoot
+
+    % --- Conteúdo da tabela ---
+    PIT & Java, \textit{bytecode}; sete estudos \cite{assylbekov2013, inozemtseva2013, ahmed2016, zhang2019, guizzo2022, zhang2022, ojdanic2023} & Descrito como de ponta e amplamente usado; mais rápido que ferramentas de código-fonte & Consolidada \\
+    \hline
+    Major & Java, integrado ao compilador \cite{just2012, just2014, zhang2019, zhang2022, alenezi2016} & Listado entre as ferramentas Java modernas; uso confirmado em quatro estudos & Consolidada \\
+    \hline
+    MuJava & Java, código-fonte (sete estudos, de \citeonline{kintis2010} a \citeonline{tao2025}) & Bem estabelecido, mas descrito como desatualizado & Estabelecida com ressalvas \\
+    \hline
+    LittleDarwin & Java, código-fonte \cite{ashong2025a} & Versão 0.10.9; 14 operadores & Ferramenta de pesquisa \\
+    \hline
+    MediumDarwin & Java, código-fonte \cite{ashong2026} & Versão 1.0.0.0; análise de subsunção & Ferramenta de pesquisa \\
+    \hline
+    Javalanche & Java, \textit{bytecode} \cite{jalbert2012, ramler2012} & \textit{Script} de \textit{build} de adaptação custosa; produziu escore inválido em um caso & Estabelecida com ressalvas \\
+    \hline
+    Jumble, MuClipse e Simple Jester (Jester) & Java \cite{ramler2012, arasteh2022} & Operadores limitados (Jumble); sem desenvolvimento ativo desde 2011 (MuClipse); tempos maiores (Simple Jester) & Estabelecida com ressalvas \\
+    \hline
+    Proteum (Proteum/IM) & C, 108 operadores \cite{zhang2010, kurtz2016, kuroishi2020} & Conjunto amplo de operadores & Consolidada \\
+    \hline
+    Mothra & Origem dos operadores E-seletivos \cite{kurtz2016} & Apenas citada & Não informada \\
+    \hline
+    JCMuta & ANSI-C, protótipo em Java, 78 classes de operadores \cite{lin2018} & Implementado pelos autores para a técnica proposta & Ferramenta de pesquisa \\
+    \hline
+    Godzilla & Fortran, geração de testes \cite{kintis2010} & Apenas citada & Não informada \\
+    \hline
+    Cosmic Ray, MutPy, MutMut e Mutatest & Python (\citeonline{guerino2024}; MutPy também em \citeonline{tao2025}) & Ausência de marcação de equivalentes e de redução de suítes & Não informada \\
+    \hline
+    Sistema do Google & Dez linguagens, incluindo JavaScript, TypeScript e Dart \cite{petrovic2021} & Mais de seis anos em produção; mais de 15 milhões de mutantes; interno & Consolidada (interna) \\
+    \hline
+    DeepMutation & Java, tradução neural \cite{tufano2020} & Código aberto; compila de 35\% a 67\% dos projetos mutados & Ferramenta de pesquisa \\
+    \hline
+    iBiR & Java, guiada por relatos de \textit{bugs} \cite{khanfir2023} & Avaliada com o Defects4J; repositório público & Ferramenta de pesquisa \\
+    \hline
+    \textit{Predictive Mutation Testing} & Java, previsão de resultados \cite{zhang2019} & Implementação experimental; serviço em nuvem como trabalho futuro & Ferramenta de pesquisa \\
+    \hline
+    Sentinel & Java, redutores de mutantes sobre o PIT 1.2.0 \cite{guizzo2022} & Hiper-heurística avaliada em sistemas de código aberto & Ferramenta de pesquisa \\
+    \hline
+    MTP & Plataforma própria para modelos de confiabilidade \cite{dimov2010} & Sem informação sobre disponibilidade & Não informada \\
+\end{longtable}
+\endgroup
 
 \subsubsection{Síntese e implicações}
 
