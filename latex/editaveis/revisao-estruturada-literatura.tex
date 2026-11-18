@@ -33,7 +33,6 @@ Desta forma, os termos de busca foram gerados a partir do mapeamento dos eixos d
 
 Para finalizar a construção da expressão de busca, adicionou-se o operador lógico \texttt{AND} para separar cada camada do protocolo e, dentro de cada uma delas, o operador lógico \texttt{OR} para agrupar as palavras-chave e seus sinônimos. Acrescentou-se também a sintaxe de aspas duplas para o agrupamento exato de termos compostos. Isto resultou na seguinte estruturação da string finalizada:
 
-Para finalizar a construção da expressão de busca, adicionou-se o operador lógico \texttt{AND} para separar cada camada do protocolo e, dentro de cada uma delas, o operador lógico \texttt{OR} para agrupar as palavras-chave e seus sinônimos. Acrescentou-se também a sintaxe de aspas duplas para o agrupamento exato de termos compostos. Isto resultou na seguinte estruturação da string finalizada:
 
 \vspace{0.3cm}
 \noindent\textit{( "complex systems" OR "software industry" OR "software systems" OR "software applications" OR "computer software" OR "software products" OR "software systems development" OR "software engineering" OR "web app" OR "web system" ) AND ( "mutation testing" OR "mutation analysis" OR "mutation-based testing" OR "mutation testing techniques" OR "mutation operators" OR "artificial faults" OR "artificial changes" OR "seeded faults" OR "mutant generation" OR "software mutation" ) AND ( "test suite effectiveness" OR "test suite adequacy" OR "automated test effectiveness" OR "mutation score" OR "mutant detection rate" OR "fault detection" OR "defect detection" OR "test effectiveness" OR "test adequacy" OR "test coverage" OR "test quality" )}
@@ -55,7 +54,7 @@ Com a string de busca devidamente estruturada, procedeu-se à execução da busc
 
 Esses registros foram importados para a ferramenta Evidentia, ambiente utilizado para o gerenciamento do protocolo da RSL. Nessa etapa de importação, identificou-se que 4 arquivos encontravam-se corrompidos, restando um corpus inicial de 175 artigos válidos para análise.
 
-A partir desse conjunto, estabeleceram-se os critérios formais de inclusão e exclusão para balizar a triagem dos estudos, conforme sintetizado na Tabela~\ref{tab:criterios-inclusao-exclusao}.
+A partir desse conjunto, estabeleceram-se os critérios formais de inclusão e exclusão para orientar triagem dos estudos, conforme sintetizado na Tabela~\ref{tab:criterios-inclusao-exclusao}.
 
 \begin{table}[htb]
     \centering
@@ -148,7 +147,7 @@ a eficácia das suítes de testes em aplicações web?}
 
 O \textit{mutation score} é a métrica mais utilizada: 29 dos 36 estudos (81\%) o adotam ou usam uma variante diretamente equivalente, como o \textit{kill score}, a cobertura de mutação ou a contagem de mutantes mortos. Em seguida aparecem as contagens e taxas de mutantes mortos, vivos, equivalentes e teimosos (12 estudos, 33\%) e as métricas de cobertura de código (9 estudos, 25\%). Com menor frequência surgem métricas de qualidade da seleção de mutantes, de custo e de validade frente a falhas reais. Apenas dois estudos não usam o \textit{mutation score} nem derivados dele: o CBUA usa somente cobertura de código \cite{zhang2022} e o DeepMutation reporta apenas métricas da própria ferramenta \cite{tufano2020}.
 
-Uma ressalva importante: apenas um dos 37 estudos avalia suítes de testes de aplicações web \cite{yandrapally2021}. As frequências da Tabela~\ref{tab:metricas-utilizadas} descrevem a literatura de teste de mutação em geral, majoritariamente sobre programas Java e C, e o recorte específico de aplicações web é tratado na Seção 3.4.1.4.
+Uma ressalva importante: apenas um dos 37 estudos avalia suítes de testes de aplicações web \cite{yandrapally2021}. As frequências da Tabela~\ref{tab:metricas-utilizadas} descrevem a literatura de teste de mutação em geral, majoritariamente sobre programas Java e C. 
 
 \begin{table}[htb]
     \centering
@@ -308,7 +307,7 @@ Alguns estudos adaptam as alterações ao domínio do software, e outros mudam a
 
 Os estudos mencionam 28 ferramentas e sistemas de teste de mutação, entre os usados nos experimentos e os citados apenas como alternativas ou trabalhos relacionados (Tabelas~\ref{tab:ferramentas-web} e~\ref{tab:ferramentas-proposito-geral}). Cinco se destinam a tecnologias web (MAEWU, WebMuJava, AjaxMutator, GAmera e MutateMe), além de uma extensão do MuJava para componentes EJB. Entre elas, somente o MAEWU foi concebido para avaliar suítes de testes de interface web e está disponível publicamente \cite{yandrapally2021}. As demais ferramentas são de propósito geral, voltadas principalmente a Java, e concentram a maior parte do uso na literatura. Elas são discutidas aqui porque representam o estado da prática em teste de mutação e podem servir de base ou de comparação para a solução proposta neste trabalho.
 
-Os estudos primários não adotam um modelo formal de maturidade. Por isso, este trabalho classifica cada ferramenta com base em quatro evidências que os próprios artigos reportam: disponibilidade pública ou código aberto; escopo de linguagens e tecnologias suportadas; adoção por outros estudos ou em ambiente real; e limitações relatadas pelos autores. A partir delas, definem-se cinco níveis: \textbf{consolidada}, usada em vários estudos independentes ou em produção; \textbf{estabelecida com ressalvas}, amplamente usada, mas com obsolescência ou limitação reportada; \textbf{ferramenta de pesquisa}, desenvolvida em ambiente acadêmico para uma técnica ou grupo, com uso restrito a poucos estudos; \textbf{indisponível ou inaplicável}, não disponibilizada ou incapaz de operar nos sujeitos do estudo; e \textbf{não informada}, sem descrição suficiente no artigo. Trata-se de uma síntese da autora, e não de um rótulo atribuído pelos estudos.
+Os estudos primários não adotam um modelo formal de maturidade. Por isso, este trabalho classifica cada ferramenta com base em quatro evidências que os próprios artigos reportam: disponibilidade pública ou código aberto; escopo de linguagens e tecnologias suportadas; adoção por outros estudos ou em ambiente real; e limitações relatadas pelos autores. A partir delas, definem-se cinco níveis: \textbf{consolidada}, usada em vários estudos independentes ou em produção; \textbf{estabelecida com ressalvas}, amplamente usada, mas com obsolescência ou limitação reportada; \textbf{ferramenta de pesquisa}, desenvolvida em ambiente acadêmico para uma técnica ou grupo, com uso restrito a poucos estudos; \textbf{indisponível ou inaplicável}, não disponibilizada ou incapaz de operar nos sujeitos do estudo; e \textbf{não informada}, sem descrição suficiente no artigo. Trata-se de uma síntese dos autores, e não de um rótulo atribuído pelos estudos.
 
 \subsubsection{Ferramentas para tecnologias web}
 
@@ -419,7 +418,7 @@ As abordagens emergentes são \textbf{ferramentas de pesquisa}, quase todas rest
 
 \subsubsection{Síntese e implicações}
 
-Em síntese, a maturidade das ferramentas diminui à medida que se afasta de Java. As \textbf{ferramentas consolidadas} são o PIT e o Major, para Java, o Proteum, para C, e o sistema interno do Google, e nenhuma delas foi concebida para avaliar a interface de aplicações web. Para web, a única ferramenta disponível e aplicável a aplicações modernas é o MAEWU, ainda classificada como \textbf{ferramenta de pesquisa}, com uma única avaliação publicada na revisão. As ferramentas emergentes, como o DeepMutation e o iBiR, estão disponíveis, mas restritas a Java. Esses resultados sugerem combinar uma ferramenta consolidada para o código Java da aplicação, como o PIT, com o MAEWU para a camada de interface, decisão que deve ser confirmada no capítulo de proposta.
+Em síntese, a maturidade das ferramentas diminui à medida que se afasta de Java. As \textbf{ferramentas consolidadas} são o PIT e o Major, para Java, o Proteum, para C, e o sistema interno do Google, e nenhuma delas foi concebida para avaliar a interface de aplicações web. Para web, a única ferramenta disponível e aplicável a aplicações modernas é o MAEWU, ainda classificada como \textbf{ferramenta de pesquisa}, com uma única avaliação publicada na revisão. As ferramentas emergentes, como o DeepMutation e o iBiR, estão disponíveis, mas restritas a Java. 
 
 \subsection[Principais limitações e desafios práticos]{Quais são as principais limitações e desafios práticos identificados na aplicação de testes de mutação em aplicações web?}
 \label{subsec:limitacoes-desafios}
@@ -488,7 +487,7 @@ Vários estudos avaliam suas técnicas em amostras pequenas. \citeonline{assylbe
 \subsubsection{Síntese e implicações}
 \label{subsubsec:sintese-implicacoes}
 
-Em síntese, o custo de execução e os mutantes equivalentes são limitações quase universais, presentes em estudos de todas as linguagens e ferramentas, e serão enfrentados em qualquer aplicação web. Para a web, os estudos acrescentam obstáculos próprios: dados dinâmicos que geram mutantes quase equivalentes, fragilidade dos localizadores das suítes de interface, reimplantação a cada mutante em servidores de aplicação, dependência de serviços externos e ferramentas indisponíveis ou inaplicáveis. A evidência sobre esses obstáculos é pequena, pois se apoia em quatro estudos e em amostras reduzidas. Esses resultados sugerem que a solução proposta deva limitar o número de mutantes por aplicação, como faz o MAEWU com 50 mutantes, priorizar código alterado ou coberto, tratar equivalentes com revisão manual por mais de um avaliador e reportar o \textit{mutation score} junto de métricas complementares, decisões que devem ser confirmadas no capítulo de proposta.
+Em síntese, o custo de execução e os mutantes equivalentes são limitações quase universais, presentes em estudos de todas as linguagens e ferramentas, e serão enfrentados em qualquer aplicação web. Para a web, os estudos acrescentam obstáculos próprios: dados dinâmicos que geram mutantes quase equivalentes, fragilidade dos localizadores das suítes de interface, reimplantação a cada mutante em servidores de aplicação, dependência de serviços externos e ferramentas indisponíveis ou inaplicáveis. A evidência sobre esses obstáculos é pequena, pois se apoia em quatro estudos e em amostras reduzidas. Esses resultados sugerem que a solução proposta deva limitar o número de mutantes por aplicação, como faz o MAEWU com 50 mutantes, priorizar código alterado ou coberto, tratar equivalentes com revisão manual por mais de um avaliador e reportar o \textit{mutation score} junto de métricas complementares.
 
 \subsection[Estratégias para reduzir os custos]{Quais estratégias são propostas na literatura para reduzir os custos e mitigar as limitações da aplicação de testes de mutação em aplicações web?}
 \label{subsec:estrategias-reducao}
@@ -498,7 +497,7 @@ Dos 36 estudos com dados extraídos, 31 propõem ou avaliam ao menos uma estrat�
 \begin{table}[H]
     \centering
     \footnotesize
-    \caption{Estratégias para reduzir custos e mitigar limitações, reportadas nos estudos primários}
+    \caption{Estratégias para reduzir custos e mitigar limitações}
     \label{tab:estrategias-reducao}
     \begin{tabular}{|p{3.1cm}|p{3.8cm}|p{4.6cm}|p{2.5cm}|}
         \hline
