@@ -43,9 +43,9 @@ Os repositórios armazenam diferentes tipos de informações, como código-fonte
 
 \citeonline{hassan2008} ressalta que uma das principais contribuições da mineração de repositórios é transformar registros utilizados originalmente para armazenar informações em fontes de conhecimento para a tomada de decisões. Por exemplo, o histórico de modificações e os registros de defeitos podem ser relacionados para identificar componentes que apresentaram problemas recorrentes e, assim, apoiar a priorização de atividades de manutenção e teste.
 
-A abordagem também pode ser aplicada a informações que não estão diretamente relacionadas ao código-fonte. Ortu et al. (2015), por exemplo, investigaram a relação entre características das mensagens de desenvolvedores e o tempo necessário para resolver problemas registrados em projetos de software. Para isso, analisaram mais de 560 mil comentários provenientes do Jira, demonstrando como informações históricas podem ser utilizadas para investigar aspectos do processo de desenvolvimento.
+A abordagem também pode ser aplicada a informações que não estão diretamente relacionadas ao código-fonte. \citeonline{ortu2015}, por exemplo, investigaram a relação entre características das mensagens de desenvolvedores e o tempo necessário para resolver problemas registrados em projetos de software. Para isso, analisaram mais de 560 mil comentários provenientes do Jira, demonstrando como informações históricas podem ser utilizadas para investigar aspectos do processo de desenvolvimento.
 
-Outro exemplo é apresentado por Beller, Gousios e Zaidman (2017), que analisaram mais de 2,6 milhões de execuções de integração contínua de projetos Java e Ruby. Os autores combinaram informações do GitHub e do Travis CI para investigar práticas de teste, causas de falhas em builds e diferenças entre ambientes de execução.
+Outro exemplo é apresentado por \citeonline{beller2017}, que analisaram mais de 2,6 milhões de execuções de integração contínua de projetos Java e Ruby. Os autores combinaram informações do GitHub e do Travis CI para investigar práticas de teste, causas de falhas em builds e diferenças entre ambientes de execução.
 
 Apesar das diferentes possibilidades de aplicação, a mineração de repositórios exige procedimentos sistemáticos para garantir que os dados analisados sejam adequados aos objetivos da investigação. \citeonline{vidoni2022}, por meio de uma revisão sistemática da literatura, investigou como estudos de MSR realizam a seleção de repositórios e a extração de dados. A autora identificou que muitos trabalhos não descrevem suficientemente seus procedimentos, dificultando a reprodução e a avaliação dos resultados. Como resposta, propôs um conjunto de diretrizes organizado em três etapas principais: planejamento, execução e análise dos resultados.
 
@@ -61,9 +61,7 @@ Essa distinção é importante porque um mesmo repositório pode disponibilizar 
 
 Em sua revisão, \citeonline{vidoni2022} analisou 146 estudos e identificou que aproximadamente 37\% não descreviam adequadamente o processo de seleção dos repositórios. Além disso, apenas cerca de 17\% apresentavam uma seleção sistemática. Esses resultados reforçam a importância de documentar os critérios e procedimentos utilizados, evitando escolhas baseadas somente na facilidade de acesso aos projetos.
 
-O padrão Repository Mining, da iniciativa Empirical Standards, também estabelece que pesquisas dessa natureza devem justificar suas fontes de dados, definir critérios de inclusão e exclusão, caracterizar os repositórios selecionados e descrever os procedimentos de obtenção das informações.
-
-Entre os critérios que podem ser utilizados estão a linguagem de programação, a atividade recente do projeto, seu tamanho, a disponibilidade de determinados arquivos e a utilização de ferramentas específicas (VIDONI, 2022). Em uma investigação sobre testes automatizados, também podem ser consideradas a existência de suítes de testes executáveis, a disponibilidade de suas dependências e a compatibilidade com ferramentas de teste de mutação.
+Entre os critérios que podem ser utilizados estão a linguagem de programação, a atividade recente do projeto, seu tamanho, a disponibilidade de determinados arquivos e a utilização de ferramentas específicas \cite{vidoni2022}. Em uma investigação sobre testes automatizados, também podem ser consideradas a existência de suítes de testes executáveis, a disponibilidade de suas dependências e a compatibilidade com ferramentas de teste de mutação.
 
 A extração dos dados pode ser realizada por meio de ferramentas que automatizam o acesso aos repositórios. \citeonline{spadini2018} apresentam o PyDriller, um framework desenvolvido em Python para facilitar a obtenção de informações de repositórios Git. A ferramenta permite recuperar dados como commits, modificações, arquivos alterados e histórico de desenvolvimento.
 
@@ -93,287 +91,210 @@ Outro aspecto importante é a reprodutibilidade. Para que uma investigação pos
 
 No caso de investigações que envolvem testes automatizados, essa preocupação também se aplica aos ambientes de execução. Diferenças nas versões das dependências, nas configurações e nas ferramentas utilizadas podem influenciar os resultados. Por isso, a documentação dessas condições é importante para permitir a reprodução das avaliações.
 
-A mineração de repositórios também pode ser combinada com outros procedimentos empíricos. Enquanto a mineração permite obter e analisar sistematicamente dados provenientes dos repositórios, a execução de testes de mutação envolve a introdução de alterações artificiais nos programas selecionados e a observação dos resultados produzidos pelas suítes de testes.
-
-Neste trabalho, essas atividades serão utilizadas de forma complementar. A mineração permitirá selecionar e caracterizar os projetos e obter os artefatos necessários à investigação. A aplicação dos testes de mutação, por sua vez, permitirá produzir indicadores quantitativos sobre a capacidade das suítes de detectar alterações no código-fonte.
+Neste trabalho, as atividades de mineração, execução de testes e observação dos resultados serão utilizadas de forma complementar. A mineração permitirá selecionar e caracterizar os projetos e obter os artefatos necessários à investigação. A aplicação dos testes de mutação, por sua vez, permitirá produzir indicadores quantitativos sobre a capacidade das suítes de detectar alterações no código-fonte.
 
 Dessa forma, a combinação dessas abordagens poderá fornecer evidências para avaliar a eficácia dos testes automatizados, considerando tanto os resultados obtidos quanto as características e limitações dos projetos analisados.
 
 \section{Testes de Software}
 
-Os testes de software são atividades utilizadas para avaliar o comportamento de um sistema e identificar diferenças entre os resultados observados e aqueles esperados. Sua aplicação contribui para a identificação de defeitos e para a redução dos riscos associados ao funcionamento incorreto de uma aplicação.
+Os testes de software são atividades utilizadas para avaliar o comportamento de um sistema e identificar diferenças entre os resultados observados e aqueles esperados. Segundo \citeonline{ammann2016}, os testes permitem verificar o comportamento de um programa por meio de sua execução, contribuindo para a identificação de defeitos e para a redução dos riscos associados à utilização do software.
 
-Entretanto, a execução de testes não garante a ausência de defeitos. Os testes verificam o comportamento do software diante de determinadas entradas e condições, mas não necessariamente abrangem todas as situações possíveis.
+Entretanto, a execução de testes não garante a ausência de defeitos. Conforme discutido por \citeonline{ammann2016}, não é possível, na maioria dos sistemas, verificar todas as combinações de entradas e condições de execução. Dessa forma, os testes são selecionados com base em critérios que procuram avaliar os comportamentos mais relevantes do programa.
 
-A capacidade de uma suíte identificar problemas depende de fatores como a escolha dos casos de teste, os dados utilizados, os comportamentos exercitados e as verificações realizadas sobre os resultados.
+A capacidade de uma suíte identificar problemas depende de fatores como a escolha dos casos de teste, os dados utilizados, os comportamentos exercitados e as verificações realizadas sobre os resultados. Por esse motivo, além da execução dos testes, é necessário avaliar sua adequação e capacidade de detectar comportamentos incorretos \cite{ammann2016}.
 
 \subsection{Testes Automatizados e Suítes de Testes}
 
-A automação de testes consiste na utilização de ferramentas e scripts para executar verificações de software com menor necessidade de intervenção manual. Sua aplicação permite repetir testes de forma consistente, especialmente após modificações no código-fonte.
+A automação de testes consiste na utilização de ferramentas e scripts para executar verificações de software com menor necessidade de intervenção manual. De acordo com \citeonline{ammann2016}, a automação permite organizar a execução dos testes e realizar verificações de maneira sistemática, facilitando sua repetição ao longo do desenvolvimento.
 
-Uma suíte de testes corresponde a um conjunto organizado de casos de teste que podem ser executados para avaliar determinados comportamentos de um sistema. Esses casos normalmente incluem entradas, condições de execução e verificações dos resultados obtidos.
+Uma suíte de testes corresponde a um conjunto organizado de casos de teste utilizados para avaliar determinados comportamentos de um sistema. Esses casos podem conter entradas, condições de execução e verificações dos resultados obtidos. \citeonline{ammann2016} destacam a importância de estruturar os casos de teste de maneira que sua execução e avaliação possam ser realizadas de forma automatizada.
 
-As suítes automatizadas podem atuar em diferentes níveis de teste. Os testes unitários verificam componentes individuais, como funções e métodos. Os testes de integração avaliam a interação entre componentes ou serviços. Já os testes de sistema e de ponta a ponta (*end-to-end*) procuram verificar fluxos mais completos da aplicação.
+As suítes automatizadas podem atuar em diferentes níveis de teste. Os testes unitários verificam componentes individuais, como funções e métodos. Os testes de integração avaliam a interação entre componentes ou serviços, enquanto os testes de sistema procuram verificar o comportamento da aplicação como um todo. Os testes de ponta a ponta (\textit{end-to-end}) também podem ser utilizados para validar fluxos completos de utilização do sistema \cite{ammann2016}.
 
-Em aplicações web, os testes podem envolver tanto componentes internos, como serviços e regras de negócio, quanto interações realizadas por meio da interface do usuário. Dependendo do nível de teste, podem ser necessárias condições adicionais, como a disponibilidade de bancos de dados, serviços externos e navegadores.
+A automação também está relacionada às práticas de integração contínua, nas quais verificações são executadas frequentemente durante o desenvolvimento. \citeonline{ammann2016} abordam a integração contínua como uma prática que permite executar testes regularmente, contribuindo para identificar problemas após modificações no código-fonte.
 
-A automação também está relacionada às práticas de integração contínua, nas quais verificações são executadas frequentemente durante o desenvolvimento.
+Nesse contexto, \citeonline{beller2017} investigaram práticas de teste em projetos que utilizavam integração contínua. Os autores analisaram mais de 2,6 milhões de execuções de projetos Java e Ruby e identificaram que falhas em testes constituíam uma das principais razões para a interrupção de \textit{builds}. O estudo também mostrou diferenças entre os projetos analisados quanto à quantidade de testes, ao tempo de execução e à frequência de falhas.
 
-\citeonline{beller2017} investigaram práticas de teste em projetos que utilizavam integração contínua. Os autores identificaram que falhas em testes constituíam uma das principais razões para a interrupção de builds. O estudo também mostrou diferenças entre os projetos analisados quanto à quantidade de testes, ao tempo de execução e à frequência de falhas.
-
-Esses resultados demonstram a importância operacional dos testes automatizados. Entretanto, executar testes frequentemente não significa necessariamente que eles sejam capazes de identificar todos os defeitos introduzidos no software.
-
-Por isso, além de verificar se uma suíte executa corretamente, é necessário avaliar a capacidade dos seus casos de teste de reconhecer comportamentos incorretos.
+Esses resultados demonstram a importância operacional dos testes automatizados. Entretanto, executar testes frequentemente não significa necessariamente que eles sejam capazes de identificar todos os defeitos introduzidos no software. Por isso, além de verificar se uma suíte executa corretamente, é necessário avaliar sua capacidade de reconhecer comportamentos incorretos.
 
 \subsection{Eficácia de Suítes de Testes}
 
-A eficácia de uma suíte de testes está relacionada à sua capacidade de identificar defeitos no software avaliado. Uma suíte eficaz deve conter casos capazes de exercitar comportamentos relevantes e detectar situações em que o sistema não atende aos resultados esperados.
+A eficácia de uma suíte de testes está relacionada à sua capacidade de identificar defeitos no software avaliado. Segundo \citeonline{just2014}, uma boa suíte de testes é aquela que consegue detectar defeitos reais. Entretanto, medir diretamente essa capacidade é difícil, pois o conjunto de defeitos existentes em um programa geralmente não é conhecido.
 
-Just et al. (2014) destacam que uma boa suíte de testes é aquela que consegue detectar defeitos reais. Entretanto, medir diretamente essa capacidade é difícil, pois o conjunto de defeitos existentes em um programa geralmente não é conhecido.
+Diante dessa dificuldade, pesquisadores utilizam critérios indiretos para avaliar a adequação dos testes. \citeonline{ammann2016} apresentam diferentes critérios de cobertura que podem orientar a elaboração e a avaliação de casos de teste. Esses critérios estabelecem requisitos que uma suíte deve satisfazer, como a execução de determinadas instruções, caminhos ou condições do programa.
 
-Diante dessa dificuldade, pesquisadores utilizam critérios indiretos para avaliar a adequação dos testes. Esses critérios procuram fornecer evidências sobre a capacidade de uma suíte identificar comportamentos incorretos, mesmo quando não existe um conjunto completo de defeitos reais disponível.
+Entretanto, satisfazer um critério de cobertura não significa necessariamente possuir maior capacidade de detecção de defeitos. \citeonline{inozemtseva2014} investigaram a relação entre tamanho, cobertura e eficácia de suítes de testes, utilizando aproximadamente 31 mil suítes geradas para cinco sistemas Java. Os autores identificaram uma correlação baixa a moderada entre cobertura e eficácia quando o tamanho das suítes era controlado.
 
-Alenezi et al. (2016) investigaram técnicas de avaliação da eficácia de suítes em projetos de código aberto, considerando cobertura de código, inserção de defeitos e análise de mutação.
+A avaliação da eficácia deve considerar que diferentes suítes podem apresentar resultados distintos, mesmo quando executam partes semelhantes do programa. Por exemplo, dois conjuntos de testes podem executar uma mesma função, mas apenas um deles verificar corretamente o resultado produzido. Nesse caso, a capacidade de identificar um defeito poderá ser diferente, mesmo que ambos apresentem cobertura semelhante.
 
-A avaliação da eficácia deve considerar que diferentes suítes podem apresentar resultados distintos, mesmo quando executam partes semelhantes do programa.
-
-Por exemplo, dois conjuntos de testes podem executar uma mesma função. Entretanto, se apenas um deles verifica corretamente o resultado produzido, a capacidade de identificar um defeito nessa função poderá ser diferente.
-
-Assim, a quantidade de testes ou a proporção de código executada não são suficientes, isoladamente, para determinar a eficácia de uma suíte.
+Assim, a quantidade de testes ou a proporção de código executada não são suficientes, isoladamente, para determinar a eficácia de uma suíte. Conforme discutido por \citeonline{just2014}, a utilização de defeitos artificiais, denominados mutantes, constitui uma alternativa para avaliar a capacidade dos testes de identificar comportamentos incorretos quando não existe um conjunto conhecido de defeitos reais.
 
 \subsection{Oráculos de Teste}
 
-Um dos elementos necessários para a identificação de defeitos é o oráculo de teste (*test oracle*).
+Um dos elementos necessários para a identificação de defeitos é o oráculo de teste (\textit{test oracle}). Segundo \citeonline{barr2015}, um oráculo é um mecanismo utilizado para determinar se o comportamento observado durante a execução de um teste está de acordo com o comportamento esperado.
 
-Segundo Zhang et al. (2019), um oráculo de teste é um mecanismo utilizado para determinar se o programa apresenta o comportamento esperado. Na prática, esse mecanismo pode ser implementado por meio de asserções que verificam os resultados produzidos durante a execução.
+Os oráculos podem utilizar diferentes fontes de informação para determinar a correção dos resultados, como especificações, modelos, propriedades do sistema e valores previamente conhecidos. Na automação de testes, uma das formas mais comuns de implementar essas verificações é por meio de asserções, que estabelecem condições que devem ser satisfeitas durante a execução \cite{ammann2016,barr2015}.
 
-Uma asserção estabelece uma condição que deve ser satisfeita. Quando o resultado observado não corresponde à condição esperada, o teste pode indicar uma falha.
+Uma asserção pode, por exemplo, comparar o valor retornado por uma função com um resultado esperado. Quando essa condição não é satisfeita, o teste pode indicar uma falha. Entretanto, nem todos os testes possuem verificações suficientes para identificar alterações no comportamento do programa.
 
-Entretanto, nem todos os testes possuem verificações suficientes para identificar alterações no comportamento do programa. Um caso de teste pode executar uma função e terminar sem erros, mesmo que o resultado produzido esteja incorreto.
+Considere uma função que calcula o valor de um desconto. Um teste pode chamar essa função e verificar apenas se a execução foi concluída. Caso a implementação passe a calcular um valor incorreto, o teste poderá continuar sendo aprovado. Por outro lado, se o teste comparar o valor retornado com um resultado previamente definido, a alteração poderá ser identificada.
 
-Considere uma função que calcula o valor de um desconto. Um teste pode chamar essa função e verificar apenas se a execução foi concluída. Caso a implementação passe a calcular um valor incorreto, o teste poderá continuar sendo aprovado.
-
-Por outro lado, se o teste comparar o valor retornado com um resultado previamente definido, a alteração poderá ser identificada.
-
-Isso demonstra que a execução de determinado trecho do código não implica necessariamente a verificação de seu comportamento.
+Isso demonstra que a execução de determinado trecho do código não implica necessariamente a verificação de seu comportamento. \citeonline{barr2015} destacam que a definição de oráculos adequados constitui um dos principais desafios da automação de testes, pois nem sempre é simples determinar o resultado correto para todas as entradas e condições possíveis.
 
 A qualidade dos oráculos está diretamente relacionada à capacidade de detecção de defeitos e também influencia os resultados dos testes de mutação. Uma alteração introduzida no código pode ser executada por diversos testes e, ainda assim, permanecer sem detecção caso seus efeitos não sejam verificados.
 
 \subsection{Cobertura de Código}
 
-A cobertura de código é uma das métricas utilizadas para avaliar a abrangência da execução dos testes automatizados. Ela procura indicar quais elementos de um programa foram exercitados durante a execução de uma suíte.
+A cobertura de código é uma das métricas utilizadas para avaliar a abrangência da execução dos testes automatizados. Segundo \citeonline{ammann2016}, os critérios de cobertura estabelecem requisitos que devem ser exercitados pelos testes, permitindo avaliar quais partes ou estruturas do programa foram verificadas durante sua execução.
 
-Entre os critérios mais comuns estão a cobertura de linhas ou instruções, que indica a proporção de instruções executadas, e a cobertura de ramos, que considera os diferentes caminhos associados às decisões condicionais.
+Entre os critérios mais comuns estão a cobertura de linhas ou instruções, que indica a proporção de código executado, e a cobertura de ramos, que considera os diferentes caminhos associados às decisões condicionais. Também existem critérios mais específicos, como aqueles relacionados à avaliação das condições lógicas presentes no programa \cite{ammann2016}.
 
-Esses indicadores permitem identificar regiões do código que não são exercitadas pelos testes. Entretanto, não demonstram diretamente se os resultados produzidos foram verificados.
+Esses indicadores permitem identificar regiões do código que não são exercitadas pelos testes. Entretanto, não demonstram diretamente se os resultados produzidos foram verificados ou se a suíte seria capaz de identificar um defeito nessas regiões.
 
-Zhang et al. (2019) observam que a cobertura de código é amplamente utilizada como indicador da capacidade de detecção de defeitos, embora evidências empíricas mostrem que ela, isoladamente, não representa adequadamente essa capacidade.
+\citeonline{inozemtseva2014} investigaram especificamente essa relação e observaram que a cobertura de código apresenta limitações como indicador da eficácia das suítes. Os resultados mostraram que, embora a cobertura seja útil para identificar partes pouco testadas de um programa, níveis mais elevados não representam necessariamente maior capacidade de detecção de defeitos.
 
-Uma suíte pode apresentar elevada cobertura porque executa grande parte do programa, mas possuir verificações insuficientes para identificar alterações no comportamento.
+Uma suíte pode apresentar elevada cobertura porque executa grande parte do programa, mas possuir verificações insuficientes para identificar alterações no comportamento. Por exemplo, um teste pode executar ambos os caminhos de uma condição sem verificar os valores retornados por cada um deles. Nesse caso, a cobertura poderá indicar que os caminhos foram exercitados, mas não que seus resultados foram corretamente avaliados.
 
-Por exemplo, um teste pode executar ambos os caminhos de uma condição sem verificar os valores retornados por cada um deles. Nesse caso, a cobertura poderá indicar que os caminhos foram exercitados, mas não que seus resultados foram corretamente avaliados.
+Essa limitação também é discutida por \citeonline{just2014}, que investigaram a relação entre cobertura de código, detecção de mutantes e identificação de defeitos reais. Os autores encontraram evidências de que a detecção de mutantes está relacionada à detecção de defeitos reais mesmo quando considerados os efeitos da cobertura de código.
 
-Dessa forma, a cobertura constitui uma medida importante de abrangência, mas não deve ser interpretada como uma medida direta da eficácia dos testes.
+Dessa forma, a cobertura constitui uma medida importante de abrangência, mas não deve ser interpretada como uma medida direta da eficácia dos testes. A necessidade de avaliar não apenas o código executado, mas também a capacidade dos testes de detectar alterações em seu comportamento, motiva a utilização de técnicas como os testes de mutação.
 
-A necessidade de avaliar não apenas o código executado, mas também a capacidade dos testes de detectar alterações em seu comportamento, motiva a utilização de técnicas como os testes de mutação.
+
 
 \section{Testes de Mutação}
 
-Os testes de mutação (*Mutation Testing*) constituem uma técnica utilizada para avaliar a adequação de suítes de testes por meio da introdução de pequenas alterações artificiais no programa analisado.
+Os testes de mutação (\textit{Mutation Testing}) constituem uma técnica utilizada para avaliar a adequação de suítes de testes por meio da introdução de alterações artificiais em um programa. Segundo \citeonline{ammann2016}, a técnica faz parte dos critérios de teste baseados em sintaxe, nos quais regras de transformação são utilizadas para produzir variações de um artefato de software.
 
-Essas alterações produzem versões modificadas do software, denominadas mutantes. A suíte de testes é executada sobre essas versões para verificar se consegue identificar diferenças em relação ao comportamento esperado.
+Embora a mutação possa ser aplicada a diferentes artefatos, como especificações e estruturas de entrada, sua aplicação mais comum ocorre sobre o código-fonte de programas. Nesse contexto, são geradas versões modificadas do programa original, denominadas mutantes, que permitem verificar se os casos de teste conseguem identificar as alterações introduzidas \cite{ammann2016}.
 
-Segundo Just et al. (2014), a análise de mutação permite utilizar defeitos artificiais como uma aproximação para a avaliação da capacidade de detecção de defeitos reais. Essa característica é relevante porque, em muitos sistemas, não existe um conjunto conhecido e completo de defeitos reais que possa ser utilizado como referência.
+A avaliação ocorre por meio da execução da suíte de testes sobre o programa original e seus mutantes. Quando um teste consegue distinguir o comportamento de uma versão modificada daquele apresentado pelo programa original, considera-se que o mutante foi detectado, ou morto. Caso contrário, o mutante permanece sobrevivente.
 
-A técnica também pode ser empregada para identificar pontos fracos em uma suíte, orientar a criação de novos casos de teste e comparar diferentes conjuntos de testes.
+Segundo \citeonline{just2014}, a utilização de defeitos artificiais permite avaliar a capacidade de detecção de defeitos de uma suíte, especialmente quando não existe um conjunto conhecido de defeitos reais que possa ser utilizado como referência. Dessa forma, os testes de mutação também podem contribuir para identificar limitações nas suítes, orientar a elaboração de novos casos de teste e comparar diferentes estratégias de teste.
 
 \subsection{Fundamentos dos Testes de Mutação}
 
-Os testes de mutação são fundamentados na ideia de que pequenas alterações no código podem representar defeitos que uma suíte adequada deveria ser capaz de identificar.
+A aplicação dos testes de mutação parte de um programa original, sobre o qual são realizadas pequenas alterações sintáticas. Essas modificações são produzidas por operadores de mutação, definidos de acordo com as características da linguagem de programação utilizada.
 
-Luo et al. (2015) apresentam dois pressupostos teóricos relacionados à técnica: a hipótese do programador competente (*Competent Programmer Hypothesis*) e o efeito de acoplamento (*Coupling Effect*).
+\citeonline{ammann2016} definem um operador de mutação como uma regra que especifica possíveis variações sintáticas de um artefato. O resultado da aplicação de um operador é denominado mutante. No caso da mutação de programas, cada mutante representa uma versão do código-fonte que contém uma alteração em relação à implementação original.
 
-A hipótese do programador competente considera que desenvolvedores geralmente produzem programas próximos do comportamento correto, de modo que muitos defeitos podem resultar de pequenas alterações na implementação. Assim, modificações simples no código podem ser utilizadas para representar determinados erros de programação.
+Os autores destacam que os mutantes não são, por si só, casos de teste. Sua finalidade é estabelecer requisitos que os testes devem satisfazer. Assim, o objetivo imediato da técnica é identificar casos de teste capazes de distinguir o programa original de suas versões modificadas.
 
-O efeito de acoplamento está relacionado à possibilidade de que testes capazes de identificar defeitos simples também consigam identificar defeitos mais complexos associados a eles.
+Esse princípio estabelece o critério de cobertura por mutação (\textit{Mutation Coverage}), no qual cada mutante representa um requisito de teste: encontrar ao menos um caso capaz de identificá-lo. Uma suíte que consegue matar todos os mutantes não equivalentes de um conjunto é considerada adequada em relação àquele conjunto \cite{ammann2016}.
 
-Esses pressupostos ajudam a justificar o uso de mutantes na avaliação de suítes, mas não significam que todas as falhas reais possam ser representadas por alterações artificiais.
+A fundamentação dos testes de mutação também está relacionada a dois pressupostos teóricos: a hipótese do programador competente (\textit{Competent Programmer Hypothesis}) e o efeito de acoplamento (\textit{Coupling Effect}).
 
-Just et al. (2014) investigaram essa relação utilizando 357 defeitos reais de cinco projetos de código aberto. Os resultados indicaram uma correlação estatisticamente significativa entre a capacidade de detectar mutantes e a detecção de defeitos reais, mesmo quando considerados os efeitos da cobertura de código.
+A hipótese do programador competente considera que desenvolvedores geralmente produzem programas próximos do comportamento correto, de modo que muitos defeitos podem ser representados por pequenas alterações na implementação. Já o efeito de acoplamento estabelece que testes capazes de identificar defeitos simples também podem detectar defeitos mais complexos relacionados a eles \cite{ammann2016}.
 
-Entretanto, o estudo também identificou defeitos reais que não apresentaram acoplamento com os mutantes gerados. Esse resultado demonstra que a análise de mutação pode fornecer evidências relevantes sobre a eficácia dos testes, mas não representa integralmente todos os defeitos que podem ocorrer em um software.
+Esses pressupostos ajudam a justificar a utilização de alterações artificiais como instrumento de avaliação. Entretanto, não significam que todos os defeitos reais possam ser representados pelos operadores disponíveis. Nesse sentido, \citeonline{just2014} apresentam evidências de associação entre a detecção de mutantes e a capacidade de identificar defeitos reais, embora também reconheçam limitações na representatividade dessas alterações.
 
 \subsection{Processo de Aplicação dos Testes de Mutação}
 
-A aplicação dos testes de mutação envolve a geração de versões modificadas de um programa e a execução de sua suíte de testes sobre essas versões.
+A aplicação dos testes de mutação envolve a geração de versões modificadas de um programa e a execução de testes para verificar se essas alterações podem ser detectadas.
 
-De maneira geral, o processo começa com a seleção do programa e da suíte que serão avaliados. Em seguida, operadores de mutação são aplicados ao código-fonte para produzir os mutantes.
+\citeonline{ammann2016} apresentam um processo que começa com a seleção do programa a ser testado e a geração dos mutantes. Em seguida, podem ser utilizadas técnicas para identificar e eliminar mutantes equivalentes. Os casos de teste são executados inicialmente sobre o programa original e, posteriormente, sobre as versões modificadas.
 
-Cada mutante representa uma alteração específica na implementação original. Após sua geração, a suíte de testes é executada para verificar se consegue detectar essa modificação.
+Quando um caso de teste produz um resultado observável diferente entre o programa original e um mutante, considera-se que esse mutante foi morto (\textit{killed}). Após sua detecção, não é necessário continuar executando outros testes sobre ele para satisfazer o requisito de mutação correspondente.
 
-Quando pelo menos um teste identifica a alteração, normalmente por meio de uma falha em suas verificações, o mutante é classificado como morto (*killed*).
+Por outro lado, um mutante é classificado como sobrevivente (\textit{survived}) quando nenhum dos testes executados consegue distinguir seu comportamento daquele apresentado pelo programa original. A sobrevivência indica que a alteração não foi detectada pela suíte nas condições avaliadas, mas não permite concluir, isoladamente, que os testes sejam inadequados.
 
-Por outro lado, quando a suíte é executada e não identifica a alteração, o mutante é classificado como sobrevivente (*survived*).
+Isso ocorre porque existem diferentes situações que podem resultar na sobrevivência de um mutante. A suíte pode não executar a região modificada, a alteração pode não produzir diferenças no estado do programa para as entradas utilizadas ou seus efeitos podem não alcançar um resultado observado pelos testes.
 
-O processo também precisa considerar resultados que não representam uma execução válida. Por exemplo, determinados mutantes podem introduzir erros de compilação ou impedir a inicialização da aplicação. Esses casos precisam ser tratados separadamente, conforme as regras da ferramenta utilizada.
+Além disso, alguns mutantes podem apresentar comportamento equivalente ao programa original. Nesses casos, a sobrevivência não representa necessariamente uma deficiência da suíte, pois não existe uma diferença funcional a ser identificada.
 
-A partir dos resultados das execuções, é possível calcular indicadores quantitativos e identificar regiões do código nas quais a suíte não conseguiu reconhecer as alterações introduzidas.
+\citeonline{ammann2016} distinguem alguns tipos de mutantes que precisam ser considerados durante a avaliação:
 
-Zhang et al. (2019) descrevem a análise de mutação como uma forma de avaliar tanto a quantidade de mutantes detectados quanto os tipos de alterações que permanecem sem detecção.
+\begin{itemize}
+    \item \textbf{Mutantes inválidos (\textit{stillborn mutants}):} apresentam alterações sintaticamente incorretas que impedem a compilação ou interpretação do programa. Esses mutantes devem ser evitados durante a geração ou descartados da avaliação;
 
-Além disso, a análise pode ser realizada de diferentes maneiras. Na mutação forte (*strong mutation*), a detecção depende de uma diferença observável no comportamento do programa. Na mutação fraca (*weak mutation*), a avaliação pode ocorrer imediatamente após a execução do trecho modificado, verificando diferenças no estado interno.
+    \item \textbf{Mutantes equivalentes (\textit{equivalent mutants}):} possuem alterações sintáticas, mas apresentam o mesmo comportamento funcional do programa original. Como não produzem diferenças observáveis, não podem ser mortos por casos de teste;
 
-Kintis, Papadakis e Malevris (2010) investigaram alternativas de testes de mutação, incluindo mutação fraca e estratégias envolvendo mutantes de ordem superior. Os resultados indicaram que determinadas alternativas podem reduzir o esforço necessário para a avaliação, embora a escolha do critério também influencie a interpretação dos resultados.
+    \item \textbf{Mutantes triviais (\textit{trivial mutants}):} apresentam alterações facilmente detectáveis, podendo ser mortos por praticamente qualquer caso de teste que exercite adequadamente a região modificada.
+\end{itemize}
+
+A identificação de mutantes equivalentes constitui uma dificuldade particular. Segundo \citeonline{ammann2016}, determinar a equivalência entre dois programas é, no caso geral, um problema indecidível. Embora determinadas equivalências possam ser identificadas por análises específicas, não existe um procedimento automático capaz de resolver todos os casos possíveis.
+
+Após a execução dos testes, os resultados são utilizados para calcular a proporção de mutantes mortos e avaliar a adequação da suíte. O processo apresentado por \citeonline{ammann2016} também prevê a possibilidade de criar novos casos de teste direcionados aos mutantes sobreviventes, repetindo a avaliação até atingir um nível de adequação considerado satisfatório.
+
+No contexto deste trabalho, os fundamentos desse processo serão utilizados para avaliar suítes automatizadas já existentes em projetos de código aberto. Dessa forma, a execução dos mutantes permitirá identificar quais alterações são detectadas pelos testes disponíveis, sem exigir necessariamente a criação de novos casos de teste.
+
+\subsubsection{Mutação Forte e Mutação Fraca}
+
+Os testes de mutação podem ser classificados de acordo com o momento em que as diferenças entre o programa original e o mutante são verificadas.
+
+\citeonline{ammann2016} explicam essa distinção a partir de três condições necessárias para a manifestação de uma falha: alcance (\textit{Reachability}), infecção (\textit{Infection}) e propagação (\textit{Propagation}).
+
+O alcance ocorre quando um caso de teste executa a região do código na qual a alteração foi introduzida. A infecção ocorre quando essa alteração produz uma diferença no estado interno do programa. Por fim, a propagação ocorre quando essa diferença alcança um resultado observável da execução.
+
+Na mutação forte (\textit{Strong Mutation}), um mutante é considerado morto quando um caso de teste produz um resultado observável diferente daquele apresentado pelo programa original. Dessa forma, a detecção depende das condições de alcance, infecção e propagação.
+
+Já na mutação fraca (\textit{Weak Mutation}), a avaliação ocorre imediatamente após a execução do trecho modificado. Nesse caso, o mutante pode ser considerado morto quando a alteração produz uma diferença no estado interno do programa, mesmo que essa diferença não seja propagada até a saída final.
+
+Segundo \citeonline{ammann2016}, a mutação fraca exige apenas que o trecho modificado seja alcançado e produza uma diferença no estado do programa. Já a mutação forte também exige que essa diferença seja propagada até um resultado observável.
+
+Portanto, um mutante pode ser morto segundo o critério de mutação fraca e permanecer sobrevivente segundo o critério de mutação forte. Essa distinção é importante porque demonstra que a execução de uma alteração e a modificação do estado interno não garantem, necessariamente, que seu efeito seja identificado nos resultados do programa.
 
 \subsection{Operadores de Mutação e Tipos de Mutantes}
 
-Os operadores de mutação são regras utilizadas para modificar elementos do código-fonte e gerar versões alternativas do programa.
+Os operadores de mutação são responsáveis por definir as alterações que serão introduzidas no programa original. Sua escolha é importante porque determina os tipos de modificações que poderão ser avaliadas.
 
-Essas alterações procuram representar comportamentos incorretos que poderiam surgir durante o desenvolvimento ou a manutenção do software.
+Segundo \citeonline{ammann2016}, os operadores são geralmente desenvolvidos com dois objetivos: representar erros comuns cometidos durante a programação ou incentivar a elaboração de casos de teste que satisfaçam determinados critérios de adequação.
 
-Chauhan et al. (2015) destacam que a adequação dos testes de mutação depende dos operadores utilizados, pois diferentes operadores representam diferentes tipos de alterações e defeitos.
+Os autores apresentam diferentes operadores aplicáveis ao código-fonte, entre eles aqueles que modificam expressões aritméticas, relacionais, condicionais, atribuições e referências a variáveis.
 
-Entre os operadores mais conhecidos estão aqueles que modificam expressões aritméticas, operadores relacionais, conectores lógicos e condições de controle.
+O operador de substituição aritmética (\textit{Arithmetic Operator Replacement} -- AOR), por exemplo, modifica operadores como soma, subtração, multiplicação e divisão. Assim, uma expressão como \texttt{x = a + b} pode ser modificada para \texttt{x = a - b}, produzindo um comportamento diferente para determinadas entradas.
 
-Um operador de substituição aritmética, por exemplo, pode trocar uma operação de soma por uma subtração. Já um operador relacional pode substituir uma condição que utiliza `>=` por `>`, alterando seu comportamento em determinados valores de entrada.
+O operador de substituição relacional (\textit{Relational Operator Replacement} -- ROR) altera operadores utilizados em comparações, como \texttt{>}, \texttt{<}, \texttt{>=} e \texttt{<=}. Essas modificações permitem avaliar se os testes conseguem identificar alterações nas condições de decisão do programa.
 
-Operadores lógicos podem substituir conectores como
-\texttt{\&\&} e \texttt{||}, enquanto outros operadores podem remover instruções ou modificar valores constantes.
+Outro exemplo é o operador de substituição condicional (\textit{Conditional Operator Replacement} -- COR), que modifica conectores lógicos utilizados nas expressões condicionais. Uma condição que utiliza o operador \texttt{\&\&}, por exemplo, pode ser modificada para utilizar \texttt{||}, alterando as condições necessárias para que determinada expressão seja considerada verdadeira.
 
-A escolha dos operadores depende da linguagem de programação, da ferramenta utilizada e das características do sistema investigado.
+Além desses, \citeonline{ammann2016} apresentam operadores de inserção e remoção de operadores unários, substituição de operadores de atribuição e substituição de referências a variáveis.
 
-Os mutantes também podem ser classificados de acordo com a quantidade de alterações realizadas no código.
+Existem também operadores desenvolvidos para exigir determinados comportamentos dos testes. Um exemplo é o operador \textit{Bomb Statement Replacement} (BSR), que substitui uma instrução por uma operação que provoca uma falha quando executada. Dessa forma, o mutante somente pode ser morto por um teste que alcance a instrução modificada, estabelecendo uma relação com o critério de cobertura de instruções.
 
-Os mutantes de primeira ordem (*First-Order Mutants* — FOM) são produzidos pela aplicação de uma única alteração. Já os mutantes de ordem superior (*Higher-Order Mutants* — HOM) combinam duas ou mais alterações em uma mesma versão do programa.
+Os exemplos demonstram que os operadores não possuem necessariamente a mesma finalidade. Enquanto alguns representam alterações semelhantes a possíveis erros de programação, outros são utilizados para exigir que determinados elementos do código sejam exercitados ou verificados pelos testes.
 
-Kintis, Papadakis e Malevris (2010) investigaram estratégias baseadas em mutantes de segunda ordem, que combinam duas alterações. Os autores avaliaram a possibilidade de utilizar essas combinações para reduzir o custo da análise, preservando parte da capacidade de avaliação proporcionada pela técnica tradicional.
+Os mutantes também podem ser classificados de acordo com a quantidade de alterações introduzidas. Os mutantes de primeira ordem (\textit{First-Order Mutants} -- FOM) são produzidos pela aplicação de uma única alteração, enquanto os mutantes de ordem superior (\textit{Higher-Order Mutants} -- HOM) combinam duas ou mais alterações em uma mesma versão do programa.
 
-Além dessa classificação, os mutantes podem apresentar diferentes comportamentos durante os testes, incluindo equivalência semântica com o programa original e dificuldade de detecção.
+\citeonline{ammann2016} destacam que a aplicação de uma alteração por mutante é geralmente preferida na mutação de programas, embora existam situações em que combinações de alterações possam ser úteis.
 
-Essas características influenciam a interpretação dos resultados e precisam ser consideradas ao avaliar a eficácia de uma suíte.
+A escolha e a quantidade dos operadores também influenciam o custo da análise. Dependendo das características do programa, sua aplicação pode produzir um grande número de mutantes, exigindo diversas execuções da suíte de testes.
+
+Nesse contexto, \citeonline{ammann2016} apresentam duas abordagens gerais para reduzir a quantidade de mutantes avaliados: a amostragem aleatória, que seleciona parte dos mutantes gerados, e a mutação seletiva (\textit{Selective Mutation}), que utiliza um conjunto reduzido de operadores considerados eficazes.
+
+Dessa forma, a definição dos operadores deve considerar a linguagem de programação, as características do sistema e os objetivos da avaliação.
 
 \subsection{Mutation Score e Avaliação da Eficácia}
 
-O *Mutation Score* é uma das principais métricas utilizadas para avaliar a capacidade de uma suíte de testes detectar os mutantes introduzidos no programa.
+O \textit{Mutation Score} é uma métrica utilizada para quantificar a adequação de uma suíte de testes em relação ao conjunto de mutantes gerados.
 
-A métrica representa a proporção de mutantes mortos em relação ao conjunto de mutantes válidos e não equivalentes considerados na avaliação.
+Segundo \citeonline{ammann2016}, o critério de cobertura por mutação considera que cada mutante estabelece um requisito de teste, que consiste em encontrar ao menos um caso capaz de identificá-lo. Dessa forma, o \textit{Mutation Score} representa a proporção de mutantes mortos em relação ao total de mutantes não equivalentes considerados na avaliação.
 
-Conforme descrito por Just et al. (2014) e Zhang et al. (2019), seu cálculo pode ser representado pela seguinte expressão:
-
-\textbf{Mutation Score = (Mutantes mortos / Mutantes válidos não equivalentes) $\times$ 100}
-
-Considerando o conjunto de mutantes válidos, a mesma relação pode ser expressa como:
+O cálculo da métrica pode ser representado pela seguinte expressão:
 
 \begin{equation}
     MS = \frac{K}{M - E} \times 100
     \label{eq:mutation-score}
 \end{equation}
 
-Em que:
-
-- \textbf{K} representa o número de mutantes mortos;
-- \textbf{M}M representa o total de mutantes válidos;
-- \textbf{E}E representa o número de mutantes equivalentes.
+Em que $K$ representa a quantidade de mutantes mortos, $M$ corresponde ao total de mutantes válidos gerados e $E$ representa a quantidade de mutantes equivalentes entre esses mutantes.
 
 Um resultado de 80\%, por exemplo, indica que a suíte conseguiu detectar 80\% dos mutantes válidos e não equivalentes considerados na avaliação.
 
-Em termos gerais, valores mais elevados indicam maior capacidade de detectar as alterações artificiais introduzidas. Entretanto, o indicador deve ser interpretado considerando os operadores utilizados, as características dos programas e a representatividade dos mutantes gerados.
+De acordo com \citeonline{ammann2016}, uma suíte que consegue matar todos os mutantes não equivalentes de um conjunto é considerada adequada em relação a esse conjunto. Nesse caso, o \textit{Mutation Score} corresponde a 100\%.
 
-Outro aspecto importante é que a identificação de mutantes equivalentes nem sempre é possível de forma automática. Quando esses mutantes permanecem no conjunto analisado, o escore observado pode ser inferior ao valor que seria obtido caso todos os equivalentes fossem removidos.
+Entretanto, alcançar esse resultado pode ser difícil na prática. Por esse motivo, os autores também apresentam a possibilidade de estabelecer um limiar mínimo de adequação, utilizado para orientar a continuidade do processo de testes.
 
-Além disso, diferentes conjuntos de operadores podem gerar mutantes com níveis distintos de dificuldade de detecção. Por esse motivo, a comparação de valores de *Mutation Score* entre projetos ou ferramentas exige atenção às condições em que os resultados foram produzidos.
+É importante destacar que a adequação é relativa ao conjunto de mutantes utilizado. Uma suíte que apresenta um \textit{Mutation Score} elevado não necessariamente consegue detectar todos os defeitos reais do programa, pois os mutantes representam apenas as alterações produzidas pelos operadores selecionados.
 
-Just et al. (2014) demonstraram que existe relação entre a detecção de mutantes e a detecção de defeitos reais, mas também identificaram limitações na representatividade das alterações artificiais.
+Além disso, a identificação de mutantes equivalentes pode influenciar diretamente o resultado. Quando esses mutantes não são reconhecidos e removidos do conjunto avaliado, o escore calculado pode ser inferior ao valor que seria obtido considerando apenas os mutantes não equivalentes.
 
-Posteriormente, Petrovic et al. (2021) investigaram o uso dos testes de mutação em projetos industriais do Google, utilizando dados de aproximadamente 15 milhões de mutantes produzidos ao longo de seis anos. Os autores encontraram evidências de que a utilização da técnica pode contribuir para a melhoria das práticas de teste, incentivando a criação de verificações capazes de detectar alterações que anteriormente permaneciam despercebidas.
+Outro aspecto importante é a escolha dos operadores de mutação. Diferentes conjuntos podem produzir mutantes com características e níveis de dificuldade distintos. Assim, a comparação de valores de \textit{Mutation Score} entre diferentes projetos ou ferramentas exige considerar as condições em que os resultados foram obtidos.
 
-Os resultados também forneceram evidências sobre a relação entre mutantes e defeitos reais, reforçando a utilidade da análise de mutação como mecanismo de avaliação.
+A relação entre detecção de mutantes e defeitos reais também é importante para a interpretação dessa métrica. \citeonline{just2014} discutem a utilização de mutantes como uma aproximação para avaliar a capacidade de detecção de defeitos reais, embora reconheçam que nem todos os defeitos possam ser representados pelas alterações artificiais disponíveis.
 
-Contudo, o \textbf{Mutation Score} não deve ser interpretado como uma medida direta da quantidade de defeitos reais que uma suíte conseguiria identificar. Ele representa o desempenho observado diante de um conjunto específico de alterações artificiais.
+Portanto, o \textit{Mutation Score} não deve ser interpretado como uma medida direta da quantidade de defeitos reais que uma suíte conseguiria identificar. Ele representa o desempenho observado diante de um conjunto específico de alterações artificiais.
 
-Assim, sua utilização é mais adequada quando acompanhada de informações adicionais, como cobertura de código, quantidade de mutantes sobreviventes, tipos de operadores aplicados e características dos testes avaliados.
-
-\subsection{Sobrevivência de Mutantes e Modelo RIP}
-
-A sobrevivência de um mutante ocorre quando a suíte de testes não consegue identificar a alteração introduzida no programa.
-
-Entretanto, um mutante sobrevivente não representa necessariamente uma deficiência da suíte. Existem diferentes fatores que podem explicar esse resultado.
-
-Uma das formas de compreender esse comportamento é por meio do modelo RIP, formado pelas condições de alcance (*Reachability*), infecção (*Infection*) e propagação (*Propagation*).
-
-Zhang et al. (2019) utilizam essas condições para explicar os fatores envolvidos na detecção de mutantes.
-
-A primeira condição é o alcance. Para que um teste consiga detectar uma alteração, ele precisa executar a região do código na qual o mutante foi introduzido. Caso nenhum teste alcance esse trecho, o mutante não poderá ser detectado pela suíte.
-
-A segunda condição é a infecção. Mesmo quando o trecho modificado é executado, a alteração precisa produzir alguma diferença no estado do programa em relação à versão original.
-
-Uma modificação pode ser executada sem alterar o estado produzido para determinada entrada. Nesse caso, o teste não encontrará diferença a ser identificada.
-
-A terceira condição é a propagação. A diferença produzida no estado interno precisa alcançar algum resultado observável que possa ser verificado pelos testes.
-
-Mesmo que uma alteração produza um estado interno diferente, ela poderá permanecer sem detecção caso seus efeitos não sejam propagados até uma saída ou condição verificada.
-
-Portanto, a detecção de um mutante depende da execução da região modificada, da produção de uma diferença de comportamento e da existência de verificações capazes de reconhecer essa diferença.
-
-Esse modelo ajuda a explicar por que uma suíte pode apresentar cobertura elevada e ainda possuir mutantes sobreviventes.
-
-Além dessas condições, existem os mutantes equivalentes. Um mutante é considerado equivalente quando a alteração sintática não modifica o comportamento observável do programa para nenhuma entrada possível.
-
-Como não existe diferença de comportamento a ser identificada, esses mutantes não podem ser mortos por testes que avaliam a equivalência funcional entre as versões.
-
-A identificação de equivalência é um dos problemas mais conhecidos da análise de mutação, pois determinar automaticamente se dois programas apresentam exatamente o mesmo comportamento é, no caso geral, um problema indecidível.
-
-Também existem os mutantes difíceis de matar, frequentemente denominados *stubborn mutants*. Diferentemente dos equivalentes, esses mutantes possuem comportamentos que podem ser distinguidos do programa original, mas exigem condições específicas para que a diferença seja observada.
-
-Zhang et al. (2019) discutem como características dos operadores, das entradas e dos oráculos podem influenciar a dificuldade de detecção.
-
-Dessa forma, a análise dos mutantes sobreviventes deve considerar se a alteração foi alcançada, se produziu diferenças no estado e se essas diferenças poderiam ser observadas pelos testes.
-
-Essa avaliação permite compreender melhor as limitações da suíte, em vez de considerar todos os sobreviventes como evidência de testes inadequados.
-
-\subsection{Limitações e Estratégias de Redução de Custos}
-
-Embora os testes de mutação forneçam informações relevantes sobre a eficácia das suítes, sua aplicação apresenta limitações práticas.
-
-Um dos principais desafios é o custo computacional. Dependendo do tamanho do programa e da quantidade de operadores utilizados, milhares de mutantes podem ser gerados. A necessidade de executar os testes sobre essas versões pode aumentar significativamente o tempo necessário para concluir a avaliação.
-
-Zhang et al. (2019) destacam que esse custo constitui um dos principais obstáculos à adoção da técnica em larga escala.
-
-Além do processamento, a análise também pode exigir esforço humano, especialmente para investigar mutantes sobreviventes, identificar possíveis equivalências e compreender as alterações que não foram detectadas.
-
-Diante dessas limitações, diferentes estratégias têm sido propostas para reduzir a quantidade de mutantes avaliados ou diminuir o custo de sua execução.
-
-Uma dessas estratégias é a seleção de mutantes, que procura utilizar apenas uma parte do conjunto gerado.
-
-Zhang et al. (2010) compararam técnicas de seleção baseadas em operadores com estratégias de seleção aleatória. Os resultados do estudo não demonstraram superioridade geral das técnicas baseadas em operadores, indicando que a seleção aleatória também pode constituir uma alternativa adequada em determinados contextos.
-
-Outra possibilidade é utilizar informações históricas do software para orientar a seleção.
-
-Inozemtseva, Hemmati e Holmes (2013) investigaram uma estratégia baseada no histórico de defeitos dos arquivos. A proposta consiste em priorizar mutantes gerados em regiões do código que apresentaram maior quantidade de defeitos anteriormente, buscando preservar alterações com maior probabilidade de revelar limitações da suíte.
-
-Também existem abordagens que procuram evitar parte das execuções por meio de modelos preditivos.
-
-Zhang et al. (2019) propuseram o *Predictive Mutation Testing* (PMT), que utiliza características dos mutantes e dos testes para estimar se uma alteração seria detectada, sem necessariamente executar cada mutante. A abordagem foi avaliada em 163 projetos reais, apresentando reduções significativas no custo computacional, acompanhadas de perdas limitadas de precisão nas condições investigadas.
-
-Essas estratégias possuem objetivos e limitações distintos. Métodos de seleção podem reduzir a quantidade de mutantes analisados, mas também podem excluir alterações relevantes. Já abordagens preditivas introduzem incerteza, pois seus resultados representam estimativas de execução.
-
-Por esse motivo, a redução de custos precisa ser considerada juntamente com seus possíveis efeitos sobre a validade e a interpretação das métricas.
-
-Outro desafio está relacionado à representatividade dos defeitos artificiais.
-
-Khanfir et al. (2023) apresentaram o iBiR, uma abordagem de injeção de falhas orientada por relatos de defeitos. Diferentemente da geração tradicional, a ferramenta procura produzir alterações relacionadas a funcionalidades e padrões associados a problemas reais.
-
-Os autores observaram que essa estratégia pode produzir falhas artificiais mais próximas de determinados defeitos reais, demonstrando que a escolha das alterações introduzidas influencia a capacidade da técnica de representar comportamentos incorretos.
-
-Portanto, a utilização dos testes de mutação exige decisões sobre operadores, ferramentas, quantidade de mutantes e estratégias de execução. Essas decisões devem considerar tanto a viabilidade computacional quanto a capacidade da avaliação de produzir resultados confiáveis.
-
-\section{Testes de Mutação no Contexto de Aplicações Web}
-
-As aplicações web apresentam características que influenciam a construção e a execução dos testes automatizados. Esses sistemas frequentemente possuem componentes distribuídos entre cliente e servidor, dependências de serviços externos e diferentes formas de interação com os usuários.
-
-A verificação de seu comportamento pode envolver desde o teste de funções isoladas até a execução de fluxos completos por meio de navegadores.
-
-Essas diferenças também afetam a aplicação dos testes de mutação, pois o tipo de alteração introduzida e a possibilidade de detectá-la dependem dos componentes avaliados e das características das suítes disponíveis.
+Dessa forma, sua interpretação pode ser complementada por informações como cobertura de código, quantidade de mutantes sobreviventes, operadores aplicados e características dos casos de teste avaliados. Esses indicadores permitem compreender melhor os resultados da avaliação e identificar possíveis limitações das suítes automatizadas.
 
 \subsection{Particularidades dos Testes em Aplicações Web}
 
