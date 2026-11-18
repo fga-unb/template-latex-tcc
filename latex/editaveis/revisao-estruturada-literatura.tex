@@ -54,7 +54,7 @@ Com a string de busca devidamente estruturada, procedeu-se à execução da busc
 
 Esses registros foram importados para a ferramenta Evidentia, ambiente utilizado para o gerenciamento do protocolo da RSL. Nessa etapa de importação, identificou-se que 4 arquivos encontravam-se corrompidos, restando um corpus inicial de 175 artigos válidos para análise.
 
-A partir desse conjunto, estabeleceram-se os critérios formais de inclusão e exclusão para balizar a triagem dos estudos, conforme sintetizado na Tabela~\ref{tab:criterios-inclusao-exclusao}.
+A partir desse conjunto, estabeleceram-se os critérios formais de inclusão e exclusão para orientar triagem dos estudos, conforme sintetizado na Tabela~\ref{tab:criterios-inclusao-exclusao}.
 
 \begin{table}[htb]
     \centering
@@ -147,7 +147,7 @@ a eficácia das suítes de testes em aplicações web?}
 
 O \textit{mutation score} é a métrica mais utilizada: 29 dos 36 estudos (81\%) o adotam ou usam uma variante diretamente equivalente, como o \textit{kill score}, a cobertura de mutação ou a contagem de mutantes mortos. Em seguida aparecem as contagens e taxas de mutantes mortos, vivos, equivalentes e teimosos (12 estudos, 33\%) e as métricas de cobertura de código (9 estudos, 25\%). Com menor frequência surgem métricas de qualidade da seleção de mutantes, de custo e de validade frente a falhas reais. Apenas dois estudos não usam o \textit{mutation score} nem derivados dele: o CBUA usa somente cobertura de código \cite{zhang2022} e o DeepMutation reporta apenas métricas da própria ferramenta \cite{tufano2020}.
 
-Uma ressalva importante: apenas um dos 37 estudos avalia suítes de testes de aplicações web \cite{yandrapally2021}. As frequências da Tabela~\ref{tab:metricas-utilizadas} descrevem a literatura de teste de mutação em geral, majoritariamente sobre programas Java e C, e o recorte específico de aplicações web é tratado na Seção 3.4.1.4.
+Uma ressalva importante: apenas um dos 37 estudos avalia suítes de testes de aplicações web \cite{yandrapally2021}. As frequências da Tabela~\ref{tab:metricas-utilizadas} descrevem a literatura de teste de mutação em geral, majoritariamente sobre programas Java e C. 
 
 \begin{table}[htb]
     \centering
@@ -307,7 +307,7 @@ Alguns estudos adaptam as alterações ao domínio do software, e outros mudam a
 
 Os estudos mencionam 28 ferramentas e sistemas de teste de mutação, entre os usados nos experimentos e os citados apenas como alternativas ou trabalhos relacionados (Tabelas~\ref{tab:ferramentas-web} e~\ref{tab:ferramentas-proposito-geral}). Cinco se destinam a tecnologias web (MAEWU, WebMuJava, AjaxMutator, GAmera e MutateMe), além de uma extensão do MuJava para componentes EJB. Entre elas, somente o MAEWU foi concebido para avaliar suítes de testes de interface web e está disponível publicamente \cite{yandrapally2021}. As demais ferramentas são de propósito geral, voltadas principalmente a Java, e concentram a maior parte do uso na literatura. Elas são discutidas aqui porque representam o estado da prática em teste de mutação e podem servir de base ou de comparação para a solução proposta neste trabalho.
 
-Os estudos primários não adotam um modelo formal de maturidade. Por isso, este trabalho classifica cada ferramenta com base em quatro evidências que os próprios artigos reportam: disponibilidade pública ou código aberto; escopo de linguagens e tecnologias suportadas; adoção por outros estudos ou em ambiente real; e limitações relatadas pelos autores. A partir delas, definem-se cinco níveis: \textbf{consolidada}, usada em vários estudos independentes ou em produção; \textbf{estabelecida com ressalvas}, amplamente usada, mas com obsolescência ou limitação reportada; \textbf{ferramenta de pesquisa}, desenvolvida em ambiente acadêmico para uma técnica ou grupo, com uso restrito a poucos estudos; \textbf{indisponível ou inaplicável}, não disponibilizada ou incapaz de operar nos sujeitos do estudo; e \textbf{não informada}, sem descrição suficiente no artigo. Trata-se de uma síntese da autora, e não de um rótulo atribuído pelos estudos.
+Os estudos primários não adotam um modelo formal de maturidade. Por isso, este trabalho classifica cada ferramenta com base em quatro evidências que os próprios artigos reportam: disponibilidade pública ou código aberto; escopo de linguagens e tecnologias suportadas; adoção por outros estudos ou em ambiente real; e limitações relatadas pelos autores. A partir delas, definem-se cinco níveis: \textbf{consolidada}, usada em vários estudos independentes ou em produção; \textbf{estabelecida com ressalvas}, amplamente usada, mas com obsolescência ou limitação reportada; \textbf{ferramenta de pesquisa}, desenvolvida em ambiente acadêmico para uma técnica ou grupo, com uso restrito a poucos estudos; \textbf{indisponível ou inaplicável}, não disponibilizada ou incapaz de operar nos sujeitos do estudo; e \textbf{não informada}, sem descrição suficiente no artigo. Trata-se de uma síntese dos autores, e não de um rótulo atribuído pelos estudos.
 
 \subsubsection{Ferramentas para tecnologias web}
 
