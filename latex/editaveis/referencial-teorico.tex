@@ -1,2 +1,418 @@
 \chapter{Referencial Teórico}
 
+Este capítulo apresenta os principais conceitos que fundamentam a avaliação da eficácia de suítes de testes automatizados por meio de testes de mutação. Inicialmente, são abordados os fundamentos da Engenharia de Software Experimental e a mineração de repositórios de software, que servem de base para a investigação empírica proposta. Em seguida, são apresentados os conceitos relacionados aos testes automatizados, às métricas de cobertura e à capacidade de detecção de defeitos. Por fim, são discutidos os fundamentos dos testes de mutação, seus operadores, métricas, limitações e sua aplicação no contexto de aplicações web.
+
+
+\section{Engenharia de Software Experimental}
+
+A Engenharia de Software envolve decisões sobre métodos de desenvolvimento, ferramentas, técnicas de programação e práticas de qualidade. Para avaliar essas decisões, não basta considerar apenas os benefícios esperados de determinada abordagem. É necessário investigar seu comportamento em situações reais ou controladas, utilizando evidências que permitam compreender seus resultados.
+
+Segundo \citeonline{wohlin2015}, a investigação empírica é importante na Engenharia de Software porque permite avaliar técnicas, métodos e ferramentas a partir de observações e dados coletados durante sua aplicação. Dessa forma, as decisões podem ser fundamentadas em resultados observáveis, em vez de dependerem exclusivamente de experiências individuais ou pressupostos teóricos.
+
+Os autores apresentam diferentes estratégias de investigação empírica, como questionários, estudos de caso e experimentos controlados. Embora possuam características distintas, essas estratégias não são necessariamente concorrentes, pois a escolha depende do objetivo da pesquisa, do contexto investigado e das condições disponíveis para a coleta e análise dos dados.
+
+Nos experimentos controlados, o pesquisador busca avaliar os efeitos de determinados fatores sobre variáveis de interesse, procurando controlar outras condições que possam influenciar os resultados. Já os estudos de caso investigam fenômenos em seus contextos reais, permitindo compreender aspectos que nem sempre podem ser isolados ou reproduzidos em ambientes controlados \cite{wohlin2015}.
+
+Independentemente da estratégia adotada, a definição clara do problema, das unidades de análise e das métricas utilizadas é necessária para que os resultados possam ser interpretados de maneira adequada.
+
+\subsection{Planejamento e Mensuração em Estudos Empíricos}
+
+A realização de uma investigação empírica exige planejamento para definir o que será analisado, quais informações deverão ser coletadas e de que forma os resultados serão avaliados.
+
+\citeonline{wohlin2015} apresentam um processo de experimentação que compreende a definição do estudo, seu planejamento, a execução, a análise e interpretação dos resultados e a apresentação das conclusões. Cada uma dessas atividades contribui para reduzir problemas que poderiam comprometer a investigação.
+
+Durante o planejamento, são definidos elementos como o contexto da pesquisa, os objetos de estudo, as variáveis de interesse, os instrumentos de coleta e os procedimentos de análise. Em uma avaliação de software, por exemplo, os objetos podem corresponder a aplicações, componentes ou suítes de testes, enquanto as medidas podem representar quantidade de defeitos identificados, tempo de execução ou cobertura de código.
+
+As métricas devem estar relacionadas aos objetivos da investigação. Uma medida pode fornecer informações sobre determinado atributo de um software sem, necessariamente, representar outro atributo que se deseja avaliar. Por exemplo, a quantidade de testes de uma suíte informa seu tamanho, mas não demonstra diretamente sua capacidade de detectar defeitos.
+
+Nesse contexto, a abordagem \textbf{Goal Question Metric} (GQM) estabelece uma relação entre objetivos, questões e métricas. Conforme apresentado por \citeonline{wohlin2015}, essa abordagem parte da definição de um objetivo de medição, que é desdobrado em perguntas. Para responder a essas perguntas, são selecionadas as métricas necessárias.
+
+Essa organização permite que a coleta de dados seja orientada pelas necessidades da pesquisa, evitando o uso de indicadores que não contribuam diretamente para responder às questões estabelecidas.
+
+Além das métricas, o planejamento deve considerar possíveis ameaças à validade dos resultados. \citeonline{wohlin2015} discutem aspectos como validade interna, externa, de construção e de conclusão. Essas categorias estão relacionadas, respectivamente, à interpretação das relações observadas, à possibilidade de generalização, à adequação das medidas aos conceitos investigados e à consistência das conclusões obtidas a partir dos dados.
+
+Esses cuidados são importantes em pesquisas que utilizam diferentes projetos de software, pois fatores como linguagem de programação, arquitetura, tamanho do projeto e características das suítes de testes podem influenciar os resultados.
+
+\subsection{Mineração de Repositórios de Software}
+
+A mineração de repositórios de software, conhecida como Mining Software Repositories (MSR) ou Repository Mining, é uma abordagem de pesquisa empírica que utiliza dados armazenados em repositórios de software para investigar características dos sistemas, seu desenvolvimento e sua evolução. Segundo \citeonline{hassan2008}, seu objetivo é analisar e relacionar informações disponíveis nesses repositórios para identificar padrões e produzir conhecimentos que possam apoiar decisões durante o desenvolvimento e a manutenção de software.
+
+Os repositórios armazenam diferentes tipos de informações, como código-fonte, histórico de modificações, registros de defeitos, mensagens de commits e comunicações entre desenvolvedores. \citeonline{hassan2008} classifica essas fontes em repositórios históricos, que registram a evolução dos projetos; repositórios de execução, que armazenam informações sobre o funcionamento dos sistemas; e repositórios de código, que disponibilizam implementações de software. A análise conjunta dessas informações permite investigar aspectos que nem sempre podem ser identificados apenas pela observação do código-fonte.
+
+\citeonline{spadini2018} também destacam que os repositórios contêm informações valiosas sobre o desenvolvimento de sistemas e que sua mineração permite compreender práticas de manutenção, evolução do código e atividades dos desenvolvedores. A partir desses dados, é possível investigar diferentes questões da Engenharia de Software, como identificação de componentes propensos a defeitos, análise de alterações e práticas de teste.
+
+\citeonline{hassan2008} ressalta que uma das principais contribuições da mineração de repositórios é transformar registros utilizados originalmente para armazenar informações em fontes de conhecimento para a tomada de decisões. Por exemplo, o histórico de modificações e os registros de defeitos podem ser relacionados para identificar componentes que apresentaram problemas recorrentes e, assim, apoiar a priorização de atividades de manutenção e teste.
+
+A abordagem também pode ser aplicada a informações que não estão diretamente relacionadas ao código-fonte. Ortu et al. (2015), por exemplo, investigaram a relação entre características das mensagens de desenvolvedores e o tempo necessário para resolver problemas registrados em projetos de software. Para isso, analisaram mais de 560 mil comentários provenientes do Jira, demonstrando como informações históricas podem ser utilizadas para investigar aspectos do processo de desenvolvimento.
+
+Outro exemplo é apresentado por Beller, Gousios e Zaidman (2017), que analisaram mais de 2,6 milhões de execuções de integração contínua de projetos Java e Ruby. Os autores combinaram informações do GitHub e do Travis CI para investigar práticas de teste, causas de falhas em builds e diferenças entre ambientes de execução.
+
+Apesar das diferentes possibilidades de aplicação, a mineração de repositórios exige procedimentos sistemáticos para garantir que os dados analisados sejam adequados aos objetivos da investigação. \citeonline{vidoni2022}, por meio de uma revisão sistemática da literatura, investigou como estudos de MSR realizam a seleção de repositórios e a extração de dados. A autora identificou que muitos trabalhos não descrevem suficientemente seus procedimentos, dificultando a reprodução e a avaliação dos resultados. Como resposta, propôs um conjunto de diretrizes organizado em três etapas principais: planejamento, execução e análise dos resultados.
+
+No contexto deste trabalho, a mineração de repositórios será utilizada para selecionar e obter dados de aplicações web de código aberto, especialmente seus códigos-fonte e suítes de testes automatizados. Esses artefatos servirão de base para a aplicação dos testes de mutação, permitindo avaliar a capacidade das suítes de identificar alterações artificiais introduzidas no código.
+
+\subsubsection{Seleção e Extração de Dados}
+
+A seleção dos repositórios é uma etapa importante da mineração, pois as características dos projetos escolhidos podem influenciar os resultados da investigação. Dessa forma, é necessário estabelecer critérios que permitam identificar repositórios adequados ao problema de pesquisa.
+
+\citeonline{vidoni2022} destaca que a seleção deve partir da definição dos objetivos e das questões de pesquisa, seguida da identificação das fontes de dados e do estabelecimento de critérios de inclusão e exclusão. A autora também diferencia as fontes de dados, como GitHub e GitLab, dos repositórios encontrados nessas plataformas e dos dados específicos que serão extraídos para análise.
+
+Essa distinção é importante porque um mesmo repositório pode disponibilizar diferentes informações, como código-fonte, commits, registros de problemas e arquivos de documentação. A escolha dos dados que serão utilizados deve estar relacionada às questões que a investigação pretende responder.
+
+Em sua revisão, \citeonline{vidoni2022} analisou 146 estudos e identificou que aproximadamente 37\% não descreviam adequadamente o processo de seleção dos repositórios. Além disso, apenas cerca de 17\% apresentavam uma seleção sistemática. Esses resultados reforçam a importância de documentar os critérios e procedimentos utilizados, evitando escolhas baseadas somente na facilidade de acesso aos projetos.
+
+O padrão Repository Mining, da iniciativa Empirical Standards, também estabelece que pesquisas dessa natureza devem justificar suas fontes de dados, definir critérios de inclusão e exclusão, caracterizar os repositórios selecionados e descrever os procedimentos de obtenção das informações.
+
+Entre os critérios que podem ser utilizados estão a linguagem de programação, a atividade recente do projeto, seu tamanho, a disponibilidade de determinados arquivos e a utilização de ferramentas específicas (VIDONI, 2022). Em uma investigação sobre testes automatizados, também podem ser consideradas a existência de suítes de testes executáveis, a disponibilidade de suas dependências e a compatibilidade com ferramentas de teste de mutação.
+
+A extração dos dados pode ser realizada por meio de ferramentas que automatizam o acesso aos repositórios. \citeonline{spadini2018} apresentam o PyDriller, um framework desenvolvido em Python para facilitar a obtenção de informações de repositórios Git. A ferramenta permite recuperar dados como commits, modificações, arquivos alterados e histórico de desenvolvimento.
+
+Entretanto, a disponibilidade dos dados não significa que sua extração seja simples. \citeonline{hassan2008} destaca que muitos repositórios não foram originalmente desenvolvidos para permitir a extração automatizada de grandes volumes de informações. Isso pode exigir o uso de ferramentas e procedimentos específicos para acessar, relacionar e preparar os dados para análise.
+
+Além disso, a utilização de repositórios públicos exige atenção às características dos projetos. \citeonline{vidoni2022} discute problemas que podem afetar a seleção, como a existência de repositórios duplicados ou derivados (forks), projetos inativos e informações incompletas. Esses fatores podem introduzir distorções na amostra e comprometer a interpretação dos resultados.
+
+No contexto deste trabalho, a seleção deverá considerar a disponibilidade de aplicações web com código-fonte acessível e suítes de testes automatizados que possam ser executadas. Após a seleção, será necessário obter os artefatos relevantes e preparar os ambientes para a aplicação dos testes de mutação.
+
+Assim, a mineração de repositórios envolve não apenas a obtenção de arquivos, mas também a definição sistemática das fontes, a seleção dos projetos e a extração dos dados necessários à investigação.
+
+\subsubsection{Análise dos Dados e Reprodutibilidade}
+
+Após a extração, os dados precisam ser organizados e preparados para análise. Essa etapa pode envolver a identificação de registros inconsistentes, o tratamento de informações incompletas e a padronização dos dados obtidos de diferentes repositórios.
+
+\citeonline{hassan2008} aponta que os dados armazenados em repositórios podem apresentar ruídos e distribuições desiguais. Por exemplo, uma pequena quantidade de arquivos pode concentrar grande parte das modificações ou dos registros de defeitos de um projeto. Caso essas características não sejam consideradas, os resultados podem produzir interpretações que não representam adequadamente o conjunto analisado.
+
+O autor também destaca a importância de avaliar a qualidade dos procedimentos de extração, pois as informações disponíveis nem sempre apresentam uma estrutura adequada para análise automatizada. Dessa forma, as técnicas utilizadas para coletar e processar os dados devem ser examinadas e documentadas.
+
+\citeonline{vidoni2022} reforça essa preocupação ao propor que o processo de análise inclua a descrição das informações extraídas, dos métodos utilizados e dos possíveis problemas encontrados durante a execução. A autora também recomenda que sejam discutidas as ameaças à validade relacionadas à seleção dos repositórios, à qualidade dos dados e aos procedimentos de análise.
+
+Em sua revisão, \citeonline{vidoni2022} identificou que apenas 13\% dos estudos discutiam conjuntamente os possíveis vieses relacionados à seleção dos repositórios e à extração de dados. Esse resultado evidencia a necessidade de considerar essas limitações durante o planejamento e a apresentação dos resultados.
+
+Outro aspecto importante é a reprodutibilidade. Para que uma investigação possa ser reproduzida, devem ser documentados os repositórios selecionados, suas versões, os dados extraídos, as ferramentas utilizadas e os procedimentos adotados durante o processamento.
+
+\citeonline{vidoni2022} destaca que o registro das etapas de seleção e extração contribui para a rastreabilidade da pesquisa e permite que outros pesquisadores compreendam como os resultados foram obtidos. A autora também recomenda registrar as datas de coleta, já que os repositórios podem sofrer alterações ao longo do tempo.
+
+No caso de investigações que envolvem testes automatizados, essa preocupação também se aplica aos ambientes de execução. Diferenças nas versões das dependências, nas configurações e nas ferramentas utilizadas podem influenciar os resultados. Por isso, a documentação dessas condições é importante para permitir a reprodução das avaliações.
+
+A mineração de repositórios também pode ser combinada com outros procedimentos empíricos. Enquanto a mineração permite obter e analisar sistematicamente dados provenientes dos repositórios, a execução de testes de mutação envolve a introdução de alterações artificiais nos programas selecionados e a observação dos resultados produzidos pelas suítes de testes.
+
+Neste trabalho, essas atividades serão utilizadas de forma complementar. A mineração permitirá selecionar e caracterizar os projetos e obter os artefatos necessários à investigação. A aplicação dos testes de mutação, por sua vez, permitirá produzir indicadores quantitativos sobre a capacidade das suítes de detectar alterações no código-fonte.
+
+Dessa forma, a combinação dessas abordagens poderá fornecer evidências para avaliar a eficácia dos testes automatizados, considerando tanto os resultados obtidos quanto as características e limitações dos projetos analisados.
+
+\section{Testes de Software}
+
+Os testes de software são atividades utilizadas para avaliar o comportamento de um sistema e identificar diferenças entre os resultados observados e aqueles esperados. Sua aplicação contribui para a identificação de defeitos e para a redução dos riscos associados ao funcionamento incorreto de uma aplicação.
+
+Entretanto, a execução de testes não garante a ausência de defeitos. Os testes verificam o comportamento do software diante de determinadas entradas e condições, mas não necessariamente abrangem todas as situações possíveis.
+
+A capacidade de uma suíte identificar problemas depende de fatores como a escolha dos casos de teste, os dados utilizados, os comportamentos exercitados e as verificações realizadas sobre os resultados.
+
+\subsection{Testes Automatizados e Suítes de Testes}
+
+A automação de testes consiste na utilização de ferramentas e scripts para executar verificações de software com menor necessidade de intervenção manual. Sua aplicação permite repetir testes de forma consistente, especialmente após modificações no código-fonte.
+
+Uma suíte de testes corresponde a um conjunto organizado de casos de teste que podem ser executados para avaliar determinados comportamentos de um sistema. Esses casos normalmente incluem entradas, condições de execução e verificações dos resultados obtidos.
+
+As suítes automatizadas podem atuar em diferentes níveis de teste. Os testes unitários verificam componentes individuais, como funções e métodos. Os testes de integração avaliam a interação entre componentes ou serviços. Já os testes de sistema e de ponta a ponta (*end-to-end*) procuram verificar fluxos mais completos da aplicação.
+
+Em aplicações web, os testes podem envolver tanto componentes internos, como serviços e regras de negócio, quanto interações realizadas por meio da interface do usuário. Dependendo do nível de teste, podem ser necessárias condições adicionais, como a disponibilidade de bancos de dados, serviços externos e navegadores.
+
+A automação também está relacionada às práticas de integração contínua, nas quais verificações são executadas frequentemente durante o desenvolvimento.
+
+\citeonline{beller2017} investigaram práticas de teste em projetos que utilizavam integração contínua. Os autores identificaram que falhas em testes constituíam uma das principais razões para a interrupção de builds. O estudo também mostrou diferenças entre os projetos analisados quanto à quantidade de testes, ao tempo de execução e à frequência de falhas.
+
+Esses resultados demonstram a importância operacional dos testes automatizados. Entretanto, executar testes frequentemente não significa necessariamente que eles sejam capazes de identificar todos os defeitos introduzidos no software.
+
+Por isso, além de verificar se uma suíte executa corretamente, é necessário avaliar a capacidade dos seus casos de teste de reconhecer comportamentos incorretos.
+
+\subsection{Eficácia de Suítes de Testes}
+
+A eficácia de uma suíte de testes está relacionada à sua capacidade de identificar defeitos no software avaliado. Uma suíte eficaz deve conter casos capazes de exercitar comportamentos relevantes e detectar situações em que o sistema não atende aos resultados esperados.
+
+Just et al. (2014) destacam que uma boa suíte de testes é aquela que consegue detectar defeitos reais. Entretanto, medir diretamente essa capacidade é difícil, pois o conjunto de defeitos existentes em um programa geralmente não é conhecido.
+
+Diante dessa dificuldade, pesquisadores utilizam critérios indiretos para avaliar a adequação dos testes. Esses critérios procuram fornecer evidências sobre a capacidade de uma suíte identificar comportamentos incorretos, mesmo quando não existe um conjunto completo de defeitos reais disponível.
+
+Alenezi et al. (2016) investigaram técnicas de avaliação da eficácia de suítes em projetos de código aberto, considerando cobertura de código, inserção de defeitos e análise de mutação.
+
+A avaliação da eficácia deve considerar que diferentes suítes podem apresentar resultados distintos, mesmo quando executam partes semelhantes do programa.
+
+Por exemplo, dois conjuntos de testes podem executar uma mesma função. Entretanto, se apenas um deles verifica corretamente o resultado produzido, a capacidade de identificar um defeito nessa função poderá ser diferente.
+
+Assim, a quantidade de testes ou a proporção de código executada não são suficientes, isoladamente, para determinar a eficácia de uma suíte.
+
+\subsection{Oráculos de Teste}
+
+Um dos elementos necessários para a identificação de defeitos é o oráculo de teste (*test oracle*).
+
+Segundo Zhang et al. (2019), um oráculo de teste é um mecanismo utilizado para determinar se o programa apresenta o comportamento esperado. Na prática, esse mecanismo pode ser implementado por meio de asserções que verificam os resultados produzidos durante a execução.
+
+Uma asserção estabelece uma condição que deve ser satisfeita. Quando o resultado observado não corresponde à condição esperada, o teste pode indicar uma falha.
+
+Entretanto, nem todos os testes possuem verificações suficientes para identificar alterações no comportamento do programa. Um caso de teste pode executar uma função e terminar sem erros, mesmo que o resultado produzido esteja incorreto.
+
+Considere uma função que calcula o valor de um desconto. Um teste pode chamar essa função e verificar apenas se a execução foi concluída. Caso a implementação passe a calcular um valor incorreto, o teste poderá continuar sendo aprovado.
+
+Por outro lado, se o teste comparar o valor retornado com um resultado previamente definido, a alteração poderá ser identificada.
+
+Isso demonstra que a execução de determinado trecho do código não implica necessariamente a verificação de seu comportamento.
+
+A qualidade dos oráculos está diretamente relacionada à capacidade de detecção de defeitos e também influencia os resultados dos testes de mutação. Uma alteração introduzida no código pode ser executada por diversos testes e, ainda assim, permanecer sem detecção caso seus efeitos não sejam verificados.
+
+\subsection{Cobertura de Código}
+
+A cobertura de código é uma das métricas utilizadas para avaliar a abrangência da execução dos testes automatizados. Ela procura indicar quais elementos de um programa foram exercitados durante a execução de uma suíte.
+
+Entre os critérios mais comuns estão a cobertura de linhas ou instruções, que indica a proporção de instruções executadas, e a cobertura de ramos, que considera os diferentes caminhos associados às decisões condicionais.
+
+Esses indicadores permitem identificar regiões do código que não são exercitadas pelos testes. Entretanto, não demonstram diretamente se os resultados produzidos foram verificados.
+
+Zhang et al. (2019) observam que a cobertura de código é amplamente utilizada como indicador da capacidade de detecção de defeitos, embora evidências empíricas mostrem que ela, isoladamente, não representa adequadamente essa capacidade.
+
+Uma suíte pode apresentar elevada cobertura porque executa grande parte do programa, mas possuir verificações insuficientes para identificar alterações no comportamento.
+
+Por exemplo, um teste pode executar ambos os caminhos de uma condição sem verificar os valores retornados por cada um deles. Nesse caso, a cobertura poderá indicar que os caminhos foram exercitados, mas não que seus resultados foram corretamente avaliados.
+
+Dessa forma, a cobertura constitui uma medida importante de abrangência, mas não deve ser interpretada como uma medida direta da eficácia dos testes.
+
+A necessidade de avaliar não apenas o código executado, mas também a capacidade dos testes de detectar alterações em seu comportamento, motiva a utilização de técnicas como os testes de mutação.
+
+\section{Testes de Mutação}
+
+Os testes de mutação (*Mutation Testing*) constituem uma técnica utilizada para avaliar a adequação de suítes de testes por meio da introdução de pequenas alterações artificiais no programa analisado.
+
+Essas alterações produzem versões modificadas do software, denominadas mutantes. A suíte de testes é executada sobre essas versões para verificar se consegue identificar diferenças em relação ao comportamento esperado.
+
+Segundo Just et al. (2014), a análise de mutação permite utilizar defeitos artificiais como uma aproximação para a avaliação da capacidade de detecção de defeitos reais. Essa característica é relevante porque, em muitos sistemas, não existe um conjunto conhecido e completo de defeitos reais que possa ser utilizado como referência.
+
+A técnica também pode ser empregada para identificar pontos fracos em uma suíte, orientar a criação de novos casos de teste e comparar diferentes conjuntos de testes.
+
+\subsection{Fundamentos dos Testes de Mutação}
+
+Os testes de mutação são fundamentados na ideia de que pequenas alterações no código podem representar defeitos que uma suíte adequada deveria ser capaz de identificar.
+
+Luo et al. (2015) apresentam dois pressupostos teóricos relacionados à técnica: a hipótese do programador competente (*Competent Programmer Hypothesis*) e o efeito de acoplamento (*Coupling Effect*).
+
+A hipótese do programador competente considera que desenvolvedores geralmente produzem programas próximos do comportamento correto, de modo que muitos defeitos podem resultar de pequenas alterações na implementação. Assim, modificações simples no código podem ser utilizadas para representar determinados erros de programação.
+
+O efeito de acoplamento está relacionado à possibilidade de que testes capazes de identificar defeitos simples também consigam identificar defeitos mais complexos associados a eles.
+
+Esses pressupostos ajudam a justificar o uso de mutantes na avaliação de suítes, mas não significam que todas as falhas reais possam ser representadas por alterações artificiais.
+
+Just et al. (2014) investigaram essa relação utilizando 357 defeitos reais de cinco projetos de código aberto. Os resultados indicaram uma correlação estatisticamente significativa entre a capacidade de detectar mutantes e a detecção de defeitos reais, mesmo quando considerados os efeitos da cobertura de código.
+
+Entretanto, o estudo também identificou defeitos reais que não apresentaram acoplamento com os mutantes gerados. Esse resultado demonstra que a análise de mutação pode fornecer evidências relevantes sobre a eficácia dos testes, mas não representa integralmente todos os defeitos que podem ocorrer em um software.
+
+\subsection{Processo de Aplicação dos Testes de Mutação}
+
+A aplicação dos testes de mutação envolve a geração de versões modificadas de um programa e a execução de sua suíte de testes sobre essas versões.
+
+De maneira geral, o processo começa com a seleção do programa e da suíte que serão avaliados. Em seguida, operadores de mutação são aplicados ao código-fonte para produzir os mutantes.
+
+Cada mutante representa uma alteração específica na implementação original. Após sua geração, a suíte de testes é executada para verificar se consegue detectar essa modificação.
+
+Quando pelo menos um teste identifica a alteração, normalmente por meio de uma falha em suas verificações, o mutante é classificado como morto (*killed*).
+
+Por outro lado, quando a suíte é executada e não identifica a alteração, o mutante é classificado como sobrevivente (*survived*).
+
+O processo também precisa considerar resultados que não representam uma execução válida. Por exemplo, determinados mutantes podem introduzir erros de compilação ou impedir a inicialização da aplicação. Esses casos precisam ser tratados separadamente, conforme as regras da ferramenta utilizada.
+
+A partir dos resultados das execuções, é possível calcular indicadores quantitativos e identificar regiões do código nas quais a suíte não conseguiu reconhecer as alterações introduzidas.
+
+Zhang et al. (2019) descrevem a análise de mutação como uma forma de avaliar tanto a quantidade de mutantes detectados quanto os tipos de alterações que permanecem sem detecção.
+
+Além disso, a análise pode ser realizada de diferentes maneiras. Na mutação forte (*strong mutation*), a detecção depende de uma diferença observável no comportamento do programa. Na mutação fraca (*weak mutation*), a avaliação pode ocorrer imediatamente após a execução do trecho modificado, verificando diferenças no estado interno.
+
+Kintis, Papadakis e Malevris (2010) investigaram alternativas de testes de mutação, incluindo mutação fraca e estratégias envolvendo mutantes de ordem superior. Os resultados indicaram que determinadas alternativas podem reduzir o esforço necessário para a avaliação, embora a escolha do critério também influencie a interpretação dos resultados.
+
+\subsection{Operadores de Mutação e Tipos de Mutantes}
+
+Os operadores de mutação são regras utilizadas para modificar elementos do código-fonte e gerar versões alternativas do programa.
+
+Essas alterações procuram representar comportamentos incorretos que poderiam surgir durante o desenvolvimento ou a manutenção do software.
+
+Chauhan et al. (2015) destacam que a adequação dos testes de mutação depende dos operadores utilizados, pois diferentes operadores representam diferentes tipos de alterações e defeitos.
+
+Entre os operadores mais conhecidos estão aqueles que modificam expressões aritméticas, operadores relacionais, conectores lógicos e condições de controle.
+
+Um operador de substituição aritmética, por exemplo, pode trocar uma operação de soma por uma subtração. Já um operador relacional pode substituir uma condição que utiliza `>=` por `>`, alterando seu comportamento em determinados valores de entrada.
+
+Operadores lógicos podem substituir conectores como
+\texttt{\&\&} e \texttt{||}, enquanto outros operadores podem remover instruções ou modificar valores constantes.
+
+A escolha dos operadores depende da linguagem de programação, da ferramenta utilizada e das características do sistema investigado.
+
+Os mutantes também podem ser classificados de acordo com a quantidade de alterações realizadas no código.
+
+Os mutantes de primeira ordem (*First-Order Mutants* — FOM) são produzidos pela aplicação de uma única alteração. Já os mutantes de ordem superior (*Higher-Order Mutants* — HOM) combinam duas ou mais alterações em uma mesma versão do programa.
+
+Kintis, Papadakis e Malevris (2010) investigaram estratégias baseadas em mutantes de segunda ordem, que combinam duas alterações. Os autores avaliaram a possibilidade de utilizar essas combinações para reduzir o custo da análise, preservando parte da capacidade de avaliação proporcionada pela técnica tradicional.
+
+Além dessa classificação, os mutantes podem apresentar diferentes comportamentos durante os testes, incluindo equivalência semântica com o programa original e dificuldade de detecção.
+
+Essas características influenciam a interpretação dos resultados e precisam ser consideradas ao avaliar a eficácia de uma suíte.
+
+\subsection{Mutation Score e Avaliação da Eficácia}
+
+O *Mutation Score* é uma das principais métricas utilizadas para avaliar a capacidade de uma suíte de testes detectar os mutantes introduzidos no programa.
+
+A métrica representa a proporção de mutantes mortos em relação ao conjunto de mutantes válidos e não equivalentes considerados na avaliação.
+
+Conforme descrito por Just et al. (2014) e Zhang et al. (2019), seu cálculo pode ser representado pela seguinte expressão:
+
+\textbf{Mutation Score = (Mutantes mortos / Mutantes válidos não equivalentes) $\times$ 100}
+
+Considerando o conjunto de mutantes válidos, a mesma relação pode ser expressa como:
+
+\begin{equation}
+    MS = \frac{K}{M - E} \times 100
+    \label{eq:mutation-score}
+\end{equation}
+
+Em que:
+
+- \textbf{K} representa o número de mutantes mortos;
+- \textbf{M}M representa o total de mutantes válidos;
+- \textbf{E}E representa o número de mutantes equivalentes.
+
+Um resultado de 80\%, por exemplo, indica que a suíte conseguiu detectar 80\% dos mutantes válidos e não equivalentes considerados na avaliação.
+
+Em termos gerais, valores mais elevados indicam maior capacidade de detectar as alterações artificiais introduzidas. Entretanto, o indicador deve ser interpretado considerando os operadores utilizados, as características dos programas e a representatividade dos mutantes gerados.
+
+Outro aspecto importante é que a identificação de mutantes equivalentes nem sempre é possível de forma automática. Quando esses mutantes permanecem no conjunto analisado, o escore observado pode ser inferior ao valor que seria obtido caso todos os equivalentes fossem removidos.
+
+Além disso, diferentes conjuntos de operadores podem gerar mutantes com níveis distintos de dificuldade de detecção. Por esse motivo, a comparação de valores de *Mutation Score* entre projetos ou ferramentas exige atenção às condições em que os resultados foram produzidos.
+
+Just et al. (2014) demonstraram que existe relação entre a detecção de mutantes e a detecção de defeitos reais, mas também identificaram limitações na representatividade das alterações artificiais.
+
+Posteriormente, Petrovic et al. (2021) investigaram o uso dos testes de mutação em projetos industriais do Google, utilizando dados de aproximadamente 15 milhões de mutantes produzidos ao longo de seis anos. Os autores encontraram evidências de que a utilização da técnica pode contribuir para a melhoria das práticas de teste, incentivando a criação de verificações capazes de detectar alterações que anteriormente permaneciam despercebidas.
+
+Os resultados também forneceram evidências sobre a relação entre mutantes e defeitos reais, reforçando a utilidade da análise de mutação como mecanismo de avaliação.
+
+Contudo, o \textbf{Mutation Score} não deve ser interpretado como uma medida direta da quantidade de defeitos reais que uma suíte conseguiria identificar. Ele representa o desempenho observado diante de um conjunto específico de alterações artificiais.
+
+Assim, sua utilização é mais adequada quando acompanhada de informações adicionais, como cobertura de código, quantidade de mutantes sobreviventes, tipos de operadores aplicados e características dos testes avaliados.
+
+\subsection{Sobrevivência de Mutantes e Modelo RIP}
+
+A sobrevivência de um mutante ocorre quando a suíte de testes não consegue identificar a alteração introduzida no programa.
+
+Entretanto, um mutante sobrevivente não representa necessariamente uma deficiência da suíte. Existem diferentes fatores que podem explicar esse resultado.
+
+Uma das formas de compreender esse comportamento é por meio do modelo RIP, formado pelas condições de alcance (*Reachability*), infecção (*Infection*) e propagação (*Propagation*).
+
+Zhang et al. (2019) utilizam essas condições para explicar os fatores envolvidos na detecção de mutantes.
+
+A primeira condição é o alcance. Para que um teste consiga detectar uma alteração, ele precisa executar a região do código na qual o mutante foi introduzido. Caso nenhum teste alcance esse trecho, o mutante não poderá ser detectado pela suíte.
+
+A segunda condição é a infecção. Mesmo quando o trecho modificado é executado, a alteração precisa produzir alguma diferença no estado do programa em relação à versão original.
+
+Uma modificação pode ser executada sem alterar o estado produzido para determinada entrada. Nesse caso, o teste não encontrará diferença a ser identificada.
+
+A terceira condição é a propagação. A diferença produzida no estado interno precisa alcançar algum resultado observável que possa ser verificado pelos testes.
+
+Mesmo que uma alteração produza um estado interno diferente, ela poderá permanecer sem detecção caso seus efeitos não sejam propagados até uma saída ou condição verificada.
+
+Portanto, a detecção de um mutante depende da execução da região modificada, da produção de uma diferença de comportamento e da existência de verificações capazes de reconhecer essa diferença.
+
+Esse modelo ajuda a explicar por que uma suíte pode apresentar cobertura elevada e ainda possuir mutantes sobreviventes.
+
+Além dessas condições, existem os mutantes equivalentes. Um mutante é considerado equivalente quando a alteração sintática não modifica o comportamento observável do programa para nenhuma entrada possível.
+
+Como não existe diferença de comportamento a ser identificada, esses mutantes não podem ser mortos por testes que avaliam a equivalência funcional entre as versões.
+
+A identificação de equivalência é um dos problemas mais conhecidos da análise de mutação, pois determinar automaticamente se dois programas apresentam exatamente o mesmo comportamento é, no caso geral, um problema indecidível.
+
+Também existem os mutantes difíceis de matar, frequentemente denominados *stubborn mutants*. Diferentemente dos equivalentes, esses mutantes possuem comportamentos que podem ser distinguidos do programa original, mas exigem condições específicas para que a diferença seja observada.
+
+Zhang et al. (2019) discutem como características dos operadores, das entradas e dos oráculos podem influenciar a dificuldade de detecção.
+
+Dessa forma, a análise dos mutantes sobreviventes deve considerar se a alteração foi alcançada, se produziu diferenças no estado e se essas diferenças poderiam ser observadas pelos testes.
+
+Essa avaliação permite compreender melhor as limitações da suíte, em vez de considerar todos os sobreviventes como evidência de testes inadequados.
+
+\subsection{Limitações e Estratégias de Redução de Custos}
+
+Embora os testes de mutação forneçam informações relevantes sobre a eficácia das suítes, sua aplicação apresenta limitações práticas.
+
+Um dos principais desafios é o custo computacional. Dependendo do tamanho do programa e da quantidade de operadores utilizados, milhares de mutantes podem ser gerados. A necessidade de executar os testes sobre essas versões pode aumentar significativamente o tempo necessário para concluir a avaliação.
+
+Zhang et al. (2019) destacam que esse custo constitui um dos principais obstáculos à adoção da técnica em larga escala.
+
+Além do processamento, a análise também pode exigir esforço humano, especialmente para investigar mutantes sobreviventes, identificar possíveis equivalências e compreender as alterações que não foram detectadas.
+
+Diante dessas limitações, diferentes estratégias têm sido propostas para reduzir a quantidade de mutantes avaliados ou diminuir o custo de sua execução.
+
+Uma dessas estratégias é a seleção de mutantes, que procura utilizar apenas uma parte do conjunto gerado.
+
+Zhang et al. (2010) compararam técnicas de seleção baseadas em operadores com estratégias de seleção aleatória. Os resultados do estudo não demonstraram superioridade geral das técnicas baseadas em operadores, indicando que a seleção aleatória também pode constituir uma alternativa adequada em determinados contextos.
+
+Outra possibilidade é utilizar informações históricas do software para orientar a seleção.
+
+Inozemtseva, Hemmati e Holmes (2013) investigaram uma estratégia baseada no histórico de defeitos dos arquivos. A proposta consiste em priorizar mutantes gerados em regiões do código que apresentaram maior quantidade de defeitos anteriormente, buscando preservar alterações com maior probabilidade de revelar limitações da suíte.
+
+Também existem abordagens que procuram evitar parte das execuções por meio de modelos preditivos.
+
+Zhang et al. (2019) propuseram o *Predictive Mutation Testing* (PMT), que utiliza características dos mutantes e dos testes para estimar se uma alteração seria detectada, sem necessariamente executar cada mutante. A abordagem foi avaliada em 163 projetos reais, apresentando reduções significativas no custo computacional, acompanhadas de perdas limitadas de precisão nas condições investigadas.
+
+Essas estratégias possuem objetivos e limitações distintos. Métodos de seleção podem reduzir a quantidade de mutantes analisados, mas também podem excluir alterações relevantes. Já abordagens preditivas introduzem incerteza, pois seus resultados representam estimativas de execução.
+
+Por esse motivo, a redução de custos precisa ser considerada juntamente com seus possíveis efeitos sobre a validade e a interpretação das métricas.
+
+Outro desafio está relacionado à representatividade dos defeitos artificiais.
+
+Khanfir et al. (2023) apresentaram o iBiR, uma abordagem de injeção de falhas orientada por relatos de defeitos. Diferentemente da geração tradicional, a ferramenta procura produzir alterações relacionadas a funcionalidades e padrões associados a problemas reais.
+
+Os autores observaram que essa estratégia pode produzir falhas artificiais mais próximas de determinados defeitos reais, demonstrando que a escolha das alterações introduzidas influencia a capacidade da técnica de representar comportamentos incorretos.
+
+Portanto, a utilização dos testes de mutação exige decisões sobre operadores, ferramentas, quantidade de mutantes e estratégias de execução. Essas decisões devem considerar tanto a viabilidade computacional quanto a capacidade da avaliação de produzir resultados confiáveis.
+
+\section{Testes de Mutação no Contexto de Aplicações Web}
+
+As aplicações web apresentam características que influenciam a construção e a execução dos testes automatizados. Esses sistemas frequentemente possuem componentes distribuídos entre cliente e servidor, dependências de serviços externos e diferentes formas de interação com os usuários.
+
+A verificação de seu comportamento pode envolver desde o teste de funções isoladas até a execução de fluxos completos por meio de navegadores.
+
+Essas diferenças também afetam a aplicação dos testes de mutação, pois o tipo de alteração introduzida e a possibilidade de detectá-la dependem dos componentes avaliados e das características das suítes disponíveis.
+
+\subsection{Particularidades dos Testes em Aplicações Web}
+
+Em aplicações web, uma mesma funcionalidade pode depender de diferentes componentes, como interfaces, APIs, regras de negócio e bancos de dados.
+
+Consequentemente, os testes podem ser elaborados para verificar comportamentos específicos ou interações entre diversos componentes.
+
+Nos testes unitários, a execução normalmente é direcionada a componentes menores. Já os testes de ponta a ponta procuram reproduzir fluxos mais próximos da utilização real do sistema.
+
+Nesses últimos, alterações no estado da interface, operações assíncronas, comunicação com serviços e dependências externas podem interferir nos resultados.
+
+A análise da eficácia dessas suítes exige considerar quais comportamentos são efetivamente verificados. Um teste que percorre determinado fluxo da aplicação não necessariamente identifica todas as alterações incorretas que podem ocorrer durante sua execução.
+
+Assim, a avaliação baseada apenas na execução dos testes ou em sua cobertura pode não ser suficiente para identificar limitações na capacidade de detecção.
+
+Os testes de mutação oferecem uma alternativa para investigar essa capacidade, pois permitem modificar o comportamento do programa e observar se os testes existentes identificam a alteração.
+
+Entretanto, a aplicação da técnica depende da disponibilidade de operadores compatíveis com a linguagem e os componentes avaliados, além da possibilidade de executar as suítes de maneira reproduzível.
+
+\subsection{Avaliação de Suítes em Projetos de Código Aberto}
+
+Os projetos de código aberto constituem uma fonte relevante de artefatos para pesquisas em Engenharia de Software. A disponibilidade do código-fonte e, em muitos casos, das suítes automatizadas permite realizar avaliações sem a necessidade de acesso a sistemas proprietários.
+
+Alenezi et al. (2016) investigaram a eficácia de suítes em projetos de código aberto, utilizando técnicas como cobertura de código e análise de mutação. O estudo demonstra a possibilidade de empregar sistemas existentes como objetos de avaliação.
+
+Da mesma forma, Just et al. (2014) utilizaram projetos de código aberto e defeitos reais previamente identificados para investigar a relação entre mutantes e a capacidade de detecção dos testes.
+
+Essas pesquisas demonstram que repositórios públicos podem fornecer artefatos relevantes para avaliações empíricas. Entretanto, a disponibilidade de um repositório não garante que suas suítes possam ser executadas diretamente.
+
+Diferenças de ambiente, dependências, versões de ferramentas e configurações específicas podem dificultar a reprodução dos testes.
+
+Além disso, a seleção dos projetos precisa considerar sua adequação à questão investigada. No caso de aplicações web, é necessário verificar se os repositórios selecionados realmente representam esse domínio e se possuem condições técnicas para a aplicação dos testes de mutação.
+
+A utilização de projetos com características diferentes pode permitir a comparação dos resultados em contextos variados, mas também exige atenção aos fatores que influenciam as métricas.
+
+Nesse cenário, a mineração de repositórios fornece os meios para selecionar e obter os artefatos necessários, enquanto a análise de mutação permite investigar a capacidade das suítes de detectar alterações introduzidas artificialmente.
+
+A combinação dessas abordagens possibilita uma avaliação quantitativa baseada em projetos existentes, considerando indicadores como *Mutation Score*, quantidade de mutantes mortos e sobreviventes, cobertura de código e custo de execução.
+
+Os resultados, entretanto, devem ser interpretados dentro das condições em que foram obtidos, respeitando as características dos projetos selecionados, dos operadores empregados e das suítes analisadas.
+
+Dessa forma, os fundamentos apresentados neste capítulo fornecem a base conceitual para a revisão da literatura e para o planejamento da investigação empírica desenvolvida nas etapas seguintes deste trabalho.
