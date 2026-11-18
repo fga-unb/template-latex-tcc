@@ -193,9 +193,9 @@ A aplicação dos testes de mutação envolve a geração de versões modificada
 
 \citeonline{ammann2016} apresentam um processo que começa com a seleção do programa a ser testado e a geração dos mutantes. Em seguida, podem ser utilizadas técnicas para identificar e eliminar mutantes equivalentes. Os casos de teste são executados inicialmente sobre o programa original e, posteriormente, sobre as versões modificadas.
 
-Quando um caso de teste produz um resultado observável diferente entre o programa original e um mutante, considera-se que esse mutante foi morto (\textit{killed}). Após sua detecção, não é necessário continuar executando outros testes sobre ele para satisfazer o requisito de mutação correspondente.
+Quando um caso de teste produz um resultado observável diferente entre o programa original e um mutante, considera-se que esse mutante foi \textbf{morto} (\textit{killed}). Após sua detecção, não é necessário continuar executando outros testes sobre ele para satisfazer o requisito de mutação correspondente.
 
-Por outro lado, um mutante é classificado como sobrevivente (\textit{survived}) quando nenhum dos testes executados consegue distinguir seu comportamento daquele apresentado pelo programa original. A sobrevivência indica que a alteração não foi detectada pela suíte nas condições avaliadas, mas não permite concluir, isoladamente, que os testes sejam inadequados.
+Por outro lado, um mutante é classificado como \textbf{sobrevivente} (\textit{survived}) quando nenhum dos testes executados consegue distinguir seu comportamento daquele apresentado pelo programa original. A sobrevivência indica que a alteração não foi detectada pela suíte nas condições avaliadas, mas não permite concluir, isoladamente, que os testes sejam inadequados.
 
 Isso ocorre porque existem diferentes situações que podem resultar na sobrevivência de um mutante. A suíte pode não executar a região modificada, a alteração pode não produzir diferenças no estado do programa para as entradas utilizadas ou seus efeitos podem não alcançar um resultado observado pelos testes.
 
@@ -225,9 +225,9 @@ Os testes de mutação podem ser classificados de acordo com o momento em que as
 
 O alcance ocorre quando um caso de teste executa a região do código na qual a alteração foi introduzida. A infecção ocorre quando essa alteração produz uma diferença no estado interno do programa. Por fim, a propagação ocorre quando essa diferença alcança um resultado observável da execução.
 
-Na mutação forte (\textit{Strong Mutation}), um mutante é considerado morto quando um caso de teste produz um resultado observável diferente daquele apresentado pelo programa original. Dessa forma, a detecção depende das condições de alcance, infecção e propagação.
+Na \textbf{mutação forte} (\textit{Strong Mutation}), um mutante é considerado morto quando um caso de teste produz um resultado observável diferente daquele apresentado pelo programa original. Dessa forma, a detecção depende das condições de alcance, infecção e propagação.
 
-Já na mutação fraca (\textit{Weak Mutation}), a avaliação ocorre imediatamente após a execução do trecho modificado. Nesse caso, o mutante pode ser considerado morto quando a alteração produz uma diferença no estado interno do programa, mesmo que essa diferença não seja propagada até a saída final.
+Já na \textbf{mutação fraca} (\textit{Weak Mutation}), a avaliação ocorre imediatamente após a execução do trecho modificado. Nesse caso, o mutante pode ser considerado morto quando a alteração produz uma diferença no estado interno do programa, mesmo que essa diferença não seja propagada até a saída final.
 
 Segundo \citeonline{ammann2016}, a mutação fraca exige apenas que o trecho modificado seja alcançado e produza uma diferença no estado do programa. Já a mutação forte também exige que essa diferença seja propagada até um resultado observável.
 
@@ -241,11 +241,11 @@ Segundo \citeonline{ammann2016}, os operadores são geralmente desenvolvidos com
 
 Os autores apresentam diferentes operadores aplicáveis ao código-fonte, entre eles aqueles que modificam expressões aritméticas, relacionais, condicionais, atribuições e referências a variáveis.
 
-O operador de substituição aritmética (\textit{Arithmetic Operator Replacement} -- AOR), por exemplo, modifica operadores como soma, subtração, multiplicação e divisão. Assim, uma expressão como \texttt{x = a + b} pode ser modificada para \texttt{x = a - b}, produzindo um comportamento diferente para determinadas entradas.
+O \textbf{operador de substituição aritmética} (\textit{Arithmetic Operator Replacement} -- AOR), por exemplo, modifica operadores como soma, subtração, multiplicação e divisão. Assim, uma expressão como \texttt{x = a + b} pode ser modificada para \texttt{x = a - b}, produzindo um comportamento diferente para determinadas entradas.
 
-O operador de substituição relacional (\textit{Relational Operator Replacement} -- ROR) altera operadores utilizados em comparações, como \texttt{>}, \texttt{<}, \texttt{>=} e \texttt{<=}. Essas modificações permitem avaliar se os testes conseguem identificar alterações nas condições de decisão do programa.
+O \textbf{operador de substituição relacional} (\textit{Relational Operator Replacement} -- ROR) altera operadores utilizados em comparações, como \texttt{>}, \texttt{<}, \texttt{>=} e \texttt{<=}. Essas modificações permitem avaliar se os testes conseguem identificar alterações nas condições de decisão do programa.
 
-Outro exemplo é o operador de substituição condicional (\textit{Conditional Operator Replacement} -- COR), que modifica conectores lógicos utilizados nas expressões condicionais. Uma condição que utiliza o operador \texttt{\&\&}, por exemplo, pode ser modificada para utilizar \texttt{||}, alterando as condições necessárias para que determinada expressão seja considerada verdadeira.
+Outro exemplo é o \textbf{operador de substituição condicional} (\textit{Conditional Operator Replacement} -- COR), que modifica conectores lógicos utilizados nas expressões condicionais. Uma condição que utiliza o operador \texttt{\&\&}, por exemplo, pode ser modificada para utilizar \texttt{||}, alterando as condições necessárias para que determinada expressão seja considerada verdadeira.
 
 Além desses, \citeonline{ammann2016} apresentam operadores de inserção e remoção de operadores unários, substituição de operadores de atribuição e substituição de referências a variáveis.
 
@@ -253,13 +253,13 @@ Existem também operadores desenvolvidos para exigir determinados comportamentos
 
 Os exemplos demonstram que os operadores não possuem necessariamente a mesma finalidade. Enquanto alguns representam alterações semelhantes a possíveis erros de programação, outros são utilizados para exigir que determinados elementos do código sejam exercitados ou verificados pelos testes.
 
-Os mutantes também podem ser classificados de acordo com a quantidade de alterações introduzidas. Os mutantes de primeira ordem (\textit{First-Order Mutants} -- FOM) são produzidos pela aplicação de uma única alteração, enquanto os mutantes de ordem superior (\textit{Higher-Order Mutants} -- HOM) combinam duas ou mais alterações em uma mesma versão do programa.
+Os mutantes também podem ser classificados de acordo com a quantidade de alterações introduzidas. Os \textbf{mutantes de primeira ordem} (\textit{First-Order Mutants} -- FOM) são produzidos pela aplicação de uma única alteração, enquanto os \textbf{mutantes de ordem superior} (\textit{Higher-Order Mutants} -- HOM) combinam duas ou mais alterações em uma mesma versão do programa.
 
 \citeonline{ammann2016} destacam que a aplicação de uma alteração por mutante é geralmente preferida na mutação de programas, embora existam situações em que combinações de alterações possam ser úteis.
 
 A escolha e a quantidade dos operadores também influenciam o custo da análise. Dependendo das características do programa, sua aplicação pode produzir um grande número de mutantes, exigindo diversas execuções da suíte de testes.
 
-Nesse contexto, \citeonline{ammann2016} apresentam duas abordagens gerais para reduzir a quantidade de mutantes avaliados: a amostragem aleatória, que seleciona parte dos mutantes gerados, e a mutação seletiva (\textit{Selective Mutation}), que utiliza um conjunto reduzido de operadores considerados eficazes.
+Nesse contexto, \citeonline{ammann2016} apresentam duas abordagens gerais para reduzir a quantidade de mutantes avaliados: a \textbf{amostragem aleatória}, que seleciona parte dos mutantes gerados, e a \textbf{mutação seletiva} (\textit{Selective Mutation}), que utiliza um conjunto reduzido de operadores considerados eficazes.
 
 Dessa forma, a definição dos operadores deve considerar a linguagem de programação, as características do sistema e os objetivos da avaliação.
 
