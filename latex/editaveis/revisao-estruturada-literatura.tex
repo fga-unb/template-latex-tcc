@@ -418,7 +418,7 @@ As abordagens emergentes são \textbf{ferramentas de pesquisa}, quase todas rest
 
 \subsubsection{Síntese e implicações}
 
-Em síntese, a maturidade das ferramentas diminui à medida que se afasta de Java. As \textbf{ferramentas consolidadas} são o PIT e o Major, para Java, o Proteum, para C, e o sistema interno do Google, e nenhuma delas foi concebida para avaliar a interface de aplicações web. Para web, a única ferramenta disponível e aplicável a aplicações modernas é o MAEWU, ainda classificada como \textbf{ferramenta de pesquisa}, com uma única avaliação publicada na revisão. As ferramentas emergentes, como o DeepMutation e o iBiR, estão disponíveis, mas restritas a Java. Esses resultados sugerem combinar uma ferramenta consolidada para o código Java da aplicação, como o PIT, com o MAEWU para a camada de interface, decisão que deve ser confirmada no capítulo de proposta.
+Em síntese, a maturidade das ferramentas diminui à medida que se afasta de Java. As \textbf{ferramentas consolidadas} são o PIT e o Major, para Java, o Proteum, para C, e o sistema interno do Google, e nenhuma delas foi concebida para avaliar a interface de aplicações web. Para web, a única ferramenta disponível e aplicável a aplicações modernas é o MAEWU, ainda classificada como \textbf{ferramenta de pesquisa}, com uma única avaliação publicada na revisão. As ferramentas emergentes, como o DeepMutation e o iBiR, estão disponíveis, mas restritas a Java. 
 
 \subsection[Principais limitações e desafios práticos]{Quais são as principais limitações e desafios práticos identificados na aplicação de testes de mutação em aplicações web?}
 \label{subsec:limitacoes-desafios}
@@ -487,7 +487,7 @@ Vários estudos avaliam suas técnicas em amostras pequenas. \citeonline{assylbe
 \subsubsection{Síntese e implicações}
 \label{subsubsec:sintese-implicacoes}
 
-Em síntese, o custo de execução e os mutantes equivalentes são limitações quase universais, presentes em estudos de todas as linguagens e ferramentas, e serão enfrentados em qualquer aplicação web. Para a web, os estudos acrescentam obstáculos próprios: dados dinâmicos que geram mutantes quase equivalentes, fragilidade dos localizadores das suítes de interface, reimplantação a cada mutante em servidores de aplicação, dependência de serviços externos e ferramentas indisponíveis ou inaplicáveis. A evidência sobre esses obstáculos é pequena, pois se apoia em quatro estudos e em amostras reduzidas. Esses resultados sugerem que a solução proposta deva limitar o número de mutantes por aplicação, como faz o MAEWU com 50 mutantes, priorizar código alterado ou coberto, tratar equivalentes com revisão manual por mais de um avaliador e reportar o \textit{mutation score} junto de métricas complementares, decisões que devem ser confirmadas no capítulo de proposta.
+Em síntese, o custo de execução e os mutantes equivalentes são limitações quase universais, presentes em estudos de todas as linguagens e ferramentas, e serão enfrentados em qualquer aplicação web. Para a web, os estudos acrescentam obstáculos próprios: dados dinâmicos que geram mutantes quase equivalentes, fragilidade dos localizadores das suítes de interface, reimplantação a cada mutante em servidores de aplicação, dependência de serviços externos e ferramentas indisponíveis ou inaplicáveis. A evidência sobre esses obstáculos é pequena, pois se apoia em quatro estudos e em amostras reduzidas. Esses resultados sugerem que a solução proposta deva limitar o número de mutantes por aplicação, como faz o MAEWU com 50 mutantes, priorizar código alterado ou coberto, tratar equivalentes com revisão manual por mais de um avaliador e reportar o \textit{mutation score} junto de métricas complementares.
 
 \subsection[Estratégias para reduzir os custos]{Quais estratégias são propostas na literatura para reduzir os custos e mitigar as limitações da aplicação de testes de mutação em aplicações web?}
 \label{subsec:estrategias-reducao}
@@ -497,7 +497,7 @@ Dos 36 estudos com dados extraídos, 31 propõem ou avaliam ao menos uma estrat�
 \begin{table}[H]
     \centering
     \footnotesize
-    \caption{Estratégias para reduzir custos e mitigar limitações, reportadas nos estudos primários}
+    \caption{Estratégias para reduzir custos e mitigar limitações}
     \label{tab:estrategias-reducao}
     \begin{tabular}{|p{3.1cm}|p{3.8cm}|p{4.6cm}|p{2.5cm}|}
         \hline
