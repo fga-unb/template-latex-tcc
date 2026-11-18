@@ -443,23 +443,49 @@ Em síntese, a maturidade das ferramentas diminui à medida que se afasta de Jav
 
 Dos 36 estudos com dados extraídos, 33 relatam ao menos uma limitação ou desafio na aplicação do teste de mutação. Como somente quatro tratam de tecnologias web \cite{yandrapally2021, esterobotaro2010, nica2011, belli2011}, a maior parte das limitações vem de estudos sobre Java, C e Python. Elas são apresentadas aqui porque valem também para o contexto web, em especial o custo de execução e os mutantes equivalentes. Os desafios foram agrupados em seis temas (Tabela~\ref{tab:desafios-limitacoes}), e um mesmo estudo pode aparecer em mais de um deles. Os dois mais frequentes são o custo computacional, relatado em 22 estudos, e os mutantes equivalentes, em 20.
 
-\begin{table}[htb]
-    \centering
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt} % Ajusta o espaçamento interno lateral das células
+\begin{longtable}{|p{2.2cm}|p{2.3cm}|p{3.2cm}|p{3.3cm}|}
     \caption{Principais limitações e desafios reportados nos estudos primários e estratégias de mitigação}
-    \label{tab:desafios-limitacoes}
-    \begin{tabularx}{0.95\textwidth}{|p{2.2cm}|p{2.3cm}|p{3.2cm}|p{3.3cm}|}
-        \hline
-        \textbf{Tema} & \textbf{Estudos (exemplos)} & \textbf{Limitação ou desafio} & \textbf{Estratégias reportadas} \\ \hline
-        Especificidades de tecnologias web & \citeonline{yandrapally2021, esterobotaro2010, nica2011, belli2011} & Dados dinâmicos, fragilidade de localizadores, severidade de mutantes de estilo, serviços web indisponíveis, reimplantação a cada mutante & Mutação do DOM dinâmico, mockups de serviços, automação da reimplantação \\ \hline
-        Custo computacional & \citeonline{just2012, nica2011, petrovic2021, grano2019, guizzo2022} & Grande número de mutantes e de execuções de testes & Seleção de operadores, amostragem, mutação fraca, mutação de ordem superior, mutação apenas do código alterado, previsão do escore \\ \hline
-        Mutantes equivalentes & \citeonline{yao2014, he2024, ahmed2016, zhang2019} & Problema indecidível, com análise manual custosa e sujeita a erro & Revisão manual por mais de um avaliador, \textit{solver} de restrições, cálculo do escore sobre mutantes não equivalentes \\ \hline
-        Mutantes redundantes & \citeonline{ashong2026, kurtz2016, kuroishi2020, just2012} & Mutantes mortos pelos mesmos testes inflam o conjunto e distorcem o escore & Subsunção, mutantes dominadores, arcos primitivos \\ \hline
-        Representatividade dos mutantes e das métricas & \citeonline{just2014, tufano2020, khanfir2023, ashong2026} & Falhas reais sem mutante acoplado; mutantes pouco realistas; escore isolado & Novos operadores, mutação guiada por relatos de \textit{bugs}, seleção por histórico de defeitos \\ \hline
-        Ferramentas, adoção e validade dos estudos & \citeonline{ramler2012, petrovic2021, tufano2020, assylbekov2013} & Falhas das ferramentas, esforço de configuração, sobrecarga dos desenvolvedores, amostras pequenas & Regras de supressão, limite de mutantes por arquivo, \textit{corpora} variados e múltiplas repetições \\ \hline
-    \end{tabularx}
-    \fonte{Autor (2026).}
-\end{table}
+    \label{tab:desafios-limitacoes} \\
+    
+    % --- Cabeçalho da PRIMEIRA página ---
+    \hline
+    \textbf{Tema} & \textbf{Estudos (exemplos)} & \textbf{Limitação ou desafio} & \textbf{Estratégias reportadas} \\ 
+    \hline
+    \endfirsthead
 
+    % --- Cabeçalho das PÁGINAS SEGUINTES ---
+    \multicolumn{4}{c}{\footnotesize\textit{Continuação da Tabela~\ref{tab:desafios-limitacoes}}} \\
+    \hline
+    \textbf{Tema} & \textbf{Estudos (exemplos)} & \textbf{Limitação ou desafio} & \textbf{Estratégias reportadas} \\ 
+    \hline
+    \endhead
+
+    % --- Rodapé intermediário ---
+    \hline
+    \endfoot
+
+    % --- Rodapé FINAL ---
+    \hline
+    \multicolumn{4}{c}{\footnotesize Fonte: Autor (2026).} \\
+    \endlastfoot
+
+    % --- Conteúdo da tabela ---
+    Especificidades de tecnologias web & \citeonline{yandrapally2021, esterobotaro2010, nica2011, belli2011} & Dados dinâmicos, fragilidade de localizadores, severidade de mutantes de estilo, serviços web indisponíveis, reimplantação a cada mutante & Mutação do DOM dinâmico, mockups de serviços, automação da reimplantação \\ 
+    \hline
+    Custo computacional & \citeonline{just2012, nica2011, petrovic2021, grano2019, guizzo2022} & Grande número de mutantes e de execuções de testes & Seleção de operadores, amostragem, mutação fraca, mutação de ordem superior, mutação apenas do código alterado, previsão do escore \\ 
+    \hline
+    Mutantes equivalentes & \citeonline{yao2014, he2024, ahmed2016, zhang2019} & Problema indecidível, com análise manual custosa e sujeita a erro & Revisão manual por mais de um avaliador, \textit{solver} de restrições, cálculo do escore sobre mutantes não equivalentes \\ 
+    \hline
+    Mutantes redundantes & \citeonline{ashong2026, kurtz2016, kuroishi2020, just2012} & Mutantes mortos pelos mesmos testes inflam o conjunto e distorcem o escore & Subsunção, mutantes dominadores, arcos primitivos \\ 
+    \hline
+    Representatividade dos mutantes e das métricas & \citeonline{just2014, tufano2020, khanfir2023, ashong2026} & Falhas reais sem mutante acoplado; mutantes pouco realistas; escore isolado & Novos operadores, mutação guiada por relatos de \textit{bugs}, seleção por histórico de defeitos \\ 
+    \hline
+    Ferramentas, adoção e validade dos estudos & \citeonline{ramler2012, petrovic2021, tufano2020, assylbekov2013} & Falhas das ferramentas, esforço de configuração, sobrecarga dos desenvolvedores, amostras pequenas & Regras de supressão, limite de mutantes por arquivo, \textit{corpora} variados e múltiplas repetições \\ 
+\end{longtable}
+\endgroup
 \subsubsection{Limitações específicas de tecnologias web}
 \label{subsubsec:limitacoes-web}
 
