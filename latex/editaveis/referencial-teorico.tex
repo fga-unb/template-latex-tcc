@@ -159,8 +159,6 @@ Essa limitação também é discutida por \citeonline{just2014}, que investigara
 
 Dessa forma, a cobertura constitui uma medida importante de abrangência, mas não deve ser interpretada como uma medida direta da eficácia dos testes. A necessidade de avaliar não apenas o código executado, mas também a capacidade dos testes de detectar alterações em seu comportamento, motiva a utilização de técnicas como os testes de mutação.
 
-
-
 \section{Testes de Mutação}
 
 Os testes de mutação (\textit{Mutation Testing}) constituem uma técnica utilizada para avaliar a adequação de suítes de testes por meio da introdução de alterações artificiais em um programa. Segundo \citeonline{ammann2016}, a técnica faz parte dos critérios de teste baseados em sintaxe, nos quais regras de transformação são utilizadas para produzir variações de um artefato de software.
@@ -292,48 +290,20 @@ Outro aspecto importante é a escolha dos operadores de mutação. Diferentes co
 
 A relação entre detecção de mutantes e defeitos reais também é importante para a interpretação dessa métrica. \citeonline{just2014} discutem a utilização de mutantes como uma aproximação para avaliar a capacidade de detecção de defeitos reais, embora reconheçam que nem todos os defeitos possam ser representados pelas alterações artificiais disponíveis.
 
-Portanto, o \textit{Mutation Score} não deve ser interpretado como uma medida direta da quantidade de defeitos reais que uma suíte conseguiria identificar. Ele representa o desempenho observado diante de um conjunto específico de alterações artificiais.
-
 Dessa forma, sua interpretação pode ser complementada por informações como cobertura de código, quantidade de mutantes sobreviventes, operadores aplicados e características dos casos de teste avaliados. Esses indicadores permitem compreender melhor os resultados da avaliação e identificar possíveis limitações das suítes automatizadas.
 
-\subsection{Particularidades dos Testes em Aplicações Web}
+\section{Testes de Mutação no Contexto de Aplicações Web}
 
-Em aplicações web, uma mesma funcionalidade pode depender de diferentes componentes, como interfaces, APIs, regras de negócio e bancos de dados.
+Em aplicações web, uma funcionalidade pode envolver o processamento de dados no servidor e a atualização da interface no navegador. Essas etapas oferecem diferentes pontos de observação para os testes automatizados. Uma suíte pode verificar, por exemplo, os dados retornados por uma requisição, a navegação entre páginas ou o conteúdo apresentado ao usuário. Para avaliar a eficácia da suíte por meio de testes de mutação, é preciso considerar em que parte da aplicação a alteração é introduzida e em que ponto seus efeitos podem ser observados \cite{li2014webtesting}.
 
-Consequentemente, os testes podem ser elaborados para verificar comportamentos específicos ou interações entre diversos componentes.
+\subsection{Comportamento e Observabilidade em Testes Web}
 
-Nos testes unitários, a execução normalmente é direcionada a componentes menores. Já os testes de ponta a ponta procuram reproduzir fluxos mais próximos da utilização real do sistema.
+\citeonline{li2014webtesting} destacam que aplicações web interativas podem atualizar o conteúdo da interface sem recarregar a página. Quando a atualização depende de uma operação assíncrona, a ação do usuário e a apresentação do resultado ocorrem em momentos distintos. Nesse caso, a verificação depende tanto do estado escolhido como resultado esperado quanto do momento em que o oráculo de teste é consultado. Ao verificar uma mensagem de confirmação, por exemplo, o teste precisa aguardar que a interface apresente o resultado do processamento.
 
-Nesses últimos, alterações no estado da interface, operações assíncronas, comunicação com serviços e dependências externas podem interferir nos resultados.
+O ponto de observação também influencia quais efeitos de uma alteração podem ser detectados. Considere um mutante que modifica a mensagem retornada pelo servidor após o envio de um formulário. Um teste de API que verifica o conteúdo da resposta pode detectar essa alteração diretamente. Se a mesma mensagem for exibida na interface, um teste de ponta a ponta também pode detectá-la ao verificar o texto apresentado. Caso o teste verifique apenas a navegação para a página seguinte e essa navegação permaneça igual, o mutante pode sobreviver mesmo com a execução do fluxo afetado.
 
-A análise da eficácia dessas suítes exige considerar quais comportamentos são efetivamente verificados. Um teste que percorre determinado fluxo da aplicação não necessariamente identifica todas as alterações incorretas que podem ocorrer durante sua execução.
+\subsection{Escopo da Mutação em Aplicações Web}
 
-Assim, a avaliação baseada apenas na execução dos testes ou em sua cobertura pode não ser suficiente para identificar limitações na capacidade de detecção.
+As alterações introduzidas pelos operadores de mutação podem incidir sobre a lógica interna de um componente ou sobre elementos que determinam a interação entre partes da aplicação. No primeiro caso, uma alteração em uma condição pode modificar o resultado de uma regra de negócio. No segundo, uma alteração pode modificar o destino de um link ou o endereço para o qual um formulário é enviado. Ao discutir testes de mutação em aplicações web, \citeonline{li2014webtesting} apresentam operadores desse segundo tipo, voltados a elementos que participam da navegação e do envio de dados entre cliente e servidor.
 
-Os testes de mutação oferecem uma alternativa para investigar essa capacidade, pois permitem modificar o comportamento do programa e observar se os testes existentes identificam a alteração.
-
-Entretanto, a aplicação da técnica depende da disponibilidade de operadores compatíveis com a linguagem e os componentes avaliados, além da possibilidade de executar as suítes de maneira reproduzível.
-
-\subsection{Avaliação de Suítes em Projetos de Código Aberto}
-
-Os projetos de código aberto constituem uma fonte relevante de artefatos para pesquisas em Engenharia de Software. A disponibilidade do código-fonte e, em muitos casos, das suítes automatizadas permite realizar avaliações sem a necessidade de acesso a sistemas proprietários.
-
-Alenezi et al. (2016) investigaram a eficácia de suítes em projetos de código aberto, utilizando técnicas como cobertura de código e análise de mutação. O estudo demonstra a possibilidade de empregar sistemas existentes como objetos de avaliação.
-
-Da mesma forma, Just et al. (2014) utilizaram projetos de código aberto e defeitos reais previamente identificados para investigar a relação entre mutantes e a capacidade de detecção dos testes.
-
-Essas pesquisas demonstram que repositórios públicos podem fornecer artefatos relevantes para avaliações empíricas. Entretanto, a disponibilidade de um repositório não garante que suas suítes possam ser executadas diretamente.
-
-Diferenças de ambiente, dependências, versões de ferramentas e configurações específicas podem dificultar a reprodução dos testes.
-
-Além disso, a seleção dos projetos precisa considerar sua adequação à questão investigada. No caso de aplicações web, é necessário verificar se os repositórios selecionados realmente representam esse domínio e se possuem condições técnicas para a aplicação dos testes de mutação.
-
-A utilização de projetos com características diferentes pode permitir a comparação dos resultados em contextos variados, mas também exige atenção aos fatores que influenciam as métricas.
-
-Nesse cenário, a mineração de repositórios fornece os meios para selecionar e obter os artefatos necessários, enquanto a análise de mutação permite investigar a capacidade das suítes de detectar alterações introduzidas artificialmente.
-
-A combinação dessas abordagens possibilita uma avaliação quantitativa baseada em projetos existentes, considerando indicadores como *Mutation Score*, quantidade de mutantes mortos e sobreviventes, cobertura de código e custo de execução.
-
-Os resultados, entretanto, devem ser interpretados dentro das condições em que foram obtidos, respeitando as características dos projetos selecionados, dos operadores empregados e das suítes analisadas.
-
-Dessa forma, os fundamentos apresentados neste capítulo fornecem a base conceitual para a revisão da literatura e para o planejamento da investigação empírica desenvolvida nas etapas seguintes deste trabalho.
+Essa distinção delimita o que se pode inferir do \textit{Mutation Score}. Uma avaliação que introduz alterações em regras de negócio fornece evidências sobre a capacidade da suíte de detectar as alterações produzidas nesses componentes. Uma avaliação que modifica destinos de links ou formulários examina a capacidade de detectar alterações nas interações representadas por esses operadores. Assim, a interpretação da pontuação depende do artefato alterado, dos operadores empregados e dos comportamentos verificados pela suíte.
