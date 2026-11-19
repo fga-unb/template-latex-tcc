@@ -19,3 +19,11 @@
 *.brf
 *.toc
 *.idx
+latex/tcc.fdb_latexmk
+latex/tcc.fls
+latex/tcc.ilg
+latex/tcc.ind
+latex/tcc.synctex.gz
+latex/fixos/pacotes.fdb_latexmk
+latex/fixos/pacotes.fls
+.DS_Store
