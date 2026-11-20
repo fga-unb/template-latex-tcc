@@ -6,20 +6,20 @@ Esta seção visa introduzir o(a) leitor(a) aos principais temas deste trabalho.
 
 A qualidade de software constitui um aspecto fundamental no desenvolvimento e na manutenção de sistemas computacionais, especialmente diante da crescente complexidade das aplicações e da necessidade de garantir seu funcionamento adequado em diferentes cenários de utilização \cite{kochhar2015code}.
 
-Nesse contexto, os testes de software desempenham um papel central na identificação de defeitos, na verificação do comportamento esperado e na redução dos riscos associados à entrega de produtos que não atendam aos requisitos estabelecidos. Com a ampliação da utilização de práticas de desenvolvimento ágil e integração contínua, os testes automatizados passaram a ser essenciais no desenvolvimento moderno de aplicações web, sendo amplamente empregados para validar funcionalidades sob a perspectiva do usuário, sobretudo por meio de testes de regressão e testes de ponta a ponta (end-to-end) \cite{yandrapally2021}.
+Nesse contexto, os testes de software desempenham um papel central na identificação de defeitos, na verificação do comportamento esperado e na redução dos riscos associados à entrega de produtos que não atendam aos requisitos estabelecidos. Com a ampliação da utilização de práticas de desenvolvimento ágil e integração contínua, os testes automatizados passaram a ser essenciais no desenvolvimento moderno de aplicações web, sendo amplamente empregados para validar funcionalidades sob a perspectiva do usuário, sobretudo por meio de testes de regressão e testes de ponta a ponta (\textit{end-to-end}) \cite{yandrapally2021}.
 
 
 Apesar dos benefícios proporcionados pela automação, a existência de uma suíte de testes não representa, por si só, uma garantia de que o software esteja livre de defeitos. Uma suíte pode executar todos os seus casos sem apresentar falhas e, ainda assim, não possuir verificações capazes de identificar alterações indesejadas no comportamento da aplicação. Tradicionalmente, a qualidade e a abrangência desses testes são medidas por meio de métricas de cobertura de código \cite{zhang2022}.
 
-Embora indiquem quais linhas ou ramos foram executados durante a suíte, a execução de uma instrução não implica necessariamente que o comportamento produzido tenha sido efetivamente validado por asserções. Essa limitação motiva diversas investigações sobre a correlação entre métricas tradicionais e a eficácia real dos testes. \citeonline{assylbekov2013} investigaram a relação entre o mutation score e as métricas de cobertura de código, enquanto  \citeonline{alenezi2016} sugerem que o uso conjunto e comparativo de ambas as abordagens oferece um panorama mais robusto sobre a qualidade dos testes.
+Embora indiquem quais linhas ou ramos foram executados durante a suíte, a execução de uma instrução não implica necessariamente que o comportamento produzido tenha sido efetivamente validado por asserções. Essa limitação motiva diversas investigações sobre a relação entre métricas tradicionais e a eficácia real dos testes. \citeonline{assylbekov2013} investigaram a relação entre o indicador de mutação (\textit{mutation score}) e as métricas de cobertura de código, enquanto  \citeonline{alenezi2016} sugerem que o uso conjunto e comparativo de ambas as abordagens oferece um panorama mais robusto sobre a qualidade dos testes.
 
-Nesse cenário, os testes de mutação consolidam-se como uma técnica rigorosa para avaliar a capacidade de uma suíte de revelar defeitos. O procedimento consiste em inserir pequenas falhas artificiais no código-fonte, denominadas mutantes, por meio de operadores de mutação específicos \cite{guerino2024}. A suíte de testes é executada sobre esses programas modificados: o mutante é considerado "morto" quando ao menos um teste falha, e "sobrevivente" quando todos passam. O mutation score, razão entre mutantes mortos e o total de mutantes válidos, serve como evidência da capacidade da suíte em expor defeitos reais \cite{just2014}.
+Nesse cenário, os testes de mutação consolidam-se como uma técnica rigorosa para avaliar a capacidade de uma suíte em revelar defeitos. O procedimento consiste em inserir pequenas falhas artificiais no código-fonte, denominadas mutantes, por meio de operadores de mutação específicos \cite{guerino2024}. A suíte de testes é executada sobre esses programas modificados: o mutante é considerado "morto" quando ao menos um teste falha, e "sobrevivente" quando todos passam. O indicador de mutação, razão entre mutantes mortos e o total de mutantes válidos, serve como evidência da capacidade da suíte em expor defeitos reais \cite{just2014}.
 
 Embora robusta, a interpretação da técnica exige cautela. Fenômenos como a presença de mutantes equivalentes (que alteram a sintaxe mas preservam o comportamento) e mutantes teimosos exigem análises detalhadas acerca de alcance, infecção e propagação \cite{yao2014}. Além disso, embora \citeonline{just2014} tenham demonstrado que a detecção de mutantes possui forte correlação com falhas reais, superando a cobertura de comandos, cerca de 17\% das falhas reais não se acoplam a nenhum mutante, indicando os limites da técnica como substituta integral de defeitos em produção. Adicionalmente, desafios operacionais como o custo computacional exigem estratégias de otimização e redução do conjunto de mutantes \cite{kintis2010, guizzo2022}.
 
 Apesar desses desafios, há fortes evidências do valor prático dessa técnica. Em um estudo longitudinal de seis anos no Google envolvendo cerca de 15 milhões de mutantes, constatou-se que desenvolvedores expostos à análise de mutação passaram a escrever mais testes e mais robustos, sendo que 70\% dos bugs de alta prioridade analisados apresentavam ao menos um mutante acoplado \cite{petrovic2021}.
 
-No contexto específico de aplicações web, \citeonline{yandrapally2021} investigaram a utilização da análise de mutação para avaliar testes end-to-end, propondo a ferramenta MAEWU, que aplica 16 operadores de mutação derivados da análise de 250 relatos de bugs ao DOM dinâmico do navegador. Contudo, a RSL realizada neste trabalho, consolidando 36 estudos publicados entre 2010 e 2026, com predominância de ferramentas voltadas à linguagem Java, como MuJava e PIT, além de Major e Proteum, aponta que a literatura sobre o uso de testes de mutação para avaliar suítes de aplicações web ainda é escassa. Esse descompasso entre a relevância das aplicações web modernas e a restrição de pesquisas na área evidencia a necessidade de investigações aprofundadas sobre a aplicabilidade e eficácia dos testes de mutação nesse domínio.
+No contexto específico de aplicações web, \citeonline{yandrapally2021} investigaram a utilização da análise de mutação para avaliar testes ponta a ponta, propondo a ferramenta MAEWU, que aplica 16 operadores de mutação derivados da análise de 250 relatos de bugs ao DOM dinâmico do navegador. Contudo, a RSL realizada neste trabalho, consolidando 36 estudos publicados entre 2010 e 2026, com predominância de ferramentas voltadas à linguagem Java, como MuJava e PIT, além de Major e Proteum, aponta que a literatura sobre o uso de testes de mutação para avaliar suítes de aplicações web ainda é escassa. Esse descompasso entre a relevância das aplicações web modernas e a restrição de pesquisas na área evidencia a necessidade de investigações aprofundadas sobre a aplicabilidade e eficácia dos testes de mutação nesse domínio.
 
 \section{Problema}
 
@@ -27,13 +27,17 @@ Apesar da ampla adoção de suítes automatizadas, a obtenção de resultados po
 
 Além disso, a aplicação de testes de mutação para mitigar essa lacuna esbarra em obstáculos práticos significativos. Conforme apontado na RSL deste trabalho, o custo computacional e o esforço humano figuram como limitações em cerca de dois terços dos estudos, enquanto a gestão de mutantes equivalentes, que mantêm a semântica do programa e exigem frequentes análises manuais, afeta pouco mais da metade \cite{yao2014}. A interpretação torna-se ainda mais complexa ao distinguir se um mutante sobrevivente é equivalente, fruto de inadequação da suíte ou um mutante "teimoso" \cite{yao2014}.
 
-Soma-se a isso o fato de que a técnica possui fronteiras intrínsecas: nem todas as falhas reais encontram correspondência direta nos mutantes gerados \cite{just2014}. Equipes de desenvolvimento e pesquisadores enfrentam, portanto, o desafio de medir com precisão a eficácia de testes em aplicações web, levanbdo em conta custo, operadores, ferramentas e a ambiguidade dos mutantes sobreviventes.
+Soma-se a isso, o fato da técnica possuir fronteiras intrínsecas: nem todas as falhas reais encontram correspondência direta nos mutantes gerados \cite{just2014}. Equipes de desenvolvimento e pesquisadores enfrentam, portanto, o desafio de medir com precisão a eficácia de testes em aplicações web, levando em conta custo, operadores, ferramentas e a ambiguidade dos mutantes sobreviventes.
 
-Dessa forma, o problema central investigado neste trabalho consiste em saber como avaliar de forma fundamentada e viável a eficácia de suítes de testes automatizados em aplicações web, considerando os limites operacionais e interpretativos da análise de mutação.
+Dessa forma, o problema central investigado neste trabalho consiste em saber como avaliar de forma fundamentada e viável, a eficácia de suítes de testes automatizados em aplicações web, considerando os limites operacionais e interpretativos da análise de mutação.
+
+Diante disso, o problema central deste trabalho é investigar como avaliar, de forma fundamentada e viável, a eficácia de suítes de testes automatizados em aplicações web, considerando os limites operacionais (custo computacional e esforço humano) e interpretativos (mutantes equivalentes e sobreviventes) da análise de mutação.
+
+
 
 \section{Questão de Pesquisa}
 
-Para definir a questão de pesquisa norteadora deste trabalho foi utilizada a abordagem Goal Question Metric (GQM), que propõe a especificação hierárquica de objetivos, questões e métricas de maneira top-down \cite{basili1994}. O propósito dessa abordagem é transformar o planejamento e a mensuração dos objetivos de uma pesquisa em questões e métricas que embasem suas respostas. Adaptando essa estrutura ao contexto desta pesquisa, definiram-se as seguintes características: objeto de análise, propósito, foco, ponto de vista e contexto (vide \hyperref[tab:gqm-adaptado]{Tabela~\ref*{tab:gqm-adaptado}}).
+Para definir a questão de pesquisa norteadora deste trabalho foi utilizada a abordagem Goal textit{Question Metric (GQM)}, que propõe a especificação hierárquica de objetivos, questões e métricas de maneira top-down \cite{basili1994}. O propósito dessa abordagem é transformar o planejamento e a mensuração dos objetivos de uma pesquisa em questões e métricas que embasem suas respostas. Adaptando essa estrutura ao contexto desta pesquisa, definiram-se as seguintes características: objeto de análise, propósito, foco, ponto de vista e contexto (vide \hyperref[tab:gqm-adaptado]{Tabela~\ref*{tab:gqm-adaptado}}).
 
 \begin{table}[H]
     \centering
@@ -74,12 +78,14 @@ A partir dessa questão foram definidas dez questões secundárias (SQ1 a SQ10),
 
 \section{Objetivos}
 
-O objetivo geral é investigar como avaliar a eficácia de suítes de testes automatizados na detecção de defeitos em aplicações web de código aberto por meio de testes de mutação, com base nas evidências reunidas pela RSL.
+O objetivo geral é avaliar a eficácia de suítes de testes automatizados na detecção de defeitos em aplicações web de código aberto, por meio de testes de mutação. Para tanto, utilizaremos as evidências  observadas em nossa revisão de literatura.
 Para alcançar esse objetivo geral, foram definidos os seguintes objetivos específicos, que guiam as duas etapas deste trabalho:
 \begin{itemize}
 
-    \item Identificar, por meio de uma Revisão Sistemática da Literatura, as principais métricas utilizadas para avaliar a eficácia de suítes de testes automatizadas por meio de testes de mutação.
+    \item Identificar, por meio de uma  Revisão Estruturada da Literatura, as principais métricas utilizadas para avaliar a eficácia de suítes de testes automatizadas utilizando testes de mutação.
     
+
+
     \item Investigar os operadores de mutação, os tipos de mutantes e as ferramentas utilizados na avaliação de suítes de testes, considerando sua aplicabilidade ao contexto de aplicações web.
     
     \item Identificar as principais limitações, os custos computacionais e os desafios relacionados à aplicação de testes de mutação.
@@ -88,7 +94,7 @@ Para alcançar esse objetivo geral, foram definidos os seguintes objetivos espec
     
     \item Aplicar a análise de mutação nas aplicações selecionadas, registrando os resultados da execução das suítes de testes sobre os mutantes gerados.
     
-    \item Analisar os resultados obtidos por meio de métricas como Mutation Score, quantidade de mutantes mortos e sobreviventes, cobertura de código e tempo de execução.
+    \item Analisar os resultados obtidos por meio de métricas como indicador de mutação, quantidade de mutantes mortos e sobreviventes, cobertura de código e tempo de execução.
     
     \item Investigar os fatores associados à sobrevivência dos mutantes, considerando a possibilidade de equivalência e a capacidade da suíte de identificar as alterações introduzidas.
     
@@ -96,10 +102,19 @@ Para alcançar esse objetivo geral, foram definidos os seguintes objetivos espec
  
 \end{itemize}
 
+
+\todo[inline, color=pink]{Lembrem-se: a revisão de vocês não é sistemática, mas sim estruturada. Eu corrigi aqui nos objetivos, mas, precisa corrigir com cuidado em todo documento.}
+
 \section{Metodologia}
 \label{sec:metodologia}
 
 Esta subseção visa apresentar a metodologia adotada neste trabalho. Para descrevê-la, utiliza-se a estrutura de tomada de decisão para a escolha de um desenho de pesquisa em Engenharia de Software empírica proposta por \citeonline{wohlin2015}, apresentada na Figura~\ref{fig:exemplo2}. A estrutura parte da questão de pesquisa e organiza as decisões em três fases: a estratégica, que define o resultado, a lógica, o propósito e a abordagem da pesquisa; a tática, que define o processo e a metodologia de pesquisa; e a operacional, que define os métodos de coleta e de análise de dados e conduz aos resultados da pesquisa.
+
+\todo[inline, color=pink]{Nesta secão, vocês precisam descrever a metologia que será utilizada neste trabalho.
+1)  Vocês devem se lembrar que falei sobre a instância da figura de exemplo 2. Criem uma imagem já representando os pontos de decisão.
+2) além da imagem, escrever um parágrafo para descrever já as decisões adotadas no trabalho.
+3) retirar essa imagem do livro e as definições teóricas
+4) a introdução acabou ficando grande e houve uma quebra entre a seção anterior e esta.  }
 
 \begin{figure}[H]
     \centering
@@ -109,11 +124,14 @@ Esta subseção visa apresentar a metodologia adotada neste trabalho. Para descr
 \end{figure}
   \fonte{\citeonline{wohlin2015}.}
 
-Na fase estratégica, define-se o resultado esperado, a lógica, o propósito e a abordagem. Quanto ao resultado, trata-se de uma pesquisa aplicada, pois busca resolver um problema prático: saber se os testes automatizados de uma aplicação web detectam falhas. Quanto à lógica, a primeira etapa é indutiva, pois a solução é construída a partir das evidências reunidas pela RSL, e a segunda é dedutiva, pois a solução definida é aplicada a aplicações web de código aberto para avaliar suas suítes de testes. O propósito é exploratório e avaliativo: exploratório, porque a RSL mapeia ferramentas, operadores, métricas e limitações do teste de mutação em uma área ainda pouco estudada para aplicações web; avaliativo, porque a segunda etapa mede a eficácia das suítes de testes. A abordagem é positivista, pois a eficácia é quantificada de forma objetiva pelo \textit{mutation score} \cite{guerino2024}.
+Na fase estratégica, define-se o resultado esperado, a lógica, o propósito e a abordagem. Quanto ao resultado, trata-se de uma pesquisa aplicada, pois busca resolver um problema prático: saber se os testes automatizados de uma aplicação web detectam falhas. Quanto à lógica, a primeira etapa é indutiva, pois a solução é construída a partir das evidências reunidas pela RSL, e a segunda é dedutiva, pois a solução definida é aplicada a aplicações web de código aberto para avaliar suas suítes de testes. O propósito é exploratório e avaliativo: exploratório, porque a RSL mapeia ferramentas, operadores, métricas e limitações do teste de mutação em uma área ainda pouco estudada para aplicações web; avaliativo, porque a segunda etapa mede a eficácia das suítes de testes. A abordagem é positivista, pois a eficácia é quantificada de forma objetiva pelo indicador de mutação \cite{guerino2024}.
 
-Na fase tática, o processo de pesquisa é misto, com predominância quantitativa. O \textit{mutation score} e os custos de execução são dados quantitativos, enquanto a síntese dos estudos da RSL e a interpretação dos mutantes sobreviventes exigem análise qualitativa. A primeira etapa é conduzida por uma RSL, que fundamenta a escolha da ferramenta, dos operadores de mutação e da estratégia de redução de custo, seguindo o protocolo descrito no Capítulo~\ref{cap:revisao-literatura}, com a abordagem GQM, a estratégia PICO, critérios de inclusão e exclusão e um formulário de extração de dados. A metodologia de pesquisa da segunda etapa é a mineração de repositórios (\textit{Repository Mining}), definida nos padrões empíricos da ACM SIGSOFT como um estudo que analisa quantitativamente um conjunto de dados extraído de uma plataforma que hospeda texto estruturado ou semiestruturado, como um repositório de código-fonte \cite{acmsigsoft}. Ela é adequada porque o trabalho obtém, de repositórios públicos de aplicações web de código aberto, o código-fonte e as suítes de testes, e analisa de forma quantitativa os resultados da execução dos mutantes sobre essas suítes. A unidade de análise é a suíte de testes de cada aplicação. Conforme o padrão, o Capítulo~\ref{cap:planejamento-tcc2}, de proposta da solução, deverá justificar a fonte dos dados e os critérios de seleção dos repositórios, descrever os repositórios selecionados e o seu tamanho, detalhar a aquisição e o pré-processamento dos dados, justificar as métricas usadas e discutir as ameaças à validade externa \cite{acmsigsoft}.
+Na fase tática, o processo de pesquisa é misto, com predominância quantitativa. O indicador de mutação e os custos de execução são dados quantitativos, enquanto a síntese dos estudos da RSL e a interpretação dos mutantes sobreviventes exigem análise qualitativa. A primeira etapa é conduzida por uma RSL, que fundamenta a escolha da ferramenta, dos operadores de mutação e da estratégia de redução de custo, seguindo o protocolo descrito no Capítulo~\ref{cap:revisao-literatura}, com a abordagem GQM, a estratégia PICO, critérios de inclusão e exclusão e um formulário de extração de dados. A metodologia de pesquisa da segunda etapa é a mineração de repositórios (\textit{Repository Mining}), definida nos padrões empíricos da ACM SIGSOFT como um estudo que analisa quantitativamente um conjunto de dados extraído de uma plataforma que hospeda texto estruturado ou semiestruturado, como um repositório de código-fonte \cite{acmsigsoft}. Ela é adequada porque o trabalho obtém, de repositórios públicos de aplicações web de código aberto, o código-fonte e as suítes de testes, e analisa de forma quantitativa os resultados da execução dos mutantes sobre essas suítes. A unidade de análise é a suíte de testes de cada aplicação. Conforme o padrão, o Capítulo~\ref{cap:planejamento-tcc2}, de proposta da solução, deverá justificar a fonte dos dados e os critérios de seleção dos repositórios, descrever os repositórios selecionados e o seu tamanho, detalhar a aquisição e o pré-processamento dos dados, justificar as métricas usadas e discutir as ameaças à validade externa \cite{acmsigsoft}.
 
-Na fase operacional, a coleta de dados usa uma fonte em cada etapa. Na primeira, trata-se de pesquisa em arquivos (\textit{archival research}): os dados dos estudos selecionados foram extraídos na ferramenta Evidentia e consolidados em planilha, formando um corpus de 37 artigos. Na segunda, os dados são adquiridos por mineração de repositórios públicos de código aberto, hospedados em plataformas como o GitHub, e produzidos pela execução automatizada dos mutantes sobre as suítes de testes das aplicações web escolhidas. A análise de dados combina a análise estatística, para descrever o \textit{mutation score} e o custo de execução, e a análise temática, para sintetizar os resultados da RSL e classificar manualmente os mutantes sobreviventes quanto à equivalência, à dificuldade de detecção e à inadequação da suíte. Essa classificação é feita por mais de um anotador, e a concordância entre eles é medida e reportada, como recomenda o padrão de mineração de repositórios \cite{acmsigsoft}.
+Na fase operacional, a coleta de dados usa uma fonte em cada etapa. Na primeira, trata-se de pesquisa em arquivos (\textit{archival research}): os dados dos estudos selecionados foram extraídos na ferramenta Evidentia e consolidados em planilha, formando um corpus de 37 artigos. Na segunda, os dados são adquiridos por mineração de repositórios públicos de código aberto, hospedados em plataformas como o GitHub, e produzidos pela execução automatizada dos mutantes sobre as suítes de testes das aplicações web escolhidas. A análise de dados combina a análise estatística, para descrever o indicador de mutação e o custo de execução, e a análise temática, para sintetizar os resultados da RSL e classificar manualmente os mutantes sobreviventes quanto à equivalência, à dificuldade de detecção e à inadequação da suíte. Essa classificação é feita por mais de um anotador, e a concordância entre eles é medida e reportada, como recomenda o padrão de mineração de repositórios \cite{acmsigsoft}.
+
+
+\todo[inline, color=pink]{Levem esse texto sobre os critérios para o cap. do planejamento do estudo. Isso não precisa ser discutido na introdução.}
 
 Os projetos da segunda etapa são escolhidos de forma manual no GitHub, em uma amostra não aleatória de seis repositórios que atendam aos seguintes critérios de seleção:
 
@@ -144,7 +162,7 @@ Esta subseção visa apresentar a estrutura do documento e o que está presente 
 \begin{itemize}
     \item Introdução: apresentação do trabalho, do seu contexto e problemática, além da sua questão de pesquisa e objetivos.
     
-    \item Referencial Teórico: fundamentação teórica do presente trabalho; explanação sobre os principais tópicos relacionados ao contexto desta pesquisa: testes automatizados de aplicações web, cobertura de código, teste de mutação, operadores, mutation score, mutantes equivalentes e sobreviventes;
+    \item Referencial Teórico: fundamentação teórica do presente trabalho; explanação sobre os principais tópicos relacionados ao contexto desta pesquisa: testes automatizados de aplicações web, cobertura de código, teste de mutação, operadores, indicador de mutação, mutantes equivalentes e sobreviventes;
     
     \item Revisão Estruturada da Literatura: metodologia empregada para a seleção dos estudos que compõem o material bibliográfico; descrição do protocolo utilizado (GQM, PICO, critérios de inclusão e exclusão e extração de dados), bem como os resultados da pesquisa e as respostas às questões secundárias;
     
@@ -177,6 +195,8 @@ O trabalho é desenvolvido em duas etapas: a primeira concentra a revisão estru
     \includegraphics[width=0.8\textwidth]{figuras/selecao-artigos.png}
     \fonte{Autor (2026).}
 \end{figure}
+
+\todo[inline, color=pink]{o cronograma precisa ter minimamente atividades e datas. Ainda que vocês não tenham mantido sempre atualizado, há um cronograma do trabalho no github projects.Essa imagem 4 não é um cronograma. Corrigir isso }
 
 As atividades desenvolvidas durante a primeira etapa são descritas a seguir:
 
@@ -225,11 +245,11 @@ Esta subseção apresenta as atividades previstas para a segunda etapa desta mon
 
     \item \textbf{Seleção dos Repositórios e Preparação do Ambiente:} identificação e seleção dos repositórios conforme os critérios estabelecidos, seguida da configuração dos ambientes e das ferramentas necessárias para a execução das suítes de testes e aplicação dos operadores de mutação;
 
-    \item \textbf{Execução dos Testes de Mutação e Coleta de Dados:} aplicação dos operadores de mutação ao código-fonte das aplicações selecionadas e execução das respectivas suítes de testes automatizados. Serão coletados dados referentes à quantidade de mutantes gerados, mortos e sobreviventes, ao \textit{Mutation Score}, à cobertura de código e ao tempo de execução;
+    \item \textbf{Execução dos Testes de Mutação e Coleta de Dados:} aplicação dos operadores de mutação ao código-fonte das aplicações selecionadas e execução das respectivas suítes de testes automatizados. Serão coletados dados referentes à quantidade de mutantes gerados, mortos e sobreviventes, ao indicador de mutação, à cobertura de código e ao tempo de execução;
 
     \item \textbf{Tratamento e Organização dos Dados:} processamento, validação e consolidação dos dados obtidos, considerando a identificação de execuções inválidas, possíveis mutantes equivalentes e demais fatores que possam comprometer a interpretação dos resultados;
 
-    \item \textbf{Análise e Discussão dos Resultados:} análise quantitativa dos indicadores coletados para avaliar a eficácia das suítes de testes na detecção das alterações introduzidas artificialmente. Serão investigados os fatores associados à sobrevivência dos mutantes, as relações entre cobertura de código e \textit{Mutation Score}, bem como as limitações e ameaças à validade da investigação. Os resultados serão discutidos à luz das evidências identificadas na revisão da literatura;
+    \item \textbf{Análise e Discussão dos Resultados:} análise quantitativa dos indicadores coletados para avaliar a eficácia das suítes de testes na detecção das alterações introduzidas artificialmente. Serão investigados os fatores associados à sobrevivência dos mutantes, as relações entre cobertura de código e indicador de mutação, bem como as limitações e ameaças à validade da investigação. Os resultados serão discutidos à luz das evidências identificadas na revisão da literatura;
 
     \item \textbf{Documentação dos Resultados:} apresentação dos procedimentos realizados e dos resultados obtidos com a mineração dos repositórios, buscando responder à questão principal de pesquisa e avaliar as contribuições e limitações da abordagem proposta;
 
@@ -238,3 +258,5 @@ Esta subseção apresenta as atividades previstas para a segunda etapa desta mon
     \item \textbf{Apresentação do Trabalho Finalizado:} preparação e apresentação da versão final da monografia à banca avaliadora.
 
 \end{itemize}
+
+\todo[inline, color=pink]{E o cronograma, qual é mesmo?}
